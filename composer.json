@@ -1,0 +1,39 @@
+{
+    "name": "spire-ui/spire-ui",
+    "description": "A modern TALL stack component library with Tailwind v4, Livewire 3, and Alpine.js",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "livewire",
+        "tailwind",
+        "alpine",
+        "components",
+        "ui",
+        "tall-stack"
+    ],
+    "authors": [
+        {
+            "name": "Spire UI Contributors"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.0",
+        "livewire/livewire": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SpireUI\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SpireUI\\SpireUIServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
