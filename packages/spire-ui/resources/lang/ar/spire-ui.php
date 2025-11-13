@@ -2,22 +2,32 @@
 
 return [
     'common' => [
-        'cancel' => '',
-        'confirm' => '',
-        'close' => '',
-        'save' => '',
-        'delete' => '',
-        'edit' => '',
-        'create' => '',
-        'update' => '',
-        'search' => '',
-        'filter' => '',
-        'clear' => '',
-        'apply' => '',
-        'submit' => '',
-        'reset' => '',
-        'loading' => '',
-        'no_results' => '',
+        'cancel' => 'إلغاء',
+        'confirm' => 'تأكيد',
+        'close' => 'إغلاق',
+        'save' => 'حفظ',
+        'delete' => 'حذف',
+        'edit' => 'تعديل',
+        'create' => 'إنشاء',
+        'update' => 'تحديث',
+        'search' => 'بحث',
+        'filter' => 'تصفية',
+        'clear' => 'مسح',
+        'apply' => 'تطبيق',
+        'submit' => 'إرسال',
+        'reset' => 'إعادة تعيين',
+        'loading' => 'جارٍ التحميل...',
+        'no_results' => 'لم يتم العثور على نتائج',
+    ],
+
+    'alert' => [
+        'close' => 'إغلاق التنبيه',
+    ],
+
+    'accordion' => [
+        'toggle' => 'تبديل القسم',
+        'expand' => 'توسيع',
+        'collapse' => 'طي',
     ],
 
     'dropdown' => [
@@ -33,8 +43,12 @@ return [
     ],
 
     'form' => [
-        'required' => '',
-        'invalid' => '',
+        'required' => 'هذا الحقل مطلوب',
+        'invalid' => 'يرجى إدخال قيمة صحيحة',
+        'optional' => 'اختياري',
+        'clear' => 'مسح',
+        'show_password' => 'إظهار كلمة المرور',
+        'hide_password' => 'إخفاء كلمة المرور',
     ],
 
     'pagination' => [

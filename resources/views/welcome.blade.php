@@ -6,272 +6,255 @@
     <title>{{ config('app.name') }} - Theme Demo</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') ||
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="scheme-light-dark bg-body text-text antialiased" x-data="{ darkMode: false }" x-init="darkMode = localStorage.getItem('darkMode') === 'true'; $watch('darkMode', val => { localStorage.setItem('darkMode', val); document.documentElement.classList.toggle('dark', val); })">
-    <div class="min-h-screen p-12">
-        <div class="flex items-center justify-between mb-8">
-            <h1 class="text-3xl font-semibold">Spire UI Component Demo</h1>
-            <button
-                @click="darkMode = !darkMode"
-                class="px-4 py-2 rounded-md border border-border hover:bg-surface"
-            >
-                <span x-show="!darkMode">🌙 Dark</span>
-                <span x-show="darkMode">☀️ Light</span>
-            </button>
+<body class="bg-body text-text antialiased" x-data="themeManager()" x-init="init()">
+
+    {{-- Floating Theme Toggle Button --}}
+    <div class="fixed bottom-6 right-6 z-50">
+        <x-spire::button
+            @click="toggleTheme()"
+            icon-only
+            color="primary"
+            size="lg"
+            radius="full"
+            x-bind:aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+            class="shadow-lg hover:shadow-xl transition-shadow"
+        >
+            <x-spire::icon name="sun" class="w-6 h-6" x-show="!isDark" x-cloak />
+            <x-spire::icon name="moon-02" class="w-6 h-6" x-show="isDark" x-cloak />
+        </x-spire::button>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-16">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-bold text-text mb-4">Spire UI Components</h1>
+            <p class="text-xl text-text-muted max-w-2xl mx-auto">Form Components Showcase</p>
+        </header>
+
+        {{-- Livewire Form Testing Section --}}
+        <div class="mb-32">
+            <h2 class="text-4xl font-bold text-text mb-4">Livewire Form Integration</h2>
+            <p class="text-lg text-text-muted mb-8">Testing wire:model, validation, error handling, and all interactive features</p>
+
+            <livewire:contact-form />
         </div>
 
-        <div class="space-y-12">
-            <section>
-                <h2 class="text-2xl font-semibold mb-6">Icons</h2>
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Basic Icons</h3>
-                        <div class="flex items-center gap-4">
-                            <x-spire::icon name="activity" class="w-6 h-6" />
-                            <x-spire::icon name="camera-01" class="w-6 h-6" />
-                            <x-spire::icon name="alert-circle" class="w-6 h-6" />
-                            <x-spire::icon name="check" class="w-6 h-6" />
+        <div class="mb-32">
+            <h2 class="text-4xl font-bold text-text mb-4">Input Component</h2>
+            <p class="text-lg text-text-muted mb-8">Flexible input component with convenience props for icons and interactive features</p>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Basic Inputs</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input placeholder="Basic text input" />
+                    <x-spire::input type="email" placeholder="Email input" />
+                    <x-spire::input type="password" placeholder="Password input" />
+                    <x-spire::input type="search" placeholder="Search input" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">With Icons (Shorthand)</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input icon="mail" placeholder="Email with leading icon" />
+                    <x-spire::input iconTrailing="check-circle" placeholder="Input with trailing icon" />
+                    <x-spire::input icon="search-md" iconTrailing="filter" placeholder="Both icons" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Clearable Inputs</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input clearable value="Try clearing me" placeholder="Clearable input" />
+                    <x-spire::input icon="search-md" clearable placeholder="Search with clear" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Password with Toggle (Viewable)</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input type="password" viewable value="secret123" placeholder="Toggle visibility" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Copyable Input</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input readonly copyable value="pk_test_51H0BqXEzQ7dE0Y1I2F3g4h5J6k7L8m9N0o1P2q3R4s5T6u7V8w9X0y1Z2" />
+                    <p class="text-sm text-text-muted">Click the copy button to copy to clipboard</p>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Sizes</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input size="sm" icon="mail" placeholder="Small input" />
+                    <x-spire::input size="md" icon="mail" placeholder="Medium input (default)" />
+                    <x-spire::input size="lg" icon="mail" placeholder="Large input" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Variants</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input variant="bordered" placeholder="Bordered (default)" />
+                    <x-spire::input variant="flat" placeholder="Flat variant" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">States</h3>
+                <div class="space-y-4 max-w-md">
+                    <x-spire::input placeholder="Normal state" />
+                    <x-spire::input disabled placeholder="Disabled state" />
+                    <x-spire::input readonly value="Read-only value" />
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">With Field Component</h3>
+                <div class="space-y-6 max-w-md">
+                    <x-spire::field
+                        label="Email Address"
+                        for="email"
+                        required
+                        helper="We'll never share your email"
+                    >
+                        <x-spire::input
+                            id="email"
+                            type="email"
+                            icon="mail"
+                            placeholder="you@example.com"
+                        />
+                    </x-spire::field>
+
+                    <x-spire::field
+                        label="Search"
+                        for="search"
+                        helper="Search by name, email, or phone"
+                    >
+                        <x-spire::input
+                            id="search"
+                            icon="search-md"
+                            clearable
+                            placeholder="Start typing..."
+                        />
+                    </x-spire::field>
+
+                    <x-spire::field
+                        label="Password"
+                        for="password"
+                        required
+                        helper="Must be at least 8 characters"
+                    >
+                        <x-spire::input
+                            id="password"
+                            type="password"
+                            viewable
+                            placeholder="Enter password"
+                        />
+                    </x-spire::field>
+
+                    <x-spire::field
+                        label="API Token"
+                        for="token"
+                        helper="Click the copy button to copy"
+                    >
+                        <x-spire::input
+                            id="token"
+                            readonly
+                            copyable
+                            value="pk_test_abc123xyz789"
+                        />
+                    </x-spire::field>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-text mb-4">Complete Form Example</h3>
+                <div class="max-w-md space-y-6">
+                    <x-spire::form.label for="fullname" required>
+                        Full Name
+                    </x-spire::form.label>
+                    <x-spire::input id="fullname" icon="user-01" placeholder="John Doe" />
+
+                    <div class="mt-6">
+                        <x-spire::form.label for="email2" required>
+                            Email Address
+                        </x-spire::form.label>
+                        <div class="mt-1.5">
+                            <x-spire::input id="email2" type="email" icon="mail" placeholder="john@example.com" />
+                        </div>
+                        <div class="mt-1.5">
+                            <x-spire::form.helper>
+                                We'll send a confirmation email to this address
+                            </x-spire::form.helper>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Different Sizes</h3>
-                        <div class="flex items-center gap-4">
-                            <x-spire::icon name="activity" class="w-4 h-4" />
-                            <x-spire::icon name="activity" class="w-6 h-6" />
-                            <x-spire::icon name="activity" class="w-8 h-8" />
-                            <x-spire::icon name="activity" class="w-12 h-12" />
+                    <div class="mt-6">
+                        <x-spire::form.label for="password2" required>
+                            Password
+                        </x-spire::form.label>
+                        <div class="mt-1.5">
+                            <x-spire::input id="password2" type="password" viewable />
+                        </div>
+                        <div class="mt-1.5">
+                            <x-spire::form.helper size="sm">
+                                Must contain at least 8 characters, one uppercase, and one number
+                            </x-spire::form.helper>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Colored Icons</h3>
-                        <div class="flex items-center gap-4">
-                            <x-spire::icon name="check" class="w-8 h-8 text-success" />
-                            <x-spire::icon name="alert-circle" class="w-8 h-8 text-error" />
-                            <x-spire::icon name="camera-01" class="w-8 h-8 text-primary" />
-                            <x-spire::icon name="activity" class="w-8 h-8 text-secondary" />
-                        </div>
+                    <div class="mt-8">
+                        <x-spire::button type="submit" color="primary" class="w-full">
+                            Create Account
+                        </x-spire::button>
                     </div>
                 </div>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-semibold mb-6">Buttons</h2>
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Solid Variant (Default)</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button>Default</x-spire::button>
-                            <x-spire::button color="primary">Primary</x-spire::button>
-                            <x-spire::button color="secondary">Secondary</x-spire::button>
-                            <x-spire::button color="success">Success</x-spire::button>
-                            <x-spire::button color="error">Error</x-spire::button>
-                            <x-spire::button color="warning">Warning</x-spire::button>
-                            <x-spire::button color="info">Info</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Bordered Variant</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button variant="bordered">Default</x-spire::button>
-                            <x-spire::button variant="bordered" color="primary">Primary</x-spire::button>
-                            <x-spire::button variant="bordered" color="secondary">Secondary</x-spire::button>
-                            <x-spire::button variant="bordered" color="success">Success</x-spire::button>
-                            <x-spire::button variant="bordered" color="error">Error</x-spire::button>
-                            <x-spire::button variant="bordered" color="warning">Warning</x-spire::button>
-                            <x-spire::button variant="bordered" color="info">Info</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Ghost Variant</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button variant="ghost">Default</x-spire::button>
-                            <x-spire::button variant="ghost" color="primary">Primary</x-spire::button>
-                            <x-spire::button variant="ghost" color="secondary">Secondary</x-spire::button>
-                            <x-spire::button variant="ghost" color="success">Success</x-spire::button>
-                            <x-spire::button variant="ghost" color="error">Error</x-spire::button>
-                            <x-spire::button variant="ghost" color="warning">Warning</x-spire::button>
-                            <x-spire::button variant="ghost" color="info">Info</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Link Variant</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button variant="link">Default</x-spire::button>
-                            <x-spire::button variant="link" color="primary">Primary</x-spire::button>
-                            <x-spire::button variant="link" color="secondary">Secondary</x-spire::button>
-                            <x-spire::button variant="link" color="success">Success</x-spire::button>
-                            <x-spire::button variant="link" color="error">Error</x-spire::button>
-                            <x-spire::button variant="link" color="warning">Warning</x-spire::button>
-                            <x-spire::button variant="link" color="info">Info</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Button Sizes</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button size="sm" color="primary">Small</x-spire::button>
-                            <x-spire::button size="md" color="primary">Medium</x-spire::button>
-                            <x-spire::button size="lg" color="primary">Large</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Button Radius</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button radius="none" color="primary">None</x-spire::button>
-                            <x-spire::button radius="sm" color="primary">Small</x-spire::button>
-                            <x-spire::button radius="md" color="primary">Medium</x-spire::button>
-                            <x-spire::button radius="lg" color="primary">Large</x-spire::button>
-                            <x-spire::button radius="full" color="primary">Full</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Buttons with Icons</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button color="success">
-                                <x-slot:leading>
-                                    <x-spire::icon name="check" class="w-4 h-4" />
-                                </x-slot:leading>
-                                Approve
-                            </x-spire::button>
-                            <x-spire::button color="error" variant="bordered">
-                                Delete
-                                <x-slot:trailing>
-                                    <x-spire::icon name="annotation-x" class="w-4 h-4" />
-                                </x-slot:trailing>
-                            </x-spire::button>
-                            <x-spire::button color="primary" variant="ghost">
-                                <x-slot:leading>
-                                    <x-spire::icon name="arrow-up" class="w-4 h-4" />
-                                </x-slot:leading>
-                                Upload
-                            </x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Icon Only Buttons</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button icon-only color="primary">
-                                <x-spire::icon name="annotation-heart" class="w-5 h-5" />
-                            </x-spire::button>
-                            <x-spire::button icon-only color="error" variant="bordered">
-                                <x-spire::icon name="annotation-x" class="w-5 h-5" />
-                            </x-spire::button>
-                            <x-spire::button icon-only color="success" variant="ghost" size="sm">
-                                <x-spire::icon name="check" class="w-4 h-4" />
-                            </x-spire::button>
-                            <x-spire::button icon-only color="primary" size="lg" radius="full">
-                                <x-spire::icon name="annotation-plus" class="w-6 h-6" />
-                            </x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Loading & Disabled States</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button loading color="primary">Loading...</x-spire::button>
-                            <x-spire::button disabled color="secondary">Disabled</x-spire::button>
-                            <x-spire::button loading disabled color="success">Loading Disabled</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Full Width Button</h3>
-                        <x-spire::button class="w-full" color="primary">Full Width Button</x-spire::button>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Button Groups (Horizontal)</h3>
-                        <div class="space-y-3">
-                            <x-spire::button.group>
-                                <x-spire::button>Left</x-spire::button>
-                                <x-spire::button>Center</x-spire::button>
-                                <x-spire::button>Right</x-spire::button>
-                            </x-spire::button.group>
-
-                            <x-spire::button.group>
-                                <x-spire::button color="primary">One</x-spire::button>
-                                <x-spire::button color="primary">Two</x-spire::button>
-                                <x-spire::button color="primary">Three</x-spire::button>
-                                <x-spire::button color="primary">Four</x-spire::button>
-                            </x-spire::button.group>
-
-                            <x-spire::button.group>
-                                <x-spire::button variant="bordered" color="secondary">Option A</x-spire::button>
-                                <x-spire::button variant="bordered" color="secondary">Option B</x-spire::button>
-                                <x-spire::button variant="bordered" color="secondary">Option C</x-spire::button>
-                            </x-spire::button.group>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Button Groups (Vertical)</h3>
-                        <x-spire::button.group vertical aria-label="View options">
-                            <x-spire::button color="primary">Top</x-spire::button>
-                            <x-spire::button color="primary">Middle</x-spire::button>
-                            <x-spire::button color="primary">Bottom</x-spire::button>
-                        </x-spire::button.group>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Soft Variant</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button variant="soft">Default</x-spire::button>
-                            <x-spire::button variant="soft" color="primary">Primary</x-spire::button>
-                            <x-spire::button variant="soft" color="secondary">Secondary</x-spire::button>
-                            <x-spire::button variant="soft" color="success">Success</x-spire::button>
-                            <x-spire::button variant="soft" color="error">Error</x-spire::button>
-                            <x-spire::button variant="soft" color="warning">Warning</x-spire::button>
-                            <x-spire::button variant="soft" color="info">Info</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Link Buttons</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button href="#" color="primary">Link Button</x-spire::button>
-                            <x-spire::button href="#" variant="bordered" color="secondary">Bordered Link</x-spire::button>
-                            <x-spire::button href="#" disabled color="error">Disabled Link</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Pressed/Toggle State</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button pressed color="primary">Selected</x-spire::button>
-                            <x-spire::button color="primary">Not Selected</x-spire::button>
-                            <x-spire::button pressed variant="bordered" color="secondary">Active Filter</x-spire::button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-medium mb-3">Icon-Only with ARIA Labels</h3>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <x-spire::button icon-only color="primary" aria-label="Like this item">
-                                <x-spire::icon name="annotation-heart" class="w-5 h-5" />
-                            </x-spire::button>
-                            <x-spire::button icon-only color="error" variant="bordered" aria-label="Delete item">
-                                <x-spire::icon name="annotation-x" class="w-5 h-5" />
-                            </x-spire::button>
-                            <x-spire::button icon-only color="success" variant="soft" size="sm" aria-label="Confirm">
-                                <x-spire::icon name="check" class="w-4 h-4" />
-                            </x-spire::button>
-                            <x-spire::button icon-only color="primary" size="lg" radius="full" aria-label="Add new item">
-                                <x-spire::icon name="annotation-plus" class="w-6 h-6" />
-                            </x-spire::button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('themeManager', () => ({
+                isDark: false,
+
+                init() {
+                    this.isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                        if (!localStorage.getItem('theme')) {
+                            this.setTheme(e.matches ? 'dark' : 'light');
+                        }
+                    });
+                },
+
+                toggleTheme() {
+                    this.setTheme(this.isDark ? 'light' : 'dark');
+                },
+
+                setTheme(theme) {
+                    this.isDark = theme === 'dark';
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                }
+            }));
+        });
+    </script>
+
+    @livewireScripts
 </body>
 </html>

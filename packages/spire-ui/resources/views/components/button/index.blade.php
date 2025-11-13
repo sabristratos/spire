@@ -13,30 +13,35 @@
 ])
 
 @php
+use SpireUI\Support\ComponentStyles;
+
 $isLink = !is_null($href);
 $isDisabled = $disabled || $loading;
 
 $baseClasses = 'inline-flex items-center justify-center gap-2 font-medium transition-all shadow-sm active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
 
+$paddingClasses = [
+    'ghost' => [
+        'sm' => 'px-1',
+        'md' => 'px-1.5',
+        'lg' => 'px-2',
+    ],
+    'default' => [
+        'sm' => 'px-3',
+        'md' => 'px-4',
+        'lg' => 'px-6',
+    ],
+];
+
+$padding = $paddingClasses[$variant === 'ghost' ? 'ghost' : 'default'][$size] ?? $paddingClasses['default']['md'];
+
 $sizeClasses = [
-    'sm' => $iconOnly ? 'h-8 w-8' : 'h-8 px-3 text-sm',
-    'md' => $iconOnly ? 'h-10 w-10' : 'h-10 px-4 text-base',
-    'lg' => $iconOnly ? 'h-12 w-12' : 'h-12 px-6 text-lg',
+    'sm' => $iconOnly ? 'h-8 w-8' : "h-8 {$padding} text-sm",
+    'md' => $iconOnly ? 'h-10 w-10' : "h-10 {$padding} text-base",
+    'lg' => $iconOnly ? 'h-12 w-12' : "h-12 {$padding} text-lg",
 ];
 
-$spinnerSizes = [
-    'sm' => 'h-3 w-3',
-    'md' => 'h-4 w-4',
-    'lg' => 'h-5 w-5',
-];
-
-$radiusClasses = [
-    'none' => 'rounded-none',
-    'sm' => 'rounded-sm',
-    'md' => 'rounded-md',
-    'lg' => 'rounded-lg',
-    'full' => 'rounded-full',
-];
+$spinnerSizes = ComponentStyles::sizeVariants()['spinner'];
 
 $variantClasses = [
     'solid' => [
@@ -58,13 +63,13 @@ $variantClasses = [
         'info' => 'bg-transparent text-info border border-info hover:bg-info/20 active:bg-info/15 focus-visible:outline-info',
     ],
     'ghost' => [
-        'default' => 'bg-transparent text-neutral-foreground hover:bg-neutral/50 active:bg-neutral/70 focus-visible:outline-neutral',
-        'primary' => 'bg-transparent text-primary hover:bg-primary/20 active:bg-primary/30 focus-visible:outline-primary',
-        'secondary' => 'bg-transparent text-secondary hover:bg-secondary/20 active:bg-secondary/30 focus-visible:outline-secondary',
-        'success' => 'bg-transparent text-success hover:bg-success/20 active:bg-success/30 focus-visible:outline-success',
-        'error' => 'bg-transparent text-error hover:bg-error/20 active:bg-error/30 focus-visible:outline-error',
-        'warning' => 'bg-transparent text-warning hover:bg-warning/20 active:bg-warning/30 focus-visible:outline-warning',
-        'info' => 'bg-transparent text-info hover:bg-info/20 active:bg-info/30 focus-visible:outline-info',
+        'default' => 'bg-transparent text-text-muted hover:text-text active:text-text focus-visible:outline-neutral',
+        'primary' => 'bg-transparent text-text-muted hover:text-primary active:text-primary-hover focus-visible:outline-primary',
+        'secondary' => 'bg-transparent text-text-muted hover:text-secondary active:text-secondary-hover focus-visible:outline-secondary',
+        'success' => 'bg-transparent text-text-muted hover:text-success active:text-success-hover focus-visible:outline-success',
+        'error' => 'bg-transparent text-text-muted hover:text-error active:text-error-hover focus-visible:outline-error',
+        'warning' => 'bg-transparent text-text-muted hover:text-warning active:text-warning-hover focus-visible:outline-warning',
+        'info' => 'bg-transparent text-text-muted hover:text-info active:text-info-hover focus-visible:outline-info',
     ],
     'soft' => [
         'default' => 'bg-neutral/50 text-neutral-foreground hover:bg-neutral/70 active:bg-neutral/70 focus-visible:outline-neutral',
@@ -99,29 +104,16 @@ if ($pressed) {
     $conditionalClasses[] = 'shadow-inner';
 }
 
-$groupClasses = ['[[data-spire-button-group]_&]:rounded-none'];
+$groupClasses = ComponentStyles::buttonGroupClasses($radius, $variant);
 
-$radiusSuffix = $radius === 'none' ? '' : "-{$radius}";
-$groupClasses[] = "first:[[data-spire-button-group]:not([data-spire-button-group-vertical])_&]:rounded-s{$radiusSuffix}";
-$groupClasses[] = "last:[[data-spire-button-group]:not([data-spire-button-group-vertical])_&]:rounded-e{$radiusSuffix}";
-$groupClasses[] = "first:[[data-spire-button-group-vertical]_&]:rounded-t{$radiusSuffix}";
-$groupClasses[] = "last:[[data-spire-button-group-vertical]_&]:rounded-b{$radiusSuffix}";
-
-if ($variant === 'solid' || $variant === 'bordered') {
-    $groupClasses[] = '[[data-spire-button-group]:not([data-spire-button-group-vertical])_&]:border-s-0';
-    $groupClasses[] = 'first:[[data-spire-button-group]:not([data-spire-button-group-vertical])_&]:border-s-[1px]';
-    $groupClasses[] = '[[data-spire-button-group-vertical]_&]:border-t-0';
-    $groupClasses[] = 'first:[[data-spire-button-group-vertical]_&]:border-t-[1px]';
-}
-
-$classString = implode(' ', array_filter([
+$classString = ComponentStyles::buildClassString([
     $baseClasses,
     $sizeClasses[$size] ?? $sizeClasses['md'],
-    $radiusClasses[$radius] ?? $radiusClasses['md'],
+    ComponentStyles::radiusClasses($radius),
     $variantClasses[$variant][$color] ?? $variantClasses[$variant]['default'],
     ...$conditionalClasses,
     ...$groupClasses,
-]));
+]);
 
 $mergedAttributes = $attributes->merge([
     'class' => $classString,
