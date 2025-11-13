@@ -1,0 +1,124 @@
+# Button Component
+
+Interactive button component with multiple variants, colors, sizes, and states. Fully accessible with keyboard navigation support.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | string | `'solid'` | Button style variant: `solid`, `bordered`, `ghost`, `soft`, `link` |
+| `color` | string | `'default'` | Color theme: `default`, `primary`, `secondary`, `success`, `error`, `warning`, `info` |
+| `size` | string | `'md'` | Button size: `sm`, `md`, `lg` |
+| `radius` | string | `'md'` | Border radius: `none`, `sm`, `md`, `lg`, `full` |
+| `disabled` | boolean | `false` | Disables the button |
+| `loading` | boolean | `false` | Shows loading spinner and disables interaction |
+| `iconOnly` | boolean | `false` | Optimizes sizing for icon-only buttons (square shape) |
+| `type` | string | `'button'` | HTML button type: `button`, `submit`, `reset` |
+| `href` | string | `null` | If provided, renders as a link (`<a>`) instead of button |
+| `ariaLabel` | string | `null` | Accessible label for screen readers (required for icon-only buttons) |
+| `pressed` | boolean | `false` | Indicates pressed/active state (for toggle buttons) |
+
+## Slots
+
+| Slot | Description |
+|------|-------------|
+| Default | Button content (text, icons, etc.) |
+| `leading` | Content before the main slot (typically icons) |
+| `trailing` | Content after the main slot (typically icons) |
+| `spinner` | Custom loading spinner (overrides default) |
+
+## Examples
+
+### Basic Button Variants
+
+```blade
+{{-- Solid variant (default) --}}
+<x-spire::button color="primary">
+    Save Changes
+</x-spire::button>
+
+{{-- Bordered variant --}}
+<x-spire::button variant="bordered" color="primary">
+    Cancel
+</x-spire::button>
+
+{{-- Ghost variant --}}
+<x-spire::button variant="ghost" color="error">
+    Delete
+</x-spire::button>
+
+{{-- Link variant --}}
+<x-spire::button variant="link" color="primary">
+    Learn More
+</x-spire::button>
+```
+
+### Buttons with Icons
+
+```blade
+{{-- Icon before text --}}
+<x-spire::button color="success">
+    <x-slot:leading>
+        <x-spire::icon name="check" size="sm" />
+    </x-slot:leading>
+    Approve
+</x-spire::button>
+
+{{-- Icon after text --}}
+<x-spire::button color="primary">
+    Next
+    <x-slot:trailing>
+        <x-spire::icon name="arrow-right" size="sm" />
+    </x-slot:trailing>
+</x-spire::button>
+
+{{-- Icon-only button (requires ariaLabel) --}}
+<x-spire::button
+    icon-only
+    color="error"
+    aria-label="Delete item">
+    <x-spire::icon name="trash" />
+</x-spire::button>
+```
+
+### States and Sizes
+
+```blade
+{{-- Loading state --}}
+<x-spire::button loading color="primary">
+    Processing...
+</x-spire::button>
+
+{{-- Disabled state --}}
+<x-spire::button disabled>
+    Unavailable
+</x-spire::button>
+
+{{-- Different sizes --}}
+<x-spire::button size="sm">Small</x-spire::button>
+<x-spire::button size="md">Medium</x-spire::button>
+<x-spire::button size="lg">Large</x-spire::button>
+
+{{-- Link button --}}
+<x-spire::button href="/dashboard" color="primary">
+    Go to Dashboard
+</x-spire::button>
+```
+
+## Best Practices
+
+### Do
+
+- Use `icon-only` prop for buttons with only an icon
+- Always provide `ariaLabel` for icon-only buttons
+- Use `loading` state during async operations
+- Choose appropriate `variant` for visual hierarchy (solid for primary actions, ghost/link for secondary)
+- Use semantic colors (`error` for destructive actions, `success` for confirmations)
+
+### Don't
+
+- Don't use icon-only buttons without `ariaLabel`
+- Don't mix too many button variants on the same page
+- Don't use `pressed` state for loading - use `loading` prop instead
+- Don't forget to set `type="submit"` for form submission buttons
+- Don't use `href` for actions - use it only for navigation

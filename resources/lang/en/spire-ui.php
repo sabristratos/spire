@@ -20,6 +20,16 @@ return [
         'no_results' => 'No results found',
     ],
 
+    'alert' => [
+        'close' => 'Close alert',
+    ],
+
+    'accordion' => [
+        'toggle' => 'Toggle section',
+        'expand' => 'Expand',
+        'collapse' => 'Collapse',
+    ],
+
     'dropdown' => [
         'toggle' => 'Toggle dropdown',
         'menu' => 'Menu',
@@ -35,6 +45,10 @@ return [
     'form' => [
         'required' => 'This field is required',
         'invalid' => 'Please enter a valid value',
+        'optional' => 'Optional',
+        'clear' => 'Clear',
+        'show_password' => 'Show password',
+        'hide_password' => 'Hide password',
     ],
 
     'pagination' => [

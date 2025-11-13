@@ -1,7 +1,9 @@
+
+
 @theme {
-  --color-primary-base: oklch(0.8596 0.083 118.52);
-  --color-secondary-base: oklch(0.7153 0.1794 50.61);
-  --color-neutral-base: oklch(0.50 0 0);
+  --color-primary-base: oklch(0.60 0.083 118.52);
+  --color-secondary-base: oklch(0.50 0.1794 50.61);
+  --color-neutral-base: oklch(0.60 0 0);
   --color-success-base: oklch(0.50 0.15 150);
   --color-error-base: oklch(0.55 0.20 25);
   --color-warning-base: oklch(0.65 0.15 75);
@@ -101,9 +103,10 @@
   --color-secondary-active: light-dark(var(--color-secondary-800), var(--color-secondary-900));
   --color-secondary-foreground: white;
 
-  --color-body: light-dark(var(--color-neutral-50), var(--color-neutral-950));
-  --color-surface: light-dark(white, var(--color-neutral-900));
-  --color-overlay: light-dark(white, var(--color-neutral-800));
+  --color-body: light-dark(var(--color-neutral-50), var(--color-neutral-900));
+  --color-surface: light-dark(white, var(--color-neutral-700));
+  --color-surface-subtle: light-dark(var(--color-neutral-100), var(--color-neutral-800));
+  --color-overlay: light-dark(white, var(--color-neutral-700));
 
   --color-text: light-dark(var(--color-neutral-900), var(--color-neutral-100));
   --color-text-muted: light-dark(var(--color-neutral-600), var(--color-neutral-400));
@@ -116,30 +119,32 @@
   --color-hover: light-dark(oklch(from var(--color-text) l c h / 0.05), oklch(from var(--color-text) l c h / 0.10));
   --color-active: light-dark(oklch(from var(--color-text) l c h / 0.10), oklch(from var(--color-text) l c h / 0.15));
 
-  --color-neutral: light-dark(var(--color-neutral-600), var(--color-neutral-700));
-  --color-neutral-hover: light-dark(var(--color-neutral-800), var(--color-neutral-600));
-  --color-neutral-active: light-dark(var(--color-neutral-800), var(--color-neutral-600));
+  --ring-offset-color: var(--color-body);
+
+  --color-neutral: light-dark(var(--color-neutral-600), var(--color-neutral-600));
+  --color-neutral-hover: light-dark(var(--color-neutral-700), var(--color-neutral-700));
+  --color-neutral-active: light-dark(var(--color-neutral-800), var(--color-neutral-500));
   --color-neutral-foreground: light-dark(var(--color-neutral-900), white);
 
-  --color-success: light-dark(var(--color-success-600), var(--color-success-700));
+  --color-success: light-dark(var(--color-success-600), var(--color-success-400));
   --color-success-hover: light-dark(var(--color-success-700), var(--color-success-800));
   --color-success-active: light-dark(var(--color-success-800), var(--color-success-900));
   --color-success-bg: light-dark(var(--color-success-50), var(--color-success-950));
   --color-success-foreground: white;
 
-  --color-error: light-dark(var(--color-error-600), var(--color-error-700));
+  --color-error: light-dark(var(--color-error-600), var(--color-error-400));
   --color-error-hover: light-dark(var(--color-error-700), var(--color-error-800));
   --color-error-active: light-dark(var(--color-error-800), var(--color-error-900));
   --color-error-bg: light-dark(var(--color-error-50), var(--color-error-950));
   --color-error-foreground: white;
 
-  --color-warning: light-dark(var(--color-warning-600), var(--color-warning-700));
-  --color-warning-hover: light-dark(var(--color-warning-700), var(--color-warning-800));
-  --color-warning-active: light-dark(var(--color-warning-800), var(--color-warning-900));
+  --color-warning: light-dark(var(--color-warning-700), var(--color-warning-400));
+  --color-warning-hover: light-dark(var(--color-warning-800), var(--color-warning-500));
+  --color-warning-active: light-dark(var(--color-warning-900), var(--color-warning-600));
   --color-warning-bg: light-dark(var(--color-warning-50), var(--color-warning-950));
   --color-warning-foreground: white;
 
-  --color-info: light-dark(var(--color-info-600), var(--color-info-700));
+  --color-info: light-dark(var(--color-info-600), var(--color-info-400));
   --color-info-hover: light-dark(var(--color-info-700), var(--color-info-800));
   --color-info-active: light-dark(var(--color-info-800), var(--color-info-900));
   --color-info-bg: light-dark(var(--color-info-50), var(--color-info-950));
@@ -178,11 +183,5 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-:root {
-  body {
-    @apply scheme-light-dark;
-  }
 }
 
