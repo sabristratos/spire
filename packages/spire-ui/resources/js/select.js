@@ -1,0 +1,312 @@
+import { overlay } from './overlay';
+import { keyboard } from './keyboard';
+
+export function selectComponent(config = {}) {
+    return {
+        ...overlay({
+            trigger: 'click',
+            onInit() {
+                this.initializeOptions();
+                this.setupMutationObserver();
+                this.setupKeyboard();
+
+                this.$nextTick(() => {
+                    if (this.multiple) {
+                        const values = Array.isArray(this.value) ? this.value : [];
+                        this.updateSelectedLabel(values);
+                    } else {
+                        if (this.value) {
+                            this.updateSelectedLabel(this.value);
+                        } else {
+                            this.selectedLabel = this.placeholder;
+                        }
+                    }
+                });
+
+                this.$watch('value', (newValue) => {
+                    if (this.multiple) {
+                        const values = Array.isArray(newValue) ? newValue : [];
+                        this.updateSelectedLabel(values);
+                    } else {
+                        if (newValue) {
+                            this.updateSelectedLabel(newValue);
+                        } else {
+                            this.selectedLabel = this.placeholder;
+                        }
+                    }
+                });
+
+                this.$watch('searchQuery', () => {
+                    this.$nextTick(() => {
+                        this.updateItems();
+                        this.resetHighlight();
+                    });
+                });
+
+                this.$watch('open', (newValue) => {
+                    console.log('[SELECT] open watcher triggered:', { newValue, searchable: this.searchable });
+                    if (newValue && this.searchable) {
+                        console.log('[SELECT] Conditions met, waiting for nextTick...');
+                        this.$nextTick(() => {
+                            console.log('[SELECT] In nextTick, searching for input...');
+                            console.log('[SELECT] Available refs:', Object.keys(this.$refs));
+                            console.log('[SELECT] searchInputWrapper ref:', this.$refs.searchInputWrapper);
+
+                            const wrapper = this.$refs.searchInputWrapper;
+                            if (wrapper) {
+                                const searchInput = wrapper.querySelector('input[type="text"]');
+                                console.log('[SELECT] Found input element:', searchInput);
+
+                                if (searchInput) {
+                                    console.log('[SELECT] Calling $focus.focus() on:', searchInput);
+                                    this.$focus.focus(searchInput);
+                                    console.log('[SELECT] Focus called, current activeElement:', document.activeElement);
+                                } else {
+                                    console.warn('[SELECT] Input element not found inside wrapper!');
+                                }
+                            } else {
+                                console.warn('[SELECT] searchInputWrapper ref not found!');
+                            }
+                        });
+                    } else if (!newValue) {
+                        console.log('[SELECT] Closing dropdown, clearing search');
+                        this.searchQuery = '';
+                        this.resetHighlight();
+                    }
+                });
+            }
+        }),
+
+        ...keyboard({
+            pattern: 'activedescendant',
+            role: 'listbox',
+            itemSelector: '[role="option"]:not([aria-disabled="true"])',
+            orientation: 'vertical',
+            wrap: true,
+            onSelect(item) {
+                const value = item.getAttribute('data-spire-select-value');
+                const label = item.getAttribute('data-spire-select-label');
+
+                if (this.multiple) {
+                    this.toggleOption(value, label);
+                } else {
+                    this.selectOption(value, label);
+                }
+            }
+        }),
+
+        value: config.value || (config.multiple ? [] : ''),
+        selectedLabel: '',
+        placeholder: config.placeholder || 'Select an option',
+        multiple: config.multiple || false,
+        max: config.max || null,
+        maxReachedMessage: config.maxReachedMessage || 'Maximum selections reached',
+        selectAllText: config.selectAllText || 'Select All',
+        clearAllText: config.clearAllText || 'Clear All',
+        itemsSelectedText: config.itemsSelectedText || ':count items selected',
+        moreItemsText: config.moreItemsText || '+ :count more',
+        searchable: config.searchable || false,
+        searchPlaceholder: config.searchPlaceholder || 'Search options...',
+        searchQuery: '',
+        displayOptions: [],
+        observer: null,
+
+        get filteredOptions() {
+            if (!this.searchQuery || !this.searchable) {
+                return this.displayOptions;
+            }
+
+            const query = this.searchQuery.toLowerCase();
+            return this.displayOptions.filter(option =>
+                option.label.toLowerCase().includes(query)
+            );
+        },
+
+        get selectedValues() {
+            return this.multiple ? (Array.isArray(this.value) ? this.value : []) : [];
+        },
+
+        get selectedItems() {
+            if (!this.multiple) return [];
+            return this.displayOptions.filter(option =>
+                this.selectedValues.includes(option.value)
+            );
+        },
+
+        get isMaxReached() {
+            return this.multiple && this.max && this.selectedValues.length >= this.max;
+        },
+
+        get selectableOptions() {
+            return this.displayOptions.filter(option => !option.disabled);
+        },
+
+        get allSelected() {
+            return this.multiple &&
+                this.selectableOptions.length > 0 &&
+                this.selectableOptions.every(option => this.selectedValues.includes(option.value));
+        },
+
+        isSelected(value) {
+            if (this.multiple) {
+                return this.selectedValues.includes(value);
+            }
+            return this.value === value;
+        },
+
+        initializeOptions() {
+            const slotOptions = this.extractSlotOptions();
+            this.displayOptions = slotOptions;
+
+            this.$nextTick(() => {
+                this.updateItems();
+            });
+        },
+
+        extractSlotOptions() {
+            const slotEl = this.$refs.slotHtml;
+            if (!slotEl) return [];
+
+            const options = [];
+            const optionElements = slotEl.querySelectorAll('[data-spire-select-value]');
+
+            optionElements.forEach(el => {
+                options.push({
+                    value: el.getAttribute('data-spire-select-value'),
+                    label: el.getAttribute('data-spire-select-label') || el.textContent.trim(),
+                    html: el.innerHTML,
+                    disabled: el.getAttribute('data-spire-select-disabled') === 'true',
+                });
+            });
+
+            return options;
+        },
+
+        setupMutationObserver() {
+            const slotEl = this.$refs.slotHtml;
+
+            if (!slotEl) return;
+
+            this.observer = new MutationObserver(() => {
+                this.$nextTick(() => {
+                    this.initializeOptions();
+                });
+            });
+
+            this.observer.observe(slotEl, {
+                childList: true,
+                characterData: true,
+                subtree: true,
+            });
+        },
+
+        selectOption(value, label) {
+            if (this.multiple) {
+                this.toggleOption(value, label);
+            } else {
+                this.value = value;
+                this.selectedLabel = label;
+                this.hide();
+            }
+        },
+
+        toggleOption(value, label) {
+            if (!this.multiple) return;
+
+            const currentValues = Array.isArray(this.value) ? [...this.value] : [];
+            const index = currentValues.indexOf(value);
+
+            if (index > -1) {
+                currentValues.splice(index, 1);
+            } else {
+                if (this.isMaxReached) {
+                    return;
+                }
+                currentValues.push(value);
+            }
+
+            this.value = currentValues;
+            this.updateSelectedLabel(currentValues);
+        },
+
+        removeOption(value) {
+            if (!this.multiple) return;
+
+            const currentValues = Array.isArray(this.value) ? [...this.value] : [];
+            const index = currentValues.indexOf(value);
+
+            if (index > -1) {
+                currentValues.splice(index, 1);
+                this.value = currentValues;
+                this.updateSelectedLabel(currentValues);
+            }
+        },
+
+        selectAll() {
+            if (!this.multiple) return;
+
+            const selectableValues = this.selectableOptions.map(opt => opt.value);
+            const limitedValues = this.max
+                ? selectableValues.slice(0, this.max)
+                : selectableValues;
+
+            this.value = limitedValues;
+            this.updateSelectedLabel(limitedValues);
+        },
+
+        clearAll() {
+            if (this.multiple) {
+                this.value = [];
+                this.updateSelectedLabel([]);
+            } else {
+                this.clearSelection();
+            }
+        },
+
+        updateSelectedLabel(value) {
+            if (this.multiple) {
+                const values = Array.isArray(value) ? value : [];
+
+                if (values.length === 0) {
+                    this.selectedLabel = this.placeholder;
+                    return;
+                }
+
+                const selectedOptions = this.displayOptions.filter(opt =>
+                    values.includes(opt.value)
+                );
+
+                if (selectedOptions.length === 0) {
+                    this.selectedLabel = this.placeholder;
+                } else if (selectedOptions.length === 1) {
+                    this.selectedLabel = selectedOptions[0].label;
+                } else {
+                    this.selectedLabel = this.itemsSelectedText.replace(':count', selectedOptions.length);
+                }
+            } else {
+                const option = this.displayOptions.find(opt => opt.value === value);
+
+                if (option) {
+                    this.selectedLabel = option.label;
+                } else {
+                    this.selectedLabel = this.placeholder;
+                }
+            }
+        },
+
+        clearSelection() {
+            if (this.multiple) {
+                this.value = [];
+            } else {
+                this.value = '';
+            }
+            this.selectedLabel = this.placeholder;
+        },
+
+        destroy() {
+            if (this.observer) {
+                this.observer.disconnect();
+            }
+        }
+    };
+}

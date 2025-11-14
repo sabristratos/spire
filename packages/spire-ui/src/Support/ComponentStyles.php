@@ -99,6 +99,51 @@ class ComponentStyles
                 'warning' => 'bg-transparent text-text',
                 'info' => 'bg-transparent text-text',
             ],
+            'input-bordered' => [
+                'default' => 'border border-border bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20',
+                'primary' => 'border border-primary bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20',
+                'secondary' => 'border border-secondary bg-surface shadow-sm focus-within:shadow focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/20',
+                'success' => 'border border-success bg-surface shadow-sm focus-within:shadow focus-within:border-success focus-within:ring-2 focus-within:ring-success/20',
+                'error' => 'border border-error bg-surface shadow-sm focus-within:shadow focus-within:border-error focus-within:ring-2 focus-within:ring-error/20',
+                'warning' => 'border border-warning bg-surface shadow-sm focus-within:shadow focus-within:border-warning focus-within:ring-2 focus-within:ring-warning/20',
+                'info' => 'border border-info bg-surface shadow-sm focus-within:shadow focus-within:border-info focus-within:ring-2 focus-within:ring-info/20',
+            ],
+            'input-flat' => [
+                'default' => 'border-0 bg-surface-subtle focus-within:bg-surface',
+                'primary' => 'border-0 bg-primary/5 focus-within:bg-primary/10',
+                'secondary' => 'border-0 bg-secondary/5 focus-within:bg-secondary/10',
+                'success' => 'border-0 bg-success/5 focus-within:bg-success/10',
+                'error' => 'border-0 bg-error/5 focus-within:bg-error/10',
+                'warning' => 'border-0 bg-warning/5 focus-within:bg-warning/10',
+                'info' => 'border-0 bg-info/5 focus-within:bg-info/10',
+            ],
+            'textarea-bordered' => [
+                'default' => 'border border-border bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 accent-text',
+                'primary' => 'border border-primary bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 accent-primary',
+                'secondary' => 'border border-secondary bg-surface shadow-sm focus-within:shadow focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/20 accent-secondary',
+                'success' => 'border border-success bg-surface shadow-sm focus-within:shadow focus-within:border-success focus-within:ring-2 focus-within:ring-success/20 accent-success',
+                'error' => 'border border-error bg-surface shadow-sm focus-within:shadow focus-within:border-error focus-within:ring-2 focus-within:ring-error/20 accent-error',
+                'warning' => 'border border-warning bg-surface shadow-sm focus-within:shadow focus-within:border-warning focus-within:ring-2 focus-within:ring-warning/20 accent-warning',
+                'info' => 'border border-info bg-surface shadow-sm focus-within:shadow focus-within:border-info focus-within:ring-2 focus-within:ring-info/20 accent-info',
+            ],
+            'textarea-flat' => [
+                'default' => 'border-0 bg-surface-subtle focus-within:bg-surface accent-text-muted',
+                'primary' => 'border-0 bg-primary/5 focus-within:bg-primary/10 accent-primary',
+                'secondary' => 'border-0 bg-secondary/5 focus-within:bg-secondary/10 accent-secondary',
+                'success' => 'border-0 bg-success/5 focus-within:bg-success/10 accent-success',
+                'error' => 'border-0 bg-error/5 focus-within:bg-error/10 accent-error',
+                'warning' => 'border-0 bg-warning/5 focus-within:bg-warning/10 accent-warning',
+                'info' => 'border-0 bg-info/5 focus-within:bg-info/10 accent-info',
+            ],
+            'calendar-day' => [
+                'default' => 'hover:bg-hover text-text transition-fast',
+                'primary' => 'bg-primary text-primary-foreground hover:bg-primary/90',
+                'secondary' => 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
+                'success' => 'bg-success text-success-foreground hover:bg-success/90',
+                'error' => 'bg-error text-error-foreground hover:bg-error/90',
+                'warning' => 'bg-warning text-warning-foreground hover:bg-warning/90',
+                'info' => 'bg-info text-info-foreground hover:bg-info/90',
+            ],
         ];
     }
 
@@ -158,6 +203,16 @@ class ComponentStyles
                 'sm' => 'h-3 w-3',
                 'md' => 'h-4 w-4',
                 'lg' => 'h-5 w-5',
+            ],
+            'textarea' => [
+                'sm' => 'px-2 py-1.5 text-sm',
+                'md' => 'px-3 py-2 text-base',
+                'lg' => 'px-4 py-3 text-lg',
+            ],
+            'calendar' => [
+                'sm' => 'w-full',
+                'md' => 'w-full',
+                'lg' => 'w-full',
             ],
         ];
     }

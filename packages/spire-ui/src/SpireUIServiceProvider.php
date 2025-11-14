@@ -3,6 +3,9 @@
 namespace SpireUI;
 
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use SpireUI\Support\Synthesizers\DateRangePresetSynth;
+use SpireUI\Support\Synthesizers\DateRangeSynth;
 
 class SpireUIServiceProvider extends ServiceProvider
 {
@@ -39,6 +42,13 @@ class SpireUIServiceProvider extends ServiceProvider
         ], 'spire-ui-css');
 
         $this->registerBladeComponents();
+        $this->registerLivewireSynthesizers();
+    }
+
+    protected function registerLivewireSynthesizers(): void
+    {
+        Livewire::propertySynthesizer(DateRangePresetSynth::class);
+        Livewire::propertySynthesizer(DateRangeSynth::class);
     }
 
     protected function registerBladeComponents(): void

@@ -18,7 +18,9 @@ use SpireUI\Support\ComponentStyles;
 $isLink = !is_null($href);
 $isDisabled = $disabled || $loading;
 
-$baseClasses = 'inline-flex items-center justify-center gap-2 font-medium transition-all shadow-sm active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
+$baseClasses = 'inline-flex items-center justify-center gap-2 font-medium transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
+
+$shadowClasses = in_array($variant, ['ghost', 'link']) ? '' : 'shadow-sm hover:shadow active:shadow-none';
 
 $paddingClasses = [
     'ghost' => [
@@ -89,6 +91,15 @@ $variantClasses = [
         'warning' => 'bg-transparent text-warning underline-offset-4 hover:underline focus-visible:outline-warning',
         'info' => 'bg-transparent text-info underline-offset-4 hover:underline focus-visible:outline-info',
     ],
+    'flat' => [
+        'default' => 'bg-transparent text-text hover:bg-hover active:bg-hover/70 focus-visible:outline-neutral',
+        'primary' => 'bg-transparent text-primary hover:bg-primary/10 active:bg-primary/15 focus-visible:outline-primary',
+        'secondary' => 'bg-transparent text-secondary hover:bg-secondary/10 active:bg-secondary/15 focus-visible:outline-secondary',
+        'success' => 'bg-transparent text-success hover:bg-success/10 active:bg-success/15 focus-visible:outline-success',
+        'error' => 'bg-transparent text-error hover:bg-error/10 active:bg-error/15 focus-visible:outline-error',
+        'warning' => 'bg-transparent text-warning hover:bg-warning/10 active:bg-warning/15 focus-visible:outline-warning',
+        'info' => 'bg-transparent text-info hover:bg-info/10 active:bg-info/15 focus-visible:outline-info',
+    ],
 ];
 
 $conditionalClasses = [];
@@ -108,6 +119,7 @@ $groupClasses = ComponentStyles::buttonGroupClasses($radius, $variant);
 
 $classString = ComponentStyles::buildClassString([
     $baseClasses,
+    $shadowClasses,
     $sizeClasses[$size] ?? $sizeClasses['md'],
     ComponentStyles::radiusClasses($radius),
     $variantClasses[$variant][$color] ?? $variantClasses[$variant]['default'],

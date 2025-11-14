@@ -1,0 +1,413 @@
+/**
+ * Global Intelligent Position Fallbacks for CSS Anchor Positioning
+ *
+ * Usage: Add data-placement="bottom-start" (or any placement) to any anchor-positioned element
+ *
+ * Applies to: Dropdown, Popover, Tooltip, Combobox, Select, and any future anchor-positioned components
+ *
+ * Each placement has a priority-ordered fallback sequence:
+ * 1. Flip on primary axis (maintain alignment)
+ * 2. Try adjacent placements (maintain axis when possible)
+ * 3. Flip to perpendicular axis (last resort)
+ */
+
+/* Reset default popover positioning */
+[popover] {
+    position: absolute;
+    inset: unset;
+    margin: 0;
+    overflow: visible;
+}
+
+/* Bottom placements */
+@position-try --fallback-bottom-start-1 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(left);
+}
+
+@position-try --fallback-bottom-start-2 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-bottom-start-3 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+@position-try --fallback-bottom-end-1 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    right: anchor(right);
+}
+
+@position-try --fallback-bottom-end-2 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+@position-try --fallback-bottom-end-3 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-bottom-1 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(left);
+}
+
+@position-try --fallback-bottom-2 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-bottom-3 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+/* Top placements */
+@position-try --fallback-top-start-1 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(left);
+}
+
+@position-try --fallback-top-start-2 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-top-start-3 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+@position-try --fallback-top-end-1 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    right: anchor(right);
+}
+
+@position-try --fallback-top-end-2 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+@position-try --fallback-top-end-3 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-top-1 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(left);
+}
+
+@position-try --fallback-top-2 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-top-3 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+/* Right placements */
+@position-try --fallback-right-start-1 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+@position-try --fallback-right-start-2 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(left);
+}
+
+@position-try --fallback-right-start-3 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(left);
+}
+
+@position-try --fallback-right-end-1 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    bottom: anchor(bottom);
+}
+
+@position-try --fallback-right-end-2 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(left);
+}
+
+@position-try --fallback-right-end-3 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(left);
+}
+
+@position-try --fallback-right-1 {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+}
+
+@position-try --fallback-right-2 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(left);
+}
+
+@position-try --fallback-right-3 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(left);
+}
+
+/* Left placements */
+@position-try --fallback-left-start-1 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-left-start-2 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    right: anchor(right);
+}
+
+@position-try --fallback-left-start-3 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    right: anchor(right);
+}
+
+@position-try --fallback-left-end-1 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    bottom: anchor(bottom);
+}
+
+@position-try --fallback-left-end-2 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    right: anchor(right);
+}
+
+@position-try --fallback-left-end-3 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    right: anchor(right);
+}
+
+@position-try --fallback-left-1 {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+}
+
+@position-try --fallback-left-2 {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    right: anchor(right);
+}
+
+@position-try --fallback-left-3 {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    right: anchor(right);
+}
+
+/* Apply fallbacks to elements with data-placement */
+[data-placement="bottom-start"] {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(left);
+    position-try-fallbacks:
+        --fallback-bottom-start-1,
+        --fallback-bottom-start-2,
+        --fallback-bottom-start-3;
+}
+
+[data-placement="bottom-end"] {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    right: anchor(right);
+    position-try-fallbacks:
+        --fallback-bottom-end-1,
+        --fallback-bottom-end-2,
+        --fallback-bottom-end-3;
+}
+
+[data-placement="bottom"] {
+    inset: auto;
+    margin-top: 8px;
+    top: anchor(bottom);
+    left: anchor(center);
+    translate: -50% 0;
+    position-try-fallbacks:
+        --fallback-bottom-1,
+        --fallback-bottom-2,
+        --fallback-bottom-3;
+}
+
+[data-placement="top-start"] {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(left);
+    position-try-fallbacks:
+        --fallback-top-start-1,
+        --fallback-top-start-2,
+        --fallback-top-start-3;
+}
+
+[data-placement="top-end"] {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    right: anchor(right);
+    position-try-fallbacks:
+        --fallback-top-end-1,
+        --fallback-top-end-2,
+        --fallback-top-end-3;
+}
+
+[data-placement="top"] {
+    inset: auto;
+    margin-bottom: 8px;
+    bottom: anchor(top);
+    left: anchor(center);
+    translate: -50% 0;
+    position-try-fallbacks:
+        --fallback-top-1,
+        --fallback-top-2,
+        --fallback-top-3;
+}
+
+[data-placement="right-start"] {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(top);
+    position-try-fallbacks:
+        --fallback-right-start-1,
+        --fallback-right-start-2,
+        --fallback-right-start-3;
+}
+
+[data-placement="right-end"] {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    bottom: anchor(bottom);
+    position-try-fallbacks:
+        --fallback-right-end-1,
+        --fallback-right-end-2,
+        --fallback-right-end-3;
+}
+
+[data-placement="right"] {
+    inset: auto;
+    margin-left: 4px;
+    left: anchor(right);
+    top: anchor(center);
+    translate: 0 -50%;
+    position-try-fallbacks:
+        --fallback-right-1,
+        --fallback-right-2,
+        --fallback-right-3;
+}
+
+[data-placement="left-start"] {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(top);
+    position-try-fallbacks:
+        --fallback-left-start-1,
+        --fallback-left-start-2,
+        --fallback-left-start-3;
+}
+
+[data-placement="left-end"] {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    bottom: anchor(bottom);
+    position-try-fallbacks:
+        --fallback-left-end-1,
+        --fallback-left-end-2,
+        --fallback-left-end-3;
+}
+
+[data-placement="left"] {
+    inset: auto;
+    margin-right: 4px;
+    right: anchor(left);
+    top: anchor(center);
+    translate: 0 -50%;
+    position-try-fallbacks:
+        --fallback-left-1,
+        --fallback-left-2,
+        --fallback-left-3;
+}

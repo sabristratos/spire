@@ -1,4 +1,6 @@
-
+:root {
+  interpolate-size: allow-keywords;
+}
 
 @theme {
   --color-primary-base: oklch(0.60 0.083 118.52);
@@ -150,11 +152,11 @@
   --color-info-bg: light-dark(var(--color-info-50), var(--color-info-950));
   --color-info-foreground: white;
 
-  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.02);
-  --shadow: 0 1px 3px 0 oklch(0 0 0 / 0.04), 0 1px 2px -1px oklch(0 0 0 / 0.04);
-  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.04), 0 2px 4px -2px oklch(0 0 0 / 0.03);
-  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.05), 0 4px 6px -4px oklch(0 0 0 / 0.03);
-  --shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.06), 0 8px 10px -6px oklch(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.08);
+  --shadow: 0 1px 3px 0 oklch(0 0 0 / 0.12), 0 1px 2px -1px oklch(0 0 0 / 0.12);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.12), 0 2px 4px -2px oklch(0 0 0 / 0.09);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.15), 0 4px 6px -4px oklch(0 0 0 / 0.09);
+  --shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.18), 0 8px 10px -6px oklch(0 0 0 / 0.12);
 
   --color-neutral-border: light-dark(var(--color-neutral-700), var(--color-neutral-800));
   --color-primary-border: light-dark(var(--color-primary-700), var(--color-primary-800));
@@ -183,5 +185,14 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --animation-duration-fast: 150ms;
+  --animation-duration-normal: 200ms;
+  --animation-duration-slow: 300ms;
+
+  --animation-easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --animation-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --animation-easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

@@ -1,5 +1,6 @@
 @props([
     'variant' => 'bordered',
+    'color' => 'default',
     'size' => 'md',
     'radius' => 'md',
     'type' => 'text',
@@ -16,6 +17,8 @@
 
 @php
 use SpireUI\Support\ComponentStyles;
+
+$baseClasses = 'flex items-center gap-2 transition-fast';
 
 $sizeClasses = [
     'sm' => 'h-8 px-2 text-sm',
@@ -38,10 +41,26 @@ $buttonSizes = [
 $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 $buttonSize = $buttonSizes[$size] ?? $buttonSizes['md'];
 
-$variantClasses = [
-    'bordered' => 'border border-border bg-surface',
-    'flat' => 'border-0 bg-surface-subtle',
-];
+$variantKey = "input-{$variant}";
+$variantClasses = ComponentStyles::colorClasses($variantKey, $color);
+
+$conditionalClasses = [];
+
+if ($disabled) {
+    $conditionalClasses[] = 'opacity-50 cursor-not-allowed';
+}
+
+if ($readonly) {
+    $conditionalClasses[] = 'cursor-default';
+}
+
+$containerClassString = ComponentStyles::buildClassString([
+    $baseClasses,
+    $sizeClasses[$size] ?? $sizeClasses['md'],
+    ComponentStyles::radiusClasses($radius),
+    $variantClasses,
+    ...$conditionalClasses,
+]);
 
 $wrapperBaseClasses = ComponentStyles::buildClassString([
     'w-full',
@@ -55,6 +74,10 @@ $hasTrailingContent = isset($trailing) || $iconTrailing || $clearable || $viewab
 
 $needsAlpineData = $clearable || $viewable || $copyable;
 $alpineDataParts = [];
+
+if ($clearable) {
+    $alpineDataParts[] = 'inputValue: \'\'';
+}
 
 if ($viewable) {
     $alpineDataParts[] = 'showPassword: false';
@@ -84,12 +107,12 @@ if ($viewable) {
 }
 @endphp
 
-@if($needsAlpineData && $alpineData)
-    <div {{ $wrapperAttributes }} x-data="{{ $alpineData }}">
+@if($needsAlpineData)
+    <div {{ $wrapperAttributes }} x-data="{{ $alpineData }}" x-init="console.log('[INPUT] Component initialized, clearable:', {{ $clearable ? 'true' : 'false' }}); console.log('[INPUT] Initial inputValue:', inputValue); $watch('inputValue', value => console.log('[INPUT] inputValue changed:', value, 'length:', value?.length, 'shouldShow:', !!(value && value.length > 0)))">
 @else
     <div {{ $wrapperAttributes }}>
 @endif
-    <div class="flex items-center gap-2 {{ $variantClasses[$variant] ?? $variantClasses['bordered'] }} {{ ComponentStyles::radiusClasses($radius) }} {{ $sizeClasses[$size] ?? $sizeClasses['md'] }} transition-fast focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+    <div class="{{ $containerClassString }}">
         @if($hasLeadingContent)
             <div class="flex items-center shrink-0">
                 @if(isset($leading))
@@ -102,7 +125,13 @@ if ($viewable) {
 
         <input {{ $inputAttributes->except(['class'])->merge([
             'class' => 'flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 text-text placeholder:text-text-muted disabled:text-text-disabled disabled:cursor-not-allowed min-w-0'
-        ]) }} x-ref="input" />
+        ]) }}
+            x-ref="input"
+            @if($clearable)
+                @input="inputValue = $event.target.value; $dispatch('input-change', { value: $event.target.value })"
+                x-init="inputValue = $el.value"
+            @endif
+        />
 
         @if($hasTrailingContent)
             <div class="flex items-center shrink-0 gap-2">
@@ -115,10 +144,12 @@ if ($viewable) {
                             variant="ghost"
                             :size="$buttonSize"
                             icon-only
-                            x-show="$refs.input.value"
+                            x-show="inputValue && inputValue.length > 0"
+                            x-init="console.log('[INPUT CLEAR] Clear button initialized', { inputValue, show: inputValue && inputValue.length > 0 })"
+                            x-effect="console.log('[INPUT CLEAR] x-show evaluated:', { inputValue, length: inputValue?.length, show: inputValue && inputValue.length > 0 })"
                             x-cloak
-                            @click="$refs.input.value = ''; $refs.input.dispatchEvent(new Event('input'))"
-                            :aria-label="__('spire-ui::form.clear')"
+                            @click="console.log('[INPUT CLEAR] Clear button clicked'); inputValue = ''; $refs.input.value = ''; $refs.input.dispatchEvent(new Event('input')); $dispatch('input-cleared'); $refs.input.focus()"
+                            :aria-label="__('spire::spire-ui.form.clear')"
                         >
                             <x-spire::icon name="x-close" class="{{ $iconSize }}" />
                         </x-spire::button>
@@ -131,7 +162,7 @@ if ($viewable) {
                             :size="$buttonSize"
                             icon-only
                             @click="showPassword = !showPassword"
-                            x-bind:aria-label="showPassword ? '{{ __('spire-ui::form.hide_password') }}' : '{{ __('spire-ui::form.show_password') }}'"
+                            x-bind:aria-label="showPassword ? '{{ __('spire::spire-ui.form.hide_password') }}' : '{{ __('spire::spire-ui.form.show_password') }}'"
                         >
                             <x-spire::icon x-show="!showPassword" x-cloak name="eye" class="{{ $iconSize }}" />
                             <x-spire::icon x-show="showPassword" x-cloak name="eye-off" class="{{ $iconSize }}" />

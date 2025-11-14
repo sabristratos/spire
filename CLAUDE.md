@@ -591,6 +591,111 @@ document.addEventListener('alpine:init', () => {
 
 **Note**: Alternative approaches to state synchronization can be recommended when requested.
 
+#### Alpine State Management
+Alpine provides powerful state management through reactive JavaScript data. Understanding how to structure and access state is critical for building Spire-UI components.
+
+##### Local State with x-data
+Declare component state directly in HTML using `x-data`. Any Alpine syntax within or on that element can access the state:
+
+<code-snippet name="Local State Example" lang="blade">
+<div x-data="{ open: false, count: 0 }">
+    <button @click="open = !open">Toggle</button>
+    <span x-text="count"></span>
+</div>
+</code-snippet>
+
+##### Nested Scopes
+Alpine naturally handles nested scopes - child elements can access parent data without special syntax. If a child has a property matching a parent's property name, the child property takes precedence:
+
+<code-snippet name="Nested Scopes Example" lang="blade">
+<div x-data="{ open: false, label: 'Parent' }">
+    <span x-text="label"></span> <!-- Shows: Parent -->
+
+    <div x-data="{ label: 'Child', count: 5 }">
+        <span x-text="label"></span> <!-- Shows: Child -->
+        <span x-show="open"></span> <!-- Accesses parent's 'open' -->
+        <span x-text="count"></span> <!-- Shows: 5 -->
+    </div>
+</div>
+</code-snippet>
+
+**Important**: Do NOT use `$parent` to access parent scope data. Alpine's natural scope chain handles this automatically. Simply reference the property name directly.
+
+##### Single-Element Data
+You can declare data on the same element that uses it:
+
+<code-snippet name="Single-Element Example" lang="blade">
+<button x-data="{ label: 'Click Here' }" x-text="label"></button>
+</code-snippet>
+
+##### Data-less Alpine
+When you only need Alpine functionality without reactive data:
+
+<code-snippet name="Data-less Example" lang="blade">
+<button x-data @click="alert('Clicked!')">Click Me</button>
+</code-snippet>
+
+##### Re-usable Components with Alpine.data()
+For complex components with reusable logic, register them globally using `Alpine.data()`:
+
+<code-snippet name="Reusable Component Example" lang="javascript">
+Alpine.data('dropdown', () => ({
+    open: false,
+
+    toggle() {
+        this.open = !this.open;
+    },
+
+    close() {
+        this.open = false;
+    }
+}));
+</code-snippet>
+
+Usage in Blade:
+<code-snippet name="Using Registered Component" lang="blade">
+<div x-data="dropdown">
+    <button @click="toggle">Toggle</button>
+    <div x-show="open" @click.outside="close">
+        Content
+    </div>
+</div>
+</code-snippet>
+
+##### Global State with Alpine.store()
+For data that needs to be shared across multiple components on a page, use Alpine's global store:
+
+<code-snippet name="Global Store Example" lang="javascript">
+Alpine.store('tabs', {
+    current: 'first',
+    items: ['first', 'second', 'third'],
+
+    setTab(name) {
+        this.current = name;
+    }
+});
+</code-snippet>
+
+Access from anywhere using `$store`:
+<code-snippet name="Accessing Global Store" lang="blade">
+<div x-data>
+    <template x-for="tab in $store.tabs.items">
+        <button @click="$store.tabs.setTab(tab)" x-text="tab"></button>
+    </template>
+</div>
+
+<div x-data>
+    <span x-text="$store.tabs.current"></span>
+</div>
+</code-snippet>
+
+**Best Practices**:
+- Use local state (`x-data`) for component-specific data
+- Use `Alpine.data()` for reusable component patterns
+- Use `Alpine.store()` sparingly, only for truly global application state
+- Never use `$parent` - rely on Alpine's natural scope chain
+- Keep state as close to where it's used as possible
+
 #### Blade Component Attributes
 Master the `$attributes` bag for flexible components:
 

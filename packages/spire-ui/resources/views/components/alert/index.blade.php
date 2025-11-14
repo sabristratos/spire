@@ -102,7 +102,7 @@ use SpireUI\Support\ComponentStyles;
             type="button"
             @click="visible = false"
             class="shrink-0 p-0.5 -mt-0.5 -mr-0.5 rounded opacity-70 hover:opacity-100 transition-opacity"
-            aria-label="{{ __('spire-ui::alert.close') }}"
+            aria-label="{{ __('spire::spire-ui.alert.close') }}"
         >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
