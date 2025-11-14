@@ -1,6 +1,8 @@
 @props([
     'name' => null,
     'message' => null,
+    'icon' => 'alert-circle',
+    'showIcon' => true,
 ])
 
 @php
@@ -17,6 +19,9 @@ if (isset($slot) && !$slot->isEmpty()) {
 }
 
 $classString = ComponentStyles::buildClassString([
+    'flex',
+    'items-center',
+    'gap-1.5',
     'text-sm',
     'text-error',
 ]);
@@ -29,10 +34,22 @@ $mergedAttributes = $attributes->merge([
 
 @if($errorMessage)
     <p {{ $mergedAttributes }}>
-        @if(isset($slot) && !$slot->isEmpty())
-            {{ $slot }}
-        @else
-            {{ $errorMessage }}
+        @if($showIcon)
+            <span class="shrink-0 flex">
+                @if(isset($iconSlot) && !$iconSlot->isEmpty())
+                    {{ $iconSlot }}
+                @else
+                    <x-spire::icon :name="$icon" class="w-[1em] h-[1em]" />
+                @endif
+            </span>
         @endif
+
+        <span class="flex-1">
+            @if(isset($slot) && !$slot->isEmpty())
+                {{ $slot }}
+            @else
+                {{ $errorMessage }}
+            @endif
+        </span>
     </p>
 @endif
