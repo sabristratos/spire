@@ -12,7 +12,7 @@
 @php
 use SpireUI\Support\ComponentStyles;
 
-$baseClasses = 'w-full transition-fast';
+$baseClasses = 'w-full ease-fast';
 
 $sizeClasses = [
     'sm' => 'h-8 px-2 text-sm',

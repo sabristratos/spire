@@ -2,24 +2,22 @@
     'label' => '',
     'icon' => null,
     'disabled' => false,
+    'placement' => 'right-start',
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentStyles;
 
-$baseClasses = 'flex items-center gap-3 w-full px-3 py-2 text-sm transition-colors rounded-md';
+    $classString = ComponentStyles::buildClassString([
+        ComponentStyles::dropdownItemBase(),
+        ComponentStyles::dropdownItemState($disabled, false),
+    ]);
 
-$stateClasses = [
-    'disabled' => 'text-text-disabled cursor-not-allowed',
-    'normal' => 'text-text hover:bg-hover focus:bg-hover',
-];
-
-$selectedState = $disabled ? 'disabled' : 'normal';
-
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $stateClasses[$selectedState],
-]);
+    $panelClassString = ComponentStyles::buildClassString([
+        ComponentStyles::dropdownContentBase(),
+        ComponentStyles::dropdownContentWidth('sm'),
+        'animate-dropdown-bounce',
+    ]);
 @endphp
 
 <div
@@ -33,10 +31,10 @@ $classString = ComponentStyles::buildClassString([
             this.$refs.content?.showPopover();
         }
     }"
-    x-id="['popover']"
+    x-id="['submenu-trigger', 'submenu-popover']"
     {{ $attributes }}
 >
-    <div x-ref="trigger">
+    <div x-ref="trigger" :id="$id('submenu-trigger')">
         <button
             type="button"
             class="{{ $classString }}"
@@ -57,14 +55,12 @@ $classString = ComponentStyles::buildClassString([
 
     <div
         x-ref="content"
-        :id="$id('popover')"
+        :id="$id('submenu-popover')"
+        anchor="$id('submenu-trigger')"
         popover="auto"
-        class="min-w-[12rem] bg-surface border border-border rounded-lg shadow-lg p-1 animate-dropdown-bounce"
+        class="{{ $panelClassString }}"
         role="menu"
-        style="
-            position-area: inline-end span-block-start;
-            margin-inline-start: 0.25rem;
-        "
+        data-placement="{{ $placement }}"
     >
         {{ $slot }}
     </div>

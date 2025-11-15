@@ -405,7 +405,7 @@ All radius tokens (`--radius-sm`, `--radius-md`, etc.) are calculated from `--ra
 ```css
 @theme {
   /* Faster animations */
-  --transition-fast: 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-fast: 100ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -442,7 +442,7 @@ All radius tokens (`--radius-sm`, `--radius-md`, etc.) are calculated from `--ra
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--transition-fast` | `150ms ease-out` | Quick interactions |
+| `--ease-fast` | `150ms ease-out` | Quick interactions |
 | `--transition-base` | `200ms ease-out` | Default transitions |
 | `--transition-slow` | `300ms ease-out` | Deliberate animations |
 
@@ -535,7 +535,7 @@ Use browser DevTools or online tools to verify:
   rounded-md
   shadow-lg
   shadow-primary/20
-  transition-fast
+  ease-fast
 ">
   Themed Button
 </button>

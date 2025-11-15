@@ -1,6 +1,10 @@
 @props([])
 
+@php
+    use SpireUI\Support\ComponentStyles;
+@endphp
+
 <div
-    {{ $attributes->merge(['class' => 'my-1 h-px bg-border']) }}
+    {{ $attributes->merge(['class' => ComponentStyles::dropdownSeparatorBase()]) }}
     role="separator"
 ></div>

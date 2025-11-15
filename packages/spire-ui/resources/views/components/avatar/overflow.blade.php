@@ -19,7 +19,7 @@ use SpireUI\Support\ComponentStyles;
         'overflow-hidden',
         'font-semibold',
         'rounded-full',
-        'transition-fast',
+        'ease-fast',
         ComponentStyles::sizeClasses($size),
         ComponentStyles::colorClasses('solid', $color),
         ...$groupRingClasses,

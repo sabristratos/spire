@@ -7,49 +7,39 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentStyles;
 
-$baseClasses = 'flex items-center gap-3 w-full px-3 py-2 text-sm transition-colors rounded-md';
+    $classString = ComponentStyles::buildClassString([
+        ComponentStyles::dropdownItemBase(),
+        ComponentStyles::dropdownItemState($disabled, $destructive),
+    ]);
 
-$stateClasses = [
-    'disabled' => 'text-text-disabled cursor-not-allowed',
-    'destructive' => 'text-error hover:bg-error/10 focus:bg-error/10',
-    'normal' => 'text-text hover:bg-hover focus:bg-hover',
-];
+    $tag = $href ? 'a' : 'button';
 
-$selectedState = $disabled ? 'disabled' : ($destructive ? 'destructive' : 'normal');
+    $mergedAttributes = $attributes->merge([
+        'class' => $classString,
+        'role' => 'menuitem',
+        'tabindex' => $disabled ? '-1' : '0',
+        'disabled' => $disabled && !$href ? true : null,
+    ]);
 
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $stateClasses[$selectedState],
-]);
+    if ($href) {
+        $mergedAttributes = $mergedAttributes->merge(['href' => $href]);
+    }
 
-$tag = $href ? 'a' : 'button';
-
-$mergedAttributes = $attributes->merge([
-    'class' => $classString,
-    'role' => 'menuitem',
-    'tabindex' => $disabled ? '-1' : '0',
-    'disabled' => $disabled && !$href ? true : null,
-]);
-
-if ($href) {
-    $mergedAttributes = $mergedAttributes->merge(['href' => $href]);
-}
-
-if ($tag === 'button') {
-    $mergedAttributes = $mergedAttributes->merge(['type' => 'button']);
-}
+    if ($tag === 'button') {
+        $mergedAttributes = $mergedAttributes->merge(['type' => 'button']);
+    }
 @endphp
 
 <{{ $tag }} {{ $mergedAttributes }}>
-    @if($icon)
-        <x-spire::icon :name="$icon" class="w-4 h-4 shrink-0" />
-    @endif
+@if($icon)
+    <x-spire::icon :name="$icon" class="w-4 h-4 shrink-0" />
+@endif
 
-    <span class="flex-1 text-left">{{ $slot }}</span>
+<span class="flex-1 text-left">{{ $slot }}</span>
 
-    @if($shortcut)
-        <span class="text-xs text-text-muted shrink-0">{{ $shortcut }}</span>
-    @endif
+@if($shortcut)
+    <span class="text-xs text-text-muted shrink-0">{{ $shortcut }}</span>
+@endif
 </{{ $tag }}>

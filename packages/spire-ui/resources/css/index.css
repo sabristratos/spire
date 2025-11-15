@@ -1,24 +1,22 @@
-/**
- * Spire UI - Main CSS Entry Point
- *
- * This file imports all Spire UI stylesheets in the correct order.
- * Import this single file in your app.css instead of importing each file individually.
- */
+@import "tailwindcss";
 
 @import './theme.css';
 @import './anchor-positioning.css';
+
 @import './animations.css';
 
-/**
- * Utility Classes
- */
-
-/* Hide scrollbar while maintaining scroll functionality */
 .hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
 
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+        display: none;
+    }
+
+
+@layer components {
+    @import './button.css';
+    @import './input.css';
+    @import './dropdown.css';
 }

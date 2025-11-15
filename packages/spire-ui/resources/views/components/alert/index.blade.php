@@ -30,7 +30,7 @@ use SpireUI\Support\ComponentStyles;
         'items-start',
         'gap-3',
         'p-4',
-        'transition-fast',
+        'ease-fast',
         ComponentStyles::colorClasses($variant, $color),
         ComponentStyles::radiusClasses($radius),
     ]);
