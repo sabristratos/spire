@@ -5,30 +5,21 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentStyles;
 
-$widthClasses = [
-    'sm' => 'min-w-[12rem]',
-    'md' => 'min-w-[14rem]',
-    'lg' => 'min-w-[16rem]',
-    'xl' => 'min-w-[20rem]',
-    'auto' => 'min-w-max',
-];
+    $classString = ComponentStyles::buildClassString([
+        ComponentStyles::dropdownContentBase(),
+        ComponentStyles::dropdownContentWidth($width),
+        'animate-dropdown-bounce',
+    ]);
 
-$baseClasses = 'animate-dropdown-bounce bg-surface border border-border rounded-lg shadow-lg p-1';
-
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $widthClasses[$width] ?? $widthClasses['md'],
-]);
-
-$mergedAttributes = $attributes->merge([
-    'data-placement' => $placement,
-    'popover' => 'auto',
-    'class' => $classString,
-    'role' => 'menu',
-    'tabindex' => '-1',
-]);
+    $mergedAttributes = $attributes->merge([
+        'data-placement' => $placement,
+        'popover' => 'auto',
+        'class' => $classString,
+        'role' => 'menu',
+        'tabindex' => '-1',
+    ]);
 @endphp
 
 <div

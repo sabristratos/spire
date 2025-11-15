@@ -9,7 +9,7 @@
 @php
 use SpireUI\Support\ComponentStyles;
 
-$baseClasses = 'flex items-center justify-between gap-2 w-full transition-fast';
+$baseClasses = 'flex items-center justify-between gap-2 w-full ease-fast';
 
 $sizeClasses = [
     'sm' => 'h-8 px-2 text-sm',

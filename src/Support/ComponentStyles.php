@@ -99,51 +99,6 @@ class ComponentStyles
                 'warning' => 'bg-transparent text-text',
                 'info' => 'bg-transparent text-text',
             ],
-            'input-bordered' => [
-                'default' => 'border border-border bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20',
-                'primary' => 'border border-primary bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20',
-                'secondary' => 'border border-secondary bg-surface shadow-sm focus-within:shadow focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/20',
-                'success' => 'border border-success bg-surface shadow-sm focus-within:shadow focus-within:border-success focus-within:ring-2 focus-within:ring-success/20',
-                'error' => 'border border-error bg-surface shadow-sm focus-within:shadow focus-within:border-error focus-within:ring-2 focus-within:ring-error/20',
-                'warning' => 'border border-warning bg-surface shadow-sm focus-within:shadow focus-within:border-warning focus-within:ring-2 focus-within:ring-warning/20',
-                'info' => 'border border-info bg-surface shadow-sm focus-within:shadow focus-within:border-info focus-within:ring-2 focus-within:ring-info/20',
-            ],
-            'input-flat' => [
-                'default' => 'border-0 bg-surface-subtle focus-within:bg-surface',
-                'primary' => 'border-0 bg-primary/5 focus-within:bg-primary/10',
-                'secondary' => 'border-0 bg-secondary/5 focus-within:bg-secondary/10',
-                'success' => 'border-0 bg-success/5 focus-within:bg-success/10',
-                'error' => 'border-0 bg-error/5 focus-within:bg-error/10',
-                'warning' => 'border-0 bg-warning/5 focus-within:bg-warning/10',
-                'info' => 'border-0 bg-info/5 focus-within:bg-info/10',
-            ],
-            'textarea-bordered' => [
-                'default' => 'border border-border bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 accent-text',
-                'primary' => 'border border-primary bg-surface shadow-sm focus-within:shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 accent-primary',
-                'secondary' => 'border border-secondary bg-surface shadow-sm focus-within:shadow focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/20 accent-secondary',
-                'success' => 'border border-success bg-surface shadow-sm focus-within:shadow focus-within:border-success focus-within:ring-2 focus-within:ring-success/20 accent-success',
-                'error' => 'border border-error bg-surface shadow-sm focus-within:shadow focus-within:border-error focus-within:ring-2 focus-within:ring-error/20 accent-error',
-                'warning' => 'border border-warning bg-surface shadow-sm focus-within:shadow focus-within:border-warning focus-within:ring-2 focus-within:ring-warning/20 accent-warning',
-                'info' => 'border border-info bg-surface shadow-sm focus-within:shadow focus-within:border-info focus-within:ring-2 focus-within:ring-info/20 accent-info',
-            ],
-            'textarea-flat' => [
-                'default' => 'border-0 bg-surface-subtle focus-within:bg-surface accent-text-muted',
-                'primary' => 'border-0 bg-primary/5 focus-within:bg-primary/10 accent-primary',
-                'secondary' => 'border-0 bg-secondary/5 focus-within:bg-secondary/10 accent-secondary',
-                'success' => 'border-0 bg-success/5 focus-within:bg-success/10 accent-success',
-                'error' => 'border-0 bg-error/5 focus-within:bg-error/10 accent-error',
-                'warning' => 'border-0 bg-warning/5 focus-within:bg-warning/10 accent-warning',
-                'info' => 'border-0 bg-info/5 focus-within:bg-info/10 accent-info',
-            ],
-            'calendar-day' => [
-                'default' => 'hover:bg-hover text-text transition-fast',
-                'primary' => 'bg-primary text-primary-foreground hover:bg-primary/90',
-                'secondary' => 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
-                'success' => 'bg-success text-success-foreground hover:bg-success/90',
-                'error' => 'bg-error text-error-foreground hover:bg-error/90',
-                'warning' => 'bg-warning text-warning-foreground hover:bg-warning/90',
-                'info' => 'bg-info text-info-foreground hover:bg-info/90',
-            ],
         ];
     }
 
@@ -203,16 +158,6 @@ class ComponentStyles
                 'sm' => 'h-3 w-3',
                 'md' => 'h-4 w-4',
                 'lg' => 'h-5 w-5',
-            ],
-            'textarea' => [
-                'sm' => 'px-2 py-1.5 text-sm',
-                'md' => 'px-3 py-2 text-base',
-                'lg' => 'px-4 py-3 text-lg',
-            ],
-            'calendar' => [
-                'sm' => 'w-full',
-                'md' => 'w-full',
-                'lg' => 'w-full',
             ],
         ];
     }
@@ -364,5 +309,184 @@ class ComponentStyles
         }
 
         return $classes;
+    }
+
+    /**
+     * Get the base class for buttons.
+     */
+    public static function buttonBase(): string
+    {
+        return 'spire-button';
+    }
+
+    /**
+     * Get size classes for a button.
+     *
+     * @param  string  $size  The size (sm, md, lg)
+     * @param  bool  $iconOnly  Whether the button is icon-only
+     * @param  string  $variant  The button variant (e.g., 'ghost')
+     * @return string
+     */
+    public static function buttonSize(string $size, bool $iconOnly, string $variant): string
+    {
+        $sizeClasses = [
+            'sm' => 'spire-button--sm',
+            'md' => 'spire-button--md',
+            'lg' => 'spire-button--lg',
+        ];
+
+        $classes = [
+            $sizeClasses[$size] ?? $sizeClasses['md'],
+        ];
+
+        if ($variant === 'ghost') {
+            $classes[] = 'spire-button--ghost';
+        }
+
+        if ($iconOnly) {
+            $classes[] = 'spire-button--icon-only';
+        }
+
+        return self::buildClassString($classes);
+    }
+
+    /**
+     * Get variant/color classes for a button.
+     *
+     * @param  string  $variant  The variant (solid, bordered, etc.)
+     * @param  string  $color  The color (default, primary, etc.)
+     * @return string
+     */
+    public static function buttonVariant(string $variant, string $color): string
+    {
+        return "spire-button--{$color}-{$variant}";
+    }
+
+    /**
+     * Get the base class for the input's outer container.
+     */
+    public static function inputContainerBase(): string
+    {
+        return 'spire-input-container';
+    }
+
+    /**
+     * Get the base class for the input's inner box.
+     */
+    public static function inputBoxBase(): string
+    {
+        return 'spire-input-box';
+    }
+
+    /**
+     * Get the variant class for the input's inner box.
+     */
+    public static function inputBoxVariant(string $variant): string
+    {
+        $variants = [
+            'bordered' => 'spire-input-box--bordered',
+            'flat' => 'spire-input-box--flat',
+        ];
+
+        return $variants[$variant] ?? $variants['bordered'];
+    }
+
+    /**
+     * Get the size class for the input's inner box.
+     */
+    public static function inputBoxSize(string $size): string
+    {
+        $sizes = [
+            'sm' => 'spire-input-box--sm',
+            'md' => 'spire-input-box--md',
+            'lg' => 'spire-input-box--lg',
+        ];
+
+        return $sizes[$size] ?? $sizes['md'];
+    }
+
+    /**
+     * Get the base class for the <input> element.
+     */
+    public static function inputBase(): string
+    {
+        return 'spire-input';
+    }
+
+    /**
+     * Get the size class for shorthand icons in the input.
+     */
+    public static function inputIconSize(string $size): string
+    {
+        $sizes = [
+            'sm' => 'spire-input-icon--sm',
+            'md' => 'spire-input-icon--md',
+            'lg' => 'spire-input-icon--lg',
+        ];
+
+        return $sizes[$size] ?? $sizes['md'];
+    }
+
+    /**
+     * Get the base class for the dropdown content panel.
+     */
+    public static function dropdownContentBase(): string
+    {
+        return 'spire-dropdown-content';
+    }
+
+    /**
+     * Get the width class for the dropdown content panel.
+     */
+    public static function dropdownContentWidth(string $width): string
+    {
+        $widths = [
+            'sm' => 'spire-dropdown-content--sm',
+            'md' => 'spire-dropdown-content--md',
+            'lg' => 'spire-dropdown-content--lg',
+            'xl' => 'spire-dropdown-content--xl',
+            'auto' => 'spire-dropdown-content--auto',
+        ];
+
+        return $widths[$width] ?? $widths['md'];
+    }
+
+    /**
+     * Get the base class for a dropdown item.
+     */
+    public static function dropdownItemBase(): string
+    {
+        return 'spire-dropdown-item';
+    }
+
+    /**
+     * Get the state class for a dropdown item.
+     */
+    public static function dropdownItemState(bool $disabled, bool $destructive): string
+    {
+        if ($disabled) {
+            return 'spire-dropdown-item--disabled';
+        }
+        if ($destructive) {
+            return 'spire-dropdown-item--destructive';
+        }
+
+        return 'spire-dropdown-item--normal';
+    }
+
+    /**
+     * Get the base class for a dropdown label.
+     */
+    public static function dropdownLabelBase(): string
+    {
+        return 'spire-dropdown-label';
+    }
+
+    /**
+     * Get the base class for a dropdown separator.
+     */
+    public static function dropdownSeparatorBase(): string
+    {
+        return 'spire-dropdown-separator';
     }
 }

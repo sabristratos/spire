@@ -33,7 +33,7 @@ $classString = ComponentStyles::buildClassString([
     'overflow-hidden',
     'shrink-0',
     'font-semibold',
-    'transition-fast',
+    'ease-fast',
     ComponentStyles::sizeClasses($size),
     ComponentStyles::radiusClasses($radius),
     $isDisabled ? 'opacity-50 cursor-not-allowed' : '',

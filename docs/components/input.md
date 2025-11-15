@@ -134,7 +134,7 @@ Pure input component with leading/trailing slots for icons and interactive eleme
         <button
             type="button"
             @click="value = ''"
-            class="text-text-muted hover:text-text transition-fast"
+            class="text-text-muted hover:text-text ease-fast"
             x-show="value"
         >
             <x-spire::icon name="x-close" class="w-4 h-4" />
@@ -156,7 +156,7 @@ Pure input component with leading/trailing slots for icons and interactive eleme
             <button
                 type="button"
                 @click="showPassword = !showPassword"
-                class="text-text-muted hover:text-text transition-fast"
+                class="text-text-muted hover:text-text ease-fast"
             >
                 <x-spire::icon x-show="!showPassword" name="eye" class="w-5 h-5" />
                 <x-spire::icon x-show="showPassword" name="eye-off" class="w-5 h-5" />

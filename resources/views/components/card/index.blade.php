@@ -25,7 +25,7 @@ use SpireUI\Support\ComponentStyles;
     $classString = ComponentStyles::buildClassString([
         'relative',
         'overflow-hidden',
-        'transition-fast',
+        'ease-fast',
         $variantClasses[$variant] ?? $variantClasses['elevated'],
         $variant === 'elevated' ? ComponentStyles::shadowClasses($shadow) : '',
         ComponentStyles::radiusClasses($radius, true),

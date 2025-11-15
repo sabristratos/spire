@@ -14,7 +14,7 @@
 @php
 use SpireUI\Support\ComponentStyles;
 
-$baseClasses = 'w-full transition-fast';
+$baseClasses = 'w-full ease-fast';
 
 $resizeClasses = [
     'none' => 'resize-none',

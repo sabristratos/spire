@@ -31,7 +31,7 @@ use SpireUI\Support\ComponentStyles;
         'items-center',
         'justify-center',
         'font-medium',
-        'transition-fast',
+        'ease-fast',
         'whitespace-nowrap',
         ComponentStyles::sizeClasses($size, 'badge'),
         ComponentStyles::radiusClasses($radius),

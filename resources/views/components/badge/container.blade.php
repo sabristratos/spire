@@ -31,7 +31,7 @@ use SpireUI\Support\ComponentStyles;
         'justify-center',
         'rounded-full',
         'font-semibold',
-        'transition-fast',
+        'ease-fast',
         'z-10',
         $placementClasses[$placement] ?? $placementClasses['top-right'],
         $sizeClasses[$size] ?? $sizeClasses['md'],

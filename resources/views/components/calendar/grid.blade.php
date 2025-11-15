@@ -47,7 +47,7 @@
                     :data-spire-weekend="day.isWeekend ? 'true' : null"
                     :disabled="isDisabled(day)"
                     :class="{
-                        'aspect-square w-full flex items-center justify-center text-sm transition-fast relative': true,
+                        'aspect-square w-full flex items-center justify-center text-sm ease-fast relative': true,
 
                         // Base states
                         'hover:bg-hover cursor-pointer': !isDisabled(day) && mode === 'single',

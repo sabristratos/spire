@@ -1,0 +1,30 @@
+@layer components {
+    .spire-dropdown-content {
+        @apply bg-surface border border-border rounded-lg shadow-lg p-1;
+    }
+    .spire-dropdown-content--sm { @apply min-w-[12rem]; }
+    .spire-dropdown-content--md { @apply min-w-[14rem]; }
+    .spire-dropdown-content--lg { @apply min-w-[16rem]; }
+    .spire-dropdown-content--xl { @apply min-w-[20rem]; }
+    .spire-dropdown-content--auto { @apply min-w-max; }
+
+    .spire-dropdown-item {
+        @apply flex items-center gap-3 w-full px-3 py-2 text-sm transition-colors rounded-md;
+    }
+    .spire-dropdown-item--normal {
+        @apply text-text hover:bg-hover focus:bg-hover;
+    }
+    .spire-dropdown-item--destructive {
+        @apply text-error hover:bg-error/10 focus:bg-error/10;
+    }
+    .spire-dropdown-item--disabled {
+        @apply text-text-disabled cursor-not-allowed;
+    }
+
+    .spire-dropdown-label {
+        @apply px-3 py-2 text-xs font-semibold text-text-muted uppercase tracking-wide;
+    }
+    .spire-dropdown-separator {
+        @apply my-1 h-px bg-border;
+    }
+}
