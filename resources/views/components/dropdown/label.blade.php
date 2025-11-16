@@ -1,11 +1,7 @@
 @props([])
 
-@php
-    use SpireUI\Support\ComponentStyles;
-@endphp
-
 <div
-    {{ $attributes->merge(['class' => ComponentStyles::dropdownLabelBase()]) }}
+    {{ $attributes->merge(['class' => 'spire-dropdown-label']) }}
     role="presentation"
 >
     {{ $slot }}

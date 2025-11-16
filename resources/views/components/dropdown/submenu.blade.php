@@ -6,18 +6,14 @@
 ])
 
 @php
-    use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentClass;
 
-    $classString = ComponentStyles::buildClassString([
-        ComponentStyles::dropdownItemBase(),
-        ComponentStyles::dropdownItemState($disabled, false),
-    ]);
+    $triggerBuilder = ComponentClass::make('dropdown-item')
+        ->modifier($disabled ? 'disabled' : 'normal');
 
-    $panelClassString = ComponentStyles::buildClassString([
-        ComponentStyles::dropdownContentBase(),
-        ComponentStyles::dropdownContentWidth('sm'),
-        'animate-dropdown-bounce',
-    ]);
+    $panelBuilder = ComponentClass::make('dropdown-content')
+        ->modifier('sm')
+        ->addClass('animate-dropdown-bounce');
 @endphp
 
 <div
@@ -37,7 +33,7 @@
     <div x-ref="trigger" :id="$id('submenu-trigger')">
         <button
             type="button"
-            class="{{ $classString }}"
+            class="{{ $triggerBuilder->build() }}"
             role="menuitem"
             aria-haspopup="true"
             :aria-expanded="open"
@@ -58,7 +54,7 @@
         :id="$id('submenu-popover')"
         anchor="$id('submenu-trigger')"
         popover="auto"
-        class="{{ $panelClassString }}"
+        class="{{ $panelBuilder->build() }}"
         role="menu"
         data-placement="{{ $placement }}"
     >

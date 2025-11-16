@@ -6,7 +6,6 @@
     x-ref="content"
     popover="auto"
     data-placement="{{ $placement }}"
-    @toggle="console.log('🔄 Popover toggle event', { newState: $event.newState, oldState: $event.oldState })"
     role="dialog"
     aria-label="{{ __('spire::spire-ui.date.month_year_picker') }}"
     class="animate-dropdown-bounce bg-surface border border-border rounded-lg shadow-lg p-4 min-w-[280px]"

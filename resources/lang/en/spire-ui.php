@@ -71,6 +71,12 @@ return [
         'hide_password' => 'Hide password',
     ],
 
+    'switch' => [
+        'on' => 'On',
+        'off' => 'Off',
+        'toggle' => 'Toggle switch',
+    ],
+
     'pagination' => [
         'previous' => 'Previous',
         'next' => 'Next',
@@ -91,6 +97,22 @@ return [
         'clear' => 'Clear',
         'previous' => 'Previous',
         'next' => 'Next',
+    ],
+
+    'datepicker' => [
+        'placeholder' => 'Select date',
+        'picker_label' => 'Date picker',
+        'open_picker' => 'Open calendar',
+        'month' => 'Month',
+        'day' => 'Day',
+        'year' => 'Year',
+        'today' => 'Today',
+        'clear' => 'Clear',
+        'range_placeholder' => 'Select date range',
+        'multiple_placeholder' => 'Select dates',
+        'start_date' => 'Start date',
+        'end_date' => 'End date',
+        'dates_count' => ':count dates',
     ],
 
     'date' => [

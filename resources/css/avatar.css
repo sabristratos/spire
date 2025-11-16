@@ -1,0 +1,204 @@
+@layer components {
+    /* 1. Base Avatar Styles */
+    .spire-avatar {
+        @apply relative inline-flex items-center justify-center overflow-hidden shrink-0 font-semibold;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    /* 2. Size Variants */
+    .spire-avatar--xs {
+        @apply w-6 h-6 text-xs;
+    }
+    .spire-avatar--sm {
+        @apply w-8 h-8 text-sm;
+    }
+    .spire-avatar--md {
+        @apply w-10 h-10 text-base;
+    }
+    .spire-avatar--lg {
+        @apply w-12 h-12 text-lg;
+    }
+    .spire-avatar--xl {
+        @apply w-14 h-14 text-xl;
+    }
+
+    /* 3. Bordered */
+    .spire-avatar--bordered {
+        @apply ring-2 ring-offset-2;
+    }
+
+    /* 4. Border Colors */
+    .spire-avatar--ring-default {
+        @apply ring-neutral;
+    }
+    .spire-avatar--ring-neutral {
+        @apply ring-neutral;
+    }
+    .spire-avatar--ring-primary {
+        @apply ring-primary;
+    }
+    .spire-avatar--ring-secondary {
+        @apply ring-secondary;
+    }
+    .spire-avatar--ring-success {
+        @apply ring-success;
+    }
+    .spire-avatar--ring-error {
+        @apply ring-error;
+    }
+    .spire-avatar--ring-warning {
+        @apply ring-warning;
+    }
+    .spire-avatar--ring-info {
+        @apply ring-info;
+    }
+
+    /* 5. Disabled State */
+    .spire-avatar--disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    /* 6. Avatar Group Ring Classes (parent-based) */
+    [data-spire-avatar-group-bordered] .spire-avatar {
+        @apply ring-2 ring-offset-2;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="default"] {
+        @apply ring-neutral;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="neutral"] {
+        @apply ring-neutral;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="primary"] {
+        @apply ring-primary;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="secondary"] {
+        @apply ring-secondary;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="success"] {
+        @apply ring-success;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="error"] {
+        @apply ring-error;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="warning"] {
+        @apply ring-warning;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="info"] {
+        @apply ring-info;
+    }
+
+    /* 7. Avatar Overflow */
+    .spire-avatar-overflow {
+        @apply relative inline-flex items-center justify-center shrink-0 overflow-hidden font-semibold rounded-full;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    /* 8. Avatar Overflow Size Variants */
+    .spire-avatar-overflow--xs {
+        @apply w-6 h-6 text-xs;
+    }
+    .spire-avatar-overflow--sm {
+        @apply w-8 h-8 text-sm;
+    }
+    .spire-avatar-overflow--md {
+        @apply w-10 h-10 text-base;
+    }
+    .spire-avatar-overflow--lg {
+        @apply w-12 h-12 text-lg;
+    }
+    .spire-avatar-overflow--xl {
+        @apply w-14 h-14 text-xl;
+    }
+
+    /* 9. Avatar Overflow Bordered */
+    .spire-avatar-overflow--bordered {
+        @apply ring-2 ring-offset-2;
+    }
+
+    /* 10. Avatar Overflow Solid Color Variants */
+    .spire-avatar-overflow--default-solid {
+        @apply bg-neutral text-white;
+    }
+    .spire-avatar-overflow--neutral-solid {
+        @apply bg-neutral text-white;
+    }
+    .spire-avatar-overflow--primary-solid {
+        @apply bg-primary text-primary-foreground;
+    }
+    .spire-avatar-overflow--secondary-solid {
+        @apply bg-secondary text-secondary-foreground;
+    }
+    .spire-avatar-overflow--success-solid {
+        @apply bg-success text-success-foreground;
+    }
+    .spire-avatar-overflow--error-solid {
+        @apply bg-error text-error-foreground;
+    }
+    .spire-avatar-overflow--warning-solid {
+        @apply bg-warning text-warning-foreground;
+    }
+    .spire-avatar-overflow--info-solid {
+        @apply bg-info text-info-foreground;
+    }
+    .spire-avatar-overflow--featured-solid {
+        @apply bg-featured text-featured-foreground;
+    }
+
+    /* 11. Avatar Overflow Ring Colors */
+    .spire-avatar-overflow--ring-default {
+        @apply ring-neutral;
+    }
+    .spire-avatar-overflow--ring-neutral {
+        @apply ring-neutral;
+    }
+    .spire-avatar-overflow--ring-primary {
+        @apply ring-primary;
+    }
+    .spire-avatar-overflow--ring-secondary {
+        @apply ring-secondary;
+    }
+    .spire-avatar-overflow--ring-success {
+        @apply ring-success;
+    }
+    .spire-avatar-overflow--ring-error {
+        @apply ring-error;
+    }
+    .spire-avatar-overflow--ring-warning {
+        @apply ring-warning;
+    }
+    .spire-avatar-overflow--ring-info {
+        @apply ring-info;
+    }
+    .spire-avatar-overflow--ring-featured {
+        @apply ring-featured;
+    }
+
+    /* 11. Avatar Overflow inherits same group ring behavior */
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow {
+        @apply ring-2 ring-offset-2;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="default"] {
+        @apply ring-neutral;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="neutral"] {
+        @apply ring-neutral;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="primary"] {
+        @apply ring-primary;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="secondary"] {
+        @apply ring-secondary;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="success"] {
+        @apply ring-success;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="error"] {
+        @apply ring-error;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="warning"] {
+        @apply ring-warning;
+    }
+    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="info"] {
+        @apply ring-info;
+    }
+}

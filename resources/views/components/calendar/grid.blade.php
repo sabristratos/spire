@@ -82,10 +82,6 @@
                     }"
                 >
                     <span x-text="day.day"></span>
-                    <span
-                        x-show="mode === 'multiple' && isDateSelected(day.date)"
-                        class="absolute top-0 right-0 text-[10px] leading-none"
-                    >✓</span>
                 </button>
             </template>
         </div>

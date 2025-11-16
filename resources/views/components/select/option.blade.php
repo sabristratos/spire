@@ -5,26 +5,19 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
 $displayLabel = $label ?? $slot->toHtml();
 
-$baseClasses = 'flex items-center gap-3 w-full px-3 py-2 text-sm transition-colors rounded-md cursor-pointer';
+$builder = ComponentClass::make('select-option')
+    ->modifier($disabled ? 'disabled' : 'normal');
 
-$stateClasses = [
-    'disabled' => 'text-text-disabled cursor-not-allowed',
-    'normal' => 'text-text hover:bg-hover',
-];
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
-$selectedState = $disabled ? 'disabled' : 'normal';
-
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $stateClasses[$selectedState],
-]);
-
-$mergedAttributes = $attributes->merge([
-    'class' => $classString,
+$mergedAttributes = $attributes->except(['class'])->merge([
+    'class' => $builder->build(),
     'role' => 'option',
     'data-spire-select-value' => $value,
     'data-spire-select-label' => $displayLabel,

@@ -5,29 +5,20 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$widthClasses = [
-    'auto' => 'w-[anchor-size(width)]',
-    'sm' => 'min-w-[12rem]',
-    'md' => 'min-w-[14rem]',
-    'lg' => 'min-w-[16rem]',
-    'xl' => 'min-w-[20rem]',
-    'full' => 'w-full',
-];
+$builder = ComponentClass::make('autocomplete-content')
+    ->modifier($width);
 
-$baseClasses = 'animate-dropdown-bounce bg-surface border border-border rounded-lg shadow-lg';
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $widthClasses[$width] ?? $widthClasses['auto'],
-]);
-
-$mergedAttributes = $attributes->merge([
+$mergedAttributes = $attributes->except(['class'])->merge([
     'data-placement' => $placement,
     'data-spire-autocomplete-content' => true,
     'popover' => 'manual',
-    'class' => $classString,
+    'class' => $builder->build(),
     'role' => 'listbox',
 ]);
 @endphp

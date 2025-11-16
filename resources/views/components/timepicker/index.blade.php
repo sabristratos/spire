@@ -1,20 +1,3 @@
-{{--
-    Time Picker Component
-
-    A time picker component with scrollable hour, minute, and optional second columns.
-    Supports 12-hour and 24-hour formats with auto-detection from locale.
-
-    <x-spire::timepicker wire:model="appointment_time" />
-
-    <x-spire::timepicker
-        wire:model="meeting_time"
-        use24Hour="false"
-        minuteStep="5"
-        showSeconds="false"
-        placeholder="Select time"
-    />
---}}
-
 @props([
     'placeholder' => null,
     'placement' => 'bottom-start',

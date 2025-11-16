@@ -7,17 +7,26 @@
 ])
 
 @php
-    use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentClass;
 
-    $classString = ComponentStyles::buildClassString([
-        ComponentStyles::dropdownItemBase(),
-        ComponentStyles::dropdownItemState($disabled, $destructive),
-    ]);
+    $builder = ComponentClass::make('dropdown-item');
+
+    if ($disabled) {
+        $builder->modifier('disabled');
+    } elseif ($destructive) {
+        $builder->modifier('destructive');
+    } else {
+        $builder->modifier('normal');
+    }
+
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $tag = $href ? 'a' : 'button';
 
     $mergedAttributes = $attributes->merge([
-        'class' => $classString,
+        'class' => $builder->build(),
         'role' => 'menuitem',
         'tabindex' => $disabled ? '-1' : '0',
         'disabled' => $disabled && !$href ? true : null,

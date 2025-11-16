@@ -119,35 +119,6 @@ export const CalendarUtils = {
     },
 
     /**
-     * Add days to a date.
-     */
-    addDays(dateString, days) {
-        const { year, month, day } = this.parseDate(dateString);
-        const date = new Date(year, month, day);
-        date.setDate(date.getDate() + days);
-        return this.formatDate(date.getFullYear(), date.getMonth(), date.getDate());
-    },
-
-    /**
-     * Add months to a date.
-     */
-    addMonths(dateString, months) {
-        const { year, month, day } = this.parseDate(dateString);
-        const date = new Date(year, month, day);
-        date.setMonth(date.getMonth() + months);
-        return this.formatDate(date.getFullYear(), date.getMonth(), date.getDate());
-    },
-
-    /**
-     * Add years to a date.
-     */
-    addYears(dateString, years) {
-        const { year, month, day } = this.parseDate(dateString);
-        const date = new Date(year + years, month, day);
-        return this.formatDate(date.getFullYear(), date.getMonth(), date.getDate());
-    },
-
-    /**
      * Compare two dates.
      */
     compareDates(date1, date2) {
@@ -181,28 +152,6 @@ export const CalendarUtils = {
     },
 
     /**
-     * Get the number of days in a month.
-     */
-    getDaysInMonth(year, month) {
-        return new Date(year, month + 1, 0).getDate();
-    },
-
-    /**
-     * Get the first day of the month (0-6, Sunday to Saturday).
-     */
-    getFirstDayOfMonth(year, month) {
-        return new Date(year, month, 1).getDay();
-    },
-
-    /**
-     * Get the last day of the month.
-     */
-    getLastDayOfMonth(year, month) {
-        const lastDate = new Date(year, month + 1, 0);
-        return lastDate.getDate();
-    },
-
-    /**
      * Get an array of day names.
      */
     getDayNames(firstDayOfWeek = 0, locale = 'en-US', format = 'short') {
@@ -221,67 +170,11 @@ export const CalendarUtils = {
     },
 
     /**
-     * Get an array of month names.
-     */
-    getMonthNames(locale = 'en-US', format = 'long') {
-        const months = [];
-
-        for (let month = 0; month < 12; month++) {
-            const date = new Date(2024, month, 1);
-            const formatter = new Intl.DateTimeFormat(locale, { month: format });
-            months.push(formatter.format(date));
-        }
-
-        return months;
-    },
-
-    /**
-     * Get a range of dates between start and end.
-     */
-    getDateRange(startDate, endDate) {
-        const dates = [];
-        let current = startDate;
-
-        while (this.isBefore(current, endDate) || this.isSameDate(current, endDate)) {
-            dates.push(current);
-            current = this.addDays(current, 1);
-        }
-
-        return dates;
-    },
-
-    /**
      * Get the current date as YYYY-MM-DD.
      */
     today() {
         const now = new Date();
         return this.formatDate(now.getFullYear(), now.getMonth(), now.getDate());
-    },
-
-    /**
-     * Check if a year is a leap year.
-     */
-    isLeapYear(year) {
-        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    },
-
-    /**
-     * Get the day of week for a date (0-6, Sunday to Saturday).
-     */
-    getDayOfWeek(dateString) {
-        const { year, month, day } = this.parseDate(dateString);
-        return new Date(year, month, day).getDay();
-    },
-
-    /**
-     * Get the week number of the year.
-     */
-    getWeekNumber(dateString) {
-        const { year, month, day } = this.parseDate(dateString);
-        const date = new Date(year, month, day);
-        const firstDayOfYear = new Date(year, 0, 1);
-        const days = Math.floor((date - firstDayOfYear) / (24 * 60 * 60 * 1000));
-        return Math.ceil((days + firstDayOfYear.getDay() + 1) / 7);
     },
 
     /**
@@ -305,25 +198,4 @@ export const CalendarUtils = {
         );
     },
 
-    /**
-     * Get the start and end of a week for a given date.
-     */
-    getWeekRange(dateString, firstDayOfWeek = 0) {
-        const { year, month, day } = this.parseDate(dateString);
-        const date = new Date(year, month, day);
-        const currentDay = date.getDay();
-
-        const daysFromStart = (currentDay - firstDayOfWeek + 7) % 7;
-
-        const startDate = new Date(date);
-        startDate.setDate(date.getDate() - daysFromStart);
-
-        const endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 6);
-
-        return {
-            start: this.formatDate(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
-            end: this.formatDate(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
-        };
-    },
 };

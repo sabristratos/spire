@@ -8,28 +8,16 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$variantClasses = [
-    'bordered' => 'border border-border',
-    'flat' => 'bg-surface-subtle',
-    'shadow' => ComponentStyles::shadowClasses('md'),
-];
+$builder = ComponentClass::make('accordion')
+    ->modifier($variant)
+    ->modifier($size)
+    ->radius($radius);
 
-$sizeClasses = [
-    'sm' => 'text-sm',
-    'md' => 'text-base',
-    'lg' => 'text-lg',
-];
-
-$classString = ComponentStyles::buildClassString([
-    'flex',
-    'flex-col',
-    ComponentStyles::radiusClasses($radius),
-    $variantClasses[$variant] ?? $variantClasses['bordered'],
-    $sizeClasses[$size] ?? $sizeClasses['md'],
-    $variant === 'bordered' ? 'divide-y divide-border' : 'gap-2',
-]);
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
 $accordionId = 'accordion-' . uniqid();
 $defaultOpenIndex = is_array($defaultOpen) ? ($defaultOpen[0] ?? null) : $defaultOpen;
@@ -38,7 +26,7 @@ $defaultOpenArray = is_array($defaultOpen) ? $defaultOpen : ($defaultOpen !== nu
 $defaultOpenJson = !empty($defaultOpenArray) ? json_encode($defaultOpenArray) : '[]';
 
 $mergedAttributes = $attributes->merge([
-    'class' => $classString,
+    'class' => $builder->build(),
     'data-spire-accordion' => 'true',
     'data-spire-accordion-id' => $accordionId,
     'data-spire-variant' => $variant,

@@ -16,7 +16,7 @@
 ])
 
 @php
-    use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentClass;
 
     $buttonSizes = [
         'sm' => 'sm',
@@ -24,6 +24,13 @@
         'lg' => 'sm',
     ];
     $buttonSize = $buttonSizes[$size] ?? $buttonSizes['md'];
+
+    $iconSizeClasses = [
+        'sm' => 'spire-input-icon--sm',
+        'md' => 'spire-input-icon--md',
+        'lg' => 'spire-input-icon--lg',
+    ];
+    $iconSizeClass = $iconSizeClasses[$size] ?? $iconSizeClasses['md'];
 
     $hasLeadingContent = isset($leading) || $icon;
     $hasTrailingContent = isset($trailing) || $iconTrailing || $clearable || $viewable || $copyable;
@@ -41,18 +48,26 @@
 
     $alpineData = !empty($alpineDataParts) ? '{ ' . implode(', ', $alpineDataParts) . ' }' : '{}';
 
+    $containerBuilder = ComponentClass::make('input-container');
+    if ($customClass = $attributes->get('class')) {
+        $containerBuilder->addClass($customClass);
+    }
+    if ($customStyle = $attributes->get('style')) {
+        $containerBuilder->addClass($customStyle);
+    }
+
     $wrapperAttributes = $attributes->only(['class', 'style'])->merge([
-        'class' => ComponentStyles::inputContainerBase(),
+        'class' => $containerBuilder->build(),
     ]);
 
-    $inputBoxClasses = ComponentStyles::buildClassString([
-        ComponentStyles::inputBoxBase(),
-        ComponentStyles::inputBoxVariant($variant),
-        ComponentStyles::inputBoxSize($size),
-        ComponentStyles::radiusClasses($radius),
-    ]);
+    $inputBoxBuilder = ComponentClass::make('input-box')
+        ->modifier($variant)
+        ->modifier($size)
+        ->radius($radius);
 
-    $inputClasses = ComponentStyles::inputBase();
+    $inputBoxClasses = $inputBoxBuilder->build();
+
+    $inputClasses = 'spire-input';
 
     $inputAttributes = $attributes->except(['class', 'style'])->merge([
         'type' => $viewable ? '' : $type,
@@ -74,7 +89,7 @@
 @endphp
 
 @if($needsAlpineData)
-    <div {{ $wrapperAttributes }} x-data="{{ $alpineData }}" x-init="console.log('[INPUT] Component initialized, clearable:', {{ $clearable ? 'true' : 'false' }}); @if($clearable) console.log('[INPUT] Initial inputValue:', inputValue); $watch('inputValue', value => console.log('[INPUT] inputValue changed:', value, 'length:', value?.length, 'shouldShow:', !!(value && value.length > 0))) @endif">
+    <div {{ $wrapperAttributes }} x-data="{{ $alpineData }}">
         @else
             <div {{ $wrapperAttributes }}>
                 @endif
@@ -84,7 +99,7 @@
                             @if(isset($leading))
                                 {{ $leading }}
                             @elseif($icon)
-                                <x-spire::icon :name="$icon" class="{{ ComponentStyles::inputIconSize($size) }} text-text-muted" />
+                                <x-spire::icon :name="$icon" class="{{ $iconSizeClass }} text-text-muted" />
                             @endif
                         </div>
                     @endif
@@ -98,10 +113,10 @@
                     />
 
                     @if($hasTrailingContent)
-                        <div class="flex items-center shrink-0 gap-2">
-                            @if(isset($trailing))
-                                {{ $trailing }}
-                            @else
+                        @if(isset($trailing))
+                            {{ $trailing }}
+                        @else
+                            <div class="flex items-center shrink-0">
                                 @if($clearable)
                                     <x-spire::button
                                         type="button"
@@ -109,13 +124,11 @@
                                         :size="$buttonSize"
                                         icon-only
                                         x-show="inputValue && inputValue.length > 0"
-                                        x-init="console.log('[INPUT CLEAR] Clear button initialized', { inputValue, show: inputValue && inputValue.length > 0 })"
-                                        x-effect="console.log('[INPUT CLEAR] x-show evaluated:', { inputValue, length: inputValue?.length, show: inputValue && inputValue.length > 0 })"
                                         x-cloak
-                                        @click="console.log('[INPUT CLEAR] Clear button clicked'); inputValue = ''; $refs.input.value = ''; $refs.input.dispatchEvent(new Event('input')); $dispatch('input-cleared'); $refs.input.focus()"
+                                        @click="inputValue = ''; $refs.input.value = ''; $refs.input.dispatchEvent(new Event('input')); $dispatch('input-cleared'); $refs.input.focus()"
                                         :aria-label="__('spire::form.clear')"
                                     >
-                                        <x-spire::icon name="x-close" class="{{ ComponentStyles::inputIconSize($size) }}" />
+                                        <x-spire::icon name="x-close" class="{{ $iconSizeClass }}" />
                                     </x-spire::button>
                                 @endif
 
@@ -128,8 +141,8 @@
                                         @click="showPassword = !showPassword"
                                         x-bind:aria-label="showPassword ? '{{ __('spire::form.hide_password') }}' : '{{ __('spire::form.show_password') }}'"
                                     >
-                                        <x-spire::icon x-show="!showPassword" x-cloak name="eye" class="{{ ComponentStyles::inputIconSize($size) }}" />
-                                        <x-spire::icon x-show="showPassword" x-cloak name="eye-off" class="{{ ComponentStyles::inputIconSize($size) }}" />
+                                        <x-spire::icon x-show="!showPassword" x-cloak name="eye" class="{{ $iconSizeClass }}" />
+                                        <x-spire::icon x-show="showPassword" x-cloak name="eye-off" class="{{ $iconSizeClass }}" />
                                     </x-spire::button>
                                 @endif
 
@@ -142,15 +155,15 @@
                                         @click="navigator.clipboard.writeText($refs.input.value); $dispatch('copied')"
                                         aria-label="Copy to clipboard"
                                     >
-                                        <x-spire::icon name="copy-01" class="{{ ComponentStyles::inputIconSize($size) }}" />
+                                        <x-spire::icon name="copy-01" class="{{ $iconSizeClass }}" />
                                     </x-spire::button>
                                 @endif
 
                                 @if($iconTrailing)
-                                    <x-spire::icon :name="$iconTrailing" class="{{ ComponentStyles::inputIconSize($size) }} text-text-muted" />
+                                    <x-spire::icon :name="$iconTrailing" class="{{ $iconSizeClass }} text-text-muted" />
                                 @endif
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     @endif
                 </div>
             </div>

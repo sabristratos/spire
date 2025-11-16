@@ -7,31 +7,30 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$widthClasses = [
-    'auto' => 'w-[anchor-size(width)]',
-    'sm' => 'min-w-[12rem]',
-    'md' => 'min-w-[14rem]',
-    'lg' => 'min-w-[16rem]',
-    'xl' => 'min-w-[20rem]',
-    'full' => 'w-full',
-];
+$builder = ComponentClass::make('select-content')
+    ->modifier($width);
 
-$baseClasses = 'animate-dropdown-bounce bg-surface border border-border rounded-lg shadow-lg';
-$scrollClasses = $slot->isEmpty() ? '' : 'p-1 max-h-60 overflow-y-auto';
+// Add scrolling classes only if using auto-generated content
+if ($slot->isEmpty()) {
+    $builder->addClass('p-1')->addClass('max-h-60')->addClass('overflow-y-auto');
+}
 
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $scrollClasses,
-    $widthClasses[$width] ?? $widthClasses['auto'],
-]);
+// Auto width uses anchor positioning
+if ($width === 'auto') {
+    $builder->addClass('w-[anchor-size(width)]');
+}
 
-$mergedAttributes = $attributes->merge([
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
+
+$mergedAttributes = $attributes->except(['class'])->merge([
     'data-placement' => $placement,
     'data-spire-select-content' => true,
     'popover' => 'auto',
-    'class' => $classString,
+    'class' => $builder->build(),
     'role' => 'listbox',
     'aria-multiselectable' => $multiple ? 'true' : 'false',
 ]);
@@ -57,7 +56,7 @@ $mergedAttributes = $attributes->merge([
         <div class="max-h-[400px] flex flex-col overflow-hidden">
             @if($multiple)
                 {{-- Multiselect controls header --}}
-                <div class="flex items-center justify-between gap-2 px-3 py-2 border-b border-border bg-surface-subtle" x-show="displayOptions.length > 0">
+                <div class="spire-select-actions" x-show="displayOptions.length > 0">
                     <span class="text-xs text-text-muted" x-text="selectedValues.length + ' / ' + selectableOptions.length + ' {{ __('spire::spire-ui.select.selected') }}'"></span>
 
                     <div class="flex items-center gap-1">
@@ -100,15 +99,15 @@ $mergedAttributes = $attributes->merge([
                 </div>
             @endif
 
-            <div class="flex-1 min-h-0 overflow-y-auto p-1 space-y-1">
+            <div class="spire-select-options">
                 {{-- WARNING: x-html renders raw HTML from slot content. Ensure option content is trusted to prevent XSS. --}}
                 <template x-for="(option, index) in filteredOptions" :key="option.value">
                 <div
-                    class="flex items-center gap-3 w-full px-3 py-1.5 text-sm transition-colors rounded-md cursor-pointer text-text hover:bg-hover"
+                    class="spire-select-option spire-select-option--normal"
                     :class="{
-                        'bg-primary/10': isSelected(option.value),
+                        'spire-select-option--selected': isSelected(option.value),
                         'bg-hover': highlightedIndex === index && !isSelected(option.value),
-                        'text-text-disabled cursor-not-allowed opacity-50': option.disabled || (multiple && isMaxReached && !isSelected(option.value))
+                        'spire-select-option--disabled': option.disabled || (multiple && isMaxReached && !isSelected(option.value))
                     }"
                     @click="if (!option.disabled && !(multiple && isMaxReached && !isSelected(option.value))) { selectOption(option.value, option.label) }"
                     role="option"
@@ -127,11 +126,11 @@ $mergedAttributes = $attributes->merge([
                 </div>
             </template>
 
-            <div x-show="filteredOptions.length === 0 && !searchQuery" class="px-3 py-8 text-center text-sm text-text-muted">
+            <div x-show="filteredOptions.length === 0 && !searchQuery" class="spire-select-empty">
                 {{ __('spire::spire-ui.select.no_options') }}
             </div>
 
-                <div x-show="filteredOptions.length === 0 && searchQuery" class="px-3 py-8 text-center text-sm text-text-muted">
+                <div x-show="filteredOptions.length === 0 && searchQuery" class="spire-select-empty">
                     {{ __('spire::spire-ui.select.no_results') }}
                 </div>
             </div>

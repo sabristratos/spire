@@ -8,28 +8,19 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$baseClasses = 'flex items-center justify-between gap-2 w-full ease-fast';
+$builder = ComponentClass::make('select-trigger')
+    ->size($size)
+    ->colorVariant($color, $variant)
+    ->radius($radius);
 
-$sizeClasses = [
-    'sm' => 'h-8 px-2 text-sm',
-    'md' => 'h-10 px-2 text-base',
-    'lg' => 'h-12 px-2 text-lg',
-];
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
-$variantKey = "input-{$variant}";
-$variantClasses = ComponentStyles::colorClasses($variantKey, $color);
-
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $sizeClasses[$size] ?? $sizeClasses['md'],
-    ComponentStyles::radiusClasses($radius),
-    $variantClasses,
-]);
-
-$mergedAttributes = $attributes->merge([
-    'class' => $classString,
+$mergedAttributes = $attributes->except(['class'])->merge([
+    'class' => $builder->build(),
     'type' => 'button',
     'aria-haspopup' => 'listbox',
     'x-bind:aria-expanded' => 'open',
@@ -43,10 +34,7 @@ $mergedAttributes = $attributes->merge([
             {{-- Multiselect: Show tags for selected items --}}
             <div class="flex-1 flex items-center gap-1.5 min-w-0" x-show="selectedItems.length > 0">
                 <template x-for="(item, index) in selectedItems.slice(0, {{ $maxTagsDisplay }})" :key="item.value">
-                    <span
-                        class="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-md bg-primary/10 text-primary border border-primary/20"
-                        data-spire-select-tag
-                    >
+                    <span class="spire-select-tag">
                         <span class="truncate max-w-[8rem]" x-text="item.label"></span>
                         <button
                             type="button"
@@ -61,16 +49,16 @@ $mergedAttributes = $attributes->merge([
 
                 <span
                     x-show="selectedItems.length > {{ $maxTagsDisplay }}"
-                    class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md bg-surface-hover text-text-muted"
+                    class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md bg-neutral-200 dark:bg-neutral-700 text-text-muted"
                     x-text="moreItemsText.replace(':count', selectedItems.length - {{ $maxTagsDisplay }})"
                 ></span>
             </div>
 
-            <span class="flex-1 text-left truncate text-text-muted" x-text="placeholder" x-show="selectedItems.length === 0"></span>
+            <span class="flex-1 text-left truncate spire-select-trigger__placeholder" x-text="placeholder" x-show="selectedItems.length === 0"></span>
         @else
             {{-- Single select: Show selected label or placeholder --}}
             <span class="flex-1 text-left truncate text-text" x-text="selectedLabel" x-show="selectedLabel"></span>
-            <span class="flex-1 text-left truncate text-text-muted" x-text="placeholder" x-show="!selectedLabel"></span>
+            <span class="flex-1 text-left truncate spire-select-trigger__placeholder" x-text="placeholder" x-show="!selectedLabel"></span>
         @endif
 
         <x-spire::icon name="chevron-down" class="w-4 h-4 shrink-0 text-text-muted transition-transform" x-bind:class="open ? 'rotate-180' : ''" />

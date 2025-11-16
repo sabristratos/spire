@@ -1,0 +1,123 @@
+@layer components {
+    /* 1. Autocomplete Input Wrapper */
+    .spire-autocomplete-input-wrapper {
+        @apply relative flex items-center w-full;
+    }
+
+    /* 2. Autocomplete Input Base */
+    .spire-autocomplete-input {
+        @apply w-full;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    /* 3. Autocomplete Input Size Variants */
+    .spire-autocomplete-input--sm {
+        @apply h-8 px-2 text-sm;
+    }
+    .spire-autocomplete-input--md {
+        @apply h-10 px-3 text-base;
+    }
+    .spire-autocomplete-input--lg {
+        @apply h-12 px-4 text-lg;
+    }
+
+    /* 4. Autocomplete Input Clearable Padding */
+    .spire-autocomplete-input--clearable {
+        @apply pr-8;
+    }
+
+    /* 5. Autocomplete Input Bordered Variant */
+    .spire-autocomplete-input--default-bordered {
+        @apply bg-surface border border-border text-text;
+        @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+    }
+    .spire-autocomplete-input--primary-bordered {
+        @apply bg-surface border border-primary text-text;
+        @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+    }
+    .spire-autocomplete-input--error-bordered {
+        @apply bg-surface border border-error text-text;
+        @apply focus:border-error focus:ring-2 focus:ring-error/20;
+    }
+
+    /* 6. Autocomplete Input Flat Variant */
+    .spire-autocomplete-input--default-flat {
+        @apply bg-surface-subtle border-0 text-text;
+        @apply focus:bg-surface focus:ring-2 focus:ring-primary/20;
+    }
+    .spire-autocomplete-input--primary-flat {
+        @apply bg-surface-subtle border-0 text-text;
+        @apply focus:bg-surface focus:ring-2 focus:ring-primary/20;
+    }
+    .spire-autocomplete-input--error-flat {
+        @apply bg-surface-subtle border-0 text-text;
+        @apply focus:bg-surface focus:ring-2 focus:ring-error/20;
+    }
+
+    /* 7. Autocomplete Clear Button */
+    .spire-autocomplete-clear {
+        @apply absolute right-2 p-1 rounded-sm transition-colors;
+        @apply hover:bg-hover;
+    }
+
+    /* 8. Autocomplete Content (Dropdown Panel) */
+    .spire-autocomplete-content {
+        @apply bg-surface border border-border rounded-lg shadow-lg;
+        animation: dropdown-bounce var(--animation-duration-normal) ease-out;
+    }
+
+    /* 9. Autocomplete Content Width Variants */
+    .spire-autocomplete-content--auto {
+        @apply w-[anchor-size(width)];
+    }
+    .spire-autocomplete-content--sm {
+        @apply min-w-[12rem];
+    }
+    .spire-autocomplete-content--md {
+        @apply min-w-[14rem];
+    }
+    .spire-autocomplete-content--lg {
+        @apply min-w-[16rem];
+    }
+    .spire-autocomplete-content--xl {
+        @apply min-w-[20rem];
+    }
+    .spire-autocomplete-content--full {
+        @apply w-full;
+    }
+
+    /* 10. Autocomplete Options Container */
+    .spire-autocomplete-options {
+        @apply max-h-[400px] flex flex-col overflow-hidden;
+    }
+
+    /* 11. Autocomplete Options List */
+    .spire-autocomplete-options-list {
+        @apply flex-1 min-h-0 overflow-y-auto p-1 space-y-1;
+    }
+
+    /* 12. Autocomplete Option Item */
+    .spire-autocomplete-option {
+        @apply flex items-center gap-3 w-full px-3 py-1.5 text-sm rounded-md cursor-pointer;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+    .spire-autocomplete-option--normal {
+        @apply text-text hover:bg-hover;
+    }
+    .spire-autocomplete-option--highlighted {
+        @apply bg-hover;
+    }
+    .spire-autocomplete-option--disabled {
+        @apply text-text-disabled cursor-not-allowed opacity-50;
+    }
+
+    /* 13. Autocomplete Empty State */
+    .spire-autocomplete-empty {
+        @apply px-3 py-8 text-center text-sm text-text-muted;
+    }
+
+    /* 14. Autocomplete Min Chars Message */
+    .spire-autocomplete-min-chars {
+        @apply px-3 py-4 text-center text-xs text-text-muted;
+    }
+}

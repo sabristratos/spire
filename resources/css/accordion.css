@@ -1,0 +1,87 @@
+@layer components {
+    /* 1. Base Accordion Container Styles */
+    .spire-accordion {
+        @apply flex flex-col overflow-hidden;
+        transition: all var(--animation-duration-normal) ease-in-out;
+    }
+
+    /* 2. Variant Styles */
+    .spire-accordion--bordered {
+        @apply border border-border divide-y divide-border;
+    }
+    .spire-accordion--flat {
+        @apply bg-surface-subtle gap-2;
+    }
+    .spire-accordion--shadow {
+        @apply shadow-md gap-2;
+    }
+
+    /* 3. Size Variants */
+    .spire-accordion--sm {
+        @apply text-sm;
+    }
+    .spire-accordion--md {
+        @apply text-base;
+    }
+    .spire-accordion--lg {
+        @apply text-lg;
+    }
+
+    /* 4. Radius Variants */
+    .spire-accordion--radius-none {
+        @apply rounded-none;
+    }
+    .spire-accordion--radius-sm {
+        @apply rounded-sm;
+    }
+    .spire-accordion--radius-md {
+        @apply rounded-md;
+    }
+    .spire-accordion--radius-lg {
+        @apply rounded-lg;
+    }
+    .spire-accordion--radius-full {
+        @apply rounded-full;
+    }
+
+    /* 5. Accordion Item Button */
+    .spire-accordion-button {
+        @apply flex items-center justify-between w-full text-left;
+        @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    .spire-accordion-button--normal {
+        @apply cursor-pointer hover:bg-surface-subtle/50;
+    }
+    .spire-accordion-button--disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    /* 6. Accordion Item Button Padding */
+    .spire-accordion-button--sm {
+        @apply p-3;
+    }
+    .spire-accordion-button--md {
+        @apply p-4;
+    }
+    .spire-accordion-button--lg {
+        @apply p-6;
+    }
+
+    /* 7. Accordion Content */
+    .spire-accordion-content {
+        @apply pt-0;
+    }
+
+    /* 8. Accordion Content Padding */
+    .spire-accordion-content--sm {
+        @apply p-3;
+    }
+    .spire-accordion-content--md {
+        @apply p-4;
+    }
+    .spire-accordion-content--lg {
+        @apply p-6;
+    }
+}

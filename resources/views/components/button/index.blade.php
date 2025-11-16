@@ -13,27 +13,33 @@
 ])
 
 @php
-    use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentClass;
 
     $isLink = !is_null($href);
     $isDisabled = $disabled || $loading;
 
-    $spinnerSizes = ComponentStyles::sizeVariants()['spinner'];
+    $spinnerSizes = [
+        'sm' => 'h-3 w-3',
+        'md' => 'h-4 w-4',
+        'lg' => 'h-5 w-5',
+    ];
 
-    $classString = ComponentStyles::buildClassString([
-        ComponentStyles::buttonBase(),
-        ComponentStyles::buttonSize($size, $iconOnly, $variant),
-        ComponentStyles::radiusClasses($radius),
-        ComponentStyles::buttonVariant($variant, $color),
+    $builder = ComponentClass::make('button')
+        ->size($size)
+        ->colorVariant($color, $variant)
+        ->radius($radius)
+        ->modifier('group')
+        ->when($iconOnly, fn($b) => $b->modifier('icon-only'))
+        ->when($variant === 'ghost', fn($b) => $b->modifier('ghost'))
+        ->addIf($isDisabled, 'cursor-not-allowed', 'opacity-50', $isLink ? 'pointer-events-none' : '')
+        ->addIf($pressed, 'shadow-inner');
 
-        $isDisabled ? 'cursor-not-allowed opacity-50' . ($isLink ? ' pointer-events-none' : '') : '',
-        $pressed ? 'shadow-inner' : '',
-
-        ...ComponentStyles::buttonGroupClasses($radius, $variant),
-    ]);
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $mergedAttributes = $attributes->merge([
-        'class' => $classString,
+        'class' => $builder->build(),
         'disabled' => $isDisabled && !$isLink ? true : null,
         'type' => !$isLink ? $type : null,
         'href' => $isLink ? $href : null,
@@ -41,9 +47,9 @@
         'aria-disabled' => $isDisabled ? 'true' : null,
         'aria-busy' => $loading ? 'true' : null,
         'aria-pressed' => $pressed ? 'true' : 'false',
-        'data-spire-variant' => $variant,
-        'data-spire-color' => $color,
-        'data-spire-loading' => $loading ? 'true' : null,
+        ...$builder->dataAttribute('loading', $loading ? 'true' : null)
+                   ->dataAttribute('disabled', $isDisabled ? 'true' : null)
+                   ->getDataAttributes(),
     ]);
 
     $tag = $isLink ? 'a' : 'button';

@@ -10,29 +10,17 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$baseClasses = 'w-full ease-fast';
+$builder = ComponentClass::make('autocomplete-input')
+    ->size($size)
+    ->colorVariant($color, $variant)
+    ->radius($radius)
+    ->when($clearable, fn($b) => $b->modifier('clearable'));
 
-$sizeClasses = [
-    'sm' => 'h-8 px-2 text-sm',
-    'md' => 'h-10 px-3 text-base',
-    'lg' => 'h-12 px-4 text-lg',
-];
+$inputClasses = $builder->build();
 
-$variantKey = "input-{$variant}";
-$variantClasses = ComponentStyles::colorClasses($variantKey, $color);
-
-$inputClasses = ComponentStyles::buildClassString([
-    $baseClasses,
-    $sizeClasses[$size] ?? $sizeClasses['md'],
-    ComponentStyles::radiusClasses($radius),
-    $variantClasses,
-]);
-
-$inputClassesWithPadding = $clearable ? $inputClasses . ' pr-8' : $inputClasses;
-
-$wrapperClasses = 'relative flex items-center w-full';
+$wrapperClasses = 'spire-autocomplete-input-wrapper';
 @endphp
 
 <div x-ref="trigger" class="{{ $wrapperClasses }}">
@@ -56,7 +44,7 @@ $wrapperClasses = 'relative flex items-center w-full';
         :aria-controls="$id('popover')"
         :aria-activedescendant="highlightedIndex >= 0 ? $id('option-' + highlightedIndex) : null"
         autocomplete="off"
-        class="{{ $inputClassesWithPadding }}"
+        class="{{ $inputClasses }}"
         {{ $attributes->except(['class', 'placeholder', 'disabled']) }}
     />
 
@@ -66,7 +54,7 @@ $wrapperClasses = 'relative flex items-center w-full';
             @click="clearInput"
             x-show="inputValue.length > 0"
             x-cloak
-            class="absolute right-2 p-1 hover:bg-hover rounded-sm transition-colors"
+            class="spire-autocomplete-clear"
             :aria-label="clearLabel"
             tabindex="-1"
         >

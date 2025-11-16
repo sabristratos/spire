@@ -1,0 +1,48 @@
+@layer components {
+    /* 1. Base Card Styles */
+    .spire-card {
+        @apply relative overflow-hidden;
+        transition: all var(--animation-duration-normal) ease-in-out;
+    }
+
+    /* 2. Variants */
+    .spire-card--elevated {
+        @apply bg-surface;
+    }
+    .spire-card--bordered {
+        @apply bg-surface border border-border;
+    }
+    .spire-card--flat {
+        @apply bg-surface-subtle;
+    }
+
+    /* 3. Padding Sizes */
+    .spire-card--padding-none {
+        @apply p-0;
+    }
+    .spire-card--padding-sm {
+        @apply p-3;
+    }
+    .spire-card--padding-md {
+        @apply p-4;
+    }
+    .spire-card--padding-lg {
+        @apply p-6;
+    }
+
+    /* 4. Interactive States */
+    .spire-card--hoverable {
+        @apply hover:shadow-lg hover:scale-[1.02] cursor-pointer;
+        transition: all var(--animation-duration-normal) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .spire-card--pressable {
+        @apply cursor-pointer active:scale-[0.98];
+        transition: transform var(--animation-duration-fast) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .spire-card--blurred {
+        @apply backdrop-blur-md bg-surface/70;
+    }
+    .spire-card--full-width {
+        @apply w-full;
+    }
+}

@@ -312,57 +312,6 @@ class ComponentStyles
     }
 
     /**
-     * Get the base class for buttons.
-     */
-    public static function buttonBase(): string
-    {
-        return 'spire-button';
-    }
-
-    /**
-     * Get size classes for a button.
-     *
-     * @param  string  $size  The size (sm, md, lg)
-     * @param  bool  $iconOnly  Whether the button is icon-only
-     * @param  string  $variant  The button variant (e.g., 'ghost')
-     * @return string
-     */
-    public static function buttonSize(string $size, bool $iconOnly, string $variant): string
-    {
-        $sizeClasses = [
-            'sm' => 'spire-button--sm',
-            'md' => 'spire-button--md',
-            'lg' => 'spire-button--lg',
-        ];
-
-        $classes = [
-            $sizeClasses[$size] ?? $sizeClasses['md'],
-        ];
-
-        if ($variant === 'ghost') {
-            $classes[] = 'spire-button--ghost';
-        }
-
-        if ($iconOnly) {
-            $classes[] = 'spire-button--icon-only';
-        }
-
-        return self::buildClassString($classes);
-    }
-
-    /**
-     * Get variant/color classes for a button.
-     *
-     * @param  string  $variant  The variant (solid, bordered, etc.)
-     * @param  string  $color  The color (default, primary, etc.)
-     * @return string
-     */
-    public static function buttonVariant(string $variant, string $color): string
-    {
-        return "spire-button--{$color}-{$variant}";
-    }
-
-    /**
      * Get the base class for the input's outer container.
      */
     public static function inputContainerBase(): string

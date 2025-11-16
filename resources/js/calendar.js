@@ -1,6 +1,7 @@
 import { CalendarUtils } from './calendar-utils';
 import { DateFormatter } from './date-formatter';
 import { overlay } from './overlay';
+import { CALENDAR_YEAR_RANGE_PAST, CALENDAR_YEAR_RANGE_FUTURE } from './component-constants';
 
 export function calendarComponent(config = {}) {
     return {
@@ -8,26 +9,6 @@ export function calendarComponent(config = {}) {
             trigger: 'click',
             placement: 'bottom-start',
             onInit() {
-                console.log('🗓️ Calendar initialized');
-                console.log('  Trigger ref:', this.$refs.trigger);
-                console.log('  Content ref:', this.$refs.content);
-                console.log('  Open state:', this.open);
-                console.log('  Overlay methods available:', {
-                    hasOpen: typeof this.open !== 'undefined',
-                    hasClose: typeof this.close === 'function',
-                    hasToggle: typeof this.toggle === 'function',
-                });
-
-                this.$nextTick(() => {
-                    console.log('🔍 After overlay setup:');
-                    console.log('  Content ID:', this.$refs.content?.id);
-                    console.log('  Content has ID?:', !!this.$refs.content?.id);
-                    console.log('  Trigger element:', this.$refs.trigger);
-                    console.log('  Trigger popovertarget:', this.$refs.trigger?.getAttribute('popovertarget'));
-                    console.log('  Trigger popovertargetaction:', this.$refs.trigger?.getAttribute('popovertargetaction'));
-                    console.log('  Do they match?:', this.$refs.content?.id === this.$refs.trigger?.getAttribute('popovertarget'));
-                });
-
                 this.value = this.normalizeValue(this.value);
                 this.updateCalendar();
 
@@ -54,32 +35,30 @@ export function calendarComponent(config = {}) {
                 });
 
                 this.$watch('open', (isOpen) => {
-                    console.log('📊 Open state changed:', isOpen);
                     if (isOpen) {
-                        console.log('  Syncing picker year to:', this.displayYear);
                         this.pickerYear = this.displayYear;
                     }
                 });
             },
         }),
 
-        mode: config.mode || 'single',
-        value: config.value || (config.mode === 'multiple' ? [] : (config.mode === 'range' ? { start: null, end: null } : '')),
+        mode: config.mode ?? 'single',
+        value: config.value ?? (config.mode === 'multiple' ? [] : (config.mode === 'range' ? { start: null, end: null } : '')),
         displayMonth: new Date().getMonth(),
         displayYear: new Date().getFullYear(),
         weeks: [],
         dayNames: [],
-        locale: config.locale || 'en-US',
+        locale: config.locale ?? 'en-US',
         firstDayOfWeek: config.firstDayOfWeek ?? 0,
-        minDate: config.minDate || null,
-        maxDate: config.maxDate || null,
-        disabledDates: config.disabledDates || [],
-        disabledDaysOfWeek: config.disabledDaysOfWeek || [],
-        maxRange: config.maxRange || null,
-        minRange: config.minRange || null,
-        maxDates: config.maxDates || null,
-        todayButtonBehavior: config.todayButtonBehavior || 'single-day',
-        presets: config.presets || [],
+        minDate: config.minDate ?? null,
+        maxDate: config.maxDate ?? null,
+        disabledDates: config.disabledDates ?? [],
+        disabledDaysOfWeek: config.disabledDaysOfWeek ?? [],
+        maxRange: config.maxRange ?? null,
+        minRange: config.minRange ?? null,
+        maxDates: config.maxDates ?? null,
+        todayButtonBehavior: config.todayButtonBehavior ?? 'single-day',
+        presets: config.presets ?? [],
 
         hoveredDate: null,
         selectionAnnouncement: '',
@@ -94,19 +73,21 @@ export function calendarComponent(config = {}) {
             return DateFormatter.getMonthNames('short', this.locale);
         },
 
+        isRangeValue(value) {
+            return value && typeof value === 'object' && !Array.isArray(value) && 'start' in value && 'end' in value;
+        },
+
+        isMultipleValue(value) {
+            return Array.isArray(value);
+        },
+
         normalizeValue(value) {
             if (this.mode === 'range') {
-                if (value === null || value === undefined || typeof value !== 'object' || Array.isArray(value)) {
-                    return { start: null, end: null };
-                }
-                if (!value.hasOwnProperty('start') || !value.hasOwnProperty('end')) {
-                    return { start: null, end: null };
-                }
-                return value;
+                return this.isRangeValue(value) ? value : { start: null, end: null };
             } else if (this.mode === 'multiple') {
-                return Array.isArray(value) ? value : [];
+                return this.isMultipleValue(value) ? value : [];
             } else {
-                return value || '';
+                return value ?? '';
             }
         },
 
@@ -148,6 +129,7 @@ export function calendarComponent(config = {}) {
 
             if (this.mode === 'single') {
                 this.value = dateString;
+                this.$dispatch('date-selected', dateString);
             } else if (this.mode === 'range') {
                 this.selectRangeDate(dateString);
             } else if (this.mode === 'multiple') {
@@ -156,7 +138,7 @@ export function calendarComponent(config = {}) {
         },
 
         selectRangeDate(dateString) {
-            if (!this.value || typeof this.value !== 'object') {
+            if (!this.isRangeValue(this.value)) {
                 this.value = { start: dateString, end: null };
                 return;
             }
@@ -180,7 +162,7 @@ export function calendarComponent(config = {}) {
         },
 
         toggleMultipleDate(dateString) {
-            const dates = Array.isArray(this.value) ? [...this.value] : [];
+            const dates = this.isMultipleValue(this.value) ? [...this.value] : [];
             const index = dates.indexOf(dateString);
 
             if (index > -1) {
@@ -196,7 +178,7 @@ export function calendarComponent(config = {}) {
         },
 
         handleDateHover(dateString) {
-            if (this.mode === 'range' && this.value && typeof this.value === 'object' && this.value.start && !this.value.end) {
+            if (this.mode === 'range' && this.isRangeValue(this.value) && this.value.start && !this.value.end) {
                 this.hoveredDate = dateString;
             }
         },
@@ -240,15 +222,11 @@ export function calendarComponent(config = {}) {
         },
 
         selectMonth(monthIndex) {
-            console.log('📅 Month selected:', monthIndex, 'Year:', this.pickerYear);
             if (!this.isMonthDisabled(monthIndex, this.pickerYear)) {
                 this.displayMonth = monthIndex;
                 this.displayYear = this.pickerYear;
                 this.updateCalendar();
-                console.log('  Closing picker...');
                 this.hide();
-            } else {
-                console.log('  Month is disabled');
             }
         },
 
@@ -268,8 +246,8 @@ export function calendarComponent(config = {}) {
 
         isYearDisabled(year) {
             const currentYear = new Date().getFullYear();
-            const minYear = currentYear - 50;
-            const maxYear = currentYear + 50;
+            const minYear = currentYear - CALENDAR_YEAR_RANGE_PAST;
+            const maxYear = currentYear + CALENDAR_YEAR_RANGE_FUTURE;
 
             if (year < minYear || year > maxYear) {
                 return true;
@@ -332,13 +310,13 @@ export function calendarComponent(config = {}) {
             } else if (this.mode === 'range') {
                 return this.isDateInRange(dateString);
             } else if (this.mode === 'multiple') {
-                return Array.isArray(this.value) && this.value.includes(dateString);
+                return this.isMultipleValue(this.value) && this.value.includes(dateString);
             }
             return false;
         },
 
         isDateInRange(dateString) {
-            if (!this.value || typeof this.value !== 'object') return false;
+            if (!this.isRangeValue(this.value)) return false;
             if (!this.value.start) return false;
             if (!this.value.end) return this.value.start === dateString;
 
@@ -346,7 +324,7 @@ export function calendarComponent(config = {}) {
         },
 
         isDateInPreviewRange(dateString) {
-            if (this.mode !== 'range' || !this.value || typeof this.value !== 'object') {
+            if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
                 return false;
             }
             if (!this.value.start || this.value.end || !this.hoveredDate) {
@@ -364,15 +342,15 @@ export function calendarComponent(config = {}) {
         },
 
         isRangeStart(dateString) {
-            return this.mode === 'range' && this.value && typeof this.value === 'object' && this.value.start === dateString;
+            return this.mode === 'range' && this.isRangeValue(this.value) && this.value.start === dateString;
         },
 
         isRangeEnd(dateString) {
-            return this.mode === 'range' && this.value && typeof this.value === 'object' && this.value.end === dateString;
+            return this.mode === 'range' && this.isRangeValue(this.value) && this.value.end === dateString;
         },
 
         isPreviewStart(dateString) {
-            if (this.mode !== 'range' || !this.value || typeof this.value !== 'object') {
+            if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
                 return false;
             }
             if (!this.value.start || this.value.end || !this.hoveredDate) {
@@ -382,7 +360,7 @@ export function calendarComponent(config = {}) {
         },
 
         isPreviewEnd(dateString) {
-            if (this.mode !== 'range' || !this.value || typeof this.value !== 'object') {
+            if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
                 return false;
             }
             if (!this.value.start || this.value.end || !this.hoveredDate) {
@@ -392,7 +370,7 @@ export function calendarComponent(config = {}) {
         },
 
         getSelectionCount() {
-            if (this.mode === 'multiple' && Array.isArray(this.value)) {
+            if (this.mode === 'multiple' && this.isMultipleValue(this.value)) {
                 return this.value.length;
             }
             return 0;
@@ -411,7 +389,7 @@ export function calendarComponent(config = {}) {
                     this.selectionAnnouncement = '';
                 }
             } else if (this.mode === 'range') {
-                if (this.value && typeof this.value === 'object') {
+                if (this.isRangeValue(this.value)) {
                     if (this.value.start && this.value.end) {
                         const startLabel = DateFormatter.getAriaLabel(this.value.start, this.locale);
                         const endLabel = DateFormatter.getAriaLabel(this.value.end, this.locale);
@@ -484,25 +462,31 @@ export function calendarComponent(config = {}) {
             const utils = CalendarUtils;
 
             switch (presetKey) {
-                case 'last_7_days':
+                case 'last_7_days': {
+                    const start7 = new Date(today);
+                    start7.setDate(today.getDate() - 6);
                     return {
                         start: utils.formatDate(
-                            today.getFullYear(),
-                            today.getMonth(),
-                            today.getDate() - 6
+                            start7.getFullYear(),
+                            start7.getMonth(),
+                            start7.getDate()
                         ),
                         end: utils.today()
                     };
+                }
 
-                case 'last_30_days':
+                case 'last_30_days': {
+                    const start30 = new Date(today);
+                    start30.setDate(today.getDate() - 29);
                     return {
                         start: utils.formatDate(
-                            today.getFullYear(),
-                            today.getMonth(),
-                            today.getDate() - 29
+                            start30.getFullYear(),
+                            start30.getMonth(),
+                            start30.getDate()
                         ),
                         end: utils.today()
                     };
+                }
 
                 case 'this_week': {
                     const { start, end } = utils.getWeekRange(utils.today(), this.firstDayOfWeek);
@@ -543,7 +527,7 @@ export function calendarComponent(config = {}) {
         },
 
         isPresetActive(preset) {
-            if (this.mode !== 'range' || !this.value || typeof this.value !== 'object') {
+            if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
                 return false;
             }
             if (!this.value.start || !this.value.end) {
@@ -560,10 +544,10 @@ export function calendarComponent(config = {}) {
             if (this.mode === 'single') {
                 return this.value !== null && this.value !== '';
             } else if (this.mode === 'range') {
-                if (!this.value || typeof this.value !== 'object') return false;
+                if (!this.isRangeValue(this.value)) return false;
                 return this.value.start !== null || this.value.end !== null;
             } else if (this.mode === 'multiple') {
-                return Array.isArray(this.value) && this.value.length > 0;
+                return this.isMultipleValue(this.value) && this.value.length > 0;
             }
             return false;
         },
@@ -579,10 +563,10 @@ export function calendarComponent(config = {}) {
             if (this.mode === 'single') {
                 return this.value === today;
             } else if (this.mode === 'range') {
-                if (!this.value || typeof this.value !== 'object') return false;
+                if (!this.isRangeValue(this.value)) return false;
                 return this.value.start === today && this.value.end === today;
             } else if (this.mode === 'multiple') {
-                const isSelected = Array.isArray(this.value) && this.value.includes(today);
+                const isSelected = this.isMultipleValue(this.value) && this.value.includes(today);
                 const isAtMax = this.isMaxDatesReached();
                 return isAtMax && !isSelected;
             }

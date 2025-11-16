@@ -5,24 +5,18 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$sizeClasses = [
-    'sm' => 'text-xs',
-    'md' => 'text-sm',
-    'lg' => 'text-base',
-];
+$builder = ComponentClass::make('label')
+    ->size($size);
 
-$classString = ComponentStyles::buildClassString([
-    'block',
-    'font-medium',
-    'text-text',
-    $sizeClasses[$size] ?? $sizeClasses['md'],
-]);
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
 $mergedAttributes = $attributes->merge([
     'for' => $for,
-    'class' => $classString,
+    'class' => $builder->build(),
     'data-spire-label' => 'true',
 ]);
 @endphp

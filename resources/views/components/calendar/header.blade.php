@@ -19,7 +19,6 @@
         variant="flat"
         size="sm"
         x-ref="trigger"
-        @click="console.log('🖱️ Trigger clicked', { open, $refs })"
         aria-label="{{ __('spire::spire-ui.date.select_month_year') }}"
     >
         <div

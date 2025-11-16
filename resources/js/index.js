@@ -10,7 +10,10 @@ import { keyboard } from './keyboard';
 import { selectComponent } from './select';
 import { autocompleteComponent } from './autocomplete';
 import { calendarComponent } from './calendar';
+import { datepickerComponent } from './datepicker';
 import { timepickerComponent } from './timepicker';
+import { modalComponent } from './modal';
+import { ratingComponent } from './rating';
 
 export function initializeSpireUI() {
     window.overlay = overlay;
@@ -18,7 +21,10 @@ export function initializeSpireUI() {
     window.selectComponent = selectComponent;
     window.autocompleteComponent = autocompleteComponent;
     window.calendarComponent = calendarComponent;
+    window.datepickerComponent = datepickerComponent;
     window.timepickerComponent = timepickerComponent;
+    window.modalComponent = modalComponent;
+    window.ratingComponent = ratingComponent;
 
     document.addEventListener('alpine:init', () => {
         Alpine.data('overlay', overlay);
@@ -26,8 +32,11 @@ export function initializeSpireUI() {
         Alpine.data('selectComponent', selectComponent);
         Alpine.data('autocompleteComponent', autocompleteComponent);
         Alpine.data('calendarComponent', calendarComponent);
+        Alpine.data('datepickerComponent', datepickerComponent);
         Alpine.data('timepickerComponent', timepickerComponent);
+        Alpine.data('modalComponent', modalComponent);
+        Alpine.data('ratingComponent', ratingComponent);
     });
 }
 
-export { overlay, keyboard, selectComponent, autocompleteComponent, calendarComponent, timepickerComponent };
+export { overlay, keyboard, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent };

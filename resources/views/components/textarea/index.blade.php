@@ -12,49 +12,29 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$baseClasses = 'w-full ease-fast';
+$builder = ComponentClass::make('textarea')
+    ->size($size)
+    ->radius($radius)
+    ->colorVariant($color, $variant)
+    ->modifier("resize-{$resize}")
+    ->when($disabled, fn($b) => $b->modifier('disabled'))
+    ->when($readonly, fn($b) => $b->modifier('readonly'));
 
-$resizeClasses = [
-    'none' => 'resize-none',
-    'vertical' => 'resize-y',
-    'horizontal' => 'resize-x',
-    'both' => 'resize',
-];
-
-$variantKey = "textarea-{$variant}";
-$variantClasses = ComponentStyles::colorClasses($variantKey, $color);
-
-$conditionalClasses = [];
-
-if ($disabled) {
-    $conditionalClasses[] = 'opacity-50 cursor-not-allowed';
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
 }
-
-if ($readonly) {
-    $conditionalClasses[] = 'cursor-default';
-}
-
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    ComponentStyles::sizeClasses($size, 'textarea'),
-    ComponentStyles::radiusClasses($radius),
-    $variantClasses,
-    $resizeClasses[$resize] ?? $resizeClasses['vertical'],
-    ...$conditionalClasses,
-]);
 
 $mergedAttributes = $attributes->merge([
-    'class' => $classString,
+    'class' => $builder->build(),
     'rows' => $rows,
     'disabled' => $disabled ? true : null,
     'readonly' => $readonly ? true : null,
     'required' => $required ? true : null,
     'placeholder' => $placeholder,
     'data-spire-textarea' => 'true',
-    'data-spire-variant' => $variant,
-    'data-spire-size' => $size,
+    ...$builder->getDataAttributes(),
 ]);
 @endphp
 

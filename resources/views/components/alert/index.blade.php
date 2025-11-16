@@ -10,7 +10,7 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
     $defaultIcons = [
         'default' => 'info-circle',
@@ -24,22 +24,18 @@ use SpireUI\Support\ComponentStyles;
 
     $iconName = $icon ?? $defaultIcons[$color];
 
-    $classString = ComponentStyles::buildClassString([
-        'relative',
-        'flex',
-        'items-start',
-        'gap-3',
-        'p-4',
-        'ease-fast',
-        ComponentStyles::colorClasses($variant, $color),
-        ComponentStyles::radiusClasses($radius),
-    ]);
+    $builder = ComponentClass::make('alert')
+        ->colorVariant($color, $variant)
+        ->radius($radius);
+
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $mergedAttributes = $attributes->merge([
-        'class' => $classString,
+        'class' => $builder->build(),
         'data-spire-alert' => 'true',
-        'data-spire-color' => $color,
-        'data-spire-variant' => $variant,
+        ...$builder->getDataAttributes(),
         'data-spire-closable' => $isClosable ? 'true' : 'false',
         'role' => 'alert',
         'aria-live' => 'polite',

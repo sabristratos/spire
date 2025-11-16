@@ -1,3 +1,5 @@
+import { TYPEAHEAD_TIMEOUT_MS } from './component-constants';
+
 /**
  * Unified Keyboard Navigation
  *
@@ -133,7 +135,7 @@ export function keyboard(options = {}) {
 
             this.typeaheadTimeout = setTimeout(() => {
                 this.typeaheadString = '';
-            }, 500);
+            }, TYPEAHEAD_TIMEOUT_MS);
         },
 
         findTypeaheadMatch(searchString) {

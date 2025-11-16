@@ -11,7 +11,7 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
 $initials = '';
 if ($name) {
@@ -22,29 +22,18 @@ if ($name) {
     );
 }
 
-$groupRingClasses = ComponentStyles::avatarGroupRingClasses();
-$fallbackColorClasses = ComponentStyles::colorClasses('solid', $color);
+$builder = ComponentClass::make('avatar')
+    ->size($size)
+    ->radius($radius)
+    ->when($isDisabled, fn($b) => $b->modifier('disabled'))
+    ->when($isBordered, fn($b) => $b->modifier('bordered')->modifier("ring-{$color}"));
 
-$classString = ComponentStyles::buildClassString([
-    'relative',
-    'inline-flex',
-    'items-center',
-    'justify-center',
-    'overflow-hidden',
-    'shrink-0',
-    'font-semibold',
-    'ease-fast',
-    ComponentStyles::sizeClasses($size),
-    ComponentStyles::radiusClasses($radius),
-    $isDisabled ? 'opacity-50 cursor-not-allowed' : '',
-    ...$groupRingClasses,
-    $isBordered ? 'ring-2' : '',
-    $isBordered ? 'ring-offset-2' : '',
-    $isBordered ? ComponentStyles::ringColorClasses($color) : '',
-]);
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
 $mergedAttributes = $attributes->merge([
-    'class' => $classString,
+    'class' => $builder->build(),
     'data-spire-avatar' => 'true',
     'data-spire-size' => $size,
     'data-spire-color' => $color,
@@ -65,7 +54,7 @@ $mergedAttributes = $attributes->merge([
 
     @if($showFallback)
         <span
-            class="flex items-center justify-center w-full h-full {{ $fallbackColorClasses }}"
+            class="flex items-center justify-center w-full h-full spire-badge--{{ $color }}-solid"
             x-show="{{ $src ? 'imageError' : 'true' }}"
             x-cloak
         >

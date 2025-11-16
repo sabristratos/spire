@@ -57,9 +57,9 @@ return [
     ],
 
     'modal' => [
-        'close' => '',
-        'confirm_title' => '',
-        'confirm_message' => '',
+        'close' => 'إغلاق النافذة',
+        'confirm_title' => 'تأكيد الإجراء',
+        'confirm_message' => 'هل أنت متأكد من أنك تريد المتابعة؟',
     ],
 
     'form' => [
@@ -69,6 +69,12 @@ return [
         'clear' => 'مسح',
         'show_password' => 'إظهار كلمة المرور',
         'hide_password' => 'إخفاء كلمة المرور',
+    ],
+
+    'switch' => [
+        'on' => 'مُفعّل',
+        'off' => 'مُعطّل',
+        'toggle' => 'تبديل المفتاح',
     ],
 
     'pagination' => [
@@ -91,6 +97,22 @@ return [
         'clear' => 'مسح',
         'previous' => 'السابق',
         'next' => 'التالي',
+    ],
+
+    'datepicker' => [
+        'placeholder' => 'اختر تاريخاً',
+        'picker_label' => 'منتقي التاريخ',
+        'open_picker' => 'فتح التقويم',
+        'month' => 'شهر',
+        'day' => 'يوم',
+        'year' => 'سنة',
+        'today' => 'اليوم',
+        'clear' => 'مسح',
+        'range_placeholder' => 'اختر نطاق التواريخ',
+        'multiple_placeholder' => 'اختر التواريخ',
+        'start_date' => 'تاريخ البداية',
+        'end_date' => 'تاريخ النهاية',
+        'dates_count' => ':count تواريخ',
     ],
 
     'date' => [

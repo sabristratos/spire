@@ -1,0 +1,163 @@
+@layer components {
+    .spire-rating {
+        @apply inline-flex items-center;
+    }
+
+    .spire-rating-container {
+        @apply flex items-center gap-3;
+    }
+
+    .spire-rating-stars {
+        @apply flex gap-0.5;
+    }
+
+    .spire-rating-star {
+        @apply relative inline-flex items-center justify-center;
+        @apply transition-all;
+        @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+        transition-duration: var(--animation-duration-fast);
+        transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    .spire-rating-star:disabled {
+        @apply cursor-default;
+    }
+
+    .spire-rating-star-icon {
+        @apply transition-all;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    .spire-rating-star-icon--outline {
+        @apply block opacity-100;
+    }
+
+    .spire-rating-star-icon--filled {
+        @apply hidden opacity-0;
+    }
+
+    .spire-rating-star--filled .spire-rating-star-icon--outline {
+        @apply hidden opacity-0;
+    }
+
+    .spire-rating-star--filled .spire-rating-star-icon--filled {
+        @apply block opacity-100;
+    }
+
+    .spire-rating-star--half .spire-rating-star-icon--outline {
+        @apply hidden;
+    }
+
+    .spire-rating-star--half .spire-rating-star-icon--filled {
+        @apply block opacity-100;
+        clip-path: inset(0 50% 0 0);
+    }
+
+    .spire-rating--interactive .spire-rating-star:not(:disabled):hover {
+        @apply scale-110;
+    }
+
+    .spire-rating--interactive .spire-rating-star:not(:disabled):active {
+        @apply scale-95;
+    }
+
+    .spire-rating-tooltip {
+        @apply absolute -top-8 left-1/2 -translate-x-1/2;
+        @apply px-2 py-1 text-xs font-medium;
+        @apply bg-overlay text-text rounded-md shadow-md;
+        @apply whitespace-nowrap;
+        @apply pointer-events-none;
+    }
+
+    .spire-rating-value {
+        @apply flex items-center gap-1 text-sm font-medium text-text-muted;
+    }
+
+    .spire-rating-value-separator {
+        @apply text-text-disabled;
+    }
+
+    .spire-rating-reset {
+        @apply inline-flex items-center gap-1.5;
+        @apply px-2 py-1 text-xs font-medium;
+        @apply bg-surface text-text-muted;
+        @apply rounded-full border border-border;
+        @apply transition-all;
+        @apply hover:bg-overlay hover:text-text hover:border-border-hover;
+        @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+        @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-text-muted;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    /* Size variants */
+    .spire-rating--sm .spire-rating-stars {
+        @apply gap-0.5;
+    }
+
+    .spire-rating--md .spire-rating-stars {
+        @apply gap-1;
+    }
+
+    .spire-rating--lg .spire-rating-stars {
+        @apply gap-1.5;
+    }
+
+    /* Color variants - Outline stars */
+    .spire-rating--warning .spire-rating-star-icon--outline {
+        @apply text-neutral-300;
+    }
+
+    .spire-rating--primary .spire-rating-star-icon--outline {
+        @apply text-neutral-300;
+    }
+
+    .spire-rating--secondary .spire-rating-star-icon--outline {
+        @apply text-neutral-300;
+    }
+
+    .spire-rating--success .spire-rating-star-icon--outline {
+        @apply text-neutral-300;
+    }
+
+    .spire-rating--error .spire-rating-star-icon--outline {
+        @apply text-neutral-300;
+    }
+
+    .spire-rating--info .spire-rating-star-icon--outline {
+        @apply text-neutral-300;
+    }
+
+    /* Color variants - Filled stars */
+    .spire-rating--warning .spire-rating-star-icon--filled {
+        @apply text-warning;
+    }
+
+    .spire-rating--primary .spire-rating-star-icon--filled {
+        @apply text-primary;
+    }
+
+    .spire-rating--secondary .spire-rating-star-icon--filled {
+        @apply text-secondary;
+    }
+
+    .spire-rating--success .spire-rating-star-icon--filled {
+        @apply text-success;
+    }
+
+    .spire-rating--error .spire-rating-star-icon--filled {
+        @apply text-error;
+    }
+
+    .spire-rating--info .spire-rating-star-icon--filled {
+        @apply text-info;
+    }
+
+    /* Readonly variant */
+    .spire-rating--readonly .spire-rating-star {
+        @apply cursor-default;
+    }
+
+    .spire-rating--readonly .spire-rating-star:hover {
+        @apply scale-100;
+    }
+}

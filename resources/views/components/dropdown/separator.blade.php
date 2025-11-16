@@ -1,10 +1,6 @@
 @props([])
 
-@php
-    use SpireUI\Support\ComponentStyles;
-@endphp
-
 <div
-    {{ $attributes->merge(['class' => ComponentStyles::dropdownSeparatorBase()]) }}
+    {{ $attributes->merge(['class' => 'spire-dropdown-separator']) }}
     role="separator"
 ></div>

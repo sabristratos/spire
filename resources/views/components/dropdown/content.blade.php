@@ -5,18 +5,20 @@
 ])
 
 @php
-    use SpireUI\Support\ComponentStyles;
+    use SpireUI\Support\ComponentClass;
 
-    $classString = ComponentStyles::buildClassString([
-        ComponentStyles::dropdownContentBase(),
-        ComponentStyles::dropdownContentWidth($width),
-        'animate-dropdown-bounce',
-    ]);
+    $builder = ComponentClass::make('dropdown-content')
+        ->modifier($width)
+        ->addClass('animate-dropdown-bounce');
+
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $mergedAttributes = $attributes->merge([
         'data-placement' => $placement,
         'popover' => 'auto',
-        'class' => $classString,
+        'class' => $builder->build(),
         'role' => 'menu',
         'tabindex' => '-1',
     ]);

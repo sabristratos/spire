@@ -8,7 +8,7 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
     $dotSizes = [
         'sm' => 'w-1.5 h-1.5',
@@ -24,30 +24,31 @@ use SpireUI\Support\ComponentStyles;
         'error' => 'bg-error',
         'warning' => 'bg-warning',
         'info' => 'bg-info',
+        'featured' => 'bg-featured',
     ];
 
-    $classString = ComponentStyles::buildClassString([
-        'inline-flex',
-        'items-center',
-        'justify-center',
-        'font-medium',
-        'ease-fast',
-        'whitespace-nowrap',
-        ComponentStyles::sizeClasses($size, 'badge'),
-        ComponentStyles::radiusClasses($radius),
-        ComponentStyles::colorClasses($variant, $color),
-        $isDisabled ? 'opacity-50 cursor-not-allowed' : '',
-    ]);
+    $showDot = $isDot || $variant === 'dot';
+
+    $builder = ComponentClass::make('badge')
+        ->size($size)
+        ->radius($radius)
+        ->when($showDot, fn($b) => $b->modifier('dot'))
+        ->addIf($isDisabled, 'opacity-50', 'cursor-not-allowed');
+
+    if ($variant !== 'dot') {
+        $builder->colorVariant($color, $variant);
+    }
+
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $mergedAttributes = $attributes->merge([
-        'class' => $classString,
+        'class' => $builder->build(),
         'data-spire-badge' => 'true',
-        'data-spire-variant' => $variant,
-        'data-spire-color' => $color,
+        ...$builder->getDataAttributes(),
         'data-spire-disabled' => $isDisabled ? 'true' : null,
     ]);
-
-    $showDot = $isDot || $variant === 'dot';
 @endphp
 
 <span {{ $mergedAttributes }}>

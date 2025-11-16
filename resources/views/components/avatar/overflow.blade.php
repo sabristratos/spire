@@ -6,30 +6,19 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-    $groupRingClasses = ComponentStyles::avatarGroupRingClasses(['default', 'neutral', 'primary', 'secondary', 'success', 'error', 'warning', 'info']);
+    $builder = ComponentClass::make('avatar-overflow')
+        ->size($size)
+        ->colorVariant($color, 'solid')
+        ->when($isBordered, fn($b) => $b->modifier('bordered')->modifier("ring-{$color}"));
 
-    $classString = ComponentStyles::buildClassString([
-        'relative',
-        'inline-flex',
-        'items-center',
-        'justify-center',
-        'shrink-0',
-        'overflow-hidden',
-        'font-semibold',
-        'rounded-full',
-        'ease-fast',
-        ComponentStyles::sizeClasses($size),
-        ComponentStyles::colorClasses('solid', $color),
-        ...$groupRingClasses,
-        $isBordered ? 'ring-2' : '',
-        $isBordered ? 'ring-offset-2' : '',
-        $isBordered ? ComponentStyles::ringColorClasses($color) : '',
-    ]);
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $mergedAttributes = $attributes->merge([
-        'class' => $classString,
+        'class' => $builder->build(),
         'data-spire-avatar-overflow' => 'true',
         'data-spire-color' => $color,
         'aria-label' => "+{$count} more",

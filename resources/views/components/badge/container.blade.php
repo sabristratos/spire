@@ -9,39 +9,18 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-    $placementClasses = [
-        'top-right' => 'top-1 right-1 translate-x-1/2 -translate-y-1/2',
-        'top-left' => 'top-1 left-1 -translate-x-1/2 -translate-y-1/2',
-        'bottom-right' => 'bottom-1 right-1 translate-x-1/2 translate-y-1/2',
-        'bottom-left' => 'bottom-1 left-1 -translate-x-1/2 translate-y-1/2',
-    ];
-
-    $sizeClasses = [
-        'sm' => $isDot ? 'w-2 h-2' : 'min-w-4 h-4 text-xs px-1',
-        'md' => $isDot ? 'w-2.5 h-2.5' : 'min-w-5 h-5 text-xs px-1.5',
-        'lg' => $isDot ? 'w-3 h-3' : 'min-w-6 h-6 text-sm px-2',
-    ];
-
-    $badgeClassString = ComponentStyles::buildClassString([
-        'absolute',
-        'flex',
-        'items-center',
-        'justify-center',
-        'rounded-full',
-        'font-semibold',
-        'ease-fast',
-        'z-10',
-        $placementClasses[$placement] ?? $placementClasses['top-right'],
-        $sizeClasses[$size] ?? $sizeClasses['md'],
-        ComponentStyles::colorClasses('solid', $color),
-        $showOutline ? 'ring-2 ring-surface' : '',
-        $isInvisible ? 'hidden' : '',
-    ]);
+    $indicatorBuilder = ComponentClass::make('badge-indicator')
+        ->modifier($placement)
+        ->size($size)
+        ->colorVariant($color, 'solid')
+        ->when($isDot, fn($b) => $b->modifier('dot'))
+        ->when($showOutline, fn($b) => $b->modifier('outline'))
+        ->addIf($isInvisible, 'hidden');
 
     $containerAttributes = $attributes->merge([
-        'class' => 'relative inline-flex shrink-0',
+        'class' => 'spire-badge-container',
         'data-spire-badge-container' => 'true',
     ]);
 @endphp
@@ -51,10 +30,10 @@ use SpireUI\Support\ComponentStyles;
 
     @if($content || $isDot)
         <span
-            class="{{ $badgeClassString }}"
+            class="{{ $indicatorBuilder->build() }}"
             data-spire-badge-indicator="true"
             data-spire-placement="{{ $placement }}"
-            data-spire-color="{{ $color }}"
+            {!! implode(' ', array_map(fn($k, $v) => "{$k}=\"{$v}\"", array_keys($indicatorBuilder->getDataAttributes()), $indicatorBuilder->getDataAttributes())) !!}
         >
             @if(!$isDot && $content)
                 {{ $content }}

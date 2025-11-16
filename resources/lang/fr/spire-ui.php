@@ -57,9 +57,9 @@ return [
     ],
 
     'modal' => [
-        'close' => '',
-        'confirm_title' => '',
-        'confirm_message' => '',
+        'close' => 'Fermer la modale',
+        'confirm_title' => 'Confirmer l\'action',
+        'confirm_message' => 'Êtes-vous sûr de vouloir continuer ?',
     ],
 
     'form' => [
@@ -69,6 +69,12 @@ return [
         'clear' => 'Effacer',
         'show_password' => 'Afficher le mot de passe',
         'hide_password' => 'Masquer le mot de passe',
+    ],
+
+    'switch' => [
+        'on' => 'Activé',
+        'off' => 'Désactivé',
+        'toggle' => 'Basculer l\'interrupteur',
     ],
 
     'pagination' => [
@@ -91,6 +97,22 @@ return [
         'clear' => 'Effacer',
         'previous' => 'Précédent',
         'next' => 'Suivant',
+    ],
+
+    'datepicker' => [
+        'placeholder' => 'Sélectionner une date',
+        'picker_label' => 'Sélecteur de date',
+        'open_picker' => 'Ouvrir le calendrier',
+        'month' => 'Mois',
+        'day' => 'Jour',
+        'year' => 'Année',
+        'today' => 'Aujourd\'hui',
+        'clear' => 'Effacer',
+        'range_placeholder' => 'Sélectionner une période',
+        'multiple_placeholder' => 'Sélectionner des dates',
+        'start_date' => 'Date de début',
+        'end_date' => 'Date de fin',
+        'dates_count' => ':count dates',
     ],
 
     'date' => [

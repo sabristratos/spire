@@ -4,20 +4,19 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$baseClasses = 'animate-dropdown-bounce bg-surface border border-border rounded-lg shadow-lg';
+$builder = ComponentClass::make('timepicker-content');
 
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    'p-3',
-]);
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
-$mergedAttributes = $attributes->merge([
+$mergedAttributes = $attributes->except(['class'])->merge([
     'data-placement' => $placement,
     'data-spire-timepicker-content' => true,
     'popover' => 'auto',
-    'class' => $classString,
+    'class' => $builder->build(),
     'role' => 'dialog',
     'aria-label' => __('spire::spire-ui.timepicker.picker_label'),
 ]);
@@ -32,14 +31,16 @@ $mergedAttributes = $attributes->merge([
     {{ $mergedAttributes }}
 >
     <div class="flex flex-col gap-3">
-        {{-- Action buttons --}}
-        <div class="flex items-center justify-between gap-2">
+        {{-- Action buttons header --}}
+        <div class="spire-timepicker-actions">
             <button
                 type="button"
                 @click="setNow"
                 class="px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/10 rounded-md transition-colors"
                 x-text="nowText"
             ></button>
+
+            <span class="text-text-muted">|</span>
 
             <button
                 type="button"
@@ -50,7 +51,7 @@ $mergedAttributes = $attributes->merge([
         </div>
 
         {{-- Time columns --}}
-        <div class="flex gap-2">
+        <div class="spire-timepicker-columns">
             {{-- Hour column --}}
             <x-spire::timepicker.column
                 type="hour"

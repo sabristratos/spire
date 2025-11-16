@@ -3,20 +3,17 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$sizeClasses = [
-    'sm' => 'text-xs',
-    'md' => 'text-sm',
-];
+$builder = ComponentClass::make('helper')
+    ->size($size);
 
-$classString = ComponentStyles::buildClassString([
-    'text-text-muted',
-    $sizeClasses[$size] ?? $sizeClasses['md'],
-]);
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
 $mergedAttributes = $attributes->merge([
-    'class' => $classString,
+    'class' => $builder->build(),
     'data-spire-helper' => 'true',
 ]);
 @endphp

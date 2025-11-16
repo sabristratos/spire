@@ -6,7 +6,7 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
 $errorMessage = null;
 
@@ -18,16 +18,14 @@ if (isset($slot) && !$slot->isEmpty()) {
     $errorMessage = $errors->first($name);
 }
 
-$classString = ComponentStyles::buildClassString([
-    'flex',
-    'items-center',
-    'gap-1.5',
-    'text-sm',
-    'text-error',
-]);
+$builder = ComponentClass::make('error');
+
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
 $mergedAttributes = $attributes->merge([
-    'class' => $classString,
+    'class' => $builder->build(),
     'data-spire-error' => 'true',
 ]);
 @endphp

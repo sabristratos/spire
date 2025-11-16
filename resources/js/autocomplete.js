@@ -1,3 +1,5 @@
+import { DEBOUNCE_DEFAULT_MS, BLUR_TIMEOUT_MS } from './component-constants';
+
 export function autocompleteComponent(config = {}) {
     return {
         value: config.value || '',
@@ -5,7 +7,7 @@ export function autocompleteComponent(config = {}) {
         selectedLabel: '',
         placeholder: config.placeholder || 'Type to search...',
         minChars: config.minChars || 0,
-        debounce: config.debounce || 300,
+        debounce: config.debounce || DEBOUNCE_DEFAULT_MS,
         showOnFocus: config.showOnFocus !== false,
         highlightMatches: config.highlightMatches !== false,
         clearable: config.clearable !== false,
@@ -130,7 +132,7 @@ export function autocompleteComponent(config = {}) {
                 if (!isClickInsideDropdown) {
                     this.hide();
                 }
-            }, 150);
+            }, BLUR_TIMEOUT_MS);
         },
 
         show() {

@@ -12,32 +12,26 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
     $tag = $href ? 'a' : 'div';
 
-    $variantClasses = [
-        'elevated' => 'bg-surface',
-        'bordered' => 'bg-surface border border-border',
-        'flat' => 'bg-surface-subtle',
-    ];
+    $builder = ComponentClass::make('card')
+        ->modifier($variant)
+        ->modifier("padding-{$padding}")
+        ->radius($radius)
+        ->when($variant === 'elevated', fn($b) => $b->shadow($shadow))
+        ->when($fullWidth, fn($b) => $b->modifier('full-width'))
+        ->when($isHoverable, fn($b) => $b->modifier('hoverable'))
+        ->when($isPressable, fn($b) => $b->modifier('pressable'))
+        ->when($isBlurred, fn($b) => $b->modifier('blurred'));
 
-    $classString = ComponentStyles::buildClassString([
-        'relative',
-        'overflow-hidden',
-        'ease-fast',
-        $variantClasses[$variant] ?? $variantClasses['elevated'],
-        $variant === 'elevated' ? ComponentStyles::shadowClasses($shadow) : '',
-        ComponentStyles::radiusClasses($radius, true),
-        ComponentStyles::paddingClasses($padding),
-        $fullWidth ? 'w-full' : '',
-        $isHoverable ? 'hover:shadow-lg hover:scale-[1.02] cursor-pointer' : '',
-        $isPressable ? 'cursor-pointer active:scale-[0.98]' : '',
-        $isBlurred ? 'backdrop-blur-md bg-surface/70' : '',
-    ]);
+    if ($customClass = $attributes->get('class')) {
+        $builder->addClass($customClass);
+    }
 
     $mergedAttributes = $attributes->merge([
-        'class' => $classString,
+        'class' => $builder->build(),
         'href' => $href,
         'role' => ($isPressable && !$href) ? 'button' : null,
         'tabindex' => ($isPressable && !$href) ? '0' : null,

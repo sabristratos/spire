@@ -9,38 +9,20 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
 $itemId = 'accordion-item-' . uniqid();
 $buttonId = $itemId . '-button';
 $contentId = $itemId . '-content';
 
-$sizePadding = [
-    'sm' => 'p-3',
-    'md' => 'p-4',
-    'lg' => 'p-6',
-];
-
 $parentSize = 'md';
 
-$buttonClassString = ComponentStyles::buildClassString([
-    'flex',
-    'items-center',
-    'justify-between',
-    'w-full',
-    'text-left',
-    'ease-fast',
-    'focus-visible:outline-2',
-    'focus-visible:outline-offset-2',
-    'focus-visible:outline-primary',
-    $sizePadding[$parentSize] ?? $sizePadding['md'],
-    $isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-surface-subtle/50',
-]);
+$buttonBuilder = ComponentClass::make('accordion-button')
+    ->modifier($isDisabled ? 'disabled' : 'normal')
+    ->modifier($parentSize);
 
-$contentClassString = ComponentStyles::buildClassString([
-    $sizePadding[$parentSize] ?? $sizePadding['md'],
-    'pt-0',
-]);
+$contentBuilder = ComponentClass::make('accordion-content')
+    ->modifier($parentSize);
 
 $mergedAttributes = $attributes->merge([
     'data-spire-accordion-item' => 'true',
@@ -72,7 +54,7 @@ $mergedAttributes = $attributes->merge([
     <button
         type="button"
         id="{{ $buttonId }}"
-        class="{{ $buttonClassString }}"
+        class="{{ $buttonBuilder->build() }}"
         @if(!$isDisabled)
             x-on:click="allowMultiple ? (open = !open) : (openItem = (openItem === {{ $index }}) ? null : {{ $index }})"
         @endif
@@ -110,7 +92,7 @@ $mergedAttributes = $attributes->merge([
                 @else
                     <x-spire::icon
                         name="{{ $icon }}"
-                        class="w-5 h-5 text-text-muted transition-transform duration-200"
+                        class="w-5 h-5 text-text-muted transition-transform duration-300 ease-out"
                         x-bind:class="{ 'rotate-180': allowMultiple ? open : (openItem === {{ $index}}) }"
                     />
                 @endif
@@ -123,10 +105,10 @@ $mergedAttributes = $attributes->merge([
         role="region"
         aria-labelledby="{{ $buttonId }}"
         x-show="allowMultiple ? open : (openItem === {{ $index }})"
-        x-collapse
+        x-collapse.duration.300ms
         data-spire-accordion-content="true"
     >
-        <div class="{{ $contentClassString }}">
+        <div class="{{ $contentBuilder->build() }}">
             {{ $slot }}
         </div>
     </div>

@@ -9,7 +9,8 @@
     .spire-dropdown-content--auto { @apply min-w-max; }
 
     .spire-dropdown-item {
-        @apply flex items-center gap-3 w-full px-3 py-2 text-sm transition-colors rounded-md;
+        @apply flex items-center gap-3 w-full px-3 py-2 text-sm rounded-md;
+        transition: all var(--animation-duration-fast) ease-out;
     }
     .spire-dropdown-item--normal {
         @apply text-text hover:bg-hover focus:bg-hover;

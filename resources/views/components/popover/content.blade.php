@@ -6,34 +6,21 @@
 ])
 
 @php
-use SpireUI\Support\ComponentStyles;
+use SpireUI\Support\ComponentClass;
 
-$sizeClasses = [
-    'sm' => 'max-w-xs',
-    'md' => 'max-w-sm',
-    'lg' => 'max-w-md',
-    'xl' => 'max-w-lg',
-];
+$builder = ComponentClass::make('popover')
+    ->modifier($size)
+    ->modifier("padding-{$padding}");
 
-$paddingClasses = [
-    'none' => '',
-    'sm' => 'p-3',
-    'normal' => 'p-4',
-    'lg' => 'p-6',
-];
-
-$baseClasses = 'animate-pop bg-surface border border-border rounded-lg shadow-lg';
-
-$classString = ComponentStyles::buildClassString([
-    $baseClasses,
-    $sizeClasses[$size] ?? $sizeClasses['md'],
-    $paddingClasses[$padding] ?? $paddingClasses['normal'],
-]);
+if ($customClass = $attributes->get('class')) {
+    $builder->addClass($customClass);
+}
 
 $mergedAttributes = $attributes->merge([
+    'class' => $builder->build(),
     'data-placement' => $placement,
+    'data-spire-popover' => 'true',
     'popover' => 'auto',
-    'class' => $classString,
 ]);
 @endphp
 

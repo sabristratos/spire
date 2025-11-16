@@ -1,0 +1,126 @@
+@layer components {
+    /* 1. Calendar Container */
+    .spire-calendar {
+        @apply bg-surface rounded-lg p-2;
+    }
+
+    /* 2. Calendar Size Variants */
+    .spire-calendar--sm {
+        @apply text-sm;
+    }
+    .spire-calendar--md {
+        @apply text-base;
+    }
+    .spire-calendar--lg {
+        @apply text-lg;
+    }
+
+    /* 3. Calendar Grid */
+    .spire-calendar-grid {
+        @apply grid grid-cols-7 gap-1;
+    }
+
+    /* 4. Calendar Day Header */
+    .spire-calendar-day-header {
+        @apply text-xs font-semibold text-text-muted uppercase text-center py-2;
+    }
+
+    /* 5. Calendar Day Cell Base */
+    .spire-calendar-day {
+        @apply relative flex items-center justify-center w-10 h-10 rounded-md text-sm font-medium cursor-pointer;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    /* 6. Calendar Day States - Normal */
+    .spire-calendar-day--normal {
+        @apply text-text hover:bg-hover;
+    }
+
+    /* 7. Calendar Day - Today */
+    [data-spire-today="true"].spire-calendar-day {
+        @apply font-bold ring-2 ring-primary/30;
+    }
+
+    /* 8. Calendar Day - Selected (Single Mode) */
+    [data-spire-selected="true"].spire-calendar-day {
+        @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    }
+
+    /* 9. Calendar Day - Selection Start (Range Mode) */
+    [data-spire-selection-start="true"].spire-calendar-day {
+        @apply bg-primary text-primary-foreground rounded-r-none;
+    }
+
+    /* 10. Calendar Day - Selection End (Range Mode) */
+    [data-spire-selection-end="true"].spire-calendar-day {
+        @apply bg-primary text-primary-foreground rounded-l-none;
+    }
+
+    /* 11. Calendar Day - In Range (Range Mode) */
+    [data-spire-in-range="true"].spire-calendar-day {
+        @apply bg-primary/20 text-text rounded-none;
+    }
+
+    /* 12. Calendar Day - Highlighted Range Start (Preview) */
+    [data-spire-highlighted-start="true"].spire-calendar-day {
+        @apply bg-primary/30 text-text rounded-r-none;
+    }
+
+    /* 13. Calendar Day - Highlighted Range End (Preview) */
+    [data-spire-highlighted-end="true"].spire-calendar-day {
+        @apply bg-primary/30 text-text rounded-l-none;
+    }
+
+    /* 14. Calendar Day - In Highlighted Range (Preview) */
+    [data-spire-highlighted="true"].spire-calendar-day {
+        @apply bg-primary/10 text-text rounded-none;
+    }
+
+    /* 15. Calendar Day - Outside Current Month */
+    [data-spire-outside-month="true"].spire-calendar-day {
+        @apply text-text-muted opacity-50;
+    }
+
+    /* 16. Calendar Day - Disabled */
+    [data-spire-disabled="true"].spire-calendar-day {
+        @apply text-text-disabled cursor-not-allowed opacity-40;
+        @apply hover:bg-transparent;
+    }
+
+    /* 17. Calendar Day - Weekend */
+    [data-spire-weekend="true"].spire-calendar-day {
+        @apply text-error/80;
+    }
+
+    /* 18. Calendar Month/Year Picker Cell */
+    .spire-calendar-picker-cell {
+        @apply flex items-center justify-center px-4 py-3 rounded-md text-sm font-medium cursor-pointer;
+        @apply text-text hover:bg-hover;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+    .spire-calendar-picker-cell--selected {
+        @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    }
+    .spire-calendar-picker-cell--disabled {
+        @apply text-text-disabled cursor-not-allowed opacity-50;
+        @apply hover:bg-transparent;
+    }
+
+    /* 19. Calendar Presets */
+    .spire-calendar-presets {
+        @apply flex flex-col gap-1 border-r border-border pr-3 min-w-[140px];
+    }
+    .spire-calendar-presets__title {
+        @apply text-xs font-semibold text-text-muted uppercase tracking-wide mb-2;
+    }
+
+    /* 20. Calendar Preset Item */
+    .spire-calendar-preset-item {
+        @apply px-3 py-2 text-sm rounded-md cursor-pointer;
+        @apply text-text hover:bg-hover;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+    .spire-calendar-preset-item--active {
+        @apply bg-primary/10 text-primary font-medium;
+    }
+}

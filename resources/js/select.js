@@ -3,6 +3,18 @@ import { keyboard } from './keyboard';
 
 export function selectComponent(config = {}) {
     return {
+        findScrollableAncestor(element) {
+            let parent = element.parentElement;
+            while (parent && parent !== document.body) {
+                const { overflow, overflowY } = window.getComputedStyle(parent);
+                if (['auto', 'scroll'].includes(overflow) || ['auto', 'scroll'].includes(overflowY)) {
+                    return parent;
+                }
+                parent = parent.parentElement;
+            }
+            return null;
+        },
+
         ...overlay({
             trigger: 'click',
             onInit() {
@@ -44,32 +56,24 @@ export function selectComponent(config = {}) {
                 });
 
                 this.$watch('open', (newValue) => {
-                    console.log('[SELECT] open watcher triggered:', { newValue, searchable: this.searchable });
                     if (newValue && this.searchable) {
-                        console.log('[SELECT] Conditions met, waiting for nextTick...');
                         this.$nextTick(() => {
-                            console.log('[SELECT] In nextTick, searching for input...');
-                            console.log('[SELECT] Available refs:', Object.keys(this.$refs));
-                            console.log('[SELECT] searchInputWrapper ref:', this.$refs.searchInputWrapper);
-
                             const wrapper = this.$refs.searchInputWrapper;
                             if (wrapper) {
                                 const searchInput = wrapper.querySelector('input[type="text"]');
-                                console.log('[SELECT] Found input element:', searchInput);
-
                                 if (searchInput) {
-                                    console.log('[SELECT] Calling $focus.focus() on:', searchInput);
+                                    const scrollParent = this.findScrollableAncestor(searchInput);
+                                    const scrollTop = scrollParent?.scrollTop;
+
                                     this.$focus.focus(searchInput);
-                                    console.log('[SELECT] Focus called, current activeElement:', document.activeElement);
-                                } else {
-                                    console.warn('[SELECT] Input element not found inside wrapper!');
+
+                                    if (scrollParent && scrollTop !== undefined) {
+                                        scrollParent.scrollTop = scrollTop;
+                                    }
                                 }
-                            } else {
-                                console.warn('[SELECT] searchInputWrapper ref not found!');
                             }
                         });
                     } else if (!newValue) {
-                        console.log('[SELECT] Closing dropdown, clearing search');
                         this.searchQuery = '';
                         this.resetHighlight();
                     }
