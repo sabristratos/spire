@@ -1,6 +1,6 @@
 @props(['showClear' => true, 'showToday' => true])
 
-<div class="flex items-center justify-between gap-2 px-3 py-2 bg-surface-subtle">
+<div class="spire-calendar-footer">
     @if($showClear)
         <x-spire::button
             type="button"
@@ -19,7 +19,7 @@
     @if($showToday)
         <x-spire::button
             type="button"
-            variant="ghost"
+            variant="solid"
             size="sm"
             color="primary"
             @click="selectToday"

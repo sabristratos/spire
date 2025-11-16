@@ -16,6 +16,7 @@ import { modalComponent } from './modal';
 import { ratingComponent } from './rating';
 
 export function initializeSpireUI() {
+    // Expose to window for direct access if needed
     window.overlay = overlay;
     window.keyboard = keyboard;
     window.selectComponent = selectComponent;
@@ -27,6 +28,18 @@ export function initializeSpireUI() {
     window.ratingComponent = ratingComponent;
 
     document.addEventListener('alpine:init', () => {
+        // Register with spire- prefix for consistency
+        Alpine.data('spire-overlay', overlay);
+        Alpine.data('spire-keyboard', keyboard);
+        Alpine.data('spire-select', selectComponent);
+        Alpine.data('spire-autocomplete', autocompleteComponent);
+        Alpine.data('spire-calendar', calendarComponent);
+        Alpine.data('spire-datepicker', datepickerComponent);
+        Alpine.data('spire-timepicker', timepickerComponent);
+        Alpine.data('spire-modal', modalComponent);
+        Alpine.data('spire-rating', ratingComponent);
+
+        // Also register without prefix for backward compatibility
         Alpine.data('overlay', overlay);
         Alpine.data('keyboard', keyboard);
         Alpine.data('selectComponent', selectComponent);

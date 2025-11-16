@@ -3,8 +3,8 @@
     'color' => 'default',
     'size' => 'md',
     'radius' => 'full',
-    'isDisabled' => false,
-    'isDot' => false,
+    'disabled' => false,
+    'dot' => false,
 ])
 
 @php
@@ -27,13 +27,14 @@ use SpireUI\Support\ComponentClass;
         'featured' => 'bg-featured',
     ];
 
-    $showDot = $isDot || $variant === 'dot';
+    $showDot = $dot || $variant === 'dot';
 
     $builder = ComponentClass::make('badge')
         ->size($size)
         ->radius($radius)
         ->when($showDot, fn($b) => $b->modifier('dot'))
-        ->addIf($isDisabled, 'opacity-50', 'cursor-not-allowed');
+        ->addIf($disabled, 'opacity-50', 'cursor-not-allowed')
+        ->dataAttribute('disabled', $disabled ? 'true' : null);
 
     if ($variant !== 'dot') {
         $builder->colorVariant($color, $variant);
@@ -45,9 +46,7 @@ use SpireUI\Support\ComponentClass;
 
     $mergedAttributes = $attributes->merge([
         'class' => $builder->build(),
-        'data-spire-badge' => 'true',
         ...$builder->getDataAttributes(),
-        'data-spire-disabled' => $isDisabled ? 'true' : null,
     ]);
 @endphp
 

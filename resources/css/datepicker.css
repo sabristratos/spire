@@ -217,4 +217,29 @@
     .spire-datepicker-trigger__clear-btn:hover {
         @apply bg-error/10;
     }
+
+    /* 17. DatePicker Footer */
+    .spire-datepicker-footer {
+        @apply flex items-center gap-2 pt-3 mt-3 border-t border-border;
+    }
+
+    .spire-datepicker-footer__inputs {
+        @apply flex items-center gap-2 flex-1;
+    }
+
+    .spire-datepicker-footer__input {
+        @apply flex-1 h-9 px-3 text-sm rounded-md;
+        @apply border border-border bg-surface;
+        @apply text-text placeholder:text-text-muted;
+        @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+        @apply focus-visible:outline-none;
+    }
+
+    .spire-datepicker-footer__separator {
+        @apply text-text-muted text-sm;
+    }
+
+    .spire-datepicker-footer__actions {
+        @apply flex items-center gap-2;
+    }
 }

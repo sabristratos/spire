@@ -4,7 +4,7 @@
     'color' => 'default',
     'variant' => 'flat',
     'radius' => 'md',
-    'isClosable' => false,
+    'closable' => false,
     'hideIcon' => false,
     'icon' => null,
 ])
@@ -26,7 +26,8 @@ use SpireUI\Support\ComponentClass;
 
     $builder = ComponentClass::make('alert')
         ->colorVariant($color, $variant)
-        ->radius($radius);
+        ->radius($radius)
+        ->dataAttribute('closable', $closable ? 'true' : 'false');
 
     if ($customClass = $attributes->get('class')) {
         $builder->addClass($customClass);
@@ -34,9 +35,7 @@ use SpireUI\Support\ComponentClass;
 
     $mergedAttributes = $attributes->merge([
         'class' => $builder->build(),
-        'data-spire-alert' => 'true',
         ...$builder->getDataAttributes(),
-        'data-spire-closable' => $isClosable ? 'true' : 'false',
         'role' => 'alert',
         'aria-live' => 'polite',
     ]);
@@ -44,7 +43,7 @@ use SpireUI\Support\ComponentClass;
 
 <div
     {{ $mergedAttributes }}
-    @if($isClosable)
+    @if($closable)
         x-data="{ visible: true }"
         x-show="visible"
         x-transition:enter="transition ease-out duration-200"
@@ -93,7 +92,7 @@ use SpireUI\Support\ComponentClass;
         </div>
     @endif
 
-    @if($isClosable)
+    @if($closable)
         <button
             type="button"
             @click="visible = false"

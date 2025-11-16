@@ -76,45 +76,58 @@ $mergedAttributes = $attributes->except([
 
         {{-- Calendar grid (datepicker manages all calendar state) --}}
         <div wire:ignore>
-            {{-- Simple calendar header without month/year picker --}}
-            <div class="flex items-center justify-between mb-2 mt-2">
-                <x-spire::button
-                    type="button"
-                    variant="flat"
-                    size="sm"
-                    icon-only
-                    @click="previousMonth"
-                    aria-label="{{ __('spire::spire-ui.date.previous_month') }}"
-                >
-                    <x-slot:leading>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                        </svg>
-                    </x-slot:leading>
-                </x-spire::button>
+            <template x-if="mode === 'range'">
+                <x-spire::calendar.dual-grid />
+            </template>
 
-                <div class="text-base font-semibold" aria-live="polite" aria-atomic="true">
-                    <span x-text="monthName"></span>
-                    <span x-text="displayYear"></span>
+            <template x-if="mode !== 'range'">
+                <div>
+                    <x-spire::calendar.header />
+                    <x-spire::calendar.grid />
                 </div>
-
-                <x-spire::button
-                    type="button"
-                    variant="flat"
-                    size="sm"
-                    icon-only
-                    @click="nextMonth"
-                    aria-label="{{ __('spire::spire-ui.date.next_month') }}"
-                >
-                    <x-slot:leading>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </x-slot:leading>
-                </x-spire::button>
-            </div>
-
-            <x-spire::calendar.grid size="sm" />
+            </template>
         </div>
+
+        {{-- Footer with range inputs for range mode --}}
+        <template x-if="mode === 'range'">
+            <div class="spire-datepicker-footer">
+                <div class="spire-datepicker-footer__inputs">
+                    <input
+                        type="text"
+                        class="spire-datepicker-footer__input"
+                        :value="formattedRangeStart"
+                        placeholder="{{ __('spire::spire-ui.datepicker.start_date') }}"
+                        readonly
+                    />
+                    <span class="spire-datepicker-footer__separator">-</span>
+                    <input
+                        type="text"
+                        class="spire-datepicker-footer__input"
+                        :value="formattedRangeEnd"
+                        placeholder="{{ __('spire::spire-ui.datepicker.end_date') }}"
+                        readonly
+                    />
+                </div>
+                <div class="spire-datepicker-footer__actions">
+                    <x-spire::button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        @click="clearDate"
+                    >
+                        {{ __('spire::spire-ui.common.cancel') }}
+                    </x-spire::button>
+                    <x-spire::button
+                        type="button"
+                        variant="solid"
+                        size="sm"
+                        color="primary"
+                        @click="hide"
+                    >
+                        {{ __('spire::spire-ui.datepicker.set_date') }}
+                    </x-spire::button>
+                </div>
+            </div>
+        </template>
     </div>
 </div>

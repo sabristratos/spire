@@ -1,5 +1,5 @@
 @props([
-    'isBlurred' => false,
+    'blurred' => false,
 ])
 
 @php
@@ -10,7 +10,7 @@
         $isCardFooterBlurred = $parentAttributes->get('data-spire-footer-blurred') === 'true';
     }
 
-    $shouldBlur = $isBlurred || $isCardFooterBlurred;
+    $shouldBlur = $blurred || $isCardFooterBlurred;
 
     $baseClasses = array_filter([
         'flex',

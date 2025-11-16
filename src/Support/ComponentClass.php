@@ -60,30 +60,22 @@ class ComponentClass
 
     public function radius(string $radius): self
     {
-        $radiusMap = [
-            'none' => 'rounded-none',
-            'sm' => 'rounded-sm',
-            'md' => 'rounded-md',
-            'lg' => 'rounded-lg',
-            'full' => 'rounded-full',
-        ];
+        $class = ComponentStyles::radiusClasses($radius);
 
-        $this->classes[] = $radiusMap[$radius] ?? $radiusMap['md'];
+        if ($class) {
+            $this->classes[] = $class;
+        }
 
         return $this;
     }
 
     public function shadow(string $shadow): self
     {
-        $shadowMap = [
-            'none' => 'shadow-none',
-            'sm' => 'shadow-sm',
-            'md' => 'shadow-md',
-            'lg' => 'shadow-lg',
-            'xl' => 'shadow-xl',
-        ];
+        $class = ComponentStyles::shadowClasses($shadow);
 
-        $this->classes[] = $shadowMap[$shadow] ?? '';
+        if ($class) {
+            $this->classes[] = $class;
+        }
 
         return $this;
     }

@@ -1,6 +1,6 @@
 import { overlay } from './overlay';
+import { calendarState } from './calendar-state';
 import { CalendarUtils } from './calendar-utils';
-import { DateFormatter } from './date-formatter';
 import { DATE_FORMAT_PATTERNS, DEFAULT_DATE_FORMAT } from './component-constants';
 
 export function datepickerComponent(config = {}) {
@@ -24,8 +24,20 @@ export function datepickerComponent(config = {}) {
             }
         }),
 
-        mode: config.mode || 'single',
-        value: config.value || (config.mode === 'range' ? { start: '', end: '' } : config.mode === 'multiple' ? [] : ''),
+        ...calendarState({
+            mode: config.mode || 'single',
+            value: config.value || (config.mode === 'range' ? { start: '', end: '' } : config.mode === 'multiple' ? [] : ''),
+            locale: config.locale || null,
+            firstDayOfWeek: config.firstDayOfWeek !== undefined ? config.firstDayOfWeek : null,
+            minDate: config.minDate || null,
+            maxDate: config.maxDate || null,
+            disabledDates: config.disabledDates || [],
+            disabledDaysOfWeek: config.disabledDaysOfWeek || [],
+            maxRange: config.maxRange || null,
+            minRange: config.minRange || null,
+            maxDates: config.maxDates || null,
+        }),
+
         placeholder: config.placeholder || 'Select date',
 
         todayText: config.todayText || 'Today',
@@ -34,16 +46,7 @@ export function datepickerComponent(config = {}) {
         dayLabel: config.dayLabel || 'Day',
         yearLabel: config.yearLabel || 'Year',
 
-        minDate: config.minDate || null,
-        maxDate: config.maxDate || null,
-        disabledDates: config.disabledDates || [],
-        disabledDaysOfWeek: config.disabledDaysOfWeek || [],
-        locale: config.locale || null,
         format: config.format || 'auto',
-        firstDayOfWeek: config.firstDayOfWeek !== undefined ? config.firstDayOfWeek : null,
-        maxRange: config.maxRange || null,
-        minRange: config.minRange || null,
-        maxDates: config.maxDates || null,
 
         month: null,
         day: null,
@@ -56,18 +59,6 @@ export function datepickerComponent(config = {}) {
         },
 
         focusedSegment: null,
-
-        // Calendar properties
-        displayMonth: new Date().getMonth(),
-        displayYear: new Date().getFullYear(),
-        weeks: [],
-        dayNames: [],
-        hoveredDate: null,
-        selectionAnnouncement: '',
-
-        get monthName() {
-            return DateFormatter.getMonthName(this.displayMonth, 'long', this.locale || 'en-US');
-        },
 
         get formattedRangeStart() {
             if (this.mode !== 'range' || !this.value?.start) return '';
@@ -474,186 +465,6 @@ export function datepickerComponent(config = {}) {
             }
 
             this.syncSegmentsToValue();
-        },
-
-        // Calendar methods
-        updateCalendar() {
-            this.weeks = CalendarUtils.generateMonthGrid(
-                this.displayYear,
-                this.displayMonth,
-                this.firstDayOfWeek || 0
-            );
-
-            this.dayNames = CalendarUtils.getDayNames(
-                this.firstDayOfWeek || 0,
-                this.locale || 'en-US',
-                'short'
-            );
-        },
-
-        nextMonth() {
-            this.displayMonth++;
-            if (this.displayMonth > 11) {
-                this.displayMonth = 0;
-                this.displayYear++;
-            }
-            this.updateCalendar();
-        },
-
-        previousMonth() {
-            this.displayMonth--;
-            if (this.displayMonth < 0) {
-                this.displayMonth = 11;
-                this.displayYear--;
-            }
-            this.updateCalendar();
-        },
-
-        selectDate(dateString) {
-            const day = this.findDayByDate(dateString);
-            if (this.isDisabled(day)) return;
-
-            if (this.mode === 'single') {
-                this.value = dateString;
-            } else if (this.mode === 'range') {
-                this.selectRangeDate(dateString);
-            } else if (this.mode === 'multiple') {
-                this.toggleMultipleDate(dateString);
-            }
-        },
-
-        selectRangeDate(dateString) {
-            const isRangeValue = val => val && typeof val === 'object' && !Array.isArray(val) && 'start' in val && 'end' in val;
-            if (!isRangeValue(this.value)) {
-                this.value = { start: dateString, end: null };
-                return;
-            }
-
-            if (!this.value.start || (this.value.start && this.value.end)) {
-                this.value = { start: dateString, end: null };
-            } else {
-                const start = this.value.start;
-                const end = dateString;
-
-                if (CalendarUtils.isBefore(end, start)) {
-                    this.value = { start: end, end: start };
-                } else {
-                    this.value = { start, end };
-                }
-            }
-        },
-
-        toggleMultipleDate(dateString) {
-            const dates = Array.isArray(this.value) ? [...this.value] : [];
-            const index = dates.indexOf(dateString);
-
-            if (index > -1) {
-                dates.splice(index, 1);
-            } else {
-                if (this.maxDates && dates.length >= this.maxDates) {
-                    return;
-                }
-                dates.push(dateString);
-            }
-
-            this.value = dates;
-        },
-
-        handleDateHover(dateString) {
-            if (this.mode === 'range' && this.value && this.value.start && !this.value.end) {
-                this.hoveredDate = dateString;
-            }
-        },
-
-        clearHover() {
-            this.hoveredDate = null;
-        },
-
-        findDayByDate(dateString) {
-            for (const week of this.weeks) {
-                const day = week.find(d => d.date === dateString);
-                if (day) return day;
-            }
-            return null;
-        },
-
-        isDisabled(day) {
-            if (!day) return true;
-
-            if (this.minDate && CalendarUtils.isBefore(day.date, this.minDate)) {
-                return true;
-            }
-
-            if (this.maxDate && CalendarUtils.isAfter(day.date, this.maxDate)) {
-                return true;
-            }
-
-            if (this.disabledDates && this.disabledDates.includes(day.date)) {
-                return true;
-            }
-
-            if (this.disabledDaysOfWeek && this.disabledDaysOfWeek.includes(day.dayOfWeek)) {
-                return true;
-            }
-
-            return false;
-        },
-
-        getAriaLabel(day) {
-            return DateFormatter.getAriaLabel(day.date, this.locale || 'en-US');
-        },
-
-        isDateSelected(dateString) {
-            if (this.mode === 'single') {
-                return this.value === dateString;
-            } else if (this.mode === 'range') {
-                return this.isDateInRange(dateString);
-            } else if (this.mode === 'multiple') {
-                return Array.isArray(this.value) && this.value.includes(dateString);
-            }
-            return false;
-        },
-
-        isDateInRange(dateString) {
-            if (!this.value || typeof this.value !== 'object') return false;
-            if (!this.value.start) return false;
-            if (!this.value.end) return this.value.start === dateString;
-
-            return CalendarUtils.isWithinRange(dateString, this.value.start, this.value.end);
-        },
-
-        isDateInPreviewRange(dateString) {
-            if (this.mode !== 'range' || !this.value) return false;
-            if (!this.value.start || this.value.end || !this.hoveredDate) return false;
-
-            const start = this.value.start;
-            const end = this.hoveredDate;
-
-            if (CalendarUtils.isBefore(end, start)) {
-                return CalendarUtils.isWithinRange(dateString, end, start);
-            } else {
-                return CalendarUtils.isWithinRange(dateString, start, end);
-            }
-        },
-
-        isRangeStart(dateString) {
-            return this.mode === 'range' && this.value && this.value.start === dateString;
-        },
-
-        isRangeEnd(dateString) {
-            return this.mode === 'range' && this.value && this.value.end === dateString;
-        },
-
-        isPreviewStart(dateString) {
-            if (this.mode !== 'range' || !this.value) return false;
-            if (!this.value.start || this.value.end || !this.hoveredDate) return false;
-            return this.value.start === dateString;
-        },
-
-        isPreviewEnd(dateString) {
-            if (this.mode !== 'range' || !this.value) return false;
-            if (!this.value.start || this.value.end || !this.hoveredDate) return false;
-            return this.hoveredDate === dateString;
         },
 
         handleCalendarSelect(date) {

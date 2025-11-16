@@ -3,10 +3,10 @@
     'radius' => 'lg',
     'variant' => 'elevated',
     'fullWidth' => false,
-    'isHoverable' => false,
-    'isPressable' => false,
-    'isBlurred' => false,
-    'isFooterBlurred' => false,
+    'hoverable' => false,
+    'pressable' => false,
+    'blurred' => false,
+    'footerBlurred' => false,
     'href' => null,
     'padding' => 'md',
 ])
@@ -22,9 +22,13 @@ use SpireUI\Support\ComponentClass;
         ->radius($radius)
         ->when($variant === 'elevated', fn($b) => $b->shadow($shadow))
         ->when($fullWidth, fn($b) => $b->modifier('full-width'))
-        ->when($isHoverable, fn($b) => $b->modifier('hoverable'))
-        ->when($isPressable, fn($b) => $b->modifier('pressable'))
-        ->when($isBlurred, fn($b) => $b->modifier('blurred'));
+        ->when($hoverable, fn($b) => $b->modifier('hoverable'))
+        ->when($pressable, fn($b) => $b->modifier('pressable'))
+        ->when($blurred, fn($b) => $b->modifier('blurred'))
+        ->dataAttribute('hoverable', $hoverable ? 'true' : null)
+        ->dataAttribute('pressable', $pressable ? 'true' : null)
+        ->dataAttribute('blurred', $blurred ? 'true' : null)
+        ->dataAttribute('footer-blurred', $footerBlurred ? 'true' : null);
 
     if ($customClass = $attributes->get('class')) {
         $builder->addClass($customClass);
@@ -32,14 +36,10 @@ use SpireUI\Support\ComponentClass;
 
     $mergedAttributes = $attributes->merge([
         'class' => $builder->build(),
+        ...$builder->getDataAttributes(),
         'href' => $href,
-        'role' => ($isPressable && !$href) ? 'button' : null,
-        'tabindex' => ($isPressable && !$href) ? '0' : null,
-        'data-spire-card' => 'true',
-        'data-spire-hoverable' => $isHoverable ? 'true' : null,
-        'data-spire-pressable' => $isPressable ? 'true' : null,
-        'data-spire-blurred' => $isBlurred ? 'true' : null,
-        'data-spire-footer-blurred' => $isFooterBlurred ? 'true' : null,
+        'role' => ($pressable && !$href) ? 'button' : null,
+        'tabindex' => ($pressable && !$href) ? '0' : null,
     ]);
 @endphp
 

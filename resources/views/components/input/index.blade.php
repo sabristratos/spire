@@ -52,13 +52,16 @@
     if ($customClass = $attributes->get('class')) {
         $containerBuilder->addClass($customClass);
     }
+
+    $mergedAttributes = [
+        'class' => $containerBuilder->build(),
+    ];
+
     if ($customStyle = $attributes->get('style')) {
-        $containerBuilder->addClass($customStyle);
+        $mergedAttributes['style'] = $customStyle;
     }
 
-    $wrapperAttributes = $attributes->only(['class', 'style'])->merge([
-        'class' => $containerBuilder->build(),
-    ]);
+    $wrapperAttributes = $attributes->only(['class', 'style'])->merge($mergedAttributes);
 
     $inputBoxBuilder = ComponentClass::make('input-box')
         ->modifier($variant)

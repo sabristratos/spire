@@ -8,11 +8,11 @@
         <span x-text="selectionAnnouncement"></span>
     </div>
     {{-- Day names header --}}
-    <div role="row" class="grid grid-cols-7 gap-0 mb-2">
+    <div role="row" class="grid grid-cols-7 gap-0.5 mb-2">
         <template x-for="dayName in dayNames" :key="dayName">
             <div
                 role="columnheader"
-                class="text-xs font-medium text-primary text-center h-8 flex items-center justify-center"
+                class="spire-calendar-day-header"
                 x-text="dayName"
             ></div>
         </template>
@@ -20,7 +20,7 @@
 
     {{-- Calendar weeks --}}
     <template x-for="(week, weekIndex) in weeks" :key="weekIndex">
-        <div role="row" class="grid grid-cols-7 gap-0">
+        <div role="row" class="grid grid-cols-7 gap-0.5">
             <template x-for="day in week" :key="day.date">
                 <button
                     type="button"
@@ -35,9 +35,10 @@
                     :aria-current="day.isToday ? 'date' : null"
                     :aria-label="getAriaLabel(day)"
                     :data-date="day.date"
-                    :data-spire-selected="isDateSelected(day.date) ? 'true' : null"
+                    :data-spire-selected="mode === 'single' && isDateSelected(day.date) ? 'true' : (mode === 'multiple' && isDateSelected(day.date) ? 'true' : null)"
                     :data-spire-selection-start="isRangeStart(day.date) ? 'true' : null"
                     :data-spire-selection-end="isRangeEnd(day.date) ? 'true' : null"
+                    :data-spire-in-range="mode === 'range' && isDateSelected(day.date) && !isRangeStart(day.date) && !isRangeEnd(day.date) ? 'true' : null"
                     :data-spire-highlighted="isDateInPreviewRange(day.date) ? 'true' : null"
                     :data-spire-highlighted-start="isPreviewStart(day.date) ? 'true' : null"
                     :data-spire-highlighted-end="isPreviewEnd(day.date) ? 'true' : null"
@@ -46,40 +47,7 @@
                     :data-spire-disabled="isDisabled(day) ? 'true' : null"
                     :data-spire-weekend="day.isWeekend ? 'true' : null"
                     :disabled="isDisabled(day)"
-                    :class="{
-                        'aspect-square w-full flex items-center justify-center text-sm ease-fast relative': true,
-
-                        // Base states
-                        'hover:bg-hover cursor-pointer': !isDisabled(day) && mode === 'single',
-                        'cursor-pointer': !isDisabled(day) && (mode === 'range' || mode === 'multiple'),
-                        'opacity-50 cursor-not-allowed': isDisabled(day),
-                        'text-text-muted': !day.isCurrentMonth,
-
-                        // Single mode selection
-                        'bg-primary text-primary-foreground hover:bg-primary/90 rounded-md': mode === 'single' && isDateSelected(day.date) && !isDisabled(day),
-
-                        // Range mode - start date
-                        'bg-primary text-primary-foreground rounded-l-md': mode === 'range' && isRangeStart(day.date) && !isRangeEnd(day.date),
-                        'bg-primary text-primary-foreground rounded-md': mode === 'range' && isRangeStart(day.date) && isRangeEnd(day.date),
-
-                        // Range mode - end date
-                        'bg-primary text-primary-foreground rounded-r-md': mode === 'range' && isRangeEnd(day.date) && !isRangeStart(day.date),
-
-                        // Range mode - dates in between
-                        'bg-primary/10 text-primary': mode === 'range' && isDateSelected(day.date) && !isRangeStart(day.date) && !isRangeEnd(day.date),
-
-                        // Range preview (hover state)
-                        'bg-primary/5 border border-dashed border-primary/30': mode === 'range' && isDateInPreviewRange(day.date) && !isDateSelected(day.date),
-
-                        // Multiple mode selection
-                        'bg-primary text-primary-foreground rounded-md': mode === 'multiple' && isDateSelected(day.date),
-
-                        // Today indicator (when not selected)
-                        'border-2 border-primary': day.isToday && !isDateSelected(day.date),
-
-                        // Default text color
-                        'text-text': day.isCurrentMonth && !isDateSelected(day.date) && !isDisabled(day),
-                    }"
+                    class="spire-calendar-day"
                 >
                     <span x-text="day.day"></span>
                 </button>

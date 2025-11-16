@@ -5,8 +5,8 @@
     'size' => 'md',
     'radius' => 'full',
     'color' => 'primary',
-    'isBordered' => false,
-    'isDisabled' => false,
+    'bordered' => false,
+    'disabled' => false,
     'showFallback' => true,
 ])
 
@@ -25,8 +25,9 @@ if ($name) {
 $builder = ComponentClass::make('avatar')
     ->size($size)
     ->radius($radius)
-    ->when($isDisabled, fn($b) => $b->modifier('disabled'))
-    ->when($isBordered, fn($b) => $b->modifier('bordered')->modifier("ring-{$color}"));
+    ->when($disabled, fn($b) => $b->modifier('disabled'))
+    ->when($bordered, fn($b) => $b->modifier('bordered')->modifier("ring-{$color}"))
+    ->dataAttribute('color', $color);
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
@@ -34,9 +35,7 @@ if ($customClass = $attributes->get('class')) {
 
 $mergedAttributes = $attributes->merge([
     'class' => $builder->build(),
-    'data-spire-avatar' => 'true',
-    'data-spire-size' => $size,
-    'data-spire-color' => $color,
+    ...$builder->getDataAttributes(),
     'aria-label' => $alt ?: $name,
 ]);
 @endphp

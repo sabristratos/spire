@@ -59,31 +59,31 @@
     }
 
     /* 6. Avatar Group Ring Classes (parent-based) */
-    [data-spire-avatar-group-bordered] .spire-avatar {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow) {
         @apply ring-2 ring-offset-2;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="default"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="default"] {
         @apply ring-neutral;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="neutral"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="neutral"] {
         @apply ring-neutral;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="primary"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="primary"] {
         @apply ring-primary;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="secondary"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="secondary"] {
         @apply ring-secondary;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="success"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="success"] {
         @apply ring-success;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="error"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="error"] {
         @apply ring-error;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="warning"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="warning"] {
         @apply ring-warning;
     }
-    [data-spire-avatar-group-bordered] .spire-avatar[data-spire-color="info"] {
+    [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar-overflow)[data-spire-color="info"] {
         @apply ring-info;
     }
 
@@ -171,34 +171,5 @@
     }
     .spire-avatar-overflow--ring-featured {
         @apply ring-featured;
-    }
-
-    /* 11. Avatar Overflow inherits same group ring behavior */
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow {
-        @apply ring-2 ring-offset-2;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="default"] {
-        @apply ring-neutral;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="neutral"] {
-        @apply ring-neutral;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="primary"] {
-        @apply ring-primary;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="secondary"] {
-        @apply ring-secondary;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="success"] {
-        @apply ring-success;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="error"] {
-        @apply ring-error;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="warning"] {
-        @apply ring-warning;
-    }
-    [data-spire-avatar-group-bordered] .spire-avatar-overflow[data-spire-color="info"] {
-        @apply ring-info;
     }
 }
