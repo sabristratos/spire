@@ -1,120 +1,64 @@
 import { calendarState } from './calendar-state';
 import { CalendarUtils } from './calendar-utils';
 import { DateFormatter } from './date-formatter';
-import { overlay } from './overlay';
-import { CALENDAR_YEAR_RANGE_PAST, CALENDAR_YEAR_RANGE_FUTURE } from './component-constants';
+import { calendarYearMonthMixin } from './calendar-year-month';
 
 export function calendarComponent(config = {}) {
     return {
-        ...overlay({
-            trigger: 'click',
-            placement: 'bottom-start',
-            onInit() {
-                this.value = this.normalizeValue(this.value);
-                this.updateCalendar();
-
-                this.$watch('value', (newValue) => {
-                    this.value = this.normalizeValue(newValue);
-
-                    if (this.mode === 'single' && this.value) {
-                        const { year, month } = CalendarUtils.parseDate(this.value);
-                        if (this.displayYear !== year || this.displayMonth !== month) {
-                            this.displayYear = year;
-                            this.displayMonth = month;
-                            this.updateCalendar();
-                        }
-                    } else if (this.mode === 'range' && this.value?.start) {
-                        const { year, month } = CalendarUtils.parseDate(this.value.start);
-                        if (this.displayYear !== year || this.displayMonth !== month) {
-                            this.displayYear = year;
-                            this.displayMonth = month;
-                            this.updateCalendar();
-                        }
-                    }
-
-                    this.updateSelectionAnnouncement();
-                });
-
-                this.$watch('open', (isOpen) => {
-                    if (isOpen) {
-                        this.pickerYear = this.displayYear;
-                    }
-                });
-            },
-        }),
-
         ...calendarState(config),
+        ...calendarYearMonthMixin(),
 
         todayButtonBehavior: config.todayButtonBehavior ?? 'single-day',
         presets: config.presets ?? [],
 
         pickerYear: new Date().getFullYear(),
+        showMonthYearPicker: false,
+        showYearPicker: false,
+        pickerDecadeStart: null,
 
-        selectMonth(monthIndex) {
-            if (!this.isMonthDisabled(monthIndex, this.pickerYear)) {
-                this.displayMonth = monthIndex;
-                this.displayYear = this.pickerYear;
-                this.updateCalendar();
-                this.hide();
-            }
-        },
+        init() {
+            this.value = this.normalizeValue(this.value);
+            this.updateCalendar();
+            this.updateCalendar2();
 
-        previousYear() {
-            const newYear = this.pickerYear - 1;
-            if (!this.isYearDisabled(newYear)) {
-                this.pickerYear = newYear;
-            }
-        },
+            this.$watch('value', (newValue) => {
+                this.value = this.normalizeValue(newValue);
 
-        nextYear() {
-            const newYear = this.pickerYear + 1;
-            if (!this.isYearDisabled(newYear)) {
-                this.pickerYear = newYear;
-            }
-        },
+                if (this.mode === 'single' && this.value) {
+                    const { year, month } = CalendarUtils.parseDate(this.value);
+                    if (this.displayYear !== year || this.displayMonth !== month) {
+                        this.displayYear = year;
+                        this.displayMonth = month;
+                        this.updateCalendar();
+                    }
+                } else if (this.mode === 'range' && this.value?.start) {
+                    const { year, month } = CalendarUtils.parseDate(this.value.start);
+                    if (this.displayYear !== year || this.displayMonth !== month) {
+                        this.displayYear = year;
+                        this.displayMonth = month;
+                        this.updateCalendar();
 
-        isYearDisabled(year) {
-            const currentYear = new Date().getFullYear();
-            const minYear = currentYear - CALENDAR_YEAR_RANGE_PAST;
-            const maxYear = currentYear + CALENDAR_YEAR_RANGE_FUTURE;
-
-            if (year < minYear || year > maxYear) {
-                return true;
-            }
-
-            if (this.minDate) {
-                const { year: minConstraintYear } = CalendarUtils.parseDate(this.minDate);
-                if (year < minConstraintYear) {
-                    return true;
+                        // Update calendar2 to show next month in dual calendar view
+                        this.displayMonth2 = month === 11 ? 0 : month + 1;
+                        this.displayYear2 = month === 11 ? year + 1 : year;
+                        this.updateCalendar2();
+                    }
                 }
-            }
 
-            if (this.maxDate) {
-                const { year: maxConstraintYear } = CalendarUtils.parseDate(this.maxDate);
-                if (year > maxConstraintYear) {
-                    return true;
+                this.updateSelectionAnnouncement();
+            });
+
+            this.$watch('showMonthYearPicker', (isOpen) => {
+                if (isOpen) {
+                    this.pickerYear = this.displayYear;
                 }
-            }
+            });
 
-            return false;
-        },
-
-        isMonthDisabled(monthIndex, year) {
-            if (this.minDate) {
-                const { year: minYear, month: minMonth } = CalendarUtils.parseDate(this.minDate);
-                if (year < minYear || (year === minYear && monthIndex < minMonth)) {
-                    return true;
+            this.$watch('showYearPicker', (isOpen) => {
+                if (isOpen) {
+                    this.initYearPicker();
                 }
-            }
-
-            if (this.maxDate) {
-                const { year: maxYear, month: maxMonth } = CalendarUtils.parseDate(this.maxDate);
-                if (year > maxYear || (year === maxYear && monthIndex > maxMonth)) {
-                    return true;
-                }
-            }
-
-            return false;
+            });
         },
 
         clearSelection() {

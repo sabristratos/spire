@@ -27,55 +27,15 @@ export function overlay(options = {}) {
         },
 
         setupPopover() {
-            console.log('[OVERLAY] setupPopover called', {
-                hasContent: !!this.$refs.content,
-                hasTrigger: !!this.$refs.trigger
-            });
-
             if (!this.$refs.content || !this.$refs.trigger) return;
-
-            if ('popover' in HTMLElement.prototype) {
-                const contentId = this.$refs.content.id;
-                const triggerElement = this.$refs.trigger.querySelector('button, a, [role="button"]') || this.$refs.trigger;
-
-                console.log('[OVERLAY] Setting up popover', {
-                    contentId,
-                    triggerElement: triggerElement.tagName,
-                    triggerElementHtml: triggerElement.outerHTML.substring(0, 100)
-                });
-
-                triggerElement.setAttribute('popovertarget', contentId);
-                triggerElement.setAttribute('popovertargetaction', 'toggle');
-
-                console.log('[OVERLAY] Popover attributes set', {
-                    popovertarget: triggerElement.getAttribute('popovertarget'),
-                    popovertargetaction: triggerElement.getAttribute('popovertargetaction')
-                });
-            }
         },
 
         setupAnchor() {
-            console.log('[OVERLAY] setupAnchor called', {
-                hasRefs: {
-                    trigger: !!this.$refs.trigger,
-                    content: !!this.$refs.content
-                }
-            });
-
-            if (!this.$refs.trigger || !this.$refs.content) {
-                console.log('[OVERLAY] setupAnchor: missing refs, returning early');
-                return;
-            }
+            if (!this.$refs.trigger || !this.$refs.content) return;
 
             const anchorId = `anchor-${this.$id('overlay')}`;
             this.$refs.trigger.style.anchorName = `--${anchorId}`;
             this.$refs.content.style.positionAnchor = `--${anchorId}`;
-
-            console.log('[OVERLAY] setupAnchor: anchor set', {
-                anchorId,
-                triggerAnchorName: this.$refs.trigger.style.anchorName,
-                contentPositionAnchor: this.$refs.content.style.positionAnchor
-            });
         },
 
         setupEventListeners() {
@@ -87,10 +47,12 @@ export function overlay(options = {}) {
         },
 
         setupTriggerMode() {
-            if (!this.$refs.trigger || !this.$refs.content) return;
-
             const triggerElement = this.$refs.trigger;
             const contentElement = this.$refs.content;
+
+            if (!triggerElement || !contentElement) {
+                return;
+            }
 
             if (this.triggerMode === 'hover' || this.triggerMode === 'both') {
                 triggerElement.addEventListener('mouseenter', () => {
@@ -116,26 +78,6 @@ export function overlay(options = {}) {
                     }
                 });
             }
-
-            if (this.triggerMode === 'both') {
-                const button = triggerElement.querySelector('button, a, [role="button"]');
-                if (button) {
-                    button.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        if (this.open) {
-                            this.isPinned = !this.isPinned;
-                            if (!this.isPinned) {
-                                this.hide();
-                            }
-                        } else {
-                            this.isPinned = true;
-                            this.show();
-                        }
-                    });
-                }
-            }
         },
 
         clearHoverTimer() {
@@ -153,11 +95,6 @@ export function overlay(options = {}) {
         },
 
         toggle() {
-            console.log('[OVERLAY] toggle() called', {
-                currentOpen: this.open,
-                hasContent: !!this.$refs.content,
-                contentId: this.$refs.content?.id
-            });
             this.$refs.content?.togglePopover();
         },
 
@@ -170,13 +107,6 @@ export function overlay(options = {}) {
         },
 
         handleToggle(event) {
-            console.log('[OVERLAY] handleToggle event', {
-                newState: event.newState,
-                oldState: event.oldState,
-                currentOpen: this.open,
-                popoverOpen: this.$refs.content?.matches(':popover-open')
-            });
-
             this.open = this.$refs.content?.matches(':popover-open') || false;
 
             if (!this.open) {
@@ -185,6 +115,10 @@ export function overlay(options = {}) {
             }
 
             options.onToggle?.call(this, event);
+        },
+
+        destroy() {
+            this.clearHoverTimer();
         },
 
         ...options.extend

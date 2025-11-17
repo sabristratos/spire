@@ -77,6 +77,69 @@ return [
         'toggle' => 'تبديل المفتاح',
     ],
 
+    'checkbox' => [
+        'checked' => 'محدد',
+        'unchecked' => 'غير محدد',
+        'indeterminate' => 'محدد جزئياً',
+    ],
+
+    'radio' => [
+        'checked' => 'مُختار',
+        'unchecked' => 'غير مُختار',
+    ],
+
+    'table' => [
+        'select_all' => 'تحديد الكل',
+        'deselect_all' => 'إلغاء تحديد الكل',
+        'selected_count' => ':count محدد',
+        'rows_selected' => ':count صفوف محددة|:count صف محدد',
+        'no_data' => 'لا توجد بيانات متاحة',
+        'loading' => 'جارٍ التحميل...',
+        'empty_message' => 'لا توجد عناصر للعرض',
+        'sort_ascending' => 'ترتيب تصاعدي',
+        'sort_descending' => 'ترتيب تنازلي',
+        'remove_sort' => 'إزالة الترتيب',
+        'sort_by' => 'ترتيب حسب :column',
+        'actions' => 'الإجراءات',
+        'select_row' => 'تحديد الصف',
+        'row_actions' => 'إجراءات الصف',
+    ],
+
+    'editor' => [
+        'bold' => 'عريض',
+        'italic' => 'مائل',
+        'strike' => 'يتوسطه خط',
+        'code' => 'كود',
+        'heading' => 'عنوان',
+        'bullet_list' => 'قائمة نقطية',
+        'ordered_list' => 'قائمة مرقمة',
+        'blockquote' => 'اقتباس',
+        'code_block' => 'كتلة كود',
+        'link' => 'رابط',
+        'image' => 'صورة',
+        'undo' => 'تراجع',
+        'redo' => 'إعادة',
+        'characters' => 'أحرف',
+        'words' => 'كلمات',
+        'enter_url' => 'أدخل الرابط',
+        'enter_image_url' => 'أدخل رابط الصورة',
+    ],
+
+    'empty_state' => [
+        'default_title' => 'لا توجد بيانات متاحة',
+        'default_description' => 'لا يوجد شيء للعرض هنا حتى الآن.',
+        'no_results_title' => 'لم يتم العثور على نتائج',
+        'no_results_description' => 'حاول تعديل معايير البحث أو التصفية.',
+        'no_data_title' => 'لا توجد بيانات',
+        'no_data_description' => 'ابدأ بإضافة العنصر الأول.',
+        'empty_inbox_title' => 'صندوق الوارد فارغ',
+        'empty_inbox_description' => 'أنت على اطلاع! لا توجد رسائل جديدة.',
+        'no_items_title' => 'لم يتم العثور على عناصر',
+        'no_items_description' => 'لم نتمكن من العثور على أي عناصر تطابق معاييرك.',
+    ],
+
+    'required' => 'مطلوب',
+
     'pagination' => [
         'previous' => '',
         'next' => '',
@@ -113,6 +176,8 @@ return [
         'start_date' => 'تاريخ البداية',
         'end_date' => 'تاريخ النهاية',
         'dates_count' => ':count تواريخ',
+        'set_date' => 'تعيين التاريخ',
+        'remove_date' => 'إزالة :date',
     ],
 
     'date' => [
@@ -132,6 +197,10 @@ return [
         'select_month_year' => 'اختر الشهر والسنة',
         'month_year_picker' => 'منتقي الشهر والسنة',
         'select_month' => 'اختر الشهر',
+        'year_picker' => 'منتقي السنة',
+        'select_year' => 'اختر السنة',
+        'previous_decade' => 'العقد السابق',
+        'next_decade' => 'العقد التالي',
 
         // Footer buttons
         'select_today' => 'اختر اليوم',
@@ -237,5 +306,20 @@ return [
             'range_too_short' => 'يجب أن تكون الفترة :min أيام على الأقل',
             'range_too_long' => 'لا يمكن أن تتجاوز الفترة :max أيام',
         ],
+    ],
+
+    'slider' => [
+        'min_label' => 'القيمة الدنيا',
+        'max_label' => 'القيمة القصوى',
+        'value_label' => 'القيمة',
+        'range_label' => 'النطاق',
+    ],
+
+    'spinner' => [
+        'loading' => 'جاري التحميل...',
+    ],
+
+    'toast' => [
+        'close' => 'إغلاق الإشعار',
     ],
 ];

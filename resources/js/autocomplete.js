@@ -1,4 +1,5 @@
 import { DEBOUNCE_DEFAULT_MS, BLUR_TIMEOUT_MS } from './component-constants';
+import { SPIRE_EVENTS, createEventPayload } from './events';
 
 export function autocompleteComponent(config = {}) {
     return {
@@ -15,8 +16,10 @@ export function autocompleteComponent(config = {}) {
         displayOptions: [],
         observer: null,
         debounceTimer: null,
+        blurTimeout: null,
         open: false,
         highlightedIndex: -1,
+        name: config.name || null,
 
         init() {
             this.initializeOptions();
@@ -113,7 +116,7 @@ export function autocompleteComponent(config = {}) {
         },
 
         handleBlur(event) {
-            setTimeout(() => {
+            this.blurTimeout = setTimeout(() => {
                 const content = this.$refs.content;
 
                 if (!content) {
@@ -204,10 +207,19 @@ export function autocompleteComponent(config = {}) {
         },
 
         selectOption(value, label) {
+            const previousValue = this.value;
             this.value = value;
             this.inputValue = label;
             this.selectedLabel = label;
             this.hide();
+
+            this.$dispatch(SPIRE_EVENTS.AUTOCOMPLETE_SELECTED, createEventPayload({
+                id: this.$id('autocomplete'),
+                name: this.name,
+                value: value,
+                previousValue: previousValue,
+                metadata: { label: label }
+            }));
 
             this.$nextTick(() => {
                 if (this.$refs.input) {
@@ -217,9 +229,17 @@ export function autocompleteComponent(config = {}) {
         },
 
         clearInput() {
+            const previousValue = this.value;
             this.value = '';
             this.inputValue = '';
             this.selectedLabel = '';
+
+            this.$dispatch(SPIRE_EVENTS.AUTOCOMPLETE_CLEARED, createEventPayload({
+                id: this.$id('autocomplete'),
+                name: this.name,
+                value: '',
+                previousValue: previousValue,
+            }));
 
             this.$nextTick(() => {
                 if (this.$refs.input) {
@@ -296,6 +316,7 @@ export function autocompleteComponent(config = {}) {
                 this.observer.disconnect();
             }
             clearTimeout(this.debounceTimer);
+            clearTimeout(this.blurTimeout);
         }
     };
 }

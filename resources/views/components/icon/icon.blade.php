@@ -1,4 +1,4 @@
-@props(['name', 'set' => 'untitledui'])
+@props(['name', 'set' => 'lucide'])
 
 @php
     $prefix = config('spire-ui.prefix', 'spire');

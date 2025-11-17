@@ -1,6 +1,7 @@
 import { overlay } from './overlay';
 import { calendarState } from './calendar-state';
 import { CalendarUtils } from './calendar-utils';
+import { calendarYearMonthMixin } from './calendar-year-month';
 import { DATE_FORMAT_PATTERNS, DEFAULT_DATE_FORMAT } from './component-constants';
 
 export function datepickerComponent(config = {}) {
@@ -15,12 +16,28 @@ export function datepickerComponent(config = {}) {
                     this.parseInitialValue();
                     if (this.mode === 'single') {
                         this.syncValueToSegments();
+                    } else if (this.mode === 'range') {
+                        this.syncRangeValueToSegments();
                     }
                 });
 
                 if (this.mode === 'single') {
                     this.syncValueToSegments();
+                } else if (this.mode === 'range') {
+                    this.syncRangeValueToSegments();
                 }
+
+                this.$watch('showMonthYearPicker', (isOpen) => {
+                    if (isOpen) {
+                        this.pickerYear = this.displayYear;
+                    }
+                });
+
+                this.$watch('showYearPicker', (isOpen) => {
+                    if (isOpen) {
+                        this.initYearPicker();
+                    }
+                });
             }
         }),
 
@@ -37,6 +54,8 @@ export function datepickerComponent(config = {}) {
             minRange: config.minRange || null,
             maxDates: config.maxDates || null,
         }),
+
+        ...calendarYearMonthMixin(),
 
         placeholder: config.placeholder || 'Select date',
 
@@ -58,7 +77,20 @@ export function datepickerComponent(config = {}) {
             year: ''
         },
 
+        rangeSegmentValues: {
+            start: { month: '', day: '', year: '' },
+            end: { month: '', day: '', year: '' }
+        },
+
         focusedSegment: null,
+
+        pickerYear: new Date().getFullYear(),
+        showMonthYearPicker: false,
+        showYearPicker: false,
+        pickerDecadeStart: null,
+
+        presets: config.presets ?? [],
+        maxChipsDisplay: config.maxChipsDisplay ?? 3,
 
         get formattedRangeStart() {
             if (this.mode !== 'range' || !this.value?.start) return '';
@@ -81,6 +113,19 @@ export function datepickerComponent(config = {}) {
         get selectedCount() {
             if (this.mode !== 'multiple' || !Array.isArray(this.value)) return 0;
             return this.value.length;
+        },
+
+        get selectedDates() {
+            if (this.mode !== 'multiple' || !Array.isArray(this.value)) return [];
+            return this.value.map(dateStr => ({
+                value: dateStr,
+                label: this.formatDate(dateStr)
+            }));
+        },
+
+        removeDate(dateString) {
+            if (this.mode !== 'multiple' || !Array.isArray(this.value)) return;
+            this.value = this.value.filter(d => d !== dateString);
         },
 
         formatDate(dateString) {
@@ -200,6 +245,7 @@ export function datepickerComponent(config = {}) {
                 this.syncValueToSegments();
             } else if (this.mode === 'range') {
                 this.value = { start: todayString, end: todayString };
+                this.syncRangeValueToSegments();
             } else if (this.mode === 'multiple') {
                 if (!Array.isArray(this.value)) {
                     this.value = [];
@@ -219,6 +265,10 @@ export function datepickerComponent(config = {}) {
                 this.segmentValues = { month: '', day: '', year: '' };
             } else if (this.mode === 'range') {
                 this.value = { start: '', end: '' };
+                this.rangeSegmentValues = {
+                    start: { month: '', day: '', year: '' },
+                    end: { month: '', day: '', year: '' }
+                };
             } else if (this.mode === 'multiple') {
                 this.value = [];
             }
@@ -467,6 +517,231 @@ export function datepickerComponent(config = {}) {
             this.syncSegmentsToValue();
         },
 
+        syncRangeValueToSegments() {
+            if (this.mode !== 'range') return;
+
+            if (this.value?.start) {
+                const { month, day, year } = CalendarUtils.parseDate(this.value.start);
+                this.rangeSegmentValues.start.month = String(month).padStart(2, '0');
+                this.rangeSegmentValues.start.day = String(day).padStart(2, '0');
+                this.rangeSegmentValues.start.year = String(year).padStart(4, '0');
+            } else {
+                this.rangeSegmentValues.start = { month: '', day: '', year: '' };
+            }
+
+            if (this.value?.end) {
+                const { month, day, year } = CalendarUtils.parseDate(this.value.end);
+                this.rangeSegmentValues.end.month = String(month).padStart(2, '0');
+                this.rangeSegmentValues.end.day = String(day).padStart(2, '0');
+                this.rangeSegmentValues.end.year = String(year).padStart(4, '0');
+            } else {
+                this.rangeSegmentValues.end = { month: '', day: '', year: '' };
+            }
+        },
+
+        syncRangeSegmentsToValue(side) {
+            if (this.mode !== 'range') return;
+
+            const segments = this.rangeSegmentValues[side];
+            const month = parseInt(segments.month, 10);
+            const day = parseInt(segments.day, 10);
+            const year = parseInt(segments.year, 10);
+
+            if (!isNaN(month) && month >= 1 && month <= 12 &&
+                !isNaN(day) && day >= 1 && day <= 31 &&
+                !isNaN(year) && year >= 1000 && year <= 9999) {
+
+                const dateString = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                if (!this.value || typeof this.value !== 'object') {
+                    this.value = { start: null, end: null };
+                }
+
+                this.value[side] = dateString;
+            }
+        },
+
+        handleRangeSegmentInput(type, side, event) {
+            if (this.mode !== 'range') return;
+
+            const input = event.target;
+            let value = input.value.replace(/\D/g, '');
+
+            if (type === 'month') {
+                let numValue = parseInt(value, 10);
+
+                if (value.length === 2) {
+                    if (numValue > 12) {
+                        value = '12';
+                    } else if (numValue < 1) {
+                        value = '01';
+                    }
+                    this.rangeSegmentValues[side].month = value;
+                    this.syncRangeSegmentsToValue(side);
+                    this.focusNextRangeSegment('month', side);
+                } else if (value.length === 1) {
+                    if (numValue > 1) {
+                        value = value.padStart(2, '0');
+                        this.rangeSegmentValues[side].month = value;
+                        this.syncRangeSegmentsToValue(side);
+                        this.focusNextRangeSegment('month', side);
+                    } else {
+                        this.rangeSegmentValues[side].month = value;
+                    }
+                } else {
+                    this.rangeSegmentValues[side].month = value;
+                }
+            } else if (type === 'day') {
+                let numValue = parseInt(value, 10);
+
+                if (value.length === 2) {
+                    if (numValue > 31) {
+                        value = '31';
+                    } else if (numValue < 1) {
+                        value = '01';
+                    }
+                    this.rangeSegmentValues[side].day = value;
+                    this.syncRangeSegmentsToValue(side);
+                    this.focusNextRangeSegment('day', side);
+                } else if (value.length === 1) {
+                    if (numValue > 3) {
+                        value = value.padStart(2, '0');
+                        this.rangeSegmentValues[side].day = value;
+                        this.syncRangeSegmentsToValue(side);
+                        this.focusNextRangeSegment('day', side);
+                    } else {
+                        this.rangeSegmentValues[side].day = value;
+                    }
+                } else {
+                    this.rangeSegmentValues[side].day = value;
+                }
+            } else if (type === 'year') {
+                if (value.length === 4) {
+                    this.rangeSegmentValues[side].year = value;
+                    this.syncRangeSegmentsToValue(side);
+                } else if (value.length > 4) {
+                    value = value.slice(0, 4);
+                    this.rangeSegmentValues[side].year = value;
+                    this.syncRangeSegmentsToValue(side);
+                } else {
+                    this.rangeSegmentValues[side].year = value;
+                }
+            }
+        },
+
+        handleRangeSegmentKeydown(type, side, event) {
+            if (this.mode !== 'range') return;
+
+            const input = event.target;
+
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                this.focusPrevRangeSegment(type, side);
+            } else if (event.key === 'ArrowRight' || event.key === '/') {
+                event.preventDefault();
+                this.focusNextRangeSegment(type, side);
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                this.incrementRangeSegment(type, side);
+            } else if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                this.decrementRangeSegment(type, side);
+            } else if (event.key === 'Backspace' && input.value === '') {
+                event.preventDefault();
+                this.focusPrevRangeSegment(type, side);
+            }
+        },
+
+        handleRangeSegmentPaste(side, event) {
+            if (this.mode !== 'range') return;
+
+            const pastedText = event.clipboardData.getData('text');
+            const parsed = this.parseDateString(pastedText);
+
+            if (parsed) {
+                this.rangeSegmentValues[side].month = parsed.month;
+                this.rangeSegmentValues[side].day = parsed.day;
+                this.rangeSegmentValues[side].year = parsed.year;
+                this.syncRangeSegmentsToValue(side);
+            }
+        },
+
+        focusNextRangeSegment(currentType, currentSide) {
+            const order = this.segmentOrder;
+            const currentIndex = order.indexOf(currentType);
+
+            if (currentIndex < order.length - 1) {
+                const nextType = order[currentIndex + 1];
+                const nextRef = `rangeSegment_${currentSide}_${nextType}`;
+                if (this.$refs[nextRef]) {
+                    this.$refs[nextRef].focus();
+                    this.$refs[nextRef].select();
+                }
+            } else if (currentSide === 'start') {
+                const nextType = order[0];
+                const nextRef = `rangeSegment_end_${nextType}`;
+                if (this.$refs[nextRef]) {
+                    this.$refs[nextRef].focus();
+                    this.$refs[nextRef].select();
+                }
+            }
+        },
+
+        focusPrevRangeSegment(currentType, currentSide) {
+            const order = this.segmentOrder;
+            const currentIndex = order.indexOf(currentType);
+
+            if (currentIndex > 0) {
+                const prevType = order[currentIndex - 1];
+                const prevRef = `rangeSegment_${currentSide}_${prevType}`;
+                if (this.$refs[prevRef]) {
+                    this.$refs[prevRef].focus();
+                    this.$refs[prevRef].select();
+                }
+            } else if (currentSide === 'end') {
+                const prevType = order[order.length - 1];
+                const prevRef = `rangeSegment_start_${prevType}`;
+                if (this.$refs[prevRef]) {
+                    this.$refs[prevRef].focus();
+                    this.$refs[prevRef].select();
+                }
+            }
+        },
+
+        incrementRangeSegment(type, side) {
+            if (type === 'month') {
+                const currentMonth = parseInt(this.rangeSegmentValues[side].month, 10) || 1;
+                const newMonth = currentMonth >= 12 ? 1 : currentMonth + 1;
+                this.rangeSegmentValues[side].month = String(newMonth).padStart(2, '0');
+            } else if (type === 'day') {
+                const currentDay = parseInt(this.rangeSegmentValues[side].day, 10) || 1;
+                const newDay = currentDay >= 31 ? 1 : currentDay + 1;
+                this.rangeSegmentValues[side].day = String(newDay).padStart(2, '0');
+            } else if (type === 'year') {
+                const currentYear = parseInt(this.rangeSegmentValues[side].year, 10) || new Date().getFullYear();
+                this.rangeSegmentValues[side].year = String(currentYear + 1).padStart(4, '0');
+            }
+
+            this.syncRangeSegmentsToValue(side);
+        },
+
+        decrementRangeSegment(type, side) {
+            if (type === 'month') {
+                const currentMonth = parseInt(this.rangeSegmentValues[side].month, 10) || 1;
+                const newMonth = currentMonth <= 1 ? 12 : currentMonth - 1;
+                this.rangeSegmentValues[side].month = String(newMonth).padStart(2, '0');
+            } else if (type === 'day') {
+                const currentDay = parseInt(this.rangeSegmentValues[side].day, 10) || 1;
+                const newDay = currentDay <= 1 ? 31 : currentDay - 1;
+                this.rangeSegmentValues[side].day = String(newDay).padStart(2, '0');
+            } else if (type === 'year') {
+                const currentYear = parseInt(this.rangeSegmentValues[side].year, 10) || new Date().getFullYear();
+                this.rangeSegmentValues[side].year = String(currentYear - 1).padStart(4, '0');
+            }
+
+            this.syncRangeSegmentsToValue(side);
+        },
+
         handleCalendarSelect(date) {
             this.value = date;
 
@@ -479,6 +754,103 @@ export function datepickerComponent(config = {}) {
                     this.hide();
                 }
             }
+        },
+
+        selectPreset(preset) {
+            const range = this.calculatePresetRange(preset.key);
+            if (range) {
+                this.value = { start: range.start, end: range.end };
+
+                const { year, month } = CalendarUtils.parseDate(range.start);
+                this.displayYear = year;
+                this.displayMonth = month;
+                this.updateCalendar();
+
+                this.selectionAnnouncement = `${preset.label} applied`;
+            }
+        },
+
+        calculatePresetRange(presetKey) {
+            const today = new Date();
+            const utils = CalendarUtils;
+
+            switch (presetKey) {
+                case 'last_7_days': {
+                    const start7 = new Date(today);
+                    start7.setDate(today.getDate() - 6);
+                    return {
+                        start: utils.formatDate(
+                            start7.getFullYear(),
+                            start7.getMonth(),
+                            start7.getDate()
+                        ),
+                        end: utils.today()
+                    };
+                }
+
+                case 'last_30_days': {
+                    const start30 = new Date(today);
+                    start30.setDate(today.getDate() - 29);
+                    return {
+                        start: utils.formatDate(
+                            start30.getFullYear(),
+                            start30.getMonth(),
+                            start30.getDate()
+                        ),
+                        end: utils.today()
+                    };
+                }
+
+                case 'this_week': {
+                    const { start, end } = utils.getWeekRange(utils.today(), this.firstDayOfWeek);
+                    return { start, end };
+                }
+
+                case 'last_week': {
+                    const lastWeekDate = new Date(today);
+                    lastWeekDate.setDate(today.getDate() - 7);
+                    const lastWeekDateString = utils.formatDate(
+                        lastWeekDate.getFullYear(),
+                        lastWeekDate.getMonth(),
+                        lastWeekDate.getDate()
+                    );
+                    const { start, end } = utils.getWeekRange(lastWeekDateString, this.firstDayOfWeek);
+                    return { start, end };
+                }
+
+                case 'this_month':
+                    return {
+                        start: utils.formatDate(today.getFullYear(), today.getMonth(), 1),
+                        end: utils.today()
+                    };
+
+                case 'last_month': {
+                    const lastMonth = today.getMonth() === 0 ? 11 : today.getMonth() - 1;
+                    const lastMonthYear = today.getMonth() === 0 ? today.getFullYear() - 1 : today.getFullYear();
+                    const lastDayOfLastMonth = new Date(lastMonthYear, lastMonth + 1, 0).getDate();
+                    return {
+                        start: utils.formatDate(lastMonthYear, lastMonth, 1),
+                        end: utils.formatDate(lastMonthYear, lastMonth, lastDayOfLastMonth)
+                    };
+                }
+
+                default:
+                    return null;
+            }
+        },
+
+        isPresetActive(preset) {
+            if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
+                return false;
+            }
+            if (!this.value.start || !this.value.end) {
+                return false;
+            }
+
+            const presetRange = this.calculatePresetRange(preset.key);
+            if (!presetRange) return false;
+
+            return this.value.start === presetRange.start && this.value.end === presetRange.end;
         }
     };
 }

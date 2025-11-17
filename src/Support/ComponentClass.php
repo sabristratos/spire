@@ -94,7 +94,7 @@ class ComponentClass
         return $this;
     }
 
-    public function when(bool $condition, callable $callback): self
+    public function when(?bool $condition, callable $callback): self
     {
         if ($condition) {
             $callback($this);
@@ -103,7 +103,7 @@ class ComponentClass
         return $this;
     }
 
-    public function addIf(bool $condition, string ...$classes): self
+    public function addIf(?bool $condition, string ...$classes): self
     {
         if ($condition) {
             $this->classes = array_merge($this->classes, array_filter($classes));
@@ -112,7 +112,7 @@ class ComponentClass
         return $this;
     }
 
-    public function unless(bool $condition, callable $callback): self
+    public function unless(?bool $condition, callable $callback): self
     {
         if (! $condition) {
             $callback($this);

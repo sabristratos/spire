@@ -1,0 +1,202 @@
+@layer components {
+    .spire-spinner {
+        @apply inline-flex items-center justify-center;
+    }
+
+    .spire-spinner--sm {
+        @apply gap-1;
+    }
+
+    .spire-spinner--md {
+        @apply gap-2;
+    }
+
+    .spire-spinner--lg {
+        @apply gap-3;
+    }
+
+    .spire-spinner--dots .spire-spinner-dot {
+        @apply rounded-full animate-bounce;
+    }
+
+    .spire-spinner--dots.spire-spinner--sm .spire-spinner-dot {
+        @apply w-2 h-2;
+    }
+
+    .spire-spinner--dots.spire-spinner--md .spire-spinner-dot {
+        @apply w-4 h-4;
+    }
+
+    .spire-spinner--dots.spire-spinner--lg .spire-spinner-dot {
+        @apply w-6 h-6;
+    }
+
+    .spire-spinner--dots .spire-spinner-dot:nth-child(1) {
+        animation-delay: 0.7s;
+    }
+
+    .spire-spinner--dots .spire-spinner-dot:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+
+    .spire-spinner--dots .spire-spinner-dot:nth-child(3) {
+        animation-delay: 0.7s;
+    }
+
+    .spire-spinner--ring .spire-spinner-ring,
+    .spire-spinner--nested-rings .spire-spinner-ring {
+        @apply rounded-full animate-spin;
+    }
+
+    .spire-spinner--ring.spire-spinner--sm .spire-spinner-ring {
+        @apply w-4 h-4 border-2;
+    }
+
+    .spire-spinner--ring.spire-spinner--md .spire-spinner-ring {
+        @apply w-10 h-10 border-4;
+    }
+
+    .spire-spinner--ring.spire-spinner--lg .spire-spinner-ring {
+        @apply w-16 h-16 border-4;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--sm .spire-spinner-ring--outer {
+        @apply w-8 h-8 border-2;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--md .spire-spinner-ring--outer {
+        @apply w-20 h-20 border-4;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--lg .spire-spinner-ring--outer {
+        @apply w-32 h-32 border-[6px];
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--sm .spire-spinner-ring--inner {
+        @apply w-6 h-6 border-2;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--md .spire-spinner-ring--inner {
+        @apply w-16 h-16 border-4;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--lg .spire-spinner-ring--inner {
+        @apply w-24 h-24 border-4;
+    }
+
+    .spire-spinner--nested-rings .spire-spinner-ring {
+        @apply flex items-center justify-center border-transparent;
+    }
+
+    .spire-spinner--primary.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-primary;
+    }
+
+    .spire-spinner--primary.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-primary;
+    }
+
+    .spire-spinner--primary.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-primary;
+    }
+
+    .spire-spinner--primary.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-primary-hover;
+    }
+
+    .spire-spinner--secondary.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-secondary;
+    }
+
+    .spire-spinner--secondary.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-secondary;
+    }
+
+    .spire-spinner--secondary.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-secondary;
+    }
+
+    .spire-spinner--secondary.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-secondary;
+    }
+
+    .spire-spinner--success.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-success;
+    }
+
+    .spire-spinner--success.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-success;
+    }
+
+    .spire-spinner--success.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-success;
+    }
+
+    .spire-spinner--success.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-success;
+    }
+
+    .spire-spinner--error.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-error;
+    }
+
+    .spire-spinner--error.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-error;
+    }
+
+    .spire-spinner--error.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-error;
+    }
+
+    .spire-spinner--error.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-error;
+    }
+
+    .spire-spinner--warning.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-warning;
+    }
+
+    .spire-spinner--warning.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-warning;
+    }
+
+    .spire-spinner--warning.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-warning;
+    }
+
+    .spire-spinner--warning.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-warning;
+    }
+
+    .spire-spinner--info.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-info;
+    }
+
+    .spire-spinner--info.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-info;
+    }
+
+    .spire-spinner--info.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-info;
+    }
+
+    .spire-spinner--info.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-info;
+    }
+
+    .spire-spinner--featured.spire-spinner--dots .spire-spinner-dot {
+        @apply bg-featured;
+    }
+
+    .spire-spinner--featured.spire-spinner--ring .spire-spinner-ring {
+        @apply border-border border-t-featured;
+    }
+
+    .spire-spinner--featured.spire-spinner--nested-rings .spire-spinner-ring--outer {
+        @apply border-t-featured;
+    }
+
+    .spire-spinner--featured.spire-spinner--nested-rings .spire-spinner-ring--inner {
+        @apply border-t-featured;
+    }
+}

@@ -14,6 +14,9 @@
     'maxRange' => null,
     'minRange' => null,
     'maxDates' => null,
+    'maxChipsDisplay' => 3,
+    'showPresets' => false,
+    'presets' => [],
 ])
 
 @php
@@ -28,7 +31,7 @@ $placeholderText = $placeholder ?? match($mode) {
 @endphp
 
 <div
-    x-data="datepickerComponent({
+    x-data="spireDatepicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
         @endif
@@ -49,6 +52,7 @@ $placeholderText = $placeholder ?? match($mode) {
         @if($maxRange) maxRange: {{ $maxRange }}, @endif
         @if($minRange) minRange: {{ $minRange }}, @endif
         @if($maxDates) maxDates: {{ $maxDates }}, @endif
+        maxChipsDisplay: {{ $maxChipsDisplay }},
     })"
     {{ WireEntangle::filteredAttributes($attributes) }}
 >
@@ -83,6 +87,8 @@ $placeholderText = $placeholder ?? match($mode) {
                 :maxRange="$maxRange"
                 :minRange="$minRange"
                 :maxDates="$maxDates"
+                :show-presets="$showPresets"
+                :presets="$presets"
             />
         </div>
     </div>

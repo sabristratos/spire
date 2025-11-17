@@ -41,15 +41,18 @@ export function timepickerComponent(config = {}) {
                 ['hour', 'minute', 'second', 'period'].forEach(type => {
                     const column = this.$refs[`${type}Column`];
                     if (column && !column.dataset.scrollendAttached) {
-                        column.addEventListener('scrollend', () => {
+                        const handler = () => {
                             this.selectCenteredItem(type);
-                        });
+                        };
+                        column.addEventListener('scrollend', handler);
                         column.dataset.scrollendAttached = 'true';
+                        this.scrollListeners.push({ column, handler });
                     }
                 });
             }
         },
 
+        scrollListeners: [],
         value: config.value || '',
         placeholder: config.placeholder || 'Select time',
         use24Hour: config.use24Hour,
@@ -738,5 +741,13 @@ export function timepickerComponent(config = {}) {
             this.period = this.segmentValues.period;
             this.updateValue();
         },
+
+        destroy() {
+            this.scrollListeners.forEach(({ column, handler }) => {
+                column.removeEventListener('scrollend', handler);
+                delete column.dataset.scrollendAttached;
+            });
+            this.scrollListeners = [];
+        }
     };
 }

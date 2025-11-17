@@ -1,5 +1,6 @@
 import { overlay } from './overlay';
 import { keyboard } from './keyboard';
+import { SPIRE_EVENTS, createEventPayload } from './events';
 
 export function selectComponent(config = {}) {
     return {
@@ -114,6 +115,7 @@ export function selectComponent(config = {}) {
         searchQuery: '',
         displayOptions: [],
         observer: null,
+        name: config.name || null,
 
         get filteredOptions() {
             if (!this.searchQuery || !this.searchable) {
@@ -208,16 +210,26 @@ export function selectComponent(config = {}) {
             if (this.multiple) {
                 this.toggleOption(value, label);
             } else {
+                const previousValue = this.value;
                 this.value = value;
                 this.selectedLabel = label;
                 this.hide();
+
+                this.$dispatch(SPIRE_EVENTS.SELECT_CHANGED, createEventPayload({
+                    id: this.$id('select'),
+                    name: this.name,
+                    value: value,
+                    previousValue: previousValue,
+                    metadata: { label: label }
+                }));
             }
         },
 
         toggleOption(value, label) {
             if (!this.multiple) return;
 
-            const currentValues = Array.isArray(this.value) ? [...this.value] : [];
+            const previousValue = [...(Array.isArray(this.value) ? this.value : [])];
+            const currentValues = [...previousValue];
             const index = currentValues.indexOf(value);
 
             if (index > -1) {
@@ -231,24 +243,42 @@ export function selectComponent(config = {}) {
 
             this.value = currentValues;
             this.updateSelectedLabel(currentValues);
+
+            this.$dispatch(SPIRE_EVENTS.SELECT_CHANGED, createEventPayload({
+                id: this.$id('select'),
+                name: this.name,
+                value: currentValues,
+                previousValue: previousValue,
+                metadata: { label: label, action: index > -1 ? 'removed' : 'added' }
+            }));
         },
 
         removeOption(value) {
             if (!this.multiple) return;
 
-            const currentValues = Array.isArray(this.value) ? [...this.value] : [];
+            const previousValue = [...(Array.isArray(this.value) ? this.value : [])];
+            const currentValues = [...previousValue];
             const index = currentValues.indexOf(value);
 
             if (index > -1) {
                 currentValues.splice(index, 1);
                 this.value = currentValues;
                 this.updateSelectedLabel(currentValues);
+
+                this.$dispatch(SPIRE_EVENTS.SELECT_CHANGED, createEventPayload({
+                    id: this.$id('select'),
+                    name: this.name,
+                    value: currentValues,
+                    previousValue: previousValue,
+                    metadata: { action: 'removed' }
+                }));
             }
         },
 
         selectAll() {
             if (!this.multiple) return;
 
+            const previousValue = [...(Array.isArray(this.value) ? this.value : [])];
             const selectableValues = this.selectableOptions.map(opt => opt.value);
             const limitedValues = this.max
                 ? selectableValues.slice(0, this.max)
@@ -256,15 +286,34 @@ export function selectComponent(config = {}) {
 
             this.value = limitedValues;
             this.updateSelectedLabel(limitedValues);
+
+            this.$dispatch(SPIRE_EVENTS.SELECT_CHANGED, createEventPayload({
+                id: this.$id('select'),
+                name: this.name,
+                value: limitedValues,
+                previousValue: previousValue,
+                metadata: { action: 'selectAll' }
+            }));
         },
 
         clearAll() {
+            const previousValue = this.multiple
+                ? [...(Array.isArray(this.value) ? this.value : [])]
+                : this.value;
+
             if (this.multiple) {
                 this.value = [];
                 this.updateSelectedLabel([]);
             } else {
                 this.clearSelection();
             }
+
+            this.$dispatch(SPIRE_EVENTS.SELECT_CLEARED, createEventPayload({
+                id: this.$id('select'),
+                name: this.name,
+                value: this.multiple ? [] : '',
+                previousValue: previousValue,
+            }));
         },
 
         updateSelectedLabel(value) {
@@ -299,12 +348,23 @@ export function selectComponent(config = {}) {
         },
 
         clearSelection() {
+            const previousValue = this.multiple
+                ? [...(Array.isArray(this.value) ? this.value : [])]
+                : this.value;
+
             if (this.multiple) {
                 this.value = [];
             } else {
                 this.value = '';
             }
             this.selectedLabel = this.placeholder;
+
+            this.$dispatch(SPIRE_EVENTS.SELECT_CLEARED, createEventPayload({
+                id: this.$id('select'),
+                name: this.name,
+                value: this.multiple ? [] : '',
+                previousValue: previousValue,
+            }));
         },
 
         destroy() {

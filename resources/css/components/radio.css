@@ -1,0 +1,279 @@
+@layer components {
+    /* Base radio container */
+    .spire-radio {
+        @apply inline-flex items-start cursor-pointer;
+    }
+
+    .spire-radio-input {
+        @apply sr-only;
+    }
+
+    /* Regular variant */
+    .spire-radio--regular {
+        @apply gap-3;
+        @apply w-full;
+    }
+
+    /* Radio indicator (visual element) */
+    .spire-radio-indicator {
+        @apply relative inline-flex items-center justify-center;
+        @apply flex-shrink-0;
+        @apply border border-border bg-surface;
+        @apply rounded-full;
+        @apply transition-all;
+        transition-duration: var(--animation-duration-fast);
+        transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    /* Size variants for radio indicator */
+    .spire-radio-indicator--sm {
+        @apply w-4 h-4;
+    }
+
+    .spire-radio-indicator--md {
+        @apply w-5 h-5;
+    }
+
+    .spire-radio-indicator--lg {
+        @apply w-6 h-6;
+    }
+
+    /* Radio icon */
+    .spire-radio-icon {
+        @apply absolute inset-0 flex items-center justify-center;
+        @apply opacity-0 scale-0;
+        @apply transition-all;
+        transition-duration: var(--animation-duration-fast);
+        transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    /* Checked state - show circle icon */
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-icon {
+        @apply opacity-100 scale-100;
+    }
+
+    /* Color variants - Unchecked */
+    .spire-radio-indicator {
+        @apply border-border bg-surface;
+    }
+
+    /* Color variants - Checked */
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--primary {
+        @apply bg-primary border-primary;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--secondary {
+        @apply bg-secondary border-secondary;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--success {
+        @apply bg-success border-success;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--error {
+        @apply bg-error border-error;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--warning {
+        @apply bg-warning border-warning;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--info {
+        @apply bg-info border-info;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--featured {
+        @apply bg-featured border-featured;
+    }
+
+    /* Icon color for checked state */
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-icon {
+        @apply text-white;
+    }
+
+    /* Hover state */
+    .spire-radio:hover .spire-radio-indicator {
+        @apply border-border-hover;
+    }
+
+    /* Focus state */
+    .spire-radio:has(.spire-radio-input:focus-visible) .spire-radio-indicator {
+        @apply outline outline-2 outline-offset-2 outline-primary;
+    }
+
+    /* Disabled state */
+    .spire-radio:has(.spire-radio-input:disabled) .spire-radio-indicator {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    /* Content (label and description) */
+    .spire-radio-content {
+        @apply flex flex-col gap-1;
+    }
+
+    .spire-radio-label {
+        @apply font-medium text-text;
+    }
+
+    .spire-radio-label--sm {
+        @apply text-sm;
+    }
+
+    .spire-radio-label--md {
+        @apply text-base;
+    }
+
+    .spire-radio-label--lg {
+        @apply text-lg;
+    }
+
+    .spire-radio-description {
+        @apply text-text-muted;
+    }
+
+    .spire-radio-description--sm {
+        @apply text-xs;
+    }
+
+    .spire-radio-description--md {
+        @apply text-sm;
+    }
+
+    .spire-radio-description--lg {
+        @apply text-base;
+    }
+
+    .spire-radio-required {
+        @apply text-error ml-0.5;
+    }
+
+    /* Pill variant */
+    .spire-radio--pill {
+        @apply inline-flex items-center justify-center;
+        @apply px-3 py-1.5 rounded-full;
+        @apply text-sm;
+        @apply border border-border bg-surface;
+        @apply transition-all;
+        transition-duration: var(--animation-duration-fast);
+        transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    .spire-radio--pill:hover {
+        @apply border-border-hover bg-overlay;
+    }
+
+    .spire-radio-pill-label {
+        @apply font-medium text-text;
+    }
+
+    .spire-radio-pill-label--sm {
+        @apply text-xs;
+    }
+
+    .spire-radio-pill-label--md {
+        @apply text-sm;
+    }
+
+    .spire-radio-pill-label--lg {
+        @apply text-base;
+    }
+
+    /* Pill checked state */
+    .spire-radio--pill:has(.spire-radio-input:checked) {
+        @apply bg-primary border-primary text-white;
+    }
+
+    .spire-radio--pill:has(.spire-radio-input:checked) .spire-radio-pill-label {
+        @apply text-white;
+    }
+
+    /* Card variant */
+    .spire-radio--card {
+        @apply flex flex-col;
+        @apply relative;
+        @apply w-full;
+        @apply p-4 rounded-lg;
+        @apply border border-border bg-surface;
+        @apply transition-all;
+        transition-duration: var(--animation-duration-fast);
+        transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    .spire-radio--card:hover {
+        @apply border-border-hover bg-overlay;
+    }
+
+    .spire-radio-indicator--card {
+        @apply absolute top-4 right-4;
+    }
+
+    .spire-radio-card-header-content {
+        @apply flex flex-col gap-1;
+        @apply pr-10;
+    }
+
+    .spire-radio-card-content {
+        @apply mt-3;
+    }
+
+    /* Card checked state */
+    .spire-radio--card:has(.spire-radio-input:checked) {
+        @apply bg-primary/5 border-primary;
+    }
+
+    /* ===== Radio Group Styles ===== */
+
+    .spire-radio-group {
+        @apply flex flex-col gap-3;
+    }
+
+    .spire-radio-group-label-wrapper {
+        @apply flex items-center justify-between;
+    }
+
+    .spire-radio-group-label {
+        @apply block text-sm font-medium text-text;
+    }
+
+    .spire-radio-group-required {
+        @apply text-error ml-0.5;
+    }
+
+    .spire-radio-group-description {
+        @apply text-sm text-text-muted;
+        @apply -mt-2;
+    }
+
+    .spire-radio-group-items {
+        @apply flex;
+    }
+
+    .spire-radio-group-items--vertical {
+        @apply flex-col;
+    }
+
+    .spire-radio-group-items--horizontal {
+        @apply flex-row flex-wrap;
+    }
+
+    .spire-radio-group-items--gap-sm {
+        @apply gap-2;
+    }
+
+    .spire-radio-group-items--gap-md {
+        @apply gap-3;
+    }
+
+    .spire-radio-group-items--gap-lg {
+        @apply gap-4;
+    }
+
+    .spire-radio-group-helper {
+        @apply text-sm text-text-muted;
+    }
+
+    .spire-radio-group-error {
+        @apply flex items-center gap-2;
+        @apply text-sm text-error;
+    }
+}

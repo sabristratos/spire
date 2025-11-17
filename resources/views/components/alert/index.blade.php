@@ -13,13 +13,13 @@
 use SpireUI\Support\ComponentClass;
 
     $defaultIcons = [
-        'default' => 'info-circle',
-        'primary' => 'info-circle',
-        'secondary' => 'info-circle',
+        'default' => 'info',
+        'primary' => 'info',
+        'secondary' => 'info',
         'success' => 'check-circle',
         'error' => 'alert-circle',
         'warning' => 'alert-triangle',
-        'info' => 'info-circle',
+        'info' => 'info',
     ];
 
     $iconName = $icon ?? $defaultIcons[$color];
@@ -99,9 +99,7 @@ use SpireUI\Support\ComponentClass;
             class="shrink-0 p-0.5 -mt-0.5 -mr-0.5 rounded opacity-70 hover:opacity-100 transition-opacity"
             aria-label="{{ __('spire::spire-ui.alert.close') }}"
         >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <x-spire::icon name="x" class="w-4 h-4" />
         </button>
     @endif
 </div>

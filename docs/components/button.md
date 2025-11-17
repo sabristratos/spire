@@ -17,6 +17,9 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 | `href` | string | `null` | If provided, renders as a link (`<a>`) instead of button |
 | `ariaLabel` | string | `null` | Accessible label for screen readers (required for icon-only buttons) |
 | `pressed` | boolean | `false` | Indicates pressed/active state (for toggle buttons) |
+| `tooltip` | string | `null` | Tooltip text to display on hover |
+| `tooltipPlacement` | string | `'top'` | Tooltip position: `top`, `bottom`, `left`, `right` |
+| `tooltipDelay` | number | `300` | Hover delay before showing tooltip (in milliseconds) |
 
 ## Slots
 
@@ -105,6 +108,58 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 </x-spire::button>
 ```
 
+### Buttons with Tooltips
+
+```blade
+{{-- Basic button with tooltip --}}
+<x-spire::button
+    color="primary"
+    tooltip="Click to save your changes">
+    Save
+</x-spire::button>
+
+{{-- Icon-only button with tooltip (recommended) --}}
+<x-spire::button
+    icon-only
+    color="default"
+    tooltip="Settings"
+    aria-label="Open settings">
+    <x-spire::icon name="settings" class="w-5 h-5" />
+</x-spire::button>
+
+{{-- Tooltip with custom placement --}}
+<x-spire::button
+    variant="ghost"
+    tooltip="Delete this item permanently"
+    tooltip-placement="bottom">
+    <x-slot:leading>
+        <x-spire::icon name="trash" class="w-4 h-4" />
+    </x-slot:leading>
+    Delete
+</x-spire::button>
+
+{{-- Tooltip with custom delay --}}
+<x-spire::button
+    tooltip="This tooltip appears after 500ms"
+    tooltip-delay="500"
+    color="secondary">
+    Hover Me
+</x-spire::button>
+
+{{-- Multiple icon buttons with tooltips (toolbar pattern) --}}
+<div class="flex gap-1">
+    <x-spire::button icon-only variant="ghost" tooltip="Bold" aria-label="Bold">
+        <x-spire::icon name="bold" class="w-4 h-4" />
+    </x-spire::button>
+    <x-spire::button icon-only variant="ghost" tooltip="Italic" aria-label="Italic">
+        <x-spire::icon name="italic" class="w-4 h-4" />
+    </x-spire::button>
+    <x-spire::button icon-only variant="ghost" tooltip="Underline" aria-label="Underline">
+        <x-spire::icon name="underline" class="w-4 h-4" />
+    </x-spire::button>
+</div>
+```
+
 ## Best Practices
 
 ### Do
@@ -114,6 +169,9 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 - Use `loading` state during async operations
 - Choose appropriate `variant` for visual hierarchy (solid for primary actions, ghost/link for secondary)
 - Use semantic colors (`error` for destructive actions, `success` for confirmations)
+- Add tooltips to icon-only buttons to clarify their purpose
+- Use tooltips for buttons with abbreviated text or icons that need explanation
+- Use appropriate `tooltipPlacement` to ensure tooltips don't overflow the viewport
 
 ### Don't
 
@@ -122,3 +180,5 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 - Don't use `pressed` state for loading - use `loading` prop instead
 - Don't forget to set `type="submit"` for form submission buttons
 - Don't use `href` for actions - use it only for navigation
+- Don't add tooltips with redundant information (e.g., "Click" on a clickable button)
+- Don't use overly long tooltip text - keep it concise (1-5 words ideal)

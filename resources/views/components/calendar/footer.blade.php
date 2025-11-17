@@ -19,11 +19,9 @@
     @if($showToday)
         <x-spire::button
             type="button"
-            variant="solid"
+            variant="ghost"
             size="sm"
-            color="primary"
             @click="selectToday"
-            x-bind:disabled="isTodayDisabled"
             x-bind:aria-label="'{{ __('spire::spire-ui.date.select_today') }}'"
         >
             {{ __('spire::spire-ui.date.today') }}

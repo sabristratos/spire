@@ -36,17 +36,6 @@
     $hasTrailingContent = isset($trailing) || $iconTrailing || $clearable || $viewable || $copyable;
 
     $needsAlpineData = $clearable || $viewable || $copyable;
-    $alpineDataParts = [];
-
-    if ($clearable) {
-        $alpineDataParts[] = 'inputValue: \'\'';
-    }
-
-    if ($viewable) {
-        $alpineDataParts[] = 'showPassword: false';
-    }
-
-    $alpineData = !empty($alpineDataParts) ? '{ ' . implode(', ', $alpineDataParts) . ' }' : '{}';
 
     $containerBuilder = ComponentClass::make('input-container');
     if ($customClass = $attributes->get('class')) {
@@ -91,11 +80,18 @@
     }
 @endphp
 
-@if($needsAlpineData)
-    <div {{ $wrapperAttributes }} x-data="{{ $alpineData }}">
-        @else
-            <div {{ $wrapperAttributes }}>
-                @endif
+<div {{ $wrapperAttributes }}
+    @if($needsAlpineData)
+        x-data="spire-input({
+            clearable: {{ $clearable ? 'true' : 'false' }},
+            viewable: {{ $viewable ? 'true' : 'false' }},
+            copyable: {{ $copyable ? 'true' : 'false' }},
+            @if($attributes->wire('model')->value())
+                wire: true
+            @endif
+        })"
+    @endif
+>
                 <div class="{{ $inputBoxClasses }}">
                     @if($hasLeadingContent)
                         <div class="flex items-center shrink-0">
@@ -110,7 +106,7 @@
                     <input {{ $inputAttributes }}
                            x-ref="input"
                            @if($clearable)
-                               @input="inputValue = $event.target.value; $dispatch('input-change', { value: $event.target.value })"
+                               @input="handleInput($event)"
                            x-init="inputValue = $el.value"
                         @endif
                     />
@@ -126,12 +122,12 @@
                                         variant="ghost"
                                         :size="$buttonSize"
                                         icon-only
-                                        x-show="inputValue && inputValue.length > 0"
+                                        x-show="hasValue"
                                         x-cloak
-                                        @click="inputValue = ''; $refs.input.value = ''; $refs.input.dispatchEvent(new Event('input')); $dispatch('input-cleared'); $refs.input.focus()"
+                                        @click="clearInput()"
                                         :aria-label="__('spire::form.clear')"
                                     >
-                                        <x-spire::icon name="x-close" class="{{ $iconSizeClass }}" />
+                                        <x-spire::icon name="x" class="{{ $iconSizeClass }}" />
                                     </x-spire::button>
                                 @endif
 
@@ -141,7 +137,7 @@
                                         variant="ghost"
                                         :size="$buttonSize"
                                         icon-only
-                                        @click="showPassword = !showPassword"
+                                        @click="togglePasswordVisibility()"
                                         x-bind:aria-label="showPassword ? '{{ __('spire::form.hide_password') }}' : '{{ __('spire::form.show_password') }}'"
                                     >
                                         <x-spire::icon x-show="!showPassword" x-cloak name="eye" class="{{ $iconSizeClass }}" />
@@ -155,10 +151,10 @@
                                         variant="ghost"
                                         :size="$buttonSize"
                                         icon-only
-                                        @click="navigator.clipboard.writeText($refs.input.value); $dispatch('copied')"
+                                        @click="copyToClipboard()"
                                         aria-label="Copy to clipboard"
                                     >
-                                        <x-spire::icon name="copy-01" class="{{ $iconSizeClass }}" />
+                                        <x-spire::icon name="copy" class="{{ $iconSizeClass }}" />
                                     </x-spire::button>
                                 @endif
 

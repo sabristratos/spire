@@ -178,6 +178,36 @@ export const CalendarUtils = {
     },
 
     /**
+     * Get the start and end dates of the week containing the given date.
+     */
+    getWeekRange(dateString, firstDayOfWeek = 0) {
+        const { year, month, day } = this.parseDate(dateString);
+        const date = new Date(year, month, day);
+        const currentDayOfWeek = date.getDay();
+
+        const daysToSubtract = (currentDayOfWeek - firstDayOfWeek + 7) % 7;
+
+        const startDate = new Date(date);
+        startDate.setDate(date.getDate() - daysToSubtract);
+
+        const endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 6);
+
+        return {
+            start: this.formatDate(
+                startDate.getFullYear(),
+                startDate.getMonth(),
+                startDate.getDate()
+            ),
+            end: this.formatDate(
+                endDate.getFullYear(),
+                endDate.getMonth(),
+                endDate.getDate()
+            )
+        };
+    },
+
+    /**
      * Get the difference in days between two dates.
      */
     getDaysDifference(date1, date2) {

@@ -206,9 +206,16 @@ export function keyboard(options = {}) {
             if (!this.$refs.content) return;
 
             const item = this.items[index];
-            if (item?.id) {
-                this.$refs.content.setAttribute('aria-activedescendant', item.id);
+            if (!item) return;
+
+            if (!item.id) {
+                item.id = `spire-item-${this.$id('keyboard')}-${index}`;
+                if (import.meta.env.DEV) {
+                    console.warn('[Spire UI - Accessibility] Generated ID for item without id attribute:', item);
+                }
             }
+
+            this.$refs.content.setAttribute('aria-activedescendant', item.id);
         },
 
         focusItem(index) {

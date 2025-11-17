@@ -41,7 +41,7 @@ $iconSize = $starSizes[$size] ?? $starSizes['md'];
 @endphp
 
 <div
-    x-data="ratingComponent({
+    x-data="spireRating({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
         @else
@@ -73,24 +73,16 @@ $iconSize = $starSizes[$size] ?? $starSizes['md'];
     @endif
 
     <div class="spire-rating-container">
-        @if($showTooltip)
-            <div
-                x-ref="tooltip"
-                x-show="tooltipVisible"
-                x-transition:enter="transition ease-out duration-200"
-                x-transition:enter-start="opacity-0 -translate-y-2"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                x-transition:leave="transition ease-in duration-150"
-                x-transition:leave-start="opacity-100 translate-y-0"
-                x-transition:leave-end="opacity-0 -translate-y-2"
-                class="spire-rating-tooltip"
-                style="display: none;"
-            >
-                <span x-text="`Rated ${value} Star${value !== 1 ? 's' : ''}`"></span>
-            </div>
-        @endif
+        <div
+            x-ref="content"
+            popover="hint"
+            class="spire-tooltip-content animate-pop"
+            data-placement="top"
+        >
+            <span x-text="`Rated ${value} Star${value !== 1 ? 's' : ''}`"></span>
+        </div>
 
-        <div class="spire-rating-stars">
+        <div class="spire-rating-stars" x-ref="trigger">
             @for ($i = 1; $i <= $maxRating; $i++)
                 <button
                     type="button"
@@ -110,13 +102,11 @@ $iconSize = $starSizes[$size] ?? $starSizes['md'];
                 >
                     <x-spire::icon
                         name="star"
-                        :class="$iconSize"
-                        class="spire-rating-star-icon spire-rating-star-icon--outline"
+                        class="spire-rating-star-icon spire-rating-star-icon--outline {{ $iconSize }}"
                     />
                     <x-spire::icon
                         name="star"
-                        :class="$iconSize"
-                        class="spire-rating-star-icon spire-rating-star-icon--filled"
+                        class="spire-rating-star-icon spire-rating-star-icon--filled {{ $iconSize }}"
                     />
                 </button>
             @endfor
@@ -138,7 +128,7 @@ $iconSize = $starSizes[$size] ?? $starSizes['md'];
                 class="spire-rating-reset"
                 aria-label="Reset rating"
             >
-                <x-spire::icon name="refresh-ccw-01" class="w-3 h-3" />
+                <x-spire::icon name="refresh-ccw" class="w-3 h-3" />
                 <span>Reset</span>
             </button>
         @endif

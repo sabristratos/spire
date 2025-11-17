@@ -1,21 +1,28 @@
+import { overlay } from './overlay';
+import { SPIRE_EVENTS, createEventPayload } from './events';
+
 /**
  * Rating component for Spire UI
  * Handles interactive star ratings with support for full and half stars
  */
 export function ratingComponent(config = {}) {
     return {
+        ...overlay({
+            trigger: 'manual',
+            placement: 'top',
+            onInit() {
+                config.onInit?.call(this);
+            }
+        }),
+
         value: config.value || 0,
         maxRating: config.maxRating || 5,
         readonly: config.readonly || false,
         allowHalf: config.allowHalf || false,
-        enableTooltip: config.showTooltip || false,
-        tooltipVisible: false,
+        showTooltip: config.showTooltip || false,
+        name: config.name || null,
         hoveredValue: null,
         tooltipTimeout: null,
-
-        init() {
-            config.onInit?.call(this);
-        },
 
         handleClick(starIndex, event) {
             if (this.readonly) {
@@ -57,12 +64,14 @@ export function ratingComponent(config = {}) {
             const previousValue = this.value;
             this.value = rating;
 
-            this.$dispatch('rating-changed', {
+            this.$dispatch(SPIRE_EVENTS.RATING_CHANGED, createEventPayload({
+                id: this.$id('rating'),
+                name: this.name,
                 value: rating,
-                previousValue: previousValue
-            });
+                previousValue: previousValue,
+            }));
 
-            if (this.showTooltip) {
+            if (this.showTooltip && this.$refs.content) {
                 this.displayTooltip();
             }
         },
@@ -96,13 +105,16 @@ export function ratingComponent(config = {}) {
             this.value = 0;
             this.hoveredValue = null;
 
-            this.$dispatch('rating-reset', {
-                previousValue: previousValue
-            });
+            this.$dispatch(SPIRE_EVENTS.RATING_RESET, createEventPayload({
+                id: this.$id('rating'),
+                name: this.name,
+                value: 0,
+                previousValue: previousValue,
+            }));
         },
 
         displayTooltip() {
-            if (!this.enableTooltip || !this.$refs.tooltip) {
+            if (!this.showTooltip || !this.$refs.content) {
                 return;
             }
 
@@ -110,10 +122,10 @@ export function ratingComponent(config = {}) {
                 clearTimeout(this.tooltipTimeout);
             }
 
-            this.tooltipVisible = true;
+            this.show();
 
             this.tooltipTimeout = setTimeout(() => {
-                this.tooltipVisible = false;
+                this.hide();
             }, 2000);
         },
 
@@ -128,12 +140,24 @@ export function ratingComponent(config = {}) {
         },
 
         isStarHalf(starIndex) {
+            if (this.readonly) {
+                const displayValue = this.hoveredValue ?? this.value;
+                return displayValue >= (starIndex - 0.5) && displayValue < starIndex;
+            }
+
             if (!this.allowHalf) {
                 return false;
             }
 
             const displayValue = this.hoveredValue ?? this.value;
             return displayValue >= (starIndex - 0.5) && displayValue < starIndex;
+        },
+
+        destroy() {
+            if (this.tooltipTimeout) {
+                clearTimeout(this.tooltipTimeout);
+                this.tooltipTimeout = null;
+            }
         }
     };
 }

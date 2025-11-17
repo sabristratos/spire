@@ -77,6 +77,69 @@ return [
         'toggle' => 'Basculer l\'interrupteur',
     ],
 
+    'checkbox' => [
+        'checked' => 'Coché',
+        'unchecked' => 'Non coché',
+        'indeterminate' => 'Partiellement coché',
+    ],
+
+    'radio' => [
+        'checked' => 'Sélectionné',
+        'unchecked' => 'Non sélectionné',
+    ],
+
+    'table' => [
+        'select_all' => 'Tout sélectionner',
+        'deselect_all' => 'Tout désélectionner',
+        'selected_count' => ':count sélectionné(s)',
+        'rows_selected' => ':count lignes sélectionnées|:count ligne sélectionnée',
+        'no_data' => 'Aucune donnée disponible',
+        'loading' => 'Chargement...',
+        'empty_message' => 'Aucun élément à afficher',
+        'sort_ascending' => 'Trier par ordre croissant',
+        'sort_descending' => 'Trier par ordre décroissant',
+        'remove_sort' => 'Supprimer le tri',
+        'sort_by' => 'Trier par :column',
+        'actions' => 'Actions',
+        'select_row' => 'Sélectionner la ligne',
+        'row_actions' => 'Actions de ligne',
+    ],
+
+    'editor' => [
+        'bold' => 'Gras',
+        'italic' => 'Italique',
+        'strike' => 'Barré',
+        'code' => 'Code',
+        'heading' => 'Titre',
+        'bullet_list' => 'Liste à puces',
+        'ordered_list' => 'Liste numérotée',
+        'blockquote' => 'Citation',
+        'code_block' => 'Bloc de code',
+        'link' => 'Lien',
+        'image' => 'Image',
+        'undo' => 'Annuler',
+        'redo' => 'Refaire',
+        'characters' => 'caractères',
+        'words' => 'mots',
+        'enter_url' => 'Entrez l\'URL',
+        'enter_image_url' => 'Entrez l\'URL de l\'image',
+    ],
+
+    'empty_state' => [
+        'default_title' => 'Aucune donnée disponible',
+        'default_description' => 'Il n\'y a rien à afficher ici pour le moment.',
+        'no_results_title' => 'Aucun résultat trouvé',
+        'no_results_description' => 'Essayez d\'ajuster vos critères de recherche ou de filtrage.',
+        'no_data_title' => 'Aucune donnée',
+        'no_data_description' => 'Commencez par ajouter votre premier élément.',
+        'empty_inbox_title' => 'Votre boîte de réception est vide',
+        'empty_inbox_description' => 'Vous êtes à jour ! Aucun nouveau message.',
+        'no_items_title' => 'Aucun élément trouvé',
+        'no_items_description' => 'Nous n\'avons trouvé aucun élément correspondant à vos critères.',
+    ],
+
+    'required' => 'Requis',
+
     'pagination' => [
         'previous' => '',
         'next' => '',
@@ -113,6 +176,8 @@ return [
         'start_date' => 'Date de début',
         'end_date' => 'Date de fin',
         'dates_count' => ':count dates',
+        'set_date' => 'Définir la date',
+        'remove_date' => 'Retirer :date',
     ],
 
     'date' => [
@@ -132,6 +197,10 @@ return [
         'select_month_year' => 'Sélectionner le mois et l\'année',
         'month_year_picker' => 'Sélecteur de mois et d\'année',
         'select_month' => 'Sélectionner le mois',
+        'year_picker' => 'Sélecteur d\'année',
+        'select_year' => 'Sélectionner l\'année',
+        'previous_decade' => 'Décennie précédente',
+        'next_decade' => 'Décennie suivante',
 
         // Footer buttons
         'select_today' => 'Sélectionner aujourd\'hui',
@@ -237,5 +306,20 @@ return [
             'range_too_short' => 'La période doit être d\'au moins :min jours',
             'range_too_long' => 'La période ne peut pas dépasser :max jours',
         ],
+    ],
+
+    'slider' => [
+        'min_label' => 'Valeur minimale',
+        'max_label' => 'Valeur maximale',
+        'value_label' => 'Valeur',
+        'range_label' => 'Plage',
+    ],
+
+    'spinner' => [
+        'loading' => 'Chargement...',
+    ],
+
+    'toast' => [
+        'close' => 'Fermer la notification',
     ],
 ];

@@ -18,7 +18,7 @@ $showSecondsValue = $showSeconds ? 'true' : 'false';
 @endphp
 
 <div
-    x-data="timepickerComponent({
+    x-data="spireTimepicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
         @endif

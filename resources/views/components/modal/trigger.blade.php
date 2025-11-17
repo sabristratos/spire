@@ -16,7 +16,7 @@ $mergedAttributes = $attributes->merge([
 <div
     x-data="{
         open() {
-            window.dispatchEvent(new CustomEvent('spire-modal:open-' + @js($name)));
+            window.dispatchEvent(new CustomEvent('spire-modal-open-' + @js($name)));
         }
     }"
     @click="open()"

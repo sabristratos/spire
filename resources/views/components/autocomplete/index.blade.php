@@ -34,7 +34,7 @@ $placeholderText = $placeholder ?? __('spire::spire-ui.autocomplete.placeholder'
 @endphp
 
 <div
-    x-data="autocompleteComponent({
+    x-data="spireAutocomplete({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
         @endif

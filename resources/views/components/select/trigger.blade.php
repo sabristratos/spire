@@ -22,6 +22,7 @@ if ($customClass = $attributes->get('class')) {
 $mergedAttributes = $attributes->except(['class'])->merge([
     'class' => $builder->build(),
     'type' => 'button',
+    '@click' => 'toggle()',
     'aria-haspopup' => 'listbox',
     'x-bind:aria-expanded' => 'open',
     'x-bind:aria-controls' => '$id("popover")',

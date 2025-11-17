@@ -10,19 +10,37 @@
     'href' => null,
     'ariaLabel' => null,
     'pressed' => false,
+    'tooltip' => null,
+    'tooltipPlacement' => 'top',
+    'tooltipDelay' => 300,
 ])
 
 @php
     use SpireUI\Support\ComponentClass;
 
     $isLink = !is_null($href);
-    $isDisabled = $disabled || $loading;
 
-    $spinnerSizes = [
-        'sm' => 'h-3 w-3',
-        'md' => 'h-4 w-4',
-        'lg' => 'h-5 w-5',
-    ];
+    // Detect if disabled is an Alpine.js expression (string) rather than a boolean
+    $hasAlpineDisabled = is_string($disabled) && (
+        str_starts_with($disabled, '!') ||     // Negation: !someMethod()
+        str_starts_with($disabled, '$') ||     // Alpine magic: $store.something
+        str_contains($disabled, '(') ||        // Method call: someMethod()
+        str_contains($disabled, '.') ||        // Property access: some.property
+        str_contains($disabled, '&&') ||       // Logical AND: condition && method()
+        str_contains($disabled, '||')          // Logical OR: condition || method()
+    );
+
+    // Only evaluate disabled as boolean if it's not an Alpine expression
+    $isDisabled = !$hasAlpineDisabled && ($disabled || $loading);
+
+    $spinnerColor = $color === 'default' ? 'primary' : $color;
+
+    $spinnerSize = match($size) {
+        'sm' => 'sm',
+        'md' => 'sm',
+        'lg' => 'md',
+        default => 'sm',
+    };
 
     $builder = ComponentClass::make('button')
         ->size($size)
@@ -38,6 +56,11 @@
         $builder->addClass($customClass);
     }
 
+    // Extract custom data-* attributes to preserve them
+    $customDataAttributes = collect($attributes->getAttributes())
+        ->filter(fn($value, $key) => str_starts_with($key, 'data-'))
+        ->toArray();
+
     $mergedAttributes = $attributes->merge([
         'class' => $builder->build(),
         'disabled' => $isDisabled && !$isLink ? true : null,
@@ -50,20 +73,54 @@
         ...$builder->dataAttribute('loading', $loading ? 'true' : null)
                    ->dataAttribute('disabled', $isDisabled ? 'true' : null)
                    ->getDataAttributes(),
+        ...$customDataAttributes,
     ]);
 
     $tag = $isLink ? 'a' : 'button';
+    $hasTooltip = !is_null($tooltip) && $tooltip !== '';
 @endphp
 
+@if($hasTooltip)
+<div x-data="spireOverlay({ trigger: 'hover', placement: '{{ $tooltipPlacement }}', delay: {{ $tooltipDelay }} })">
+    <{{ $tag }} {{ $mergedAttributes }} x-ref="trigger">
+    @if($loading)
+        @if(isset($spinner))
+            {{ $spinner }}
+        @else
+            <x-spire::spinner
+                :variant="config('spire-ui.spinner.default_variant', 'ring')"
+                :size="$spinnerSize"
+                :color="$spinnerColor"
+            />
+        @endif
+    @endif
+
+    @if(isset($leading) && !$loading)
+        {{ $leading }}
+    @endif
+
+    {{ $slot }}
+
+    @if(isset($trailing))
+        {{ $trailing }}
+    @endif
+    </{{ $tag }}>
+
+    <div x-ref="content" x-show="open" x-cloak popover class="spire-tooltip-content animate-pop" data-placement="{{ $tooltipPlacement }}">
+        {{ $tooltip }}
+    </div>
+</div>
+@else
 <{{ $tag }} {{ $mergedAttributes }}>
 @if($loading)
     @if(isset($spinner))
         {{ $spinner }}
     @else
-        <svg class="animate-spin {{ $spinnerSizes[$size] ?? $spinnerSizes['md'] }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
+        <x-spire::spinner
+            :variant="config('spire-ui.spinner.default_variant', 'ring')"
+            :size="$spinnerSize"
+            :color="$spinnerColor"
+        />
     @endif
 @endif
 
@@ -77,3 +134,4 @@
     {{ $trailing }}
 @endif
 </{{ $tag }}>
+@endif

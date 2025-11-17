@@ -1,13 +1,13 @@
 # Icon Component
 
-SVG icon component with size and color customization. Includes the complete Untitled UI icon set with 1000+ icons.
+SVG icon component with size and color customization. Includes the complete Lucide icon set with 1800+ beautifully crafted open source icons.
 
 ## Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `name` | string | *required* | Icon name from the icon set (e.g., `'check'`, `'arrow-right'`) |
-| `set` | string | `'untitledui'` | Icon set to use (currently only `untitledui` is available) |
+| `set` | string | `'lucide'` | Icon set to use (currently only `lucide` is available) |
 
 Additionally, all standard HTML attributes are supported (`class`, `style`, `width`, `height`, etc.).
 
@@ -67,16 +67,18 @@ Icons inherit the text color by default. Use Tailwind classes to customize:
 
 ## Available Icons
 
-The icon component uses the **Untitled UI** icon set, which includes 1000+ professionally designed icons covering:
+The icon component uses the **Lucide** icon set, which includes 1800+ beautifully crafted open source icons covering:
 
-- UI actions (check, close, edit, delete, etc.)
+- UI actions (check, x, edit, trash, etc.)
 - Navigation (arrows, chevrons, menu, etc.)
 - Communication (mail, message, phone, etc.)
 - Media (play, pause, image, video, etc.)
 - Files & folders
+- E-commerce & shopping
+- Weather & time
 - And many more...
 
-Browse available icons: [Untitled UI Icons](https://www.untitledui.com/icons)
+Browse available icons: [Lucide Icons](https://lucide.dev/icons/)
 
 ## Icon Not Found Behavior
 

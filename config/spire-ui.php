@@ -14,4 +14,8 @@ return [
     'cdn' => [
         'enabled' => env('SPIRE_UI_CDN', false),
     ],
+
+    'spinner' => [
+        'default_variant' => env('SPIRE_UI_SPINNER_VARIANT', 'ring'),
+    ],
 ];

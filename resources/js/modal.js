@@ -1,3 +1,5 @@
+import { SPIRE_EVENTS, createEventPayload } from './events';
+
 /**
  * Modal component for Spire UI
  * Handles dialog opening/closing, event listeners, and Livewire integration
@@ -8,6 +10,7 @@ export function modalComponent(config = {}) {
         dismissible: config.dismissible !== false,
         wireName: config.wireName || null,
         dialog: null,
+        eventListeners: [],
 
         init() {
             this.dialog = this.$el;
@@ -27,32 +30,32 @@ export function modalComponent(config = {}) {
             }
 
             if (this.name) {
-                window.addEventListener('spire-modal:open-' + this.name, () => {
+                this.addWindowListener('spire-modal-open-' + this.name, () => {
                     this.open();
                 });
 
-                window.addEventListener('spire-modal:close-' + this.name, () => {
+                this.addWindowListener('spire-modal-close-' + this.name, () => {
                     this.close();
                 });
 
-                window.addEventListener('spire-modal:toggle-' + this.name, () => {
+                this.addWindowListener('spire-modal-toggle-' + this.name, () => {
                     this.toggle();
                 });
             }
 
-            window.addEventListener('spire-modal:open', (e) => {
+            this.addWindowListener('spire-modal-open', (e) => {
                 if (e.detail && e.detail.name === this.name) {
                     this.open();
                 }
             });
 
-            window.addEventListener('spire-modal:close', (e) => {
+            this.addWindowListener('spire-modal-close', (e) => {
                 if (e.detail && e.detail.name === this.name) {
                     this.close();
                 }
             });
 
-            window.addEventListener('spire-modal:toggle', (e) => {
+            this.addWindowListener('spire-modal-toggle', (e) => {
                 if (e.detail && e.detail.name === this.name) {
                     this.toggle();
                 }
@@ -90,7 +93,11 @@ export function modalComponent(config = {}) {
         open() {
             if (!this.dialog.open) {
                 this.dialog.showModal();
-                this.$dispatch('spire-modal:opened', { name: this.name });
+                this.$dispatch(SPIRE_EVENTS.MODAL_OPENED, createEventPayload({
+                    id: this.$id('modal'),
+                    name: this.name,
+                    value: true,
+                }));
 
                 if (this.wireName && this.$wire) {
                     this.$wire.set(this.wireName, true);
@@ -113,16 +120,36 @@ export function modalComponent(config = {}) {
         },
 
         cancel() {
-            this.$dispatch('spire-modal:cancelled', { name: this.name });
+            this.$dispatch(SPIRE_EVENTS.MODAL_CANCELLED, createEventPayload({
+                id: this.$id('modal'),
+                name: this.name,
+                value: false,
+            }));
             this.close();
         },
 
         onClose() {
-            this.$dispatch('spire-modal:closed', { name: this.name });
+            this.$dispatch(SPIRE_EVENTS.MODAL_CLOSED, createEventPayload({
+                id: this.$id('modal'),
+                name: this.name,
+                value: false,
+            }));
 
             if (this.wireName && this.$wire) {
                 this.$wire.set(this.wireName, false);
             }
+        },
+
+        addWindowListener(event, handler) {
+            window.addEventListener(event, handler);
+            this.eventListeners.push({ event, handler });
+        },
+
+        destroy() {
+            this.eventListeners.forEach(({ event, handler }) => {
+                window.removeEventListener(event, handler);
+            });
+            this.eventListeners = [];
         }
     };
 }

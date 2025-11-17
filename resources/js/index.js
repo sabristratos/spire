@@ -7,6 +7,7 @@
 
 import { overlay } from './overlay';
 import { keyboard } from './keyboard';
+import { inputComponent } from './input';
 import { selectComponent } from './select';
 import { autocompleteComponent } from './autocomplete';
 import { calendarComponent } from './calendar';
@@ -14,11 +15,17 @@ import { datepickerComponent } from './datepicker';
 import { timepickerComponent } from './timepicker';
 import { modalComponent } from './modal';
 import { ratingComponent } from './rating';
+import { tooltipComponent } from './tooltip';
+import { editorComponent } from './editor';
+import { tableComponent } from './table';
+import { sliderComponent } from './slider';
+import { toastComponent, toast } from './toast';
 
 export function initializeSpireUI() {
     // Expose to window for direct access if needed
     window.overlay = overlay;
     window.keyboard = keyboard;
+    window.inputComponent = inputComponent;
     window.selectComponent = selectComponent;
     window.autocompleteComponent = autocompleteComponent;
     window.calendarComponent = calendarComponent;
@@ -26,30 +33,32 @@ export function initializeSpireUI() {
     window.timepickerComponent = timepickerComponent;
     window.modalComponent = modalComponent;
     window.ratingComponent = ratingComponent;
+    window.tooltipComponent = tooltipComponent;
+    window.editorComponent = editorComponent;
+    window.tableComponent = tableComponent;
+    window.sliderComponent = sliderComponent;
+    window.toastComponent = toastComponent;
+
+    // Expose global toast helper
+    window.toast = toast;
 
     document.addEventListener('alpine:init', () => {
-        // Register with spire- prefix for consistency
-        Alpine.data('spire-overlay', overlay);
-        Alpine.data('spire-keyboard', keyboard);
-        Alpine.data('spire-select', selectComponent);
-        Alpine.data('spire-autocomplete', autocompleteComponent);
-        Alpine.data('spire-calendar', calendarComponent);
-        Alpine.data('spire-datepicker', datepickerComponent);
-        Alpine.data('spire-timepicker', timepickerComponent);
-        Alpine.data('spire-modal', modalComponent);
-        Alpine.data('spire-rating', ratingComponent);
-
-        // Also register without prefix for backward compatibility
-        Alpine.data('overlay', overlay);
-        Alpine.data('keyboard', keyboard);
-        Alpine.data('selectComponent', selectComponent);
-        Alpine.data('autocompleteComponent', autocompleteComponent);
-        Alpine.data('calendarComponent', calendarComponent);
-        Alpine.data('datepickerComponent', datepickerComponent);
-        Alpine.data('timepickerComponent', timepickerComponent);
-        Alpine.data('modalComponent', modalComponent);
-        Alpine.data('ratingComponent', ratingComponent);
+        Alpine.data('spireOverlay', overlay);
+        Alpine.data('spireKeyboard', keyboard);
+        Alpine.data('spireInput', inputComponent);
+        Alpine.data('spireSelect', selectComponent);
+        Alpine.data('spireAutocomplete', autocompleteComponent);
+        Alpine.data('spireCalendar', calendarComponent);
+        Alpine.data('spireDatepicker', datepickerComponent);
+        Alpine.data('spireTimepicker', timepickerComponent);
+        Alpine.data('spireModal', modalComponent);
+        Alpine.data('spireRating', ratingComponent);
+        Alpine.data('spireTooltip', tooltipComponent);
+        Alpine.data('spireEditor', editorComponent);
+        Alpine.data('spireTable', tableComponent);
+        Alpine.data('spireSlider', sliderComponent);
+        Alpine.data('spireToast', toastComponent);
     });
 }
 
-export { overlay, keyboard, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent };
+export { overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast };

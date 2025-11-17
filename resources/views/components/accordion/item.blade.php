@@ -1,10 +1,10 @@
 @props([
     'title' => null,
     'subtitle' => null,
-    'isDisabled' => false,
+    'disabled' => false,
     'hideIcon' => false,
     'icon' => 'chevron-down',
-    'isOpen' => false,
+    'open' => false,
     'index' => null,
 ])
 
@@ -18,7 +18,7 @@ $contentId = $itemId . '-content';
 $parentSize = 'md';
 
 $buttonBuilder = ComponentClass::make('accordion-button')
-    ->modifier($isDisabled ? 'disabled' : 'normal')
+    ->modifier($disabled ? 'disabled' : 'normal')
     ->modifier($parentSize);
 
 $contentBuilder = ComponentClass::make('accordion-content')
@@ -26,27 +26,25 @@ $contentBuilder = ComponentClass::make('accordion-content')
 
 $mergedAttributes = $attributes->merge([
     'data-spire-accordion-item' => 'true',
-    'data-spire-disabled' => $isDisabled ? 'true' : null,
+    'data-spire-disabled' => $disabled ? 'true' : null,
 ]);
 
 @endphp
 
 <div {{ $mergedAttributes }}
     x-data="{
-        open: {{ $isOpen ? 'true' : 'false' }},
+        open: {{ $open ? 'true' : 'false' }},
         allowMultiple: false,
         init() {
             const parent = this.$el.closest('[data-spire-accordion]');
             this.allowMultiple = parent?.getAttribute('data-spire-allow-multiple') === 'true';
 
-            const defaultOpenJson = parent?.getAttribute('data-spire-default-open');
-            if (defaultOpenJson) {
-                try {
-                    const defaultOpenArray = JSON.parse(defaultOpenJson);
-                    if (defaultOpenArray.includes({{ $index }})) {
-                        this.open = true;
-                    }
-                } catch (e) {}
+            const defaultOpenString = parent?.getAttribute('data-spire-default-open');
+            if (defaultOpenString && defaultOpenString.trim() !== '') {
+                const defaultOpenArray = defaultOpenString.split(',').map(str => parseInt(str.trim(), 10));
+                if (defaultOpenArray.includes({{ $index }})) {
+                    this.open = true;
+                }
             }
         }
     }"
@@ -55,12 +53,12 @@ $mergedAttributes = $attributes->merge([
         type="button"
         id="{{ $buttonId }}"
         class="{{ $buttonBuilder->build() }}"
-        @if(!$isDisabled)
+        @if(!$disabled)
             x-on:click="allowMultiple ? (open = !open) : (openItem = (openItem === {{ $index }}) ? null : {{ $index }})"
         @endif
         x-bind:aria-expanded="allowMultiple ? open : (openItem === {{ $index }})"
         aria-controls="{{ $contentId }}"
-        {{ $isDisabled ? 'disabled' : '' }}
+        {{ $disabled ? 'disabled' : '' }}
         data-spire-accordion-trigger="true"
     >
         <div class="flex-1 flex items-start gap-3">

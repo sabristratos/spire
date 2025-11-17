@@ -5,7 +5,7 @@
 ])
 
 <div
-    x-data="overlay({ type: '{{ $type }}', trigger: '{{ $trigger }}' })"
+    x-data="spireOverlay({ type: '{{ $type }}', trigger: '{{ $trigger }}' })"
     x-id="['popover']"
     wire:ignore.self
     {{ $attributes }}

@@ -11,10 +11,23 @@
     'maxRange' => null,
     'minRange' => null,
     'maxDates' => null,
+    'showPresets' => false,
+    'presets' => [],
 ])
 
 @php
 use SpireUI\Support\ComponentClass;
+
+$defaultPresets = [
+    ['key' => 'last_7_days', 'label' => __('spire::spire-ui.date.preset_last_7_days')],
+    ['key' => 'last_30_days', 'label' => __('spire::spire-ui.date.preset_last_30_days')],
+    ['key' => 'this_week', 'label' => __('spire::spire-ui.date.preset_this_week')],
+    ['key' => 'last_week', 'label' => __('spire::spire-ui.date.preset_last_week')],
+    ['key' => 'this_month', 'label' => __('spire::spire-ui.date.preset_this_month')],
+    ['key' => 'last_month', 'label' => __('spire::spire-ui.date.preset_last_month')],
+];
+
+$activePresets = empty($presets) ? $defaultPresets : $presets;
 
 $builder = ComponentClass::make('datepicker-content')->modifier($width);
 
@@ -35,6 +48,8 @@ $mergedAttributes = $attributes->except([
     'maxRange',
     'minRange',
     'maxDates',
+    'showPresets',
+    'presets',
 ])->merge([
     'data-placement' => $placement,
     'data-spire-datepicker-content' => true,
@@ -55,35 +70,30 @@ $mergedAttributes = $attributes->except([
     {{ $mergedAttributes }}
 >
     <div class="flex flex-col gap-3">
-        {{-- Action buttons header --}}
-        <div class="spire-datepicker-actions">
-            <button
-                type="button"
-                @click="setToday"
-                class="px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/10 rounded-md transition-colors"
-                x-text="todayText"
-            ></button>
-
-            <span class="text-text-muted">|</span>
-
-            <button
-                type="button"
-                @click="clearDate"
-                class="px-3 py-1.5 text-xs font-medium text-text-muted hover:bg-hover rounded-md transition-colors"
-                x-text="clearText"
-            ></button>
-        </div>
-
         {{-- Calendar grid (datepicker manages all calendar state) --}}
         <div wire:ignore>
             <template x-if="mode === 'range'">
-                <x-spire::calendar.dual-grid />
+                @if($showPresets)
+                    <div class="flex gap-3">
+                        <x-spire::calendar.presets :presets="$activePresets" />
+                        <div>
+                            <x-spire::calendar.dual-grid />
+                        </div>
+                    </div>
+                @else
+                    <x-spire::calendar.dual-grid />
+                @endif
             </template>
 
             <template x-if="mode !== 'range'">
                 <div>
                     <x-spire::calendar.header />
-                    <x-spire::calendar.grid />
+                    <div class="relative">
+                        <x-spire::calendar.month-year-picker />
+                        <x-spire::calendar.year-picker />
+                        <x-spire::calendar.grid />
+                    </div>
+                    <x-spire::calendar.footer />
                 </div>
             </template>
         </div>
@@ -92,21 +102,69 @@ $mergedAttributes = $attributes->except([
         <template x-if="mode === 'range'">
             <div class="spire-datepicker-footer">
                 <div class="spire-datepicker-footer__inputs">
-                    <input
-                        type="text"
-                        class="spire-datepicker-footer__input"
-                        :value="formattedRangeStart"
-                        placeholder="{{ __('spire::spire-ui.datepicker.start_date') }}"
-                        readonly
-                    />
-                    <span class="spire-datepicker-footer__separator">-</span>
-                    <input
-                        type="text"
-                        class="spire-datepicker-footer__input"
-                        :value="formattedRangeEnd"
-                        placeholder="{{ __('spire::spire-ui.datepicker.end_date') }}"
-                        readonly
-                    />
+                    {{-- Start date segments --}}
+                    <div class="spire-datepicker-footer__segment-group">
+                        <template x-for="(segment, index) in segmentOrder" :key="'start_' + segment">
+                            <div class="contents">
+                                <input
+                                    type="text"
+                                    inputmode="numeric"
+                                    :maxlength="segment === 'year' ? 4 : 2"
+                                    :placeholder="getSegmentPlaceholders()[segment]"
+                                    autocomplete="off"
+                                    data-lpignore="true"
+                                    data-form-type="other"
+                                    :x-ref="'rangeSegment_start_' + segment"
+                                    x-model="rangeSegmentValues.start[segment]"
+                                    @input="handleRangeSegmentInput(segment, 'start', $event)"
+                                    @paste.prevent="handleRangeSegmentPaste('start', $event)"
+                                    @keydown="handleRangeSegmentKeydown(segment, 'start', $event)"
+                                    @focus="$event.target.select()"
+                                    :aria-label="segment === 'month' ? '{{ __('spire::spire-ui.datepicker.month') }}' : segment === 'day' ? '{{ __('spire::spire-ui.datepicker.day') }}' : '{{ __('spire::spire-ui.datepicker.year') }}'"
+                                    :class="segment === 'year' ? 'spire-datepicker-footer__segment spire-datepicker-footer__segment--year' : 'spire-datepicker-footer__segment'"
+                                />
+
+                                <span
+                                    x-show="index < segmentOrder.length - 1"
+                                    class="spire-datepicker-footer__segment-separator"
+                                    x-text="segmentSeparator"
+                                ></span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <span class="spire-datepicker-footer__range-separator">-</span>
+
+                    {{-- End date segments --}}
+                    <div class="spire-datepicker-footer__segment-group">
+                        <template x-for="(segment, index) in segmentOrder" :key="'end_' + segment">
+                            <div class="contents">
+                                <input
+                                    type="text"
+                                    inputmode="numeric"
+                                    :maxlength="segment === 'year' ? 4 : 2"
+                                    :placeholder="getSegmentPlaceholders()[segment]"
+                                    autocomplete="off"
+                                    data-lpignore="true"
+                                    data-form-type="other"
+                                    :x-ref="'rangeSegment_end_' + segment"
+                                    x-model="rangeSegmentValues.end[segment]"
+                                    @input="handleRangeSegmentInput(segment, 'end', $event)"
+                                    @paste.prevent="handleRangeSegmentPaste('end', $event)"
+                                    @keydown="handleRangeSegmentKeydown(segment, 'end', $event)"
+                                    @focus="$event.target.select()"
+                                    :aria-label="segment === 'month' ? '{{ __('spire::spire-ui.datepicker.month') }}' : segment === 'day' ? '{{ __('spire::spire-ui.datepicker.day') }}' : '{{ __('spire::spire-ui.datepicker.year') }}'"
+                                    :class="segment === 'year' ? 'spire-datepicker-footer__segment spire-datepicker-footer__segment--year' : 'spire-datepicker-footer__segment'"
+                                />
+
+                                <span
+                                    x-show="index < segmentOrder.length - 1"
+                                    class="spire-datepicker-footer__segment-separator"
+                                    x-text="segmentSeparator"
+                                ></span>
+                            </div>
+                        </template>
+                    </div>
                 </div>
                 <div class="spire-datepicker-footer__actions">
                     <x-spire::button

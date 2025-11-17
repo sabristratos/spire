@@ -1,4 +1,5 @@
 <div
+    class="w-full"
     role="grid"
     aria-labelledby="month-year-label"
     :aria-multiselectable="mode === 'multiple' ? 'true' : null"
@@ -8,7 +9,7 @@
         <span x-text="selectionAnnouncement"></span>
     </div>
     {{-- Day names header --}}
-    <div role="row" class="grid grid-cols-7 gap-0.5 mb-2">
+    <div role="row" class="grid grid-cols-7 gap-0 mb-2 justify-items-center">
         <template x-for="dayName in dayNames" :key="dayName">
             <div
                 role="columnheader"
@@ -20,7 +21,7 @@
 
     {{-- Calendar weeks --}}
     <template x-for="(week, weekIndex) in weeks" :key="weekIndex">
-        <div role="row" class="grid grid-cols-7 gap-0.5">
+        <div role="row" class="grid grid-cols-7 gap-0 justify-items-center">
             <template x-for="day in week" :key="day.date">
                 <button
                     type="button"

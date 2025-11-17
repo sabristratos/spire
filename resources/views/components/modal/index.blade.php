@@ -46,7 +46,7 @@ if ($name) {
 
 <dialog
     wire:ignore.self
-    x-data="modalComponent({
+    x-data="spireModal({
         name: @js($name),
         dismissible: @js($dismissible),
         wireName: @js($wireName)

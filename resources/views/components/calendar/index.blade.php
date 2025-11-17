@@ -51,7 +51,7 @@ if ($customClass = $attributes->get('class')) {
 @endphp
 
 <div
-    x-data="calendarComponent({
+    x-data="spireCalendar({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
         @endif
@@ -101,12 +101,15 @@ if ($customClass = $attributes->get('class')) {
 
     <div wire:ignore x-id="['calendar-picker']">
         @if($showPresets && $mode === 'range')
-            <div class="flex gap-2">
+            <div class="flex gap-3">
                 <x-spire::calendar.presets :presets="$activePresets" />
                 <div class="{{ $builder->build() }}">
                     <x-spire::calendar.header />
-                    <x-spire::calendar.month-year-picker />
-                    <x-spire::calendar.grid />
+                    <div class="relative">
+                        <x-spire::calendar.month-year-picker />
+                        <x-spire::calendar.year-picker />
+                        <x-spire::calendar.grid />
+                    </div>
                     @if($showFooter)
                         <x-spire::calendar.footer
                             :show-clear="$showClearButton"
@@ -118,8 +121,11 @@ if ($customClass = $attributes->get('class')) {
         @else
             <div class="{{ $builder->build() }}">
                 <x-spire::calendar.header />
-                <x-spire::calendar.month-year-picker />
-                <x-spire::calendar.grid />
+                <div class="relative">
+                    <x-spire::calendar.month-year-picker />
+                    <x-spire::calendar.year-picker />
+                    <x-spire::calendar.grid />
+                </div>
                 @if($showFooter)
                     <x-spire::calendar.footer
                         :show-clear="$showClearButton"

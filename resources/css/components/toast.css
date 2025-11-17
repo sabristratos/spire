@@ -1,0 +1,132 @@
+@layer components {
+    .spire-toast {
+        @apply max-w-md rounded-lg shadow-lg overflow-hidden;
+        @apply border bg-surface;
+
+        margin: 0;
+    }
+
+    .spire-toast:popover-open {
+        /* Positioning handled via inline styles */
+        margin: 0;
+    }
+
+    [popover][id^="toast-"] {
+        transition:
+            opacity var(--animation-duration-slow),
+            transform var(--animation-duration-slow),
+            overlay var(--animation-duration-slow) allow-discrete,
+            display var(--animation-duration-slow) allow-discrete;
+    }
+
+    /* Centered toast positioning (top-center, bottom-center) */
+    [popover][id^="toast-"][style*="--toast-centered: 1"] {
+        transform: translateX(-50%);
+    }
+
+    /* Combine centering with slide-up animation for centered toasts */
+    [popover][id^="toast-"][style*="--toast-centered: 1"].animate-slide-up {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    [popover][id^="toast-"][style*="--toast-centered: 1"].animate-slide-up:popover-open {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    @starting-style {
+        [popover][id^="toast-"][style*="--toast-centered: 1"].animate-slide-up:popover-open {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+    }
+
+    .spire-toast--default {
+        @apply border-border bg-surface;
+    }
+
+    .spire-toast--success {
+        @apply border-success/20 bg-success/5;
+    }
+
+    .spire-toast--error {
+        @apply border-error/20 bg-error/5;
+    }
+
+    .spire-toast--warning {
+        @apply border-warning/20 bg-warning/5;
+    }
+
+    .spire-toast--info {
+        @apply border-info/20 bg-info/5;
+    }
+
+    .spire-toast-content {
+        @apply flex items-start gap-3 p-4;
+    }
+
+    .spire-toast-icon {
+        @apply flex-shrink-0 mt-0.5;
+    }
+
+    .spire-toast--success .spire-toast-icon {
+        @apply text-success;
+    }
+
+    .spire-toast--error .spire-toast-icon {
+        @apply text-error;
+    }
+
+    .spire-toast--warning .spire-toast-icon {
+        @apply text-warning;
+    }
+
+    .spire-toast--info .spire-toast-icon {
+        @apply text-info;
+    }
+
+    .spire-toast--default .spire-toast-icon {
+        @apply text-text-muted;
+    }
+
+    .spire-toast-text {
+        @apply flex-1 min-w-0;
+    }
+
+    .spire-toast-title {
+        @apply font-semibold text-sm text-text mb-1;
+    }
+
+    .spire-toast-message {
+        @apply text-sm text-text-muted;
+    }
+
+    .spire-toast-dismiss {
+        @apply flex-shrink-0 -mr-1 -mt-1;
+    }
+
+    .spire-toast-progress {
+        @apply absolute bottom-0 left-0 h-1 rounded-bl-lg rounded-br-lg transition-all duration-100;
+    }
+
+    .spire-toast--success .spire-toast-progress {
+        @apply bg-success;
+    }
+
+    .spire-toast--error .spire-toast-progress {
+        @apply bg-error;
+    }
+
+    .spire-toast--warning .spire-toast-progress {
+        @apply bg-warning;
+    }
+
+    .spire-toast--info .spire-toast-progress {
+        @apply bg-info;
+    }
+
+    .spire-toast--default .spire-toast-progress {
+        @apply bg-primary;
+    }
+}

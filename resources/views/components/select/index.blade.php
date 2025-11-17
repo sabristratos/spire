@@ -43,7 +43,7 @@ $maxValue = is_numeric($max) ? (int) $max : 'null';
 @endphp
 
 <div
-    x-data="selectComponent({
+    x-data="spireSelect({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
         @endif

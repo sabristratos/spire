@@ -24,7 +24,7 @@ Groups multiple buttons together horizontally or vertically with seamless border
 [View Documentation](components/button-group.md)
 
 ### Icon
-SVG icon component with size variants and color customization. Includes the complete Untitled UI icon set with 1000+ icons. Uses inline SVG for optimal performance and styling flexibility.
+SVG icon component with size variants and color customization. Includes the complete Lucide icon set with 1800+ beautifully crafted open source icons. Uses inline SVG for optimal performance and styling flexibility.
 
 [View Documentation](components/icon.md)
 

@@ -23,7 +23,7 @@ $accordionId = 'accordion-' . uniqid();
 $defaultOpenIndex = is_array($defaultOpen) ? ($defaultOpen[0] ?? null) : $defaultOpen;
 
 $defaultOpenArray = is_array($defaultOpen) ? $defaultOpen : ($defaultOpen !== null ? [$defaultOpen] : []);
-$defaultOpenJson = !empty($defaultOpenArray) ? json_encode($defaultOpenArray) : '[]';
+$defaultOpenString = !empty($defaultOpenArray) ? implode(',', array_map('intval', $defaultOpenArray)) : '';
 
 $mergedAttributes = $attributes->merge([
     'class' => $builder->build(),
@@ -33,7 +33,7 @@ $mergedAttributes = $attributes->merge([
     'data-spire-color' => $color,
     'data-spire-size' => $size,
     'data-spire-allow-multiple' => $allowMultiple ? 'true' : 'false',
-    'data-spire-default-open' => $defaultOpenJson,
+    'data-spire-default-open' => $defaultOpenString,
 ]);
 @endphp
 

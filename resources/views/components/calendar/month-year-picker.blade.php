@@ -1,14 +1,19 @@
 @props(['placement' => 'bottom-start'])
 
-{{-- Month/Year Picker Popover --}}
+{{-- Month/Year Picker View --}}
 <div
-    :id="$id('calendar-picker')"
-    x-ref="content"
-    popover="auto"
-    data-placement="{{ $placement }}"
+    class="absolute inset-0 w-full bg-surface z-10"
+    x-show="showMonthYearPicker"
+    x-transition:enter="transition-opacity transition-transform ease-out duration-200"
+    x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100"
+    x-transition:leave="transition-opacity transition-transform ease-in duration-150"
+    x-transition:leave-start="opacity-100 scale-100"
+    x-transition:leave-end="opacity-0 scale-95"
+    @keydown.escape="showMonthYearPicker = false"
     role="dialog"
     aria-label="{{ __('spire::spire-ui.date.month_year_picker') }}"
-    class="animate-dropdown-bounce bg-surface border border-border rounded-lg shadow-lg p-4 min-w-[280px]"
+    x-cloak
 >
     {{-- Year Stepper --}}
     <div class="flex items-center justify-between mb-4 gap-2">
@@ -24,7 +29,14 @@
             </svg>
         </button>
 
-        <span class="text-lg font-semibold text-text min-w-[60px] text-center" x-text="pickerYear"></span>
+        <button
+            type="button"
+            @click="showYearPicker = true"
+            class="text-lg font-semibold text-text min-w-[60px] text-center hover:text-primary hover:bg-hover px-3 py-1 rounded-md transition-colors cursor-pointer"
+            :aria-expanded="showYearPicker"
+            aria-label="{{ __('spire::spire-ui.date.select_year') }}"
+            x-text="pickerYear"
+        ></button>
 
         <button
             type="button"

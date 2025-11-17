@@ -79,11 +79,13 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
                 variant="ghost"
                 size="sm"
                 icon-only
-                class="ml-auto shrink-0"
-                :aria-label="__('spire::spire-ui.datepicker.open_picker')"
+                class="ml-auto shrink-0 spire-datepicker-trigger__clear-btn"
+                x-show="value"
+                @click.stop="clearDate()"
+                aria-label="{{ __('spire::spire-ui.datepicker.clear') }}"
                 :disabled="$disabled"
             >
-                <x-spire::icon name="calendar" class="w-4 h-4" />
+                <x-spire::icon name="x" class="w-4 h-4" />
             </x-spire::button>
 
             <x-spire::button
@@ -91,13 +93,12 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
                 variant="ghost"
                 size="sm"
                 icon-only
-                class="shrink-0 spire-datepicker-trigger__clear-btn"
-                x-show="value"
-                @click.stop="clearDate()"
-                aria-label="{{ __('spire::spire-ui.datepicker.clear') }}"
+                class="shrink-0"
+                @click="toggle()"
+                :aria-label="__('spire::spire-ui.datepicker.open_picker')"
                 :disabled="$disabled"
             >
-                <x-spire::icon name="x-circle" class="w-4 h-4" />
+                <x-spire::icon name="calendar" class="w-4 h-4" />
             </x-spire::button>
         @elseif($mode === 'range')
             {{-- Range mode: Display start and end dates --}}
@@ -113,11 +114,13 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
                     variant="ghost"
                     size="sm"
                     icon-only
-                    class="ml-auto shrink-0"
-                    :aria-label="__('spire::spire-ui.datepicker.open_picker')"
+                    class="ml-auto shrink-0 spire-datepicker-trigger__clear-btn"
+                    x-show="value && (value.start || value.end)"
+                    @click.stop="clearDate()"
+                    aria-label="{{ __('spire::spire-ui.datepicker.clear') }}"
                     :disabled="$disabled"
                 >
-                    <x-spire::icon name="calendar" class="w-4 h-4" />
+                    <x-spire::icon name="x" class="w-4 h-4" />
                 </x-spire::button>
 
                 <x-spire::button
@@ -125,37 +128,46 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
                     variant="ghost"
                     size="sm"
                     icon-only
-                    class="shrink-0 spire-datepicker-trigger__clear-btn"
-                    x-show="value && (value.start || value.end)"
-                    @click.stop="clearDate()"
-                    aria-label="{{ __('spire::spire-ui.datepicker.clear') }}"
+                    class="shrink-0"
+                    @click="toggle()"
+                    :aria-label="__('spire::spire-ui.datepicker.open_picker')"
                     :disabled="$disabled"
                 >
-                    <x-spire::icon name="x-circle" class="w-4 h-4" />
+                    <x-spire::icon name="calendar" class="w-4 h-4" />
                 </x-spire::button>
             </div>
         @else
-            {{-- Multiple mode: Display count --}}
+            {{-- Multiple mode: Display chips --}}
             <div class="spire-datepicker-trigger__multiple">
-                <div class="spire-datepicker-trigger__multiple-display">
-                    <span x-text="formattedMultiple || placeholder" class="spire-datepicker-trigger__multiple-value"></span>
+                {{-- Chips display --}}
+                <div class="spire-datepicker-chips-container" x-show="selectedCount > 0">
+                    <template x-for="(date, index) in selectedDates.slice(0, maxChipsDisplay)" :key="date.value">
+                        <span class="spire-datepicker-chip">
+                            <span class="spire-datepicker-chip__label" x-text="date.label"></span>
+                            <button
+                                type="button"
+                                @click.stop="removeDate(date.value)"
+                                class="spire-datepicker-chip__remove"
+                                :aria-label="`{{ __('spire::spire-ui.datepicker.remove_date') }}`.replace(':date', date.label)"
+                                {{ $disabled ? 'disabled' : '' }}
+                            >
+                                <x-spire::icon name="x" class="w-3 h-3" />
+                            </button>
+                        </span>
+                    </template>
+
+                    {{-- Overflow indicator --}}
+                    <span
+                        x-show="selectedCount > maxChipsDisplay"
+                        class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md bg-neutral-200 dark:bg-neutral-700 text-text-muted"
+                        x-text="'+ ' + (selectedCount - maxChipsDisplay) + ' more'"
+                    ></span>
                 </div>
 
+                {{-- Placeholder when empty --}}
+                <span x-show="selectedCount === 0" x-text="placeholder" class="spire-datepicker-trigger__multiple-value"></span>
+
                 <div class="spire-datepicker-trigger__multiple-actions">
-                    <span x-show="selectedCount > 0" x-text="`{{ __('spire::spire-ui.datepicker.dates_count', ['count' => '']) }}`.replace(':count', selectedCount)" class="spire-datepicker-trigger__count-badge"></span>
-
-                    <x-spire::button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        icon-only
-                        class="shrink-0"
-                        :aria-label="__('spire::spire-ui.datepicker.open_picker')"
-                        :disabled="$disabled"
-                    >
-                        <x-spire::icon name="calendar" class="w-4 h-4" />
-                    </x-spire::button>
-
                     <x-spire::button
                         type="button"
                         variant="ghost"
@@ -167,7 +179,20 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
                         aria-label="{{ __('spire::spire-ui.datepicker.clear') }}"
                         :disabled="$disabled"
                     >
-                        <x-spire::icon name="x-circle" class="w-4 h-4" />
+                        <x-spire::icon name="x" class="w-4 h-4" />
+                    </x-spire::button>
+
+                    <x-spire::button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        icon-only
+                        class="shrink-0"
+                        @click="toggle()"
+                        aria-label="{{ __('spire::spire-ui.datepicker.open_picker') }}"
+                        :disabled="$disabled"
+                    >
+                        <x-spire::icon name="calendar" class="w-4 h-4" />
                     </x-spire::button>
                 </div>
             </div>

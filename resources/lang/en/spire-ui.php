@@ -77,6 +77,69 @@ return [
         'toggle' => 'Toggle switch',
     ],
 
+    'checkbox' => [
+        'checked' => 'Checked',
+        'unchecked' => 'Unchecked',
+        'indeterminate' => 'Partially checked',
+    ],
+
+    'radio' => [
+        'checked' => 'Selected',
+        'unchecked' => 'Not selected',
+    ],
+
+    'table' => [
+        'select_all' => 'Select all',
+        'deselect_all' => 'Deselect all',
+        'selected_count' => ':count selected',
+        'rows_selected' => ':count rows selected|:count row selected',
+        'no_data' => 'No data available',
+        'loading' => 'Loading...',
+        'empty_message' => 'No items to display',
+        'sort_ascending' => 'Sort ascending',
+        'sort_descending' => 'Sort descending',
+        'remove_sort' => 'Remove sort',
+        'sort_by' => 'Sort by :column',
+        'actions' => 'Actions',
+        'select_row' => 'Select row',
+        'row_actions' => 'Row actions',
+    ],
+
+    'editor' => [
+        'bold' => 'Bold',
+        'italic' => 'Italic',
+        'strike' => 'Strikethrough',
+        'code' => 'Code',
+        'heading' => 'Heading',
+        'bullet_list' => 'Bullet list',
+        'ordered_list' => 'Numbered list',
+        'blockquote' => 'Quote',
+        'code_block' => 'Code block',
+        'link' => 'Link',
+        'image' => 'Image',
+        'undo' => 'Undo',
+        'redo' => 'Redo',
+        'characters' => 'characters',
+        'words' => 'words',
+        'enter_url' => 'Enter URL',
+        'enter_image_url' => 'Enter image URL',
+    ],
+
+    'empty_state' => [
+        'default_title' => 'No data available',
+        'default_description' => 'There is nothing to display here yet.',
+        'no_results_title' => 'No results found',
+        'no_results_description' => 'Try adjusting your search or filter criteria.',
+        'no_data_title' => 'No data',
+        'no_data_description' => 'Start by adding your first item.',
+        'empty_inbox_title' => 'Your inbox is empty',
+        'empty_inbox_description' => 'You\'re all caught up! No new messages.',
+        'no_items_title' => 'No items found',
+        'no_items_description' => 'We couldn\'t find any items matching your criteria.',
+    ],
+
+    'required' => 'Required',
+
     'pagination' => [
         'previous' => 'Previous',
         'next' => 'Next',
@@ -113,6 +176,8 @@ return [
         'start_date' => 'Start date',
         'end_date' => 'End date',
         'dates_count' => ':count dates',
+        'set_date' => 'Set date',
+        'remove_date' => 'Remove :date',
     ],
 
     'date' => [
@@ -132,6 +197,10 @@ return [
         'select_month_year' => 'Select month and year',
         'month_year_picker' => 'Month and year picker',
         'select_month' => 'Select month',
+        'year_picker' => 'Year picker',
+        'select_year' => 'Select year',
+        'previous_decade' => 'Previous decade',
+        'next_decade' => 'Next decade',
 
         // Footer buttons
         'select_today' => 'Select today',
@@ -237,5 +306,20 @@ return [
             'range_too_short' => 'Range must be at least :min days',
             'range_too_long' => 'Range cannot exceed :max days',
         ],
+    ],
+
+    'slider' => [
+        'min_label' => 'Minimum value',
+        'max_label' => 'Maximum value',
+        'value_label' => 'Value',
+        'range_label' => 'Range',
+    ],
+
+    'spinner' => [
+        'loading' => 'Loading...',
+    ],
+
+    'toast' => [
+        'close' => 'Close notification',
     ],
 ];
