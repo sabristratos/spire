@@ -1,6 +1,7 @@
 @props([
     'position' => 'bottom-right',
     'duration' => 5000,
+    'variant' => 'solid',
 ])
 
 @php
@@ -8,7 +9,7 @@
 @endphp
 
 <div
-    x-data="spireToast({ position: '{{ $position }}', duration: {{ $duration }} })"
+    x-data="spireToast({ position: '{{ $position }}', duration: {{ $duration }}, variant: '{{ $variant }}' })"
     {{ $attributes }}
 >
     <template x-for="toast in toasts" :key="toast.id">
@@ -26,14 +27,14 @@
             x-bind:class="{
                 'spire-toast': true,
                 'pointer-events-auto': true,
-                [`spire-toast--${toast.color}`]: true,
+                [`spire-toast--${toast.color}-${toast.variant}`]: true,
                 'animate-slide-right': ['top-right', 'bottom-right'].includes(position),
                 'animate-slide-left': ['top-left', 'bottom-left'].includes(position),
                 'animate-slide-up': ['top-center', 'bottom-center'].includes(position)
             }"
         >
             <div
-                x-show="toast.duration > 0 && toast.progress !== null"
+                x-show="toast.showProgress && toast.progress !== null"
                 class="spire-toast-progress"
                 :style="`width: ${toast.progress}%`"
             ></div>

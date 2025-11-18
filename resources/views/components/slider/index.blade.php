@@ -13,6 +13,7 @@
     'disabled' => false,
     'readonly' => false,
     'label' => null,
+    'inline' => false,
 ])
 
 @php
@@ -28,7 +29,8 @@ $normalizedMarks = is_array($marks) ? $marks : [];
 $containerBuilder = ComponentClass::make('slider')
     ->when($disabled, fn($b) => $b->modifier('disabled'))
     ->when($readonly, fn($b) => $b->modifier('readonly'))
-    ->when(!empty($normalizedMarks) || $showSteps, fn($b) => $b->modifier('with-marks'));
+    ->when(!empty($normalizedMarks) || $showSteps, fn($b) => $b->modifier('with-marks'))
+    ->when($inline, fn($b) => $b->modifier('inline')->size($size));
 
 $trackBuilder = ComponentClass::make('slider-track')
     ->size($size);
@@ -87,26 +89,39 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
     @endif
 
     <div wire:ignore>
-        @if($label || $showValue)
-            <div class="flex justify-between items-center mb-2">
-                @if($label)
-                    <label class="text-sm font-medium text-text">{{ $label }}</label>
-                @endif
+        @if($inline)
+            @if($label)
+                <label class="text-sm font-medium text-text mb-2 block">{{ $label }}</label>
+            @endif
 
-                @if($showValue)
-                    <output
-                        class="spire-slider-value text-sm font-medium"
-                        x-text="formatValue()"
-                    ></output>
-                @endif
-            </div>
+            <div class="flex items-center gap-3">
+                <div
+                    class="spire-slider-container relative flex-1"
+                    :class="{ 'opacity-50 cursor-not-allowed': disabled }"
+                    :data-spire-dragging="isDragging"
+                >
+        @else
+            @if($label || $showValue)
+                <div class="flex justify-between items-center mb-2">
+                    @if($label)
+                        <label class="text-sm font-medium text-text">{{ $label }}</label>
+                    @endif
+
+                    @if($showValue)
+                        <output
+                            class="spire-slider-value text-sm font-medium"
+                            x-text="formatValue()"
+                        ></output>
+                    @endif
+                </div>
+            @endif
+
+            <div
+                class="spire-slider-container relative"
+                :class="{ 'opacity-50 cursor-not-allowed': disabled }"
+                :data-spire-dragging="isDragging"
+            >
         @endif
-
-        <div
-            class="spire-slider-container relative"
-            :class="{ 'opacity-50 cursor-not-allowed': disabled }"
-            :data-spire-dragging="isDragging"
-        >
             <div
                 x-ref="track"
                 class="{{ $trackBuilder->build() }}"
@@ -226,5 +241,13 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
                 x-cloak
             ></div>
         </div>
+
+        @if($inline && $showValue)
+            <output
+                class="spire-slider-value text-sm font-medium tabular-nums"
+                x-text="formatValue()"
+            ></output>
+            </div>
+        @endif
     </div>
 </div>

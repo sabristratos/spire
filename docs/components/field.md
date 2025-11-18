@@ -226,6 +226,18 @@ When `error` prop contains a field name, the component automatically checks Lara
 </x-spire::field>
 ```
 
+**Important:** Pass the field name as a string, not the error message itself:
+
+```blade
+{{-- ✅ Correct: Pass field name --}}
+<x-spire::field error="email">
+
+{{-- ❌ Wrong: Don't pass $errors->first() --}}
+<x-spire::field :error="$errors->first('email')">
+```
+
+The component will automatically look up the error from Laravel's `$errors` bag using the field name you provide.
+
 ### Manual Error Message
 
 Pass a full error message instead of field name:

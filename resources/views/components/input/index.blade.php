@@ -82,7 +82,7 @@
 
 <div {{ $wrapperAttributes }}
     @if($needsAlpineData)
-        x-data="spire-input({
+        x-data="spireInput({
             clearable: {{ $clearable ? 'true' : 'false' }},
             viewable: {{ $viewable ? 'true' : 'false' }},
             copyable: {{ $copyable ? 'true' : 'false' }},

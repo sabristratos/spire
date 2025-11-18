@@ -205,4 +205,38 @@
     .spire-slider--with-marks .spire-slider-container {
         @apply pb-8;
     }
+
+    /* Inline mode for form alignment */
+    .spire-slider--inline {
+        @apply flex items-center w-full;
+    }
+
+    .spire-slider--inline > [wire\:ignore] {
+        @apply w-full;
+    }
+
+    .spire-slider--inline > [wire\:ignore] > .flex {
+        @apply w-full;
+    }
+
+    .spire-slider--inline .spire-slider-container {
+        @apply py-0 flex items-center flex-1 min-w-0;
+    }
+
+    .spire-slider--inline .spire-slider-track {
+        @apply w-full;
+    }
+
+    /* Size-specific heights for inline alignment with inputs */
+    .spire-slider--inline.spire-slider--sm {
+        @apply h-8;
+    }
+
+    .spire-slider--inline.spire-slider--md {
+        @apply h-10;
+    }
+
+    .spire-slider--inline.spire-slider--lg {
+        @apply h-12;
+    }
 }

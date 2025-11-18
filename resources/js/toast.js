@@ -4,6 +4,7 @@ export function toastComponent(config = {}) {
     return {
         position: config.position || 'bottom-right',
         duration: config.duration || 5000,
+        variant: config.variant || 'solid',
         toasts: [],
         nextId: 1,
         eventListeners: [],
@@ -16,14 +17,17 @@ export function toastComponent(config = {}) {
         },
 
         addToast(options = {}) {
+            const showProgress = options.showProgress === true;
             const toast = {
                 id: this.nextId++,
                 title: options.title || '',
                 message: options.message || '',
                 color: options.color || 'default',
+                variant: options.variant || this.variant,
                 duration: options.duration !== undefined ? options.duration : this.duration,
                 dismissible: options.dismissible !== false,
-                progress: 100,
+                showProgress: showProgress,
+                progress: showProgress ? 100 : null,
                 timer: null,
                 startTime: null,
                 remainingTime: null,
@@ -88,7 +92,7 @@ export function toastComponent(config = {}) {
 
                 if (remaining <= 0) {
                     this.removeToast(toast.id);
-                } else {
+                } else if (toast.showProgress) {
                     toast.progress = (remaining / toast.duration) * 100;
                 }
             }, 50);

@@ -1,36 +1,100 @@
 @layer components {
+    /* Base spinner - adaptive by default */
     .spire-spinner {
         @apply inline-flex items-center justify-center;
+        height: 100%;
+        max-height: 100%;
+        aspect-ratio: 1 / 1;
     }
 
+    /* Size modifiers - optional overrides for fixed dimensions */
     .spire-spinner--sm {
         @apply gap-1;
+        height: 1rem; /* 16px */
+        width: 1rem;
+        aspect-ratio: auto;
     }
 
     .spire-spinner--md {
         @apply gap-2;
+        height: 1.25rem; /* 20px */
+        width: 1.25rem;
+        aspect-ratio: auto;
     }
 
     .spire-spinner--lg {
         @apply gap-3;
+        height: 4rem; /* 64px */
+        width: 4rem;
+        aspect-ratio: auto;
+    }
+
+    /* Ring Variant - Adaptive */
+    .spire-spinner--ring .spire-spinner-ring {
+        @apply rounded-full animate-spin;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-width: 0.15em; /* Scales with container size */
+    }
+
+    /* Ring Variant - Fixed Sizes (overrides) */
+    .spire-spinner--ring.spire-spinner--sm .spire-spinner-ring {
+        @apply border-2;
+    }
+
+    .spire-spinner--ring.spire-spinner--md .spire-spinner-ring {
+        @apply border-4;
+    }
+
+    .spire-spinner--ring.spire-spinner--lg .spire-spinner-ring {
+        @apply border-4;
+    }
+
+    /* Dots Variant - Adaptive */
+    .spire-spinner--dots {
+        gap: 0.125em; /* Proportional gap */
     }
 
     .spire-spinner--dots .spire-spinner-dot {
         @apply rounded-full animate-bounce;
+        width: 25%;
+        height: 25%;
+        aspect-ratio: 1 / 1;
+    }
+
+    /* Dots Variant - Fixed Sizes (overrides) */
+    .spire-spinner--dots.spire-spinner--sm {
+        @apply gap-1;
     }
 
     .spire-spinner--dots.spire-spinner--sm .spire-spinner-dot {
         @apply w-2 h-2;
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    .spire-spinner--dots.spire-spinner--md {
+        @apply gap-2;
     }
 
     .spire-spinner--dots.spire-spinner--md .spire-spinner-dot {
         @apply w-4 h-4;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .spire-spinner--dots.spire-spinner--lg {
+        @apply gap-3;
     }
 
     .spire-spinner--dots.spire-spinner--lg .spire-spinner-dot {
         @apply w-6 h-6;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
+    /* Dots animation delays */
     .spire-spinner--dots .spire-spinner-dot:nth-child(1) {
         animation-delay: 0.7s;
     }
@@ -43,51 +107,62 @@
         animation-delay: 0.7s;
     }
 
-    .spire-spinner--ring .spire-spinner-ring,
+    /* Nested-rings Variant - Adaptive */
     .spire-spinner--nested-rings .spire-spinner-ring {
-        @apply rounded-full animate-spin;
+        @apply flex items-center justify-center rounded-full animate-spin border-transparent;
+        border-style: solid;
     }
 
-    .spire-spinner--ring.spire-spinner--sm .spire-spinner-ring {
-        @apply w-4 h-4 border-2;
+    .spire-spinner--nested-rings .spire-spinner-ring--outer {
+        width: 100%;
+        height: 100%;
+        border-width: 0.15em;
     }
 
-    .spire-spinner--ring.spire-spinner--md .spire-spinner-ring {
-        @apply w-10 h-10 border-4;
+    .spire-spinner--nested-rings .spire-spinner-ring--inner {
+        width: 60%;
+        height: 60%;
+        border-width: 0.15em;
     }
 
-    .spire-spinner--ring.spire-spinner--lg .spire-spinner-ring {
-        @apply w-16 h-16 border-4;
-    }
-
+    /* Nested-rings Variant - Fixed Sizes (overrides) */
     .spire-spinner--nested-rings.spire-spinner--sm .spire-spinner-ring--outer {
         @apply w-8 h-8 border-2;
-    }
-
-    .spire-spinner--nested-rings.spire-spinner--md .spire-spinner-ring--outer {
-        @apply w-20 h-20 border-4;
-    }
-
-    .spire-spinner--nested-rings.spire-spinner--lg .spire-spinner-ring--outer {
-        @apply w-32 h-32 border-[6px];
+        width: 2rem;
+        height: 2rem;
     }
 
     .spire-spinner--nested-rings.spire-spinner--sm .spire-spinner-ring--inner {
         @apply w-6 h-6 border-2;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--md .spire-spinner-ring--outer {
+        @apply w-20 h-20 border-4;
+        width: 5rem;
+        height: 5rem;
     }
 
     .spire-spinner--nested-rings.spire-spinner--md .spire-spinner-ring--inner {
         @apply w-16 h-16 border-4;
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .spire-spinner--nested-rings.spire-spinner--lg .spire-spinner-ring--outer {
+        @apply w-32 h-32 border-[6px];
+        width: 8rem;
+        height: 8rem;
     }
 
     .spire-spinner--nested-rings.spire-spinner--lg .spire-spinner-ring--inner {
         @apply w-24 h-24 border-4;
+        width: 6rem;
+        height: 6rem;
     }
 
-    .spire-spinner--nested-rings .spire-spinner-ring {
-        @apply flex items-center justify-center border-transparent;
-    }
-
+    /* Color Variants - Primary */
     .spire-spinner--primary.spire-spinner--dots .spire-spinner-dot {
         @apply bg-primary;
     }
@@ -104,6 +179,7 @@
         @apply border-t-primary-hover;
     }
 
+    /* Color Variants - Secondary */
     .spire-spinner--secondary.spire-spinner--dots .spire-spinner-dot {
         @apply bg-secondary;
     }
@@ -120,6 +196,7 @@
         @apply border-t-secondary;
     }
 
+    /* Color Variants - Success */
     .spire-spinner--success.spire-spinner--dots .spire-spinner-dot {
         @apply bg-success;
     }
@@ -136,6 +213,7 @@
         @apply border-t-success;
     }
 
+    /* Color Variants - Error */
     .spire-spinner--error.spire-spinner--dots .spire-spinner-dot {
         @apply bg-error;
     }
@@ -152,6 +230,7 @@
         @apply border-t-error;
     }
 
+    /* Color Variants - Warning */
     .spire-spinner--warning.spire-spinner--dots .spire-spinner-dot {
         @apply bg-warning;
     }
@@ -168,6 +247,7 @@
         @apply border-t-warning;
     }
 
+    /* Color Variants - Info */
     .spire-spinner--info.spire-spinner--dots .spire-spinner-dot {
         @apply bg-info;
     }
@@ -184,6 +264,7 @@
         @apply border-t-info;
     }
 
+    /* Color Variants - Featured */
     .spire-spinner--featured.spire-spinner--dots .spire-spinner-dot {
         @apply bg-featured;
     }

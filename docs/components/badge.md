@@ -12,12 +12,12 @@ The Badge system includes two components:
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'solid' \| 'bordered' \| 'flat' \| 'shadow' \| 'dot'` | `'solid'` | Visual style of the badge |
-| `color` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` | Color scheme |
+| `variant` | `'solid' \| 'bordered' \| 'soft' \| 'dot'` | `'solid'` | Visual style of the badge |
+| `color` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'featured'` | `'default'` | Color scheme |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
 | `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'full'` | Border radius |
-| `isDisabled` | `boolean` | `false` | Disabled state |
-| `isDot` | `boolean` | `false` | Shows colored dot before content |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `dot` | `boolean` | `false` | Shows colored dot before content |
 
 ### Badge.Container (Positioned Badge Wrapper)
 
@@ -25,7 +25,7 @@ The Badge system includes two components:
 |------|------|---------|-------------|
 | `content` | `string \| number \| null` | `null` | Badge content (number or text) |
 | `placement` | `'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left'` | `'top-right'` | Position relative to wrapped content |
-| `color` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'error'` | Badge color |
+| `color` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'featured'` | `'error'` | Badge color |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
 | `isDot` | `boolean` | `false` | Show as small dot without content |
 | `isInvisible` | `boolean` | `false` | Hide badge completely |
@@ -74,8 +74,7 @@ The Badge system includes two components:
 ```blade
 <x-spire::badge variant="solid" color="primary">Solid</x-spire::badge>
 <x-spire::badge variant="bordered" color="primary">Bordered</x-spire::badge>
-<x-spire::badge variant="flat" color="primary">Flat</x-spire::badge>
-<x-spire::badge variant="shadow" color="primary">Shadow</x-spire::badge>
+<x-spire::badge variant="soft" color="primary">Soft</x-spire::badge>
 <x-spire::badge variant="dot" color="primary">Dot</x-spire::badge>
 ```
 
@@ -103,9 +102,9 @@ The Badge system includes two components:
 ### Badge with Dot
 
 ```blade
-<x-spire::badge is-dot color="success">Online</x-spire::badge>
-<x-spire::badge is-dot color="error">Offline</x-spire::badge>
-<x-spire::badge is-dot color="warning">Away</x-spire::badge>
+<x-spire::badge dot color="success">Online</x-spire::badge>
+<x-spire::badge dot color="error">Offline</x-spire::badge>
+<x-spire::badge dot color="warning">Away</x-spire::badge>
 ```
 
 ### Positioned Badge (Notification)
@@ -184,7 +183,7 @@ The Badge system includes two components:
 ```blade
 <div class="flex flex-wrap gap-2">
     @foreach(['Apple', 'Banana', 'Cherry', 'Watermelon', 'Orange'] as $fruit)
-        <x-spire::badge variant="flat" color="primary">
+        <x-spire::badge variant="soft" color="primary">
             {{ $fruit }}
             <x-slot:endContent>
                 <x-spire::icon
@@ -219,5 +218,4 @@ The Badge system includes two components:
 - Don't use positioned badges without wrapping content
 - Don't forget to handle close button clicks (use `wire:click` on endContent icon)
 - Don't use badges as primary navigation elements
-- Don't overuse shadow variant (reserve for important notifications)
 - Don't use positioned badges on very small elements (minimum 24x24px recommended)

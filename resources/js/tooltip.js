@@ -26,7 +26,7 @@ export function tooltipComponent(config = {}) {
             }
 
             this.hoverTimeout = setTimeout(() => {
-                this.open();
+                this.show();
 
                 if (this.duration) {
                     this.scheduleAutoHide();

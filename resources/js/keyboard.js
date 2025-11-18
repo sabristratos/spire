@@ -68,8 +68,8 @@ export function keyboard(options = {}) {
             if (useActivedescendant) {
                 this.$refs.content?.focus();
             } else if (useRovingTabindex && this.items.length > 0) {
-                this.highlightedIndex = 0;
-                this.focusItem(0);
+                this.items[0].tabIndex = 0;
+                this.items[0].focus();
             }
         },
 

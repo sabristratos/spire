@@ -5,6 +5,7 @@
  * Import this single file in your app.js instead of importing each file individually.
  */
 
+import { ComponentClass } from './component-class';
 import { overlay } from './overlay';
 import { keyboard } from './keyboard';
 import { inputComponent } from './input';
@@ -23,6 +24,7 @@ import { toastComponent, toast } from './toast';
 
 export function initializeSpireUI() {
     // Expose to window for direct access if needed
+    window.ComponentClass = ComponentClass;
     window.overlay = overlay;
     window.keyboard = keyboard;
     window.inputComponent = inputComponent;
@@ -61,4 +63,4 @@ export function initializeSpireUI() {
     });
 }
 
-export { overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast };
+export { ComponentClass, overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast };

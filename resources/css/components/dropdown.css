@@ -13,10 +13,10 @@
         transition: all var(--animation-duration-fast) ease-out;
     }
     .spire-dropdown-item--normal {
-        @apply text-text hover:bg-hover focus:bg-hover;
+        @apply text-text hover:bg-hover focus-visible:bg-hover;
     }
     .spire-dropdown-item--destructive {
-        @apply text-error hover:bg-error/10 focus:bg-error/10;
+        @apply text-error hover:bg-error/10 focus-visible:bg-error/10;
     }
     .spire-dropdown-item--disabled {
         @apply text-text-disabled cursor-not-allowed;

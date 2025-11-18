@@ -35,7 +35,8 @@
 
     $spinnerColor = $color === 'default' ? 'primary' : $color;
 
-    $spinnerSize = match($size) {
+    // Spinner sizing: smaller for text buttons, adaptive for icon-only
+    $spinnerSize = $iconOnly ? null : match($size) {
         'sm' => 'sm',
         'md' => 'sm',
         'lg' => 'md',
@@ -99,14 +100,16 @@
         {{ $leading }}
     @endif
 
-    {{ $slot }}
+    @if(!$loading)
+        {{ $slot }}
+    @endif
 
     @if(isset($trailing))
         {{ $trailing }}
     @endif
     </{{ $tag }}>
 
-    <div x-ref="content" x-show="open" x-cloak popover class="spire-tooltip-content animate-pop" data-placement="{{ $tooltipPlacement }}">
+    <div x-ref="content" x-show="open" x-cloak popover="hint" class="spire-tooltip-content animate-pop" data-placement="{{ $tooltipPlacement }}">
         {{ $tooltip }}
     </div>
 </div>
@@ -128,7 +131,9 @@
     {{ $leading }}
 @endif
 
-{{ $slot }}
+@if(!$loading)
+    {{ $slot }}
+@endif
 
 @if(isset($trailing))
     {{ $trailing }}

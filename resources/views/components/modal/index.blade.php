@@ -4,6 +4,7 @@
     'variant' => 'modal',
     'position' => 'right',
     'dismissible' => true,
+    'padding' => 'default',
 ])
 
 @php
@@ -28,6 +29,11 @@ $builder = ComponentClass::make('modal')
 
 if ($name) {
     $builder->dataAttribute('name', $name);
+}
+
+$bodyBuilder = ComponentClass::make('modal-body');
+if ($padding !== 'default') {
+    $bodyBuilder->modifier($padding);
 }
 
 $mergedAttributes = $processedAttributes->merge([
@@ -55,10 +61,30 @@ if ($name) {
     {{ $mergedAttributes }}
 >
     @if($variant === 'flyout')
-        {{ $slot }}
+        @if(isset($header))
+            {{ $header }}
+        @endif
+
+        <div class="{{ $bodyBuilder->build() }}">
+            {{ $slot }}
+        </div>
+
+        @if(isset($footer))
+            {{ $footer }}
+        @endif
     @else
         <div class="spire-modal-content">
-            {{ $slot }}
+            @if(isset($header))
+                {{ $header }}
+            @endif
+
+            <div class="{{ $bodyBuilder->build() }}">
+                {{ $slot }}
+            </div>
+
+            @if(isset($footer))
+                {{ $footer }}
+            @endif
         </div>
     @endif
 </dialog>

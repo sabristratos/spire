@@ -99,6 +99,7 @@ export function overlay(options = {}) {
         },
 
         show() {
+            this.setupAnchor();
             this.$refs.content?.showPopover();
         },
 

@@ -1,6 +1,6 @@
 @props([
     'variant' => 'ring',
-    'size' => 'md',
+    'size' => null,
     'color' => 'primary',
     'label' => null,
 ])
@@ -10,8 +10,11 @@ use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('spinner')
     ->variant($variant)
-    ->size($size)
     ->color($color);
+
+if ($size) {
+    $builder->size($size);
+}
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);

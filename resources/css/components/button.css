@@ -22,9 +22,9 @@
     .spire-button--ghost.spire-button--lg { @apply px-2; }
 
     /* 4. Icon-Only Size Modifiers */
-    .spire-button--icon-only.spire-button--sm { @apply w-8 px-0; }
-    .spire-button--icon-only.spire-button--md { @apply w-10 px-0; }
-    .spire-button--icon-only.spire-button--lg { @apply w-12 px-0; }
+    .spire-button--icon-only.spire-button--sm { @apply w-8 p-1.5; }
+    .spire-button--icon-only.spire-button--md { @apply w-10 p-2; }
+    .spire-button--icon-only.spire-button--lg { @apply w-12 p-2.5; }
 
     /* 5. Color & Variant Matrix */
 

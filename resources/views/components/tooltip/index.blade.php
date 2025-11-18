@@ -7,7 +7,7 @@
 ])
 
 <div
-    x-data="spire-tooltip({
+    x-data="spireTooltip({
         placement: '{{ $placement }}',
         trigger: '{{ $trigger }}',
         delay: {{ $delay }},
@@ -34,7 +34,7 @@
         x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        popover
+        popover="hint"
         class="spire-tooltip-content"
         :class="`spire-tooltip-content--${placement}`"
         style="display: none;"

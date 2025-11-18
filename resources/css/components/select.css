@@ -75,7 +75,7 @@
 
     /* 10. Select Options Container */
     .spire-select-options {
-        @apply max-h-60 overflow-y-auto;
+        @apply overflow-y-auto;
     }
 
     /* 11. Select Option Styles */
@@ -100,7 +100,7 @@
 
     /* 13. Select Actions (Select All / Clear All) */
     .spire-select-actions {
-        @apply flex items-center justify-between gap-2 px-2 py-1.5 border-t border-border mt-1 pt-1.5;
+        @apply flex items-center justify-between gap-2 px-2 py-1.5;
     }
 
     /* 14. Select Empty State */

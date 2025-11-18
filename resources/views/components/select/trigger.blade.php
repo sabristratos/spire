@@ -40,7 +40,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
                         <button
                             type="button"
                             @click.stop="removeOption(item.value)"
-                            class="shrink-0 hover:bg-primary/20 rounded-sm p-0.5 transition-colors"
+                            class="shrink-0 flex items-center justify-center hover:bg-primary/20 rounded-full p-0.5 transition-colors"
                             :aria-label="'Remove ' + item.label"
                         >
                             <x-spire::icon name="x" class="w-3 h-3" />
@@ -50,7 +50,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
 
                 <span
                     x-show="selectedItems.length > {{ $maxTagsDisplay }}"
-                    class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md bg-neutral-200 dark:bg-neutral-700 text-text-muted"
+                    class="spire-select-tag"
                     x-text="moreItemsText.replace(':count', selectedItems.length - {{ $maxTagsDisplay }})"
                 ></span>
             </div>
