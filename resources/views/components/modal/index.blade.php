@@ -1,6 +1,6 @@
 @props([
     'name' => null,
-    'size' => 'md',
+    'size' => '2xl',
     'variant' => 'modal',
     'position' => 'right',
     'dismissible' => true,
@@ -31,7 +31,7 @@ if ($name) {
     $builder->dataAttribute('name', $name);
 }
 
-$bodyBuilder = ComponentClass::make('modal-body');
+$bodyBuilder = ComponentClass::make('modal__body');
 if ($padding !== 'default') {
     $bodyBuilder->modifier($padding);
 }
@@ -73,7 +73,7 @@ if ($name) {
             {{ $footer }}
         @endif
     @else
-        <div class="spire-modal-content">
+        <div class="spire-modal__content">
             @if(isset($header))
                 {{ $header }}
             @endif

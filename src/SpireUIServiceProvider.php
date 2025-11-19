@@ -2,6 +2,7 @@
 
 namespace SpireUI;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use SpireUI\Support\Synthesizers\DateRangePresetSynth;
@@ -41,8 +42,23 @@ class SpireUIServiceProvider extends ServiceProvider
             __DIR__.'/../resources/css/theme.css' => resource_path('css/spire-ui-theme.css'),
         ], 'spire-ui-css');
 
+        $this->publishes([
+            __DIR__.'/../resources/views/layouts' => resource_path('views/components/layouts'),
+        ], 'spire-ui-layouts');
+
         $this->registerBladeComponents();
         $this->registerLivewireSynthesizers();
+        $this->registerPaginationViews();
+    }
+
+    protected function registerPaginationViews(): void
+    {
+        if (config('spire-ui.pagination.register_default', true)) {
+            $prefix = config('spire-ui.prefix', 'spire');
+
+            Paginator::defaultView("{$prefix}::components.pagination.default");
+            Paginator::defaultSimpleView("{$prefix}::components.pagination.simple");
+        }
     }
 
     protected function registerLivewireSynthesizers(): void

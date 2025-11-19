@@ -1,0 +1,568 @@
+@layer components {
+    .spire-table {
+        @apply w-full relative;
+    }
+
+    .spire-table[data-spire-loading="true"] {
+        @apply pointer-events-none;
+    }
+
+    .spire-table--sm {
+        @apply text-xs;
+    }
+
+    .spire-table--md {
+        @apply text-sm;
+    }
+
+    .spire-table--lg {
+        @apply text-base;
+    }
+
+    .spire-table-wrapper {
+        @apply w-full overflow-hidden bg-surface;
+    }
+
+    .spire-table--flat .spire-table-wrapper {
+        @apply border-0 !shadow-none;
+    }
+
+    .spire-table--flat .spire-table-header {
+        @apply bg-surface-subtle;
+    }
+
+    .spire-table--flat .spire-table-header-cell {
+        @apply bg-surface-subtle border-b-0;
+    }
+
+    .spire-table--flat .spire-table-header-cell:first-child {
+        @apply rounded-tl-md rounded-bl-md;
+    }
+
+    .spire-table--flat .spire-table-header-cell:last-child {
+        @apply rounded-tr-md rounded-br-md;
+    }
+
+    .spire-table--bordered .spire-table-wrapper {
+        @apply border border-border;
+    }
+
+    .spire-table--bordered .spire-table-header {
+        @apply bg-surface;
+    }
+
+    .spire-table--bordered .spire-table-header-cell {
+        @apply bg-surface;
+    }
+
+    .spire-table--elevated .spire-table-wrapper {
+        @apply shadow-md border-0;
+    }
+
+    .spire-table--elevated .spire-table-header {
+        @apply bg-surface-subtle;
+    }
+
+    .spire-table--elevated .spire-table-header-cell {
+        @apply bg-surface-subtle border-b-0;
+    }
+
+    .spire-table--elevated .spire-table-header-cell:first-child {
+        @apply rounded-tl-md rounded-bl-md;
+    }
+
+    .spire-table--elevated .spire-table-header-cell:last-child {
+        @apply rounded-tr-md rounded-br-md;
+    }
+
+    .spire-table-wrapper--radius-sm {
+        @apply rounded-sm;
+    }
+
+    .spire-table-wrapper--radius-md {
+        @apply rounded-md;
+    }
+
+    .spire-table-wrapper--radius-lg {
+        @apply rounded-lg;
+    }
+
+    .spire-table-wrapper--shadow-sm {
+        @apply shadow-sm;
+    }
+
+    .spire-table-wrapper--shadow-md {
+        @apply shadow-md;
+    }
+
+    .spire-table-wrapper--shadow-lg {
+        @apply shadow-lg;
+    }
+
+    .spire-table-top-content,
+    .spire-table-bottom-content {
+        @apply px-4 py-3 border-b border-border;
+    }
+
+    .spire-table-bottom-content {
+        @apply border-b-0 border-t;
+    }
+
+    .spire-table-container {
+        @apply w-full overflow-x-auto;
+    }
+
+    .spire-table-container--max-height {
+        @apply overflow-y-auto;
+    }
+
+    .spire-table-element {
+        @apply w-full border-collapse;
+        table-layout: auto;
+    }
+
+    .spire-table-element--fixed {
+        table-layout: fixed;
+    }
+
+    .spire-table-header--sticky {
+        @apply sticky top-0 z-10;
+    }
+
+    .spire-table-header-row {
+        @apply border-b border-border;
+    }
+
+    .spire-table-header-cell {
+        @apply px-4 py-3 text-left text-sm font-semibold text-text;
+        @apply border-b border-border select-none;
+    }
+
+    .spire-table-header-cell--sm {
+        @apply px-3 py-2 text-xs;
+    }
+
+    .spire-table-header-cell--lg {
+        @apply px-6 py-4 text-base;
+    }
+
+    .spire-table-header-cell--sortable {
+        @apply cursor-pointer hover:bg-hover transition-colors;
+    }
+
+    .spire-table-header-cell--center {
+        @apply text-center;
+    }
+
+    .spire-table-header-cell--right {
+        @apply text-right;
+    }
+
+    .spire-table-header-cell-content {
+        @apply flex items-center gap-2;
+    }
+
+    .spire-table-header-cell-content--center {
+        @apply justify-center;
+    }
+
+    .spire-table-header-cell-content--right {
+        @apply justify-end;
+    }
+
+    .spire-table-sort-icon {
+        @apply w-4 h-4 text-text-muted transition-transform;
+    }
+
+    .spire-table-sort-icon--asc {
+        @apply rotate-0;
+    }
+
+    .spire-table-sort-icon--desc {
+        @apply rotate-180;
+    }
+
+    .spire-table-checkbox-cell {
+        @apply w-16 px-3 text-center align-middle;
+    }
+
+    .spire-table-checkbox-cell .spire-checkbox {
+        @apply items-center justify-center mx-auto;
+    }
+
+    .spire-table-body {
+        @apply bg-transparent;
+    }
+
+    .spire-table-row {
+        @apply border-b border-border/30 transition-colors;
+    }
+
+    .spire-table-row:last-child {
+        @apply border-b-0;
+    }
+
+    .spire-table--striped .spire-table-row:nth-child(even) {
+        @apply bg-surface/30;
+    }
+
+    .spire-table--hoverable .spire-table-row:hover {
+        @apply bg-hover/50;
+    }
+
+    .spire-table-row--clickable {
+        @apply cursor-pointer;
+    }
+
+    .spire-table-row[data-spire-table-row-selected="true"] {
+        @apply bg-primary-50 text-primary-900;
+    }
+
+    .spire-table--striped .spire-table-row[data-spire-table-row-selected="true"] {
+        @apply bg-primary-50 text-primary-900;
+    }
+
+    .spire-table-row:focus {
+        @apply outline-none ring-2 ring-inset ring-primary;
+    }
+
+    .spire-table-row:focus-visible {
+        @apply outline-none ring-2 ring-inset ring-primary;
+    }
+
+    .spire-table-row--disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .spire-table-cell {
+        @apply px-4 py-3 text-sm text-text;
+    }
+
+    .spire-table-cell--sm {
+        @apply px-3 py-2 text-xs;
+    }
+
+    .spire-table-cell--lg {
+        @apply px-6 py-4 text-base;
+    }
+
+    .spire-table-cell--center {
+        @apply text-center;
+    }
+
+    .spire-table-cell--right {
+        @apply text-right;
+    }
+
+    .spire-table-cell--numeric {
+        @apply font-mono tabular-nums;
+    }
+
+    .spire-table-footer {
+        @apply bg-surface border-t border-border;
+    }
+
+    .spire-table-footer--sm {
+        @apply text-xs;
+    }
+
+    .spire-table-footer--md {
+        @apply text-sm;
+    }
+
+    .spire-table-footer--lg {
+        @apply text-base;
+    }
+
+    .spire-table-footer--center {
+        @apply text-center;
+    }
+
+    .spire-table-footer--right {
+        @apply text-right;
+    }
+
+    .spire-table-footer-cell {
+        @apply px-4 py-3 text-sm font-semibold text-text;
+    }
+
+    .spire-table-footer-cell--sm {
+        @apply px-3 py-2 text-xs;
+    }
+
+    .spire-table-footer-cell--lg {
+        @apply px-6 py-4 text-base;
+    }
+
+    .spire-table-empty-state,
+    .spire-table-loading-state {
+        @apply flex flex-col items-center justify-center py-12 px-4;
+    }
+
+    .spire-table-empty-icon {
+        @apply w-16 h-16 text-text-muted mb-4;
+    }
+
+    .spire-table-empty-message {
+        @apply text-text-muted text-center;
+    }
+
+    .spire-table-loading-skeleton {
+        @apply animate-pulse space-y-3;
+    }
+
+    .spire-table-loading-skeleton-row {
+        @apply h-10 bg-surface rounded;
+    }
+
+    .spire-table-virtual-scroll {
+        @apply relative;
+    }
+
+    .spire-table-virtual-spacer {
+        @apply w-full;
+    }
+
+    .spire-table--compact .spire-table-cell,
+    .spire-table--compact .spire-table-header-cell {
+        @apply py-2 px-3 text-xs;
+    }
+
+    .spire-table--spacious .spire-table-cell,
+    .spire-table--spacious .spire-table-header-cell {
+        @apply py-4 px-6;
+    }
+
+    /* Responsive Table - Card Layout on Mobile */
+
+    /* Small breakpoint (< 640px) */
+    .spire-table--responsive.spire-table--responsive-sm {
+        @media (max-width: 639px) {
+            .spire-table-header {
+                @apply hidden;
+            }
+
+            .spire-table-element {
+                @apply block;
+            }
+
+            .spire-table-body {
+                @apply block space-y-4;
+            }
+
+            .spire-table-row {
+                @apply block border border-border rounded-lg p-4 bg-surface;
+            }
+
+            .spire-table-row:last-child {
+                @apply border;
+            }
+
+            .spire-table-cell {
+                @apply block py-1.5 px-0 border-0;
+            }
+
+            /* Checkbox cell in card - float absolutely, don't take space */
+            .spire-table-checkbox-cell {
+                @apply absolute top-4 right-4 w-auto h-auto p-0 border-0;
+            }
+
+            .spire-table-row--selectable {
+                @apply relative;
+            }
+
+            /* Primary cells - shown prominently */
+            .spire-table-cell--responsive-primary {
+                @apply text-base font-semibold pb-2 mb-2 border-b border-border;
+            }
+
+            .spire-table-cell--responsive-primary::before {
+                @apply hidden;
+            }
+
+            /* Secondary cells - DataList style with labels */
+            .spire-table-cell[data-spire-label] {
+                @apply flex items-baseline gap-3;
+            }
+
+            .spire-table-cell[data-spire-label]::before {
+                content: attr(data-spire-label);
+                @apply shrink-0 text-sm font-medium text-text-muted;
+                min-width: 100px;
+            }
+
+            /* Actions cells - at the bottom */
+            .spire-table-cell--responsive-actions {
+                @apply pt-3 mt-2 border-t border-border flex justify-end gap-2;
+            }
+
+            .spire-table-cell--responsive-actions::before {
+                @apply hidden;
+            }
+
+            /* Hidden cells */
+            .spire-table-cell--responsive-hidden {
+                @apply hidden;
+            }
+
+            /* Selected state for cards */
+            .spire-table-row[data-spire-table-row-selected="true"] {
+                @apply bg-primary-50 border-primary-200;
+            }
+        }
+    }
+
+    /* Medium breakpoint (< 768px) */
+    .spire-table--responsive.spire-table--responsive-md {
+        @media (max-width: 767px) {
+            .spire-table-header {
+                @apply hidden;
+            }
+
+            .spire-table-element {
+                @apply block;
+            }
+
+            .spire-table-body {
+                @apply block space-y-4;
+            }
+
+            .spire-table-row {
+                @apply block border border-border rounded-lg p-4 bg-surface;
+            }
+
+            .spire-table-row:last-child {
+                @apply border;
+            }
+
+            .spire-table-cell {
+                @apply block py-1.5 px-0 border-0;
+            }
+
+            /* Checkbox cell in card - float absolutely, don't take space */
+            .spire-table-checkbox-cell {
+                @apply absolute top-4 right-4 w-auto h-auto p-0 border-0;
+            }
+
+            .spire-table-row--selectable {
+                @apply relative;
+            }
+
+            /* Primary cells - shown prominently */
+            .spire-table-cell--responsive-primary {
+                @apply text-base font-semibold pb-2 mb-2 border-b border-border;
+            }
+
+            .spire-table-cell--responsive-primary::before {
+                @apply hidden;
+            }
+
+            /* Secondary cells - DataList style with labels */
+            .spire-table-cell[data-spire-label] {
+                @apply flex items-baseline gap-3;
+            }
+
+            .spire-table-cell[data-spire-label]::before {
+                content: attr(data-spire-label);
+                @apply shrink-0 text-sm font-medium text-text-muted;
+                min-width: 100px;
+            }
+
+            /* Actions cells - at the bottom */
+            .spire-table-cell--responsive-actions {
+                @apply pt-3 mt-2 border-t border-border flex justify-end gap-2;
+            }
+
+            .spire-table-cell--responsive-actions::before {
+                @apply hidden;
+            }
+
+            /* Hidden cells */
+            .spire-table-cell--responsive-hidden {
+                @apply hidden;
+            }
+
+            /* Selected state for cards */
+            .spire-table-row[data-spire-table-row-selected="true"] {
+                @apply bg-primary-50 border-primary-200;
+            }
+        }
+    }
+
+    /* Large breakpoint (< 1024px) */
+    .spire-table--responsive.spire-table--responsive-lg {
+        @media (max-width: 1023px) {
+            .spire-table-header {
+                @apply hidden;
+            }
+
+            .spire-table-element {
+                @apply block;
+            }
+
+            .spire-table-body {
+                @apply block space-y-4;
+            }
+
+            .spire-table-row {
+                @apply block border border-border rounded-lg p-4 bg-surface;
+            }
+
+            .spire-table-row:last-child {
+                @apply border;
+            }
+
+            .spire-table-cell {
+                @apply block py-1.5 px-0 border-0;
+            }
+
+            /* Checkbox cell in card - float absolutely, don't take space */
+            .spire-table-checkbox-cell {
+                @apply absolute top-4 right-4 w-auto h-auto p-0 border-0;
+            }
+
+            .spire-table-row--selectable {
+                @apply relative;
+            }
+
+            /* Primary cells - shown prominently */
+            .spire-table-cell--responsive-primary {
+                @apply text-base font-semibold pb-2 mb-2 border-b border-border;
+            }
+
+            .spire-table-cell--responsive-primary::before {
+                @apply hidden;
+            }
+
+            /* Secondary cells - DataList style with labels */
+            .spire-table-cell[data-spire-label] {
+                @apply flex items-baseline gap-3;
+            }
+
+            .spire-table-cell[data-spire-label]::before {
+                content: attr(data-spire-label);
+                @apply shrink-0 text-sm font-medium text-text-muted;
+                min-width: 100px;
+            }
+
+            /* Actions cells - at the bottom */
+            .spire-table-cell--responsive-actions {
+                @apply pt-3 mt-2 border-t border-border flex justify-end gap-2;
+            }
+
+            .spire-table-cell--responsive-actions::before {
+                @apply hidden;
+            }
+
+            /* Hidden cells */
+            .spire-table-cell--responsive-hidden {
+                @apply hidden;
+            }
+
+            /* Selected state for cards */
+            .spire-table-row[data-spire-table-row-selected="true"] {
+                @apply bg-primary-50 border-primary-200;
+            }
+        }
+    }
+}

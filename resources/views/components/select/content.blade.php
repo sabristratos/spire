@@ -56,7 +56,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
         <div class="max-h-60 flex flex-col overflow-hidden">
             @if($multiple)
                 {{-- Multiselect controls header --}}
-                <div class="spire-select-actions border-b border-border" x-show="displayOptions.length > 0">
+                <div class="spire-select-actions" x-show="displayOptions.length > 0">
                     <span class="text-xs text-text-muted" x-text="selectedValues.length + ' / ' + selectableOptions.length + ' {{ __('spire::spire-ui.select.selected') }}'"></span>
 
                     <div class="flex items-center gap-1">
@@ -84,7 +84,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
             @endif
 
             @if($searchable)
-                <div class="p-2 border-b border-border" x-ref="searchInputWrapper">
+                <div class="p-2" x-ref="searchInputWrapper">
                     <x-spire::input
                         x-model="searchQuery"
                         type="text"

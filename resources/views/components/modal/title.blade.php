@@ -5,7 +5,7 @@
 ])
 
 @php
-$classes = 'spire-modal-title';
+$classes = 'spire-modal__title';
 
 $idAttribute = $name ? ['id' => "{$name}-title"] : [];
 

@@ -37,6 +37,8 @@ The Table component consists of multiple sub-components:
 | `bottomContentPlacement` | string | `'inside'` | Bottom content placement: `inside`, `outside` |
 | `layout` | string | `'auto'` | Table layout: `auto`, `fixed` |
 | `virtualScroll` | boolean | `false` | Enable virtual scrolling for large datasets (experimental) |
+| `responsive` | boolean | `false` | Enable responsive card layout on mobile |
+| `breakpoint` | string | `'md'` | Breakpoint for responsive switch: `sm`, `md`, `lg` |
 
 ### Table.header
 
@@ -54,6 +56,7 @@ The Table component consists of multiple sub-components:
 | `width` | string | `null` | Column width (e.g., `'200px'`, `'25%'`) |
 | `size` | string | `'md'` | Cell padding size: `sm`, `md`, `lg` |
 | `isCheckboxCell` | boolean | `false` | Render as checkbox cell for select-all |
+| `responsive` | string | `'secondary'` | Responsive behavior: `primary`, `secondary`, `actions`, `hidden` |
 
 ### Table.row
 
@@ -72,6 +75,8 @@ The Table component consists of multiple sub-components:
 | `align` | string | `'left'` | Text alignment: `left`, `center`, `right` |
 | `size` | string | `'md'` | Cell padding size: `sm`, `md`, `lg` |
 | `numeric` | boolean | `false` | Use monospace font for numbers |
+| `label` | string | `null` | Label shown on mobile in DataList format |
+| `responsive` | string | `'secondary'` | Responsive behavior: `primary`, `secondary`, `actions`, `hidden` |
 
 ### Table.footer
 
@@ -506,6 +511,71 @@ The Table component consists of multiple sub-components:
     </tbody>
 </x-spire::table>
 ```
+
+### Responsive Table (Mobile Cards)
+
+Enable responsive mode to automatically switch from table layout to card layout on smaller screens. Each row becomes a card with primary content as the header and secondary content displayed as a DataList.
+
+```blade
+<x-spire::table
+    responsive
+    breakpoint="md"
+    selectable
+    selectMode="multiple"
+    wire:model="selectedUsers"
+>
+    <x-spire::table.header>
+        <x-spire::table.header-cell isCheckboxCell />
+        <x-spire::table.header-cell responsive="primary">User</x-spire::table.header-cell>
+        <x-spire::table.header-cell>Email</x-spire::table.header-cell>
+        <x-spire::table.header-cell>Role</x-spire::table.header-cell>
+        <x-spire::table.header-cell responsive="hidden">Experience</x-spire::table.header-cell>
+        <x-spire::table.header-cell responsive="actions">Actions</x-spire::table.header-cell>
+    </x-spire::table.header>
+
+    <x-spire::table.body>
+        @foreach($users as $user)
+            <x-spire::table.row :value="(string) $user->id" :selectable="true">
+                {{-- Primary: Shown as card header --}}
+                <x-spire::table.cell responsive="primary">
+                    <div class="flex items-center gap-3">
+                        <x-spire::avatar :src="$user->avatar" :name="$user->name" size="sm" />
+                        <span class="font-medium">{{ $user->name }}</span>
+                    </div>
+                </x-spire::table.cell>
+
+                {{-- Secondary: Shown as DataList items with labels --}}
+                <x-spire::table.cell label="Email">{{ $user->email }}</x-spire::table.cell>
+                <x-spire::table.cell label="Role">
+                    <x-spire::badge>{{ $user->role }}</x-spire::badge>
+                </x-spire::table.cell>
+
+                {{-- Hidden: Not shown on mobile --}}
+                <x-spire::table.cell responsive="hidden">{{ $user->experience }} yrs</x-spire::table.cell>
+
+                {{-- Actions: Shown at bottom of card --}}
+                <x-spire::table.cell responsive="actions">
+                    <x-spire::button size="sm" variant="ghost">Edit</x-spire::button>
+                    <x-spire::button size="sm" variant="ghost" color="error">Delete</x-spire::button>
+                </x-spire::table.cell>
+            </x-spire::table.row>
+        @endforeach
+    </x-spire::table.body>
+</x-spire::table>
+```
+
+**Responsive Types:**
+
+- `primary` - Shown prominently as the card header (no label)
+- `secondary` (default) - Shown as DataList items with labels
+- `actions` - Shown at the bottom of the card with separator
+- `hidden` - Not displayed on mobile
+
+**Breakpoints:**
+
+- `sm` - Card layout below 640px
+- `md` - Card layout below 768px (default)
+- `lg` - Card layout below 1024px
 
 ### Full Featured Example with Livewire
 

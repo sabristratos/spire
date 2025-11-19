@@ -13,6 +13,8 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 | `disabled` | boolean | `false` | Disables the button |
 | `loading` | boolean | `false` | Shows loading spinner and disables interaction |
 | `iconOnly` | boolean | `false` | Optimizes sizing for icon-only buttons (square shape) |
+| `icon` | string | `null` | Icon name to display before the button text |
+| `iconTrailing` | string | `null` | Icon name to display after the button text |
 | `type` | string | `'button'` | HTML button type: `button`, `submit`, `reset` |
 | `href` | string | `null` | If provided, renders as a link (`<a>`) instead of button |
 | `ariaLabel` | string | `null` | Accessible label for screen readers (required for icon-only buttons) |
@@ -60,28 +62,50 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 
 ```blade
 {{-- Icon before text --}}
+<x-spire::button icon="check" color="success">Approve</x-spire::button>
+
+{{-- Icon after text --}}
+<x-spire::button iconTrailing="arrow-right" color="primary">Next</x-spire::button>
+
+{{-- Both leading and trailing icons --}}
+<x-spire::button icon="save" iconTrailing="arrow-right" color="primary">
+    Save & Continue
+</x-spire::button>
+
+{{-- Icon-only button (requires ariaLabel) --}}
+<x-spire::button icon-only icon="trash" color="error" aria-label="Delete item" />
+```
+
+### Combining Icon Props with Slots
+
+Icon props and slots work together - they don't override each other:
+
+```blade
+{{-- Icon prop + slot content (both render) --}}
+<x-spire::button icon="save" color="primary">
+    <x-slot:leading>
+        <span class="text-xs bg-white/20 px-1 rounded">NEW</span>
+    </x-slot:leading>
+    Save
+</x-spire::button>
+{{-- Renders: save icon + "NEW" badge + "Save" --}}
+
+{{-- Custom icon styling via slot only --}}
 <x-spire::button color="success">
     <x-slot:leading>
-        <x-spire::icon name="check" size="sm" />
+        <x-spire::icon name="check" class="text-green-300" />
     </x-slot:leading>
     Approve
 </x-spire::button>
 
-{{-- Icon after text --}}
-<x-spire::button color="primary">
-    Next
+{{-- Multiple trailing elements --}}
+<x-spire::button iconTrailing="download" color="primary">
+    Download
     <x-slot:trailing>
-        <x-spire::icon name="arrow-right" size="sm" />
+        <span class="text-xs">(PDF)</span>
     </x-slot:trailing>
 </x-spire::button>
-
-{{-- Icon-only button (requires ariaLabel) --}}
-<x-spire::button
-    icon-only
-    color="error"
-    aria-label="Delete item">
-    <x-spire::icon name="trash" />
-</x-spire::button>
+{{-- Renders: "Download" + download icon + "(PDF)" --}}
 ```
 
 ### States and Sizes
@@ -121,20 +145,18 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 {{-- Icon-only button with tooltip (recommended) --}}
 <x-spire::button
     icon-only
+    icon="settings"
     color="default"
     tooltip="Settings"
-    aria-label="Open settings">
-    <x-spire::icon name="settings" class="w-5 h-5" />
-</x-spire::button>
+    aria-label="Open settings"
+/>
 
 {{-- Tooltip with custom placement --}}
 <x-spire::button
+    icon="trash"
     variant="ghost"
     tooltip="Delete this item permanently"
     tooltip-placement="bottom">
-    <x-slot:leading>
-        <x-spire::icon name="trash" class="w-4 h-4" />
-    </x-slot:leading>
     Delete
 </x-spire::button>
 
@@ -148,15 +170,9 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 
 {{-- Multiple icon buttons with tooltips (toolbar pattern) --}}
 <div class="flex gap-1">
-    <x-spire::button icon-only variant="ghost" tooltip="Bold" aria-label="Bold">
-        <x-spire::icon name="bold" class="w-4 h-4" />
-    </x-spire::button>
-    <x-spire::button icon-only variant="ghost" tooltip="Italic" aria-label="Italic">
-        <x-spire::icon name="italic" class="w-4 h-4" />
-    </x-spire::button>
-    <x-spire::button icon-only variant="ghost" tooltip="Underline" aria-label="Underline">
-        <x-spire::icon name="underline" class="w-4 h-4" />
-    </x-spire::button>
+    <x-spire::button icon-only icon="bold" variant="ghost" tooltip="Bold" aria-label="Bold" />
+    <x-spire::button icon-only icon="italic" variant="ghost" tooltip="Italic" aria-label="Italic" />
+    <x-spire::button icon-only icon="underline" variant="ghost" tooltip="Underline" aria-label="Underline" />
 </div>
 ```
 
@@ -164,6 +180,8 @@ Interactive button component with multiple variants, colors, sizes, and states. 
 
 ### Do
 
+- Use `icon` and `iconTrailing` props for simple icon buttons
+- Combine icon props with slots when you need both (they render together)
 - Use `icon-only` prop for buttons with only an icon
 - Always provide `ariaLabel` for icon-only buttons
 - Use `loading` state during async operations
@@ -228,15 +246,9 @@ Groups multiple buttons together horizontally or vertically with seamless stylin
 
 ```blade
 <x-spire::button.group aria-label="Text formatting">
-    <x-spire::button icon-only aria-label="Bold">
-        <x-spire::icon name="bold" />
-    </x-spire::button>
-    <x-spire::button icon-only aria-label="Italic">
-        <x-spire::icon name="italic" />
-    </x-spire::button>
-    <x-spire::button icon-only aria-label="Underline">
-        <x-spire::icon name="underline" />
-    </x-spire::button>
+    <x-spire::button icon-only icon="bold" aria-label="Bold" />
+    <x-spire::button icon-only icon="italic" aria-label="Italic" />
+    <x-spire::button icon-only icon="underline" aria-label="Underline" />
 </x-spire::button.group>
 ```
 

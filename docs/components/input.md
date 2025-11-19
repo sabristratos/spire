@@ -65,6 +65,46 @@ Pure input component with leading/trailing slots for icons and interactive eleme
     placeholder="Verified field"
     wire:model="field"
 />
+
+{{-- Both leading and trailing --}}
+<x-spire::input
+    icon="mail"
+    iconTrailing="check-circle"
+    type="email"
+    placeholder="Verified email"
+    wire:model="email"
+/>
+```
+
+### Combining Icon Props with Slots
+
+Icon props and slots work together - they don't override each other:
+
+```blade
+{{-- Icon prop + slot content (both render) --}}
+<x-spire::input
+    icon="search"
+    clearable
+    placeholder="Search..."
+    wire:model.live="query"
+>
+    <x-slot:trailing>
+        <kbd class="text-xs text-text-muted">⌘K</kbd>
+    </x-slot:trailing>
+</x-spire::input>
+{{-- Renders: search icon | input | ⌘K + clear button --}}
+
+{{-- Multiple trailing elements --}}
+<x-spire::input
+    icon="globe"
+    iconTrailing="chevron-down"
+    placeholder="Select country..."
+>
+    <x-slot:trailing>
+        <span class="text-xs text-text-muted">USD</span>
+    </x-slot:trailing>
+</x-spire::input>
+{{-- Renders: globe icon | input | USD + chevron-down icon --}}
 ```
 
 ### Clearable Input
@@ -249,6 +289,7 @@ Pure input component with leading/trailing slots for icons and interactive eleme
 ### Do
 
 - Use convenience props (`icon`, `clearable`, `viewable`, `copyable`) for common patterns
+- Combine icon props with slots when you need both (they render together)
 - Use leading/trailing slots for custom interactive elements
 - Use proper input types (`email`, `tel`, `url`) for better mobile keyboards
 - Provide clear placeholder text that doesn't repeat the label
@@ -260,8 +301,7 @@ Pure input component with leading/trailing slots for icons and interactive eleme
 
 ### Don't
 
-- Don't use convenience props AND slots together (slots override props)
-- Don't put too much content in leading/trailing slots (max 1-2 elements)
+- Don't put too much content in leading/trailing slots (max 2-3 elements)
 - Don't use tiny interactive elements in slots (minimum 16x16px touch target)
 - Don't use placeholder text as the only label (accessibility issue)
 - Don't nest inputs inside other inputs
@@ -342,6 +382,7 @@ The component uses DRY principles by reusing existing components:
 - `viewable` adds local Alpine state (`showPassword`) and dynamic type binding
 - Components only wrap in Alpine when needed to minimize overhead
 
-**Slot Priority:**
-- User-provided slots always override convenience props
-- This allows full customization when needed
+**Props + Slots:**
+- Icon props and slots render together (they don't override each other)
+- Order: icon prop → slot content (leading), slot content → convenience buttons → iconTrailing prop (trailing)
+- This allows combining simple icons with custom slot content

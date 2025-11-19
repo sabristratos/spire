@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'bordered',
+    'variant' => 'flat',
     'size' => 'md',
     'radius' => 'md',
     'shadow' => 'none',
@@ -15,6 +15,10 @@
     'topContentPlacement' => 'inside',
     'bottomContentPlacement' => 'inside',
     'layout' => 'auto',
+    'sortColumn' => null,
+    'sortDirection' => null,
+    'responsive' => false,
+    'breakpoint' => 'md',
 ])
 
 @php
@@ -28,21 +32,19 @@ $wrapperBuilder = ComponentClass::make('table-wrapper')
     ->shadow($shadow);
 
 $builder = ComponentClass::make('table')
+    ->modifier($variant)
     ->when($striped, fn($b) => $b->modifier('striped'))
     ->when($hoverable, fn($b) => $b->modifier('hoverable'))
-    ->dataAttribute('selectable', $selectable ? 'true' : null)
-    ->dataAttribute('select-mode', $selectMode);
+    ->when($responsive, fn($b) => $b->modifier('responsive')->modifier("responsive-{$breakpoint}"))
+    ->dataAttribute('table-selectable', $selectable ? 'true' : 'false')
+    ->dataAttribute('table-select-mode', $selectMode)
+    ->dataAttribute('loading', $loading ? 'true' : null);
 
 $elementBuilder = ComponentClass::make('table-element')
     ->when($layout === 'fixed', fn($b) => $b->modifier('fixed'));
-
-$mergedAttributes = $attributes->merge([
-    'class' => $builder->build(),
-    ...$builder->getDataAttributes(),
-]);
 @endphp
 
-<div {{ $attributes->only(['class', 'id', 'wire:key']) }}
+<div {{ $attributes->only(['class', 'id', 'wire:key'])->merge(['class' => $builder->build(), ...$builder->getDataAttributes()]) }}
      x-data="spireTable({
         @if($wireConfig->hasWireModel())
             selectedRows: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
@@ -51,9 +53,13 @@ $mergedAttributes = $attributes->merge([
         @endif
         selectable: {{ $selectable ? 'true' : 'false' }},
         selectMode: '{{ $selectMode }}',
-        virtualScroll: {{ $virtualScroll ? 'true' : 'false' }}
+        virtualScroll: {{ $virtualScroll ? 'true' : 'false' }},
+        sortColumn: {{ $sortColumn ? "'" . $sortColumn . "'" : 'null' }},
+        sortDirection: {{ $sortDirection ? "'" . $sortDirection . "'" : 'null' }}
      })"
-     x-init="init()">
+     @keydown="handleKeydown($event)"
+     aria-busy="{{ $loading ? 'true' : 'false' }}"
+     role="grid">
 
     <div class="{{ $wrapperBuilder->build() }}" {!! collect($wrapperBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}>
         @if($topContentPlacement === 'outside' && isset($topContent))
@@ -75,7 +81,7 @@ $mergedAttributes = $attributes->merge([
 
             <div class="spire-table-container {{ $maxHeight ? 'spire-table-container--max-height' : '' }}"
                  @if($maxHeight) style="max-height: {{ $maxHeight }}" @endif>
-                <table class="{{ $elementBuilder->build() }}" role="table">
+                <table class="{{ $elementBuilder->build() }}">
                     {{ $slot }}
                 </table>
             </div>

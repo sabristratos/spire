@@ -138,6 +138,39 @@ return [
         'no_items_description' => 'We couldn\'t find any items matching your criteria.',
     ],
 
+    'file_upload' => [
+        'dropzone' => 'Drop files here or click to browse',
+        'dropzone_active' => 'Drop files here',
+        'or_click' => 'or click to browse',
+        'choose_or_drag' => 'Choose a file or drag & drop it here',
+        'formats_hint' => 'JPEG, PNG, PDF, and MP4 formats supported',
+        'browse' => 'Browse files',
+        'uploading' => 'Uploading...',
+        'uploaded' => 'Uploaded',
+        'error' => 'Upload failed',
+        'remove' => 'Remove',
+        'retry' => 'Retry',
+        'view' => 'View',
+        'existing_files' => 'Existing files',
+        'new_files' => 'New files',
+        'upload_all' => 'Upload all',
+        'upload' => 'Upload',
+        'max_size' => 'Max size',
+        'up_to' => 'Up to',
+        'max_files' => 'Max files',
+        'max_files_error' => 'Maximum :max files allowed',
+        'max_size_error' => 'File size exceeds :max',
+        'invalid_type_error' => 'File type not allowed',
+        'no_files' => 'No files selected',
+        'files_selected' => ':count file selected|:count files selected',
+        'or' => 'or',
+        'upload_from_url' => 'Upload from URL',
+        'url_placeholder' => 'Enter file URL',
+        'url_error' => 'Failed to fetch file from URL',
+        'url_invalid' => 'Please enter a valid URL',
+        'url_cors_error' => 'Cannot fetch file due to cross-origin restrictions',
+    ],
+
     'required' => 'Required',
 
     'pagination' => [
@@ -306,6 +339,20 @@ return [
             'range_too_short' => 'Range must be at least :min days',
             'range_too_long' => 'Range cannot exceed :max days',
         ],
+    ],
+
+    'header' => [
+        'toggle_menu' => 'Toggle menu',
+        'navigation' => 'Navigation',
+    ],
+
+    'sidebar' => [
+        'toggle' => 'Toggle sidebar',
+        'collapse' => 'Collapse sidebar',
+        'expand' => 'Expand sidebar',
+        'close' => 'Close sidebar',
+        'navigation' => 'Navigation',
+        'menu' => 'Menu',
     ],
 
     'slider' => [

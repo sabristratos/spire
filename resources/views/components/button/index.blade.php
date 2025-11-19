@@ -6,6 +6,8 @@
     'disabled' => false,
     'loading' => false,
     'iconOnly' => false,
+    'icon' => null,
+    'iconTrailing' => null,
     'type' => 'button',
     'href' => null,
     'ariaLabel' => null,
@@ -20,22 +22,19 @@
 
     $isLink = !is_null($href);
 
-    // Detect if disabled is an Alpine.js expression (string) rather than a boolean
     $hasAlpineDisabled = is_string($disabled) && (
-        str_starts_with($disabled, '!') ||     // Negation: !someMethod()
-        str_starts_with($disabled, '$') ||     // Alpine magic: $store.something
-        str_contains($disabled, '(') ||        // Method call: someMethod()
-        str_contains($disabled, '.') ||        // Property access: some.property
-        str_contains($disabled, '&&') ||       // Logical AND: condition && method()
-        str_contains($disabled, '||')          // Logical OR: condition || method()
+        str_starts_with($disabled, '!') ||
+        str_starts_with($disabled, '$') ||
+        str_contains($disabled, '(') ||
+        str_contains($disabled, '.') ||
+        str_contains($disabled, '&&') ||
+        str_contains($disabled, '||')
     );
 
-    // Only evaluate disabled as boolean if it's not an Alpine expression
     $isDisabled = !$hasAlpineDisabled && ($disabled || $loading);
 
     $spinnerColor = $color === 'default' ? 'primary' : $color;
 
-    // Spinner sizing: smaller for text buttons, adaptive for icon-only
     $spinnerSize = $iconOnly ? null : match($size) {
         'sm' => 'sm',
         'md' => 'sm',
@@ -57,7 +56,6 @@
         $builder->addClass($customClass);
     }
 
-    // Extract custom data-* attributes to preserve them
     $customDataAttributes = collect($attributes->getAttributes())
         ->filter(fn($value, $key) => str_starts_with($key, 'data-'))
         ->toArray();
@@ -96,14 +94,22 @@
         @endif
     @endif
 
-    @if(isset($leading) && !$loading)
-        {{ $leading }}
+    @if(!$loading)
+        @if($icon)
+            <x-spire::icon :name="$icon" class="size-[1.2em]" />
+        @endif
+        @if(isset($leading))
+            {{ $leading }}
+        @endif
     @endif
 
     @if(!$loading)
         {{ $slot }}
     @endif
 
+    @if($iconTrailing)
+        <x-spire::icon :name="$iconTrailing" class="size-[1.2em]" />
+    @endif
     @if(isset($trailing))
         {{ $trailing }}
     @endif
@@ -127,14 +133,22 @@
     @endif
 @endif
 
-@if(isset($leading) && !$loading)
-    {{ $leading }}
+@if(!$loading)
+    @if($icon)
+        <x-spire::icon :name="$icon" class="size-[1.2em]" />
+    @endif
+    @if(isset($leading))
+        {{ $leading }}
+    @endif
 @endif
 
 @if(!$loading)
     {{ $slot }}
 @endif
 
+@if($iconTrailing)
+    <x-spire::icon :name="$iconTrailing" class="size-[1.2em]" />
+@endif
 @if(isset($trailing))
     {{ $trailing }}
 @endif

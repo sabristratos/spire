@@ -1,0 +1,150 @@
+@layer components {
+    /* Base Styles */
+    .spire-separator {
+        @apply flex items-center shrink-0;
+    }
+
+    /* Horizontal Orientation (default) */
+    .spire-separator--horizontal {
+        @apply w-full flex-row;
+    }
+
+    .spire-separator--horizontal::before,
+    .spire-separator--horizontal::after {
+        content: '';
+        @apply flex-1 bg-border;
+    }
+
+    .spire-separator--horizontal:not(.spire-separator--has-content)::after {
+        @apply hidden;
+    }
+
+    /* Vertical Orientation */
+    .spire-separator--vertical {
+        @apply h-full flex-col self-stretch;
+    }
+
+    .spire-separator--vertical::before,
+    .spire-separator--vertical::after {
+        content: '';
+        @apply flex-1 bg-border;
+    }
+
+    .spire-separator--vertical:not(.spire-separator--has-content)::after {
+        @apply hidden;
+    }
+
+    /* Size Variants (thickness) */
+    .spire-separator--sm.spire-separator--horizontal::before,
+    .spire-separator--sm.spire-separator--horizontal::after {
+        @apply h-px;
+    }
+
+    .spire-separator--md.spire-separator--horizontal::before,
+    .spire-separator--md.spire-separator--horizontal::after {
+        @apply h-0.5;
+    }
+
+    .spire-separator--lg.spire-separator--horizontal::before,
+    .spire-separator--lg.spire-separator--horizontal::after {
+        @apply h-1;
+    }
+
+    .spire-separator--sm.spire-separator--vertical::before,
+    .spire-separator--sm.spire-separator--vertical::after {
+        @apply w-px;
+    }
+
+    .spire-separator--md.spire-separator--vertical::before,
+    .spire-separator--md.spire-separator--vertical::after {
+        @apply w-0.5;
+    }
+
+    .spire-separator--lg.spire-separator--vertical::before,
+    .spire-separator--lg.spire-separator--vertical::after {
+        @apply w-1;
+    }
+
+    /* Spacing Variants */
+    .spire-separator--spacing-sm.spire-separator--horizontal {
+        @apply my-2;
+    }
+
+    .spire-separator--spacing-md.spire-separator--horizontal {
+        @apply my-4;
+    }
+
+    .spire-separator--spacing-lg.spire-separator--horizontal {
+        @apply my-6;
+    }
+
+    .spire-separator--spacing-sm.spire-separator--vertical {
+        @apply mx-2;
+    }
+
+    .spire-separator--spacing-md.spire-separator--vertical {
+        @apply mx-4;
+    }
+
+    .spire-separator--spacing-lg.spire-separator--vertical {
+        @apply mx-6;
+    }
+
+    /* Color Variants */
+    .spire-separator--default::before,
+    .spire-separator--default::after {
+        @apply bg-border;
+    }
+
+    .spire-separator--primary::before,
+    .spire-separator--primary::after {
+        @apply bg-primary;
+    }
+
+    .spire-separator--secondary::before,
+    .spire-separator--secondary::after {
+        @apply bg-secondary;
+    }
+
+    .spire-separator--muted::before,
+    .spire-separator--muted::after {
+        @apply bg-neutral-200;
+    }
+
+    /* Content Styles */
+    .spire-separator__content {
+        @apply text-sm text-text-muted px-3 whitespace-nowrap;
+    }
+
+    .spire-separator--vertical .spire-separator__content {
+        @apply px-0 py-3;
+    }
+
+    /* Label Position - Horizontal */
+    .spire-separator--horizontal.spire-separator--label-start::before {
+        @apply flex-none w-8;
+    }
+
+    .spire-separator--horizontal.spire-separator--label-center::before,
+    .spire-separator--horizontal.spire-separator--label-center::after {
+        @apply flex-1;
+    }
+
+    .spire-separator--horizontal.spire-separator--label-end::after {
+        @apply flex-none w-8;
+    }
+
+    /* Label Position - Vertical */
+    .spire-separator--vertical.spire-separator--label-start::before {
+        @apply flex-none h-4;
+    }
+
+    .spire-separator--vertical.spire-separator--label-center::before,
+    .spire-separator--vertical.spire-separator--label-center::after {
+        @apply flex-1;
+    }
+
+    .spire-separator--vertical.spire-separator--label-end::after {
+        @apply flex-none h-4;
+    }
+}

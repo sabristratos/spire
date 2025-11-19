@@ -322,4 +322,18 @@ return [
     'toast' => [
         'close' => 'Fermer la notification',
     ],
+
+    'header' => [
+        'toggle_menu' => 'Basculer le menu',
+        'navigation' => 'Navigation',
+    ],
+
+    'sidebar' => [
+        'toggle' => 'Basculer la barre latérale',
+        'collapse' => 'Réduire la barre latérale',
+        'expand' => 'Développer la barre latérale',
+        'close' => 'Fermer la barre latérale',
+        'navigation' => 'Navigation',
+        'menu' => 'Menu',
+    ],
 ];

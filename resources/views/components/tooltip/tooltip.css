@@ -1,0 +1,15 @@
+@layer components {
+    .spire-tooltip {
+        @apply inline-flex;
+    }
+
+    .spire-tooltip__content {
+        @apply px-2 py-1 text-xs font-medium;
+        @apply bg-neutral-900 text-white border border-neutral-800;
+        @apply rounded shadow-lg;
+        @apply whitespace-nowrap;
+        @apply pointer-events-none;
+        transition: opacity var(--animation-duration-fast) ease-out,
+                    transform var(--animation-duration-fast) ease-out;
+    }
+}

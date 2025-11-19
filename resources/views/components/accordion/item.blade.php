@@ -11,7 +11,7 @@
 @php
 use SpireUI\Support\ComponentClass;
 
-$itemId = 'accordion-item-' . uniqid();
+$itemId = 'accordion-item-' . ($index ?? crc32(serialize($attributes->getAttributes())));
 $buttonId = $itemId . '-button';
 $contentId = $itemId . '-content';
 

@@ -1,0 +1,155 @@
+@layer components {
+    /* 1. Base Badge Styles */
+    .spire-badge {
+        @apply inline-flex items-center justify-center gap-1.5 font-medium whitespace-nowrap min-w-fit;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    /* 2. Size Variants */
+    .spire-badge--sm {
+        @apply h-5 px-2 text-xs;
+    }
+    .spire-badge--md {
+        @apply h-6 px-2.5 text-sm;
+    }
+    .spire-badge--lg {
+        @apply h-7 px-3 text-base;
+    }
+
+    /* 3. Color & Variant Matrix */
+
+    /* --- Solid --- */
+    .spire-badge--default-solid {
+        @apply bg-neutral text-white shadow-sm;
+    }
+    .spire-badge--primary-solid {
+        @apply bg-primary text-primary-foreground shadow-sm;
+    }
+    .spire-badge--secondary-solid {
+        @apply bg-secondary text-secondary-foreground shadow-sm;
+    }
+    .spire-badge--success-solid {
+        @apply bg-success text-success-foreground shadow-sm;
+    }
+    .spire-badge--error-solid {
+        @apply bg-error text-error-foreground shadow-sm;
+    }
+    .spire-badge--warning-solid {
+        @apply bg-warning text-warning-foreground shadow-sm;
+    }
+    .spire-badge--info-solid {
+        @apply bg-info text-info-foreground shadow-sm;
+    }
+
+    /* --- Bordered --- */
+    .spire-badge--default-bordered {
+        @apply bg-transparent text-neutral-foreground border border-neutral;
+    }
+    .spire-badge--primary-bordered {
+        @apply bg-transparent text-primary border border-primary;
+    }
+    .spire-badge--secondary-bordered {
+        @apply bg-transparent text-secondary border border-secondary;
+    }
+    .spire-badge--success-bordered {
+        @apply bg-transparent text-success border border-success;
+    }
+    .spire-badge--error-bordered {
+        @apply bg-transparent text-error border border-error;
+    }
+    .spire-badge--warning-bordered {
+        @apply bg-transparent text-warning border border-warning;
+    }
+    .spire-badge--info-bordered {
+        @apply bg-transparent text-info border border-info;
+    }
+
+    /* --- Soft --- */
+    .spire-badge--default-soft {
+        @apply bg-neutral/30 text-neutral-foreground;
+    }
+    .spire-badge--primary-soft {
+        @apply bg-primary/10 text-primary;
+    }
+    .spire-badge--secondary-soft {
+        @apply bg-secondary/10 text-secondary;
+    }
+    .spire-badge--success-soft {
+        @apply bg-success/10 text-success;
+    }
+    .spire-badge--error-soft {
+        @apply bg-error/10 text-error;
+    }
+    .spire-badge--warning-soft {
+        @apply bg-warning/10 text-warning;
+    }
+    .spire-badge--info-soft {
+        @apply bg-info/10 text-info;
+    }
+
+    /* --- Featured (Purple) --- */
+    .spire-badge--featured-solid {
+        @apply bg-featured text-featured-foreground shadow-sm;
+    }
+    .spire-badge--featured-bordered {
+        @apply bg-transparent text-featured border border-featured;
+    }
+    .spire-badge--featured-soft {
+        @apply bg-featured/10 text-featured;
+    }
+
+    /* --- Dot Variant --- */
+    .spire-badge--dot {
+        @apply gap-2;
+    }
+
+    /* 4. Badge Container (for notification indicators) */
+    .spire-badge__container {
+        @apply relative inline-flex shrink-0;
+    }
+
+    .spire-badge__indicator {
+        @apply absolute flex items-center justify-center rounded-full font-semibold ease-fast z-10;
+    }
+
+    /* Placements */
+    .spire-badge__indicator--top-right {
+        @apply top-1 right-1 translate-x-1/2 -translate-y-1/2;
+    }
+    .spire-badge__indicator--top-left {
+        @apply top-1 left-1 -translate-x-1/2 -translate-y-1/2;
+    }
+    .spire-badge__indicator--bottom-right {
+        @apply bottom-1 right-1 translate-x-1/2 translate-y-1/2;
+    }
+    .spire-badge__indicator--bottom-left {
+        @apply bottom-1 left-1 -translate-x-1/2 translate-y-1/2;
+    }
+
+    /* Indicator Sizes - Dot */
+    .spire-badge__indicator--sm.spire-badge__indicator--dot {
+        @apply w-2 h-2;
+    }
+    .spire-badge__indicator--md.spire-badge__indicator--dot {
+        @apply w-2.5 h-2.5;
+    }
+    .spire-badge__indicator--lg.spire-badge__indicator--dot {
+        @apply w-3 h-3;
+    }
+
+    /* Indicator Sizes - Content */
+    .spire-badge__indicator--sm:not(.spire-badge__indicator--dot) {
+        @apply min-w-4 h-4 text-xs px-1;
+    }
+    .spire-badge__indicator--md:not(.spire-badge__indicator--dot) {
+        @apply min-w-5 h-5 text-xs px-1.5;
+    }
+    .spire-badge__indicator--lg:not(.spire-badge__indicator--dot) {
+        @apply min-w-6 h-6 text-sm px-2;
+    }
+
+    /* Indicator Outline */
+    .spire-badge__indicator--outline {
+        @apply ring-2 ring-surface;
+    }
+}

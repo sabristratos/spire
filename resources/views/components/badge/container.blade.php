@@ -11,7 +11,7 @@
 @php
 use SpireUI\Support\ComponentClass;
 
-    $indicatorBuilder = ComponentClass::make('badge-indicator')
+    $indicatorBuilder = ComponentClass::make('badge__indicator')
         ->modifier($placement)
         ->size($size)
         ->colorVariant($color, 'solid')
@@ -20,7 +20,7 @@ use SpireUI\Support\ComponentClass;
         ->addIf($isInvisible, 'hidden');
 
     $containerAttributes = $attributes->merge([
-        'class' => 'spire-badge-container',
+        'class' => 'spire-badge__container',
         'data-spire-badge-container' => 'true',
     ]);
 @endphp

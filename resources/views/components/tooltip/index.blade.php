@@ -6,6 +6,14 @@
     'duration' => null,
 ])
 
+@php
+use SpireUI\Support\ComponentClass;
+
+$builder = ComponentClass::make('tooltip')
+    ->dataAttribute('placement', $placement)
+    ->dataAttribute('trigger', $trigger);
+@endphp
+
 <div
     x-data="spireTooltip({
         placement: '{{ $placement }}',
@@ -13,8 +21,7 @@
         delay: {{ $delay }},
         duration: {{ $duration ?? 'null' }}
     })"
-    class="spire-tooltip"
-    {{ $attributes }}
+    {{ $attributes->merge(['class' => $builder->build(), ...$builder->getDataAttributes()]) }}
 >
     <div
         x-ref="trigger"
@@ -35,8 +42,7 @@
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
         popover="hint"
-        class="spire-tooltip-content"
-        :class="`spire-tooltip-content--${placement}`"
+        class="spire-tooltip__content"
         style="display: none;"
     >
         {{ $content }}

@@ -1,0 +1,261 @@
+@layer components {
+    /* 1. Container */
+    .spire-file-upload {
+        @apply w-full;
+    }
+
+    .spire-file-upload--disabled {
+        @apply opacity-50 pointer-events-none;
+    }
+
+    /* 2. Drop Zone */
+    .spire-file-upload-zone {
+        @apply relative flex flex-col items-center justify-center gap-1 p-4;
+        @apply border-2 border-dashed border-primary/30 rounded-lg;
+        @apply bg-primary/5;
+        @apply cursor-pointer;
+        @apply transition-all duration-200 ease-out;
+        @apply focus-within:outline-2 focus-within:outline-primary focus-within:outline-offset-2;
+        min-height: 80px;
+    }
+
+    .spire-file-upload-zone--dragging {
+        @apply border-primary bg-primary/10;
+        @apply ring-2 ring-primary/20;
+    }
+
+    .spire-file-upload-zone--disabled {
+        @apply cursor-not-allowed bg-surface border-border;
+    }
+
+    .spire-file-upload-zone-row {
+        @apply flex items-center gap-2;
+    }
+
+    .spire-file-upload-zone-icon {
+        @apply w-5 h-5 text-primary flex-shrink-0;
+    }
+
+    .spire-file-upload-zone-primary {
+        @apply text-sm font-medium text-text;
+    }
+
+    .spire-file-upload-zone-hint {
+        @apply text-xs text-text-muted;
+    }
+
+    .spire-file-upload-zone-hint::before {
+        content: '•';
+        @apply mx-1.5;
+    }
+
+    .spire-file-upload-zone-secondary {
+        @apply text-xs text-text-muted;
+    }
+
+    .spire-file-upload-zone-button {
+        @apply mt-2;
+    }
+
+    /* 3. URL Upload Section */
+    .spire-file-upload-divider {
+        @apply flex items-center gap-4 my-4;
+    }
+
+    .spire-file-upload-divider::before,
+    .spire-file-upload-divider::after {
+        content: '';
+        @apply flex-1 h-px bg-border;
+    }
+
+    .spire-file-upload-divider-text {
+        @apply text-xs text-text-muted;
+    }
+
+    .spire-file-upload-url {
+        @apply space-y-2;
+    }
+
+    .spire-file-upload-url-label {
+        @apply text-sm font-medium text-text;
+    }
+
+    .spire-file-upload-url-input {
+        @apply flex gap-2;
+    }
+
+    /* 4. File Lists */
+    .spire-file-upload-lists {
+        @apply mt-4 space-y-3;
+    }
+
+    .spire-file-upload-section-label {
+        @apply text-xs font-medium text-text-muted uppercase tracking-wide mb-2;
+    }
+
+    .spire-file-upload-list {
+        @apply space-y-2;
+    }
+
+    /* 5. File Item (List Layout) */
+    .spire-file-upload-item {
+        @apply flex items-center gap-3 p-3;
+        @apply bg-surface border border-border rounded-lg;
+        @apply transition-all duration-200;
+    }
+
+    .spire-file-upload-item:hover {
+        @apply border-border-hover;
+    }
+
+    .spire-file-upload-item--error {
+        @apply border-error/50 bg-error/5;
+    }
+
+    .spire-file-upload-item-icon {
+        @apply flex-shrink-0 w-10 h-10 rounded-lg;
+        @apply flex items-center justify-center;
+        @apply bg-primary/10 text-primary;
+    }
+
+    .spire-file-upload-item-icon--video {
+        @apply bg-warning/10 text-warning;
+    }
+
+    .spire-file-upload-item-icon--audio {
+        @apply bg-info/10 text-info;
+    }
+
+    .spire-file-upload-item-icon--document {
+        @apply bg-secondary/10 text-secondary;
+    }
+
+    .spire-file-upload-item-icon--error {
+        @apply bg-error/10 text-error;
+    }
+
+    .spire-file-upload-item-thumbnail {
+        @apply flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden;
+        @apply bg-neutral-100 dark:bg-neutral-800;
+    }
+
+    .spire-file-upload-item-thumbnail img {
+        @apply w-full h-full object-cover;
+    }
+
+    .spire-file-upload-item-info {
+        @apply flex-1 min-w-0;
+    }
+
+    .spire-file-upload-item-name {
+        @apply text-sm font-medium text-text truncate;
+    }
+
+    .spire-file-upload-item-meta {
+        @apply flex items-center gap-2 mt-0.5;
+    }
+
+    .spire-file-upload-item-size {
+        @apply text-xs text-text-muted;
+    }
+
+    .spire-file-upload-item-status {
+        @apply text-xs;
+    }
+
+    .spire-file-upload-item-status--uploading {
+        @apply text-primary;
+    }
+
+    .spire-file-upload-item-status--uploaded {
+        @apply text-success;
+    }
+
+    .spire-file-upload-item-status--error {
+        @apply text-error;
+    }
+
+    .spire-file-upload-item-error {
+        @apply text-xs text-error mt-0.5;
+    }
+
+    /* 6. Progress Bar (inline) */
+    .spire-file-upload-item-progress {
+        @apply w-full h-1 bg-neutral-200 dark:bg-neutral-700 rounded-full mt-2;
+    }
+
+    .spire-file-upload-item-progress-bar {
+        @apply h-full bg-primary rounded-full transition-all duration-300 ease-out;
+    }
+
+    .spire-file-upload-item-progress--complete .spire-file-upload-item-progress-bar {
+        @apply bg-success;
+    }
+
+    /* 7. Item Actions */
+    .spire-file-upload-item-actions {
+        @apply flex-shrink-0 flex items-center gap-1;
+    }
+
+    /* 8. Upload Actions (manual mode) */
+    .spire-file-upload-actions {
+        @apply mt-4 flex justify-end gap-2;
+    }
+
+    /* Legacy classes for backward compatibility */
+    .spire-file-upload-grid {
+        @apply space-y-2;
+    }
+
+    .spire-file-upload-preview,
+    .spire-file-upload-existing-item {
+        @apply flex items-center gap-3 p-3;
+        @apply bg-surface border border-border rounded-lg;
+    }
+
+    .spire-file-upload-preview-thumbnail {
+        @apply flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden;
+        @apply bg-neutral-100 dark:bg-neutral-800;
+        @apply flex items-center justify-center;
+    }
+
+    .spire-file-upload-preview-image {
+        @apply w-full h-full object-cover;
+    }
+
+    .spire-file-upload-preview-icon {
+        @apply w-5 h-5 text-text-muted;
+    }
+
+    .spire-file-upload-preview-info {
+        @apply flex-1 min-w-0;
+    }
+
+    .spire-file-upload-preview-name {
+        @apply text-sm font-medium text-text truncate;
+    }
+
+    .spire-file-upload-preview-size {
+        @apply text-xs text-text-muted;
+    }
+
+    .spire-file-upload-preview-error {
+        @apply text-xs text-error mt-0.5;
+    }
+
+    .spire-file-upload-preview-actions {
+        @apply flex-shrink-0 flex items-center gap-1;
+    }
+
+    .spire-file-upload-status {
+        @apply hidden;
+    }
+
+    .spire-file-upload-progress {
+        @apply w-full h-1 bg-neutral-200 dark:bg-neutral-700 rounded-full mt-2;
+    }
+
+    .spire-file-upload-progress-bar {
+        @apply h-full bg-primary rounded-full transition-all duration-300 ease-out;
+    }
+}

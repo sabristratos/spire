@@ -1,0 +1,76 @@
+@layer components {
+    .spire-pagination {
+        @apply flex flex-col w-full sm:flex-row items-center justify-between gap-4;
+    }
+
+    .spire-pagination__info {
+        @apply flex items-center gap-1 text-sm text-text-muted;
+    }
+
+    .spire-pagination__nav {
+        @apply flex items-center gap-1;
+    }
+
+    .spire-pagination__button {
+        @apply inline-flex items-center justify-center gap-1.5;
+        @apply px-3 py-2 text-sm font-medium;
+        @apply text-text bg-transparent;
+        @apply rounded-md border border-transparent;
+        @apply transition-colors;
+        @apply hover:bg-hover hover:text-text;
+        @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+    }
+
+    .spire-pagination__button--icon {
+        @apply px-2;
+    }
+
+    .spire-pagination__button--active {
+        @apply bg-surface-subtle text-text cursor-default;
+    }
+
+    .spire-pagination__button--disabled {
+        @apply opacity-40 cursor-not-allowed;
+        @apply hover:bg-transparent hover:text-text;
+    }
+
+    .spire-pagination__ellipsis {
+        @apply px-2 py-2 text-sm text-text-muted cursor-default select-none;
+    }
+
+    .spire-pagination__icon {
+        @apply w-4 h-4;
+    }
+
+    .spire-pagination--sm .spire-pagination__button {
+        @apply px-2 py-1.5 text-xs;
+    }
+
+    .spire-pagination--sm .spire-pagination__button--icon {
+        @apply px-1.5;
+    }
+
+    .spire-pagination--sm .spire-pagination__icon {
+        @apply w-3.5 h-3.5;
+    }
+
+    .spire-pagination--sm .spire-pagination__info {
+        @apply text-xs;
+    }
+
+    .spire-pagination--lg .spire-pagination__button {
+        @apply px-4 py-2.5 text-base;
+    }
+
+    .spire-pagination--lg .spire-pagination__button--icon {
+        @apply px-2.5;
+    }
+
+    .spire-pagination--lg .spire-pagination__icon {
+        @apply w-5 h-5;
+    }
+
+    .spire-pagination--lg .spire-pagination__info {
+        @apply text-base;
+    }
+}

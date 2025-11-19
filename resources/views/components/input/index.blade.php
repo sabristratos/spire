@@ -95,10 +95,11 @@
                 <div class="{{ $inputBoxClasses }}">
                     @if($hasLeadingContent)
                         <div class="flex items-center shrink-0">
+                            @if($icon)
+                                <x-spire::icon :name="$icon" class="{{ $iconSizeClass }} text-text-muted" />
+                            @endif
                             @if(isset($leading))
                                 {{ $leading }}
-                            @elseif($icon)
-                                <x-spire::icon :name="$icon" class="{{ $iconSizeClass }} text-text-muted" />
                             @endif
                         </div>
                     @endif
@@ -112,57 +113,57 @@
                     />
 
                     @if($hasTrailingContent)
-                        @if(isset($trailing))
-                            {{ $trailing }}
-                        @else
-                            <div class="flex items-center shrink-0">
-                                @if($clearable)
-                                    <x-spire::button
-                                        type="button"
-                                        variant="ghost"
-                                        :size="$buttonSize"
-                                        icon-only
-                                        x-show="hasValue"
-                                        x-cloak
-                                        @click="clearInput()"
-                                        :aria-label="__('spire::form.clear')"
-                                    >
-                                        <x-spire::icon name="x" class="{{ $iconSizeClass }}" />
-                                    </x-spire::button>
-                                @endif
+                        <div class="flex items-center shrink-0">
+                            @if(isset($trailing))
+                                {{ $trailing }}
+                            @endif
 
-                                @if($viewable)
-                                    <x-spire::button
-                                        type="button"
-                                        variant="ghost"
-                                        :size="$buttonSize"
-                                        icon-only
-                                        @click="togglePasswordVisibility()"
-                                        x-bind:aria-label="showPassword ? '{{ __('spire::form.hide_password') }}' : '{{ __('spire::form.show_password') }}'"
-                                    >
-                                        <x-spire::icon x-show="!showPassword" x-cloak name="eye" class="{{ $iconSizeClass }}" />
-                                        <x-spire::icon x-show="showPassword" x-cloak name="eye-off" class="{{ $iconSizeClass }}" />
-                                    </x-spire::button>
-                                @endif
+                            @if($clearable)
+                                <x-spire::button
+                                    type="button"
+                                    variant="ghost"
+                                    :size="$buttonSize"
+                                    icon-only
+                                    x-show="hasValue"
+                                    x-cloak
+                                    @click="clearInput()"
+                                    :aria-label="__('spire::form.clear')"
+                                >
+                                    <x-spire::icon name="x" class="{{ $iconSizeClass }}" />
+                                </x-spire::button>
+                            @endif
 
-                                @if($copyable)
-                                    <x-spire::button
-                                        type="button"
-                                        variant="ghost"
-                                        :size="$buttonSize"
-                                        icon-only
-                                        @click="copyToClipboard()"
-                                        aria-label="Copy to clipboard"
-                                    >
-                                        <x-spire::icon name="copy" class="{{ $iconSizeClass }}" />
-                                    </x-spire::button>
-                                @endif
+                            @if($viewable)
+                                <x-spire::button
+                                    type="button"
+                                    variant="ghost"
+                                    :size="$buttonSize"
+                                    icon-only
+                                    @click="togglePasswordVisibility()"
+                                    x-bind:aria-label="showPassword ? '{{ __('spire::form.hide_password') }}' : '{{ __('spire::form.show_password') }}'"
+                                >
+                                    <x-spire::icon x-show="!showPassword" x-cloak name="eye" class="{{ $iconSizeClass }}" />
+                                    <x-spire::icon x-show="showPassword" x-cloak name="eye-off" class="{{ $iconSizeClass }}" />
+                                </x-spire::button>
+                            @endif
 
-                                @if($iconTrailing)
-                                    <x-spire::icon :name="$iconTrailing" class="{{ $iconSizeClass }} text-text-muted" />
-                                @endif
-                            </div>
-                        @endif
+                            @if($copyable)
+                                <x-spire::button
+                                    type="button"
+                                    variant="ghost"
+                                    :size="$buttonSize"
+                                    icon-only
+                                    @click="copyToClipboard()"
+                                    aria-label="Copy to clipboard"
+                                >
+                                    <x-spire::icon name="copy" class="{{ $iconSizeClass }}" />
+                                </x-spire::button>
+                            @endif
+
+                            @if($iconTrailing)
+                                <x-spire::icon :name="$iconTrailing" class="{{ $iconSizeClass }} text-text-muted" />
+                            @endif
+                        </div>
                     @endif
                 </div>
             </div>

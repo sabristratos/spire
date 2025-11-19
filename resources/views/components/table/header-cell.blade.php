@@ -7,12 +7,15 @@ $align = $align ?? 'left';
 $width = $width ?? null;
 $size = $size ?? 'md';
 $isCheckboxCell = $isCheckboxCell ?? false;
+$label = $label ?? null;
+$responsive = $responsive ?? 'secondary';
 
 $builder = ComponentClass::make('table-header-cell')
     ->size($size)
     ->modifier($align)
     ->when($sortable, fn($b) => $b->modifier('sortable'))
-    ->when($isCheckboxCell, fn($b) => $b->addClass('spire-table-checkbox-cell'));
+    ->when($isCheckboxCell, fn($b) => $b->addClass('spire-table-checkbox-cell'))
+    ->when($responsive !== 'secondary', fn($b) => $b->dataAttribute('table-responsive', $responsive));
 
 $contentClasses = collect(['spire-table-header-cell-content'])
     ->when($align === 'center', fn($c) => $c->push('spire-table-header-cell-content--center'))

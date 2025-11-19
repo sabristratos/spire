@@ -5,7 +5,7 @@ $value = $value ?? null;
 $selected = $selected ?? false;
 $disabled = $disabled ?? false;
 $clickable = $clickable ?? false;
-$selectable = $selectable ?? null;
+$selectable = $selectable ?? false;
 
 $builder = ComponentClass::make('table-row')
     ->when($selectable, fn($b) => $b->modifier('selectable'))
@@ -23,11 +23,13 @@ $mergedAttributes = $attributes->merge([
     role="row"
     @if($disabled) aria-disabled="true" @endif
     @if($selectable && $value !== null)
+        x-bind:aria-selected="isRowSelected('{{ $value }}') ? 'true' : 'false'"
         x-bind:data-spire-table-row-selected="isRowSelected('{{ $value }}')"
+        tabindex="-1"
         @if($clickable && !$disabled) @click="toggleRow('{{ $value }}')" @endif
     @endif>
     @if($selectable && $value !== null)
-        <td class="spire-table-cell spire-table-checkbox-cell" role="cell">
+        <td class="spire-table-cell spire-table-checkbox-cell" role="gridcell">
             <x-spire::checkbox
                 x-bind:checked="isRowSelected('{{ $value }}')"
                 @change="toggleRow('{{ $value }}')"

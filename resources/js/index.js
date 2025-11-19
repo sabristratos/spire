@@ -5,43 +5,30 @@
  * Import this single file in your app.js instead of importing each file individually.
  */
 
-import { ComponentClass } from './component-class';
-import { overlay } from './overlay';
-import { keyboard } from './keyboard';
-import { inputComponent } from './input';
-import { selectComponent } from './select';
-import { autocompleteComponent } from './autocomplete';
-import { calendarComponent } from './calendar';
-import { datepickerComponent } from './datepicker';
-import { timepickerComponent } from './timepicker';
-import { modalComponent } from './modal';
-import { ratingComponent } from './rating';
-import { tooltipComponent } from './tooltip';
-import { editorComponent } from './editor';
-import { tableComponent } from './table';
-import { sliderComponent } from './slider';
-import { toastComponent, toast } from './toast';
+import { ComponentClass } from './shared/component-class';
+import { overlay } from './shared/overlay';
+import { keyboard } from './shared/keyboard';
+import { inputComponent } from '../views/components/input/input';
+import { selectComponent } from '../views/components/select/select';
+import { autocompleteComponent } from '../views/components/autocomplete/autocomplete';
+import { calendarComponent } from '../views/components/calendar/calendar';
+import { datepickerComponent } from '../views/components/datepicker/datepicker';
+import { timepickerComponent } from '../views/components/timepicker/timepicker';
+import { modalComponent } from '../views/components/modal/modal';
+import { ratingComponent } from '../views/components/rating/rating';
+import { tooltipComponent } from '../views/components/tooltip/tooltip';
+import { editorComponent } from '../views/components/editor/editor';
+import { tableComponent } from '../views/components/table/table';
+import { sliderComponent } from '../views/components/slider/slider';
+import { toastComponent, toast } from '../views/components/toast/toast';
+import { tabsComponent } from '../views/components/tabs/tabs';
+import { fileUploadComponent } from '../views/components/file-upload/file-upload';
+import { sidebarComponent, sidebarSectionComponent, sidebarItemComponent } from '../views/components/sidebar/sidebar';
+import { dropdownComponent } from '../views/components/dropdown/dropdown';
 
 export function initializeSpireUI() {
-    // Expose to window for direct access if needed
+    // Expose essential utilities to window
     window.ComponentClass = ComponentClass;
-    window.overlay = overlay;
-    window.keyboard = keyboard;
-    window.inputComponent = inputComponent;
-    window.selectComponent = selectComponent;
-    window.autocompleteComponent = autocompleteComponent;
-    window.calendarComponent = calendarComponent;
-    window.datepickerComponent = datepickerComponent;
-    window.timepickerComponent = timepickerComponent;
-    window.modalComponent = modalComponent;
-    window.ratingComponent = ratingComponent;
-    window.tooltipComponent = tooltipComponent;
-    window.editorComponent = editorComponent;
-    window.tableComponent = tableComponent;
-    window.sliderComponent = sliderComponent;
-    window.toastComponent = toastComponent;
-
-    // Expose global toast helper
     window.toast = toast;
 
     document.addEventListener('alpine:init', () => {
@@ -60,7 +47,13 @@ export function initializeSpireUI() {
         Alpine.data('spireTable', tableComponent);
         Alpine.data('spireSlider', sliderComponent);
         Alpine.data('spireToast', toastComponent);
+        Alpine.data('spireTabs', tabsComponent);
+        Alpine.data('spireFileUpload', fileUploadComponent);
+        Alpine.data('spireSidebar', sidebarComponent);
+        Alpine.data('spireSidebarSection', sidebarSectionComponent);
+        Alpine.data('spireSidebarItem', sidebarItemComponent);
+        Alpine.data('spireDropdown', dropdownComponent);
     });
 }
 
-export { ComponentClass, overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast };
+export { ComponentClass, overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast, tabsComponent, fileUploadComponent, sidebarComponent, sidebarSectionComponent, sidebarItemComponent, dropdownComponent };

@@ -1,0 +1,100 @@
+/* DataList Component Styles */
+@layer components {
+    /* Root container */
+    .spire-data-list {
+        @apply m-0 flex flex-col gap-3;
+    }
+
+    /* Size variants */
+    .spire-data-list--sm {
+        @apply gap-2 text-sm;
+    }
+
+    .spire-data-list--md {
+        @apply gap-3 text-base;
+    }
+
+    .spire-data-list--lg {
+        @apply gap-4 text-lg;
+    }
+
+    /* Item container */
+    .spire-data-list-item {
+        @apply flex;
+    }
+
+    /* Horizontal orientation (default) */
+    .spire-data-list--horizontal .spire-data-list-item {
+        @apply flex-row gap-4;
+    }
+
+    /* Vertical orientation */
+    .spire-data-list--vertical .spire-data-list-item {
+        @apply flex-col gap-1;
+    }
+
+    /* Item alignment variants */
+    .spire-data-list-item--start {
+        @apply items-start;
+    }
+
+    .spire-data-list-item--center {
+        @apply items-center;
+    }
+
+    .spire-data-list-item--end {
+        @apply items-end;
+    }
+
+    .spire-data-list-item--baseline {
+        @apply items-baseline;
+    }
+
+    /* Label (dt) */
+    .spire-data-list-label {
+        @apply m-0 shrink-0 font-medium;
+    }
+
+    /* Label color variants */
+    .spire-data-list-label--default {
+        @apply text-text;
+    }
+
+    .spire-data-list-label--muted {
+        @apply text-text-muted;
+    }
+
+    .spire-data-list-label--primary {
+        @apply text-primary;
+    }
+
+    .spire-data-list-label--secondary {
+        @apply text-secondary;
+    }
+
+    .spire-data-list-label--success {
+        @apply text-success;
+    }
+
+    .spire-data-list-label--error {
+        @apply text-error;
+    }
+
+    .spire-data-list-label--warning {
+        @apply text-warning;
+    }
+
+    .spire-data-list-label--info {
+        @apply text-info;
+    }
+
+    /* Value (dd) */
+    .spire-data-list-value {
+        @apply m-0 text-text;
+    }
+
+    /* Vertical orientation value adjustments */
+    .spire-data-list--vertical .spire-data-list-value {
+        @apply text-text-muted;
+    }
+}

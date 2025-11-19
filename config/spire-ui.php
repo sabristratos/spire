@@ -18,4 +18,8 @@ return [
     'spinner' => [
         'default_variant' => env('SPIRE_UI_SPINNER_VARIANT', 'ring'),
     ],
+
+    'pagination' => [
+        'register_default' => env('SPIRE_UI_PAGINATION_DEFAULT', true),
+    ],
 ];

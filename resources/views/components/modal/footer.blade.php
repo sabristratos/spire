@@ -1,7 +1,7 @@
 @props([])
 
 @php
-$classes = 'spire-modal-footer';
+$classes = 'spire-modal__footer';
 
 $mergedAttributes = $attributes->merge([
     'class' => $classes,

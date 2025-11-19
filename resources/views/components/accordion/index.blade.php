@@ -19,7 +19,7 @@ if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
 }
 
-$accordionId = 'accordion-' . uniqid();
+$accordionId = 'accordion-' . ($attributes->get('id') ?? crc32(serialize($attributes->getAttributes())));
 $defaultOpenIndex = is_array($defaultOpen) ? ($defaultOpen[0] ?? null) : $defaultOpen;
 
 $defaultOpenArray = is_array($defaultOpen) ? $defaultOpen : ($defaultOpen !== null ? [$defaultOpen] : []);

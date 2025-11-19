@@ -5,7 +5,7 @@
 ])
 
 @php
-$classes = 'spire-modal-header';
+$classes = 'spire-modal__header';
 
 $mergedAttributes = $attributes->merge([
     'class' => $classes,
@@ -20,7 +20,7 @@ $mergedAttributes = $attributes->merge([
     @if($closable)
         <button
             type="button"
-            class="spire-modal-close"
+            class="spire-modal__close"
             @click="close()"
             aria-label="{{ __('spire-ui::spire-ui.modal.close') }}"
         >

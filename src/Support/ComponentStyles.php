@@ -5,6 +5,41 @@ namespace SpireUI\Support;
 class ComponentStyles
 {
     /**
+     * Available component sizes.
+     */
+    public const SIZES = ['sm', 'md', 'lg', 'xl', '2xl'];
+
+    /**
+     * Available component colors.
+     */
+    public const COLORS = ['default', 'primary', 'secondary', 'success', 'error', 'warning', 'info', 'featured'];
+
+    /**
+     * Available component variants.
+     */
+    public const VARIANTS = ['solid', 'bordered', 'flat', 'ghost', 'soft', 'link', 'shadow', 'dot'];
+
+    /**
+     * Available component radii.
+     */
+    public const RADII = ['none', 'sm', 'md', 'lg', 'full'];
+
+    /**
+     * Extended radii (includes xl and 2xl).
+     */
+    public const RADII_EXTENDED = ['none', 'sm', 'md', 'lg', 'xl', '2xl', 'full'];
+
+    /**
+     * Available component shadows.
+     */
+    public const SHADOWS = ['none', 'sm', 'md', 'lg', 'xl'];
+
+    /**
+     * Available padding options.
+     */
+    public const PADDINGS = ['none', 'sm', 'md', 'lg'];
+
+    /**
      * Get color classes for a specific variant and color.
      *
      * @param  string  $variant  The variant type (solid, bordered, flat, ghost, soft, link, shadow, dot)
