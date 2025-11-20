@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2025-11-21
+
+### Fixed
+- **Icon Path Resolution**: Fixed icon component to correctly resolve icon paths when package is installed via Composer (checks vendor/stratos/spire-ui/ path)
+- **Form Field Shadows**: Added `shadow-sm` to all form field bordered variants (input, textarea, select, autocomplete, datepicker, timepicker, phone-input) for consistent visual depth
+- **Checkbox/Radio Horizontal Layout**: Fixed horizontal orientation to explicitly use `w-max` for items, ensuring they display inline without forcing full width while still allowing wrapping when needed
+
 ## [1.0.3] - 2025-11-20
 
 ### Fixed
@@ -136,6 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/sabristratos/spire/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/sabristratos/spire/compare/v1.0.0...v1.0.3
 [1.0.0]: https://github.com/sabristratos/spire/releases/tag/v1.0.0
