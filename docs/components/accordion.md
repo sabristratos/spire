@@ -62,7 +62,7 @@ Expandable panels for organizing content into collapsible sections with smooth a
     </x-spire-ui::accordion.item>
 
     <x-spire-ui::accordion.item title="How do I install it?" :index="1">
-        Install Spire UI using Composer: <code>composer require spire-ui/spire-ui</code>
+        Install Spire UI using Composer: <code>composer require stratos/spire-ui</code>
     </x-spire-ui::accordion.item>
 
     <x-spire-ui::accordion.item title="Is it free?" :index="2">

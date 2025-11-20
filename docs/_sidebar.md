@@ -1,5 +1,7 @@
+* **Home**
+  * [Overview](/)
+
 * **Getting Started**
-  * [Home](/)
   * [Installation](getting-started.md)
   * [Configuration](configuration.md)
   * [Theming](theming.md)

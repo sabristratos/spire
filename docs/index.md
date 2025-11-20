@@ -19,7 +19,7 @@ A modern TALL stack component library built with Laravel, Livewire, Alpine.js, a
 ### 1. Installation
 
 ```bash
-composer require your-org/spire-ui
+composer require stratos/spire-ui
 ```
 
 ### 2. Import Assets

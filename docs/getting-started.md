@@ -19,7 +19,7 @@ Spire UI has the following requirements:
 In a monorepo setup, Spire UI is already installed as a local package. For standalone installation in a new Laravel project:
 
 ```bash
-composer require spire-ui/spire-ui
+composer require stratos/spire-ui
 ```
 
 The service provider will be automatically discovered and registered by Laravel.
