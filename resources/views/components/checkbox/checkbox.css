@@ -14,6 +14,11 @@
         @apply w-max;
     }
 
+    /* Max width in horizontal orientation */
+    [data-spire-orientation="horizontal"] .spire-checkbox--regular {
+        @apply w-max;
+    }
+
     /* Full width only in vertical orientation */
     [data-spire-orientation="vertical"] .spire-checkbox--regular {
         @apply w-full;
@@ -240,6 +245,11 @@
         @apply transition-all;
         transition-duration: var(--animation-duration-fast);
         transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    /* Max width in horizontal orientation */
+    [data-spire-orientation="horizontal"] .spire-checkbox--card {
+        @apply w-max;
     }
 
     /* Full width only in vertical orientation */
