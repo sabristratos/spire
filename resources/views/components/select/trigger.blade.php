@@ -1,9 +1,9 @@
 @props([
     'multiple' => false,
-    'size' => 'md',
+    'size' => spire_default('select', 'size', 'md'),
     'variant' => 'bordered',
     'color' => 'default',
-    'radius' => 'md',
+    'radius' => spire_default('select', 'radius', 'md'),
     'maxTagsDisplay' => 2,
 ])
 

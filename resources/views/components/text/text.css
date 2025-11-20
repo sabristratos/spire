@@ -1,0 +1,44 @@
+@layer components {
+    /* Base Text Styles */
+    .spire-text {
+        @apply text-text;
+    }
+
+    /* Variant Modifiers */
+    .spire-text--default {
+        @apply text-text;
+    }
+
+    .spire-text--strong {
+        @apply text-text font-semibold;
+    }
+
+    .spire-text--subtle {
+        @apply text-text-muted;
+    }
+
+    /* Color Modifiers */
+    .spire-text--primary {
+        @apply text-primary;
+    }
+
+    .spire-text--secondary {
+        @apply text-secondary;
+    }
+
+    .spire-text--success {
+        @apply text-success;
+    }
+
+    .spire-text--error {
+        @apply text-error;
+    }
+
+    .spire-text--warning {
+        @apply text-warning;
+    }
+
+    .spire-text--info {
+        @apply text-info;
+    }
+}

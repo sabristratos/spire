@@ -418,7 +418,8 @@
         @apply right-0 translate-x-full;
     }
 
-    .spire-sidebar--drawer[data-spire-mobile-open="true"] {
+    .spire-sidebar--drawer[data-spire-position="left"][data-spire-mobile-open="true"],
+    .spire-sidebar--drawer[data-spire-position="right"][data-spire-mobile-open="true"] {
         @apply translate-x-0 shadow-2xl;
     }
 }

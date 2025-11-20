@@ -1,0 +1,272 @@
+@layer components {
+    /* =============================================================================
+       LINEAR PROGRESS
+       ============================================================================= */
+
+    /* Base container */
+    .spire-progress {
+        @apply relative w-full bg-border overflow-hidden;
+    }
+
+    /* Size variants */
+    .spire-progress--sm {
+        @apply h-1;
+    }
+
+    .spire-progress--md {
+        @apply h-2;
+    }
+
+    .spire-progress--lg {
+        @apply h-4;
+    }
+
+    /* Progress bar (fill) */
+    .spire-progress--bar {
+        @apply h-full transition-all duration-300 ease-out;
+    }
+
+    /* Color variants */
+    .spire-progress--bar.spire-progress--color-primary {
+        @apply bg-primary;
+    }
+
+    .spire-progress--bar.spire-progress--color-secondary {
+        @apply bg-secondary;
+    }
+
+    .spire-progress--bar.spire-progress--color-success {
+        @apply bg-success;
+    }
+
+    .spire-progress--bar.spire-progress--color-error {
+        @apply bg-error;
+    }
+
+    .spire-progress--bar.spire-progress--color-warning {
+        @apply bg-warning;
+    }
+
+    .spire-progress--bar.spire-progress--color-info {
+        @apply bg-info;
+    }
+
+    .spire-progress--bar.spire-progress--color-featured {
+        @apply bg-featured;
+    }
+
+    .spire-progress--bar.spire-progress--color-default {
+        @apply bg-text-muted;
+    }
+
+    /* Striped variant */
+    .spire-progress--bar.spire-progress--striped {
+        background-image: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.15) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
+            transparent 75%,
+            transparent
+        );
+        background-size: 1rem 1rem;
+    }
+
+    /* Animated stripes */
+    .spire-progress--bar.spire-progress--animated {
+        animation: spire-progress-stripes 1s linear infinite;
+    }
+
+    /* Gradient variant */
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-primary {
+        background: linear-gradient(to right, var(--color-primary-400), var(--color-primary), var(--color-primary-600));
+    }
+
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-secondary {
+        background: linear-gradient(to right, var(--color-secondary-400), var(--color-secondary), var(--color-secondary-600));
+    }
+
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-success {
+        background: linear-gradient(to right, var(--color-success-400), var(--color-success), var(--color-success-600));
+    }
+
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-error {
+        background: linear-gradient(to right, var(--color-error-400), var(--color-error), var(--color-error-600));
+    }
+
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-warning {
+        background: linear-gradient(to right, var(--color-warning-400), var(--color-warning), var(--color-warning-600));
+    }
+
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-info {
+        background: linear-gradient(to right, var(--color-info-400), var(--color-info), var(--color-info-600));
+    }
+
+    .spire-progress--bar.spire-progress--gradient.spire-progress--color-featured {
+        background: linear-gradient(to right, var(--color-featured-400), var(--color-featured), var(--color-featured-600));
+    }
+
+    /* Indeterminate state */
+    .spire-progress--indeterminate .spire-progress--bar {
+        @apply w-1/3;
+        animation: spire-progress-indeterminate 1.5s ease-in-out infinite;
+    }
+
+    /* =============================================================================
+       LABELS
+       ============================================================================= */
+
+    /* Label base */
+    .spire-progress--label {
+        @apply text-xs font-medium;
+    }
+
+    /* Label inside bar */
+    .spire-progress--label-inside {
+        @apply absolute inset-0 flex items-center justify-center text-white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Only show inside label on larger sizes */
+    .spire-progress--sm .spire-progress--label-inside {
+        @apply hidden;
+    }
+
+    /* Label outside (to the right) */
+    .spire-progress--label-outside {
+        @apply absolute -right-12 top-1/2 -translate-y-1/2 text-text-muted;
+    }
+
+    /* Label top wrapper */
+    .spire-progress-wrapper {
+        @apply flex flex-col gap-1;
+    }
+
+    .spire-progress-top {
+        @apply flex justify-end;
+    }
+
+    .spire-progress--label-top {
+        @apply text-text-muted;
+    }
+
+    /* =============================================================================
+       CIRCULAR PROGRESS
+       ============================================================================= */
+
+    /* Container */
+    .spire-progress-circular {
+        @apply relative inline-block;
+    }
+
+    /* SVG - absolute to allow label overlay */
+    .spire-progress-circular__svg {
+        @apply block;
+    }
+
+    /* Track (background circle) */
+    .spire-progress-circular__track {
+        fill: none;
+    }
+
+    /* Progress bar (arc) */
+    .spire-progress-circular__bar {
+        @apply transition-all duration-300 ease-out;
+        fill: none;
+    }
+
+    /* Stroke color utilities for SVG circles */
+    .stroke-primary {
+        stroke: var(--color-primary);
+    }
+
+    .stroke-secondary {
+        stroke: var(--color-secondary);
+    }
+
+    .stroke-success {
+        stroke: var(--color-success);
+    }
+
+    .stroke-error {
+        stroke: var(--color-error);
+    }
+
+    .stroke-warning {
+        stroke: var(--color-warning);
+    }
+
+    .stroke-info {
+        stroke: var(--color-info);
+    }
+
+    .stroke-featured {
+        stroke: var(--color-featured);
+    }
+
+    .stroke-border {
+        stroke: var(--color-border);
+    }
+
+    /* Label in center */
+    .spire-progress-circular--label {
+        @apply absolute inset-0 flex items-center justify-center font-semibold text-text;
+    }
+
+    /* Indeterminate circular */
+    .spire-progress-circular--indeterminate .spire-progress-circular__svg {
+        animation: spire-progress-circular-spin 1.4s linear infinite;
+    }
+
+    .spire-progress-circular--indeterminate .spire-progress-circular__bar {
+        animation: spire-progress-circular-dash 1.4s ease-in-out infinite;
+    }
+
+    /* =============================================================================
+       ANIMATIONS
+       ============================================================================= */
+
+    @keyframes spire-progress-stripes {
+        0% {
+            background-position: 1rem 0;
+        }
+        100% {
+            background-position: 0 0;
+        }
+    }
+
+    @keyframes spire-progress-indeterminate {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(400%);
+        }
+    }
+
+    @keyframes spire-progress-circular-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spire-progress-circular-dash {
+        0% {
+            stroke-dasharray: 1, 150;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -124;
+        }
+    }
+}

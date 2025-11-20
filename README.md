@@ -13,87 +13,67 @@ A modern TALL stack component library built with Tailwind CSS v4, Livewire 3, an
 
 ## Installation
 
-### Development Setup
-
-This package is currently in development. To use it:
-
-1. The package is located in `packages/spire-ui/`
-2. Install dependencies:
+Install the package via Composer:
 
 ```bash
-composer install
-npm install
+composer require stratos/spire-ui
 ```
 
-3. Publish package assets (optional):
+### Asset Setup
+
+1. **Import CSS** in your `resources/css/app.css`:
+
+```css
+@import 'tailwindcss';
+@import '../../vendor/stratos/spire-ui/resources/css/index.css';
+```
+
+2. **Import JavaScript** in your `resources/js/app.js`:
+
+```javascript
+import { initializeSpireUI } from '../../vendor/stratos/spire-ui/resources/js/index';
+
+initializeSpireUI();
+```
+
+3. **Build assets**:
+
+```bash
+npm run build
+```
+
+### Configuration (Optional)
+
+Publish the configuration file to customize component defaults:
 
 ```bash
 php artisan vendor:publish --tag=spire-ui-config
-php artisan vendor:publish --tag=spire-ui-views
-php artisan vendor:publish --tag=spire-ui-lang
-php artisan vendor:publish --tag=spire-ui-css
 ```
 
-### CSS Setup
-
-Import the Spire UI theme in your `resources/css/app.css`:
-
-```css
-@import 'tailwindcss';
-@import '../../packages/spire-ui/resources/css/theme.css';
-```
-
-Or if published:
-
-```css
-@import 'tailwindcss';
-@import 'spire-ui-theme.css';
-```
+This will create `config/spire-ui.php` where you can customize:
+- Component prefix
+- Dark mode settings
+- Global component defaults (size, radius, placement)
+- Component-specific settings
 
 ## Usage
 
-Components will be available using the `spire-ui` prefix:
+Components will be available using the `spire` prefix:
 
 ```blade
-<x-spire-ui::button>Click me</x-spire-ui::button>
+<x-spire::button>Click me</x-spire::button>
 ```
 
 ### Component Naming Convention
 
 Spire UI uses folder-based components with dot notation:
 
-- Parent component: `<x-spire-ui::dropdown />`
-- Child component: `<x-spire-ui::dropdown.item />`
-
-## Development Guidelines
-
-See [CLAUDE.md](../../CLAUDE.md) in the root directory for comprehensive development guidelines including:
-
-- Core philosophy and technology stack priority
-- Project structure and naming conventions
-- Theming with Tailwind v4 semantic tokens
-- Accessibility requirements
-- Key development patterns
-- Localization support
-- Testing guidelines
-
-## Testing
-
-### Feature Tests
-
-```bash
-php artisan test
-```
-
-### Browser Tests
-
-```bash
-php artisan test tests/Browser/
-```
+- Parent component: `<x-spire::dropdown />`
+- Child component: `<x-spire::dropdown.item />`
 
 ## Theming
 
-Spire UI uses semantic color tokens defined in `resources/css/theme.css`. All tokens support light/dark mode automatically.
+Spire UI uses semantic color tokens defined in `vendor/stratos/spire-ui/resources/css/base/theme.css`. All tokens support light/dark mode automatically.
 
 ### Available Tokens
 
@@ -190,11 +170,11 @@ Spire UI supports multiple languages out of the box. Set your application locale
 'locale' => 'en', // or 'fr', 'ar'
 ```
 
-Translation files are located in `resources/lang/{locale}/spire-ui.php`.
+Translation files are located in `vendor/stratos/spire-ui/resources/lang/{locale}/spire-ui.php`.
 
 ## Contributing
 
-This is a development package. See CLAUDE.md for contribution guidelines.
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting pull requests.
 
 ## License
 

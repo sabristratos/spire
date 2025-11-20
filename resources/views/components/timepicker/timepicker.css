@@ -20,13 +20,22 @@
 
     /* 4. Size Styles */
     .spire-timepicker-box--sm {
-        @apply h-8 px-2 text-sm;
+        @apply h-8 px-3 text-sm;
     }
     .spire-timepicker-box--md {
-        @apply h-10 px-2 text-base;
+        @apply h-10 px-3 text-base;
     }
     .spire-timepicker-box--lg {
-        @apply h-12 px-2 text-lg;
+        @apply h-12 px-3 text-lg;
+    }
+
+    /* 4a. Trailing Content Spacing */
+    .spire-timepicker-box--has-trailing {
+        @apply pr-2;
+    }
+
+    .spire-timepicker-box .spire-button--icon-only {
+        @apply p-1;
     }
 
     /* 5. TimePicker Box States */
@@ -54,7 +63,7 @@
 
     /* 7. TimePicker Trigger Individual Segment */
     .spire-timepicker-trigger__segment {
-        @apply w-8 text-center bg-transparent border-0 outline-none p-0;
+        @apply w-6 text-center bg-transparent border-0 outline-none p-0;
         @apply text-text font-normal;
         @apply focus:bg-primary/10 focus:rounded;
         transition: background-color var(--animation-duration-fast) ease-out;
@@ -103,7 +112,6 @@
     /* 11. TimePicker Content (Dropdown Panel) */
     .spire-timepicker-content {
         @apply bg-surface border border-border rounded-lg shadow-lg p-3;
-        animation: dropdown-bounce var(--animation-duration-normal) ease-out;
     }
 
     /* 12. TimePicker Columns Container */

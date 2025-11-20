@@ -1,11 +1,11 @@
 {{-- File preview item for newly selected files (list layout) --}}
 <div
-    class="spire-file-upload-item"
-    :class="{ 'spire-file-upload-item--error': file.status === 'error' }"
+    class="spire-file-upload__item"
+    :class="{ 'spire-file-upload__item--error': file.status === 'error' }"
 >
     {{-- Icon/Thumbnail --}}
     <template x-if="file.previewUrl && isImage(file.type)">
-        <div class="spire-file-upload-item-thumbnail">
+        <div class="spire-file-upload__item-thumbnail">
             <img
                 :src="file.previewUrl"
                 :alt="file.name"
@@ -15,12 +15,12 @@
 
     <template x-if="!file.previewUrl || !isImage(file.type)">
         <div
-            class="spire-file-upload-item-icon"
+            class="spire-file-upload__item-icon"
             :class="{
-                'spire-file-upload-item-icon--video': file.type && file.type.startsWith('video/'),
-                'spire-file-upload-item-icon--audio': file.type && file.type.startsWith('audio/'),
-                'spire-file-upload-item-icon--document': file.type === 'application/pdf',
-                'spire-file-upload-item-icon--error': file.status === 'error'
+                'spire-file-upload__item-icon--video': file.type && file.type.startsWith('video/'),
+                'spire-file-upload__item-icon--audio': file.type && file.type.startsWith('audio/'),
+                'spire-file-upload__item-icon--document': file.type === 'application/pdf',
+                'spire-file-upload__item-icon--error': file.status === 'error'
             }"
         >
             <template x-if="file.type && file.type.startsWith('video/')">
@@ -42,43 +42,43 @@
     </template>
 
     {{-- File info --}}
-    <div class="spire-file-upload-item-info">
-        <p class="spire-file-upload-item-name" x-text="file.name" :title="file.name"></p>
-        <div class="spire-file-upload-item-meta">
-            <span class="spire-file-upload-item-size" x-text="formatFileSize(file.size)"></span>
+    <div class="spire-file-upload__item-info">
+        <p class="spire-file-upload__item-name" x-text="file.name" :title="file.name"></p>
+        <div class="spire-file-upload__item-meta">
+            <span class="spire-file-upload__item-size" x-text="formatFileSize(file.size)"></span>
             <template x-if="file.status === 'uploading'">
-                <span class="spire-file-upload-item-status spire-file-upload-item-status--uploading">
+                <span class="spire-file-upload__item-status spire-file-upload__item-status--uploading">
                     {{ __('spire::spire-ui.file_upload.uploading') }}
                 </span>
             </template>
             <template x-if="file.status === 'uploaded'">
-                <span class="spire-file-upload-item-status spire-file-upload-item-status--uploaded">
+                <span class="spire-file-upload__item-status spire-file-upload__item-status--uploaded">
                     {{ __('spire::spire-ui.file_upload.uploaded') }}
                 </span>
             </template>
             <template x-if="file.status === 'error'">
-                <span class="spire-file-upload-item-status spire-file-upload-item-status--error" x-text="file.error || translations.error"></span>
+                <span class="spire-file-upload__item-status spire-file-upload__item-status--error" x-text="file.error || translations.error"></span>
             </template>
         </div>
 
         {{-- Progress bar --}}
         <template x-if="file.status === 'uploading'">
-            <div class="spire-file-upload-item-progress">
+            <div class="spire-file-upload__item-progress">
                 <div
-                    class="spire-file-upload-item-progress-bar"
+                    class="spire-file-upload__item-progress-bar"
                     :style="{ width: file.progress + '%' }"
                 ></div>
             </div>
         </template>
         <template x-if="file.status === 'uploaded'">
-            <div class="spire-file-upload-item-progress spire-file-upload-item-progress--complete">
-                <div class="spire-file-upload-item-progress-bar" style="width: 100%"></div>
+            <div class="spire-file-upload__item-progress spire-file-upload__item-progress--complete">
+                <div class="spire-file-upload__item-progress-bar" style="width: 100%"></div>
             </div>
         </template>
     </div>
 
     {{-- Action buttons --}}
-    <div class="spire-file-upload-item-actions">
+    <div class="spire-file-upload__item-actions">
         {{-- Retry button (on error) --}}
         <template x-if="file.status === 'error'">
             <x-spire::button

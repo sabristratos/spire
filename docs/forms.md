@@ -6,16 +6,18 @@ Comprehensive guide to building forms with Spire UI components. All components i
 
 Spire UI provides a complete set of form components:
 
-- **Text inputs** - Input, Textarea
-- **Selection** - Select, Autocomplete, Checkbox, Radio, Switch
-- **Specialized** - Slider, Rating, Datepicker, Timepicker
-- **Rich content** - Editor, File Upload
+- **Text inputs** - [Input](components/input.md), [Textarea](components/textarea.md)
+- **Selection** - [Select](components/select.md), [Autocomplete](components/autocomplete.md), [Checkbox](components/checkbox.md), [Radio](components/radio.md), [Switch](components/switch.md)
+- **Specialized** - [Slider](components/slider.md), [Rating](components/rating.md), [Datepicker](components/datepicker.md), [Timepicker](components/timepicker.md)
+- **Rich content** - [Editor](components/editor.md), [File Upload](components/file-upload.md)
 
 All components support:
 - Livewire `wire:model` binding
 - Consistent sizing (`sm`, `md`, `lg`)
 - Validation error display
 - Accessibility best practices
+
+> **Note**: Some examples reference `checkbox-group` and `radio-group` components. These are wrapper components for grouping checkbox/radio inputs and are documented within the [Checkbox](components/checkbox.md) and [Radio](components/radio.md) documentation pages.
 
 ---
 
@@ -103,6 +105,8 @@ Multi-line text input with resize control.
 ```
 
 **Key Props:** `variant`, `size`, `rows`, `resize` (`vertical`, `horizontal`, `none`, `both`)
+
+See [Textarea documentation](components/textarea.md).
 
 ---
 
@@ -226,6 +230,8 @@ Toggle switch for boolean values.
 ```
 
 **Key Props:** `size`, `color`, `label`, `description`
+
+See [Switch documentation](components/switch.md).
 
 ---
 

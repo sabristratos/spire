@@ -6,19 +6,19 @@
 
     /* 2. Autocomplete Input Base */
     .spire-autocomplete-input {
-        @apply w-full;
+        @apply w-full focus:outline-none;
         transition: all var(--animation-duration-fast) ease-out;
     }
 
     /* 3. Autocomplete Input Size Variants */
     .spire-autocomplete-input--sm {
-        @apply h-8 px-2 text-sm;
+        @apply h-8 px-3 text-sm;
     }
     .spire-autocomplete-input--md {
         @apply h-10 px-3 text-base;
     }
     .spire-autocomplete-input--lg {
-        @apply h-12 px-4 text-lg;
+        @apply h-12 px-3 text-lg;
     }
 
     /* 4. Autocomplete Input Clearable Padding */
@@ -63,7 +63,6 @@
     /* 8. Autocomplete Content (Dropdown Panel) */
     .spire-autocomplete-content {
         @apply bg-surface border border-border rounded-lg shadow-lg;
-        animation: dropdown-bounce var(--animation-duration-normal) ease-out;
     }
 
     /* 9. Autocomplete Content Width Variants */
@@ -98,7 +97,7 @@
 
     /* 12. Autocomplete Option Item */
     .spire-autocomplete-option {
-        @apply flex items-center gap-3 w-full px-3 py-1.5 text-sm rounded-md cursor-pointer;
+        @apply flex items-center gap-3 w-full px-3 py-2 text-sm rounded-md cursor-pointer;
         transition: all var(--animation-duration-fast) ease-out;
     }
     .spire-autocomplete-option--normal {

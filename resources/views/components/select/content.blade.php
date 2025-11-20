@@ -10,7 +10,8 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('select-content')
-    ->modifier($width);
+    ->modifier($width)
+    ->addClass('animate-dropdown-bounce');
 
 // Add padding only if using auto-generated content
 if ($slot->isEmpty()) {

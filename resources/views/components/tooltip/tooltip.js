@@ -1,25 +1,24 @@
 import { overlay } from '../../../js/shared/overlay';
 
-/**
- * Tooltip component for Spire UI
- * Extends overlay component with hover support and auto-hide functionality
- */
 export function tooltipComponent(config = {}) {
+    const overlayTrigger = config.trigger === 'click' ? 'click' : '';
+
     return {
         ...overlay({
-            trigger: config.trigger || 'hover',
+            trigger: overlayTrigger,
             placement: config.placement || 'top',
             offset: config.offset || 8,
             onInit() {
+                if (this.trigger === 'hover') {
+                    this.setupHoverListeners();
+                }
                 config.onInit?.call(this);
             }
         }),
 
-        // Expose properties for template access
         placement: config.placement || 'top',
         trigger: config.trigger || 'hover',
 
-        // Map to overlay's 'open' property for template compatibility
         get isOpen() {
             return this.open;
         },
@@ -28,6 +27,29 @@ export function tooltipComponent(config = {}) {
         duration: config.duration || null,
         hoverTimeout: null,
         hideTimeout: null,
+
+        setupHoverListeners() {
+            const triggerEl = this.$refs.trigger;
+            const contentEl = this.$refs.content;
+
+            if (!triggerEl || !contentEl) return;
+
+            triggerEl.addEventListener('mouseenter', () => {
+                this.handleMouseEnter();
+            });
+
+            triggerEl.addEventListener('mouseleave', () => {
+                this.handleMouseLeave();
+            });
+
+            triggerEl.addEventListener('focusin', () => {
+                this.handleMouseEnter();
+            });
+
+            triggerEl.addEventListener('focusout', () => {
+                this.handleMouseLeave();
+            });
+        },
 
         handleMouseEnter() {
             if (this.hoverTimeout) {
@@ -54,7 +76,7 @@ export function tooltipComponent(config = {}) {
                 this.hideTimeout = null;
             }
 
-            this.$refs.content?.hidePopover();
+            this.hide();
         },
 
         scheduleAutoHide() {
@@ -63,7 +85,7 @@ export function tooltipComponent(config = {}) {
             }
 
             this.hideTimeout = setTimeout(() => {
-                this.$refs.content?.hidePopover();
+                this.hide();
             }, this.duration);
         },
 
@@ -83,11 +105,12 @@ export function tooltipComponent(config = {}) {
         destroy() {
             if (this.hoverTimeout) {
                 clearTimeout(this.hoverTimeout);
+                this.hoverTimeout = null;
             }
             if (this.hideTimeout) {
                 clearTimeout(this.hideTimeout);
+                this.hideTimeout = null;
             }
-            // Call overlay's destroy to clean up hover timer
             overlay().destroy?.call(this);
         }
     };

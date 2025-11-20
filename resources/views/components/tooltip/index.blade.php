@@ -2,7 +2,7 @@
     'content' => '',
     'placement' => 'top',
     'trigger' => 'hover',
-    'delay' => 300,
+    'delay' => spire_default('tooltip', 'delay', 300),
     'duration' => null,
 ])
 
@@ -12,6 +12,8 @@ use SpireUI\Support\ComponentClass;
 $builder = ComponentClass::make('tooltip')
     ->dataAttribute('placement', $placement)
     ->dataAttribute('trigger', $trigger);
+
+$tooltipId = 'tooltip-' . uniqid();
 @endphp
 
 <div
@@ -25,25 +27,26 @@ $builder = ComponentClass::make('tooltip')
 >
     <div
         x-ref="trigger"
-        @mouseenter="trigger === 'hover' && handleMouseEnter()"
-        @mouseleave="trigger === 'hover' && handleMouseLeave()"
-        @click="trigger === 'click' && toggle()"
+        class="spire-tooltip__trigger"
+        aria-describedby="{{ $tooltipId }}"
+        @if($trigger === 'click')
+            @click="toggle()"
+            @keydown.enter.prevent="toggle()"
+            @keydown.space.prevent="toggle()"
+            @keydown.escape="hide()"
+            tabindex="0"
+        @endif
     >
         {{ $slot }}
     </div>
 
     <div
+        id="{{ $tooltipId }}"
         x-ref="content"
-        x-show="isOpen"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
         popover="hint"
-        class="spire-tooltip__content"
-        style="display: none;"
+        role="tooltip"
+        class="spire-tooltip__content animate-tooltip-bounce"
+        data-placement="{{ $placement }}"
     >
         {{ $content }}
     </div>

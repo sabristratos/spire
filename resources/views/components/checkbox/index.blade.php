@@ -1,6 +1,6 @@
 @props([
     'variant' => 'regular',
-    'size' => 'md',
+    'size' => spire_default('checkbox', 'size', 'md'),
     'color' => 'primary',
     'radius' => 'md',
     'name' => null,

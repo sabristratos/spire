@@ -8,7 +8,7 @@
 @php
 use SpireUI\Support\ComponentClass;
 
-    $builder = ComponentClass::make('avatar-overflow')
+    $builder = ComponentClass::make('avatar__overflow')
         ->size($size)
         ->colorVariant($color, 'solid')
         ->when($isBordered, fn($b) => $b->modifier('bordered')->modifier("ring-{$color}"));

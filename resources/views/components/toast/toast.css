@@ -84,83 +84,83 @@
         @apply border-border bg-overlay;
     }
 
-    .spire-toast-content {
+    .spire-toast__content {
         @apply flex items-start gap-3 p-4;
     }
 
-    .spire-toast-icon {
+    .spire-toast__icon {
         @apply flex-shrink-0 mt-0.5;
     }
 
     /* Icon colors for both variants */
-    .spire-toast--success-soft .spire-toast-icon,
-    .spire-toast--success-solid .spire-toast-icon {
+    .spire-toast--success-soft .spire-toast__icon,
+    .spire-toast--success-solid .spire-toast__icon {
         @apply text-success;
     }
 
-    .spire-toast--error-soft .spire-toast-icon,
-    .spire-toast--error-solid .spire-toast-icon {
+    .spire-toast--error-soft .spire-toast__icon,
+    .spire-toast--error-solid .spire-toast__icon {
         @apply text-error;
     }
 
-    .spire-toast--warning-soft .spire-toast-icon,
-    .spire-toast--warning-solid .spire-toast-icon {
+    .spire-toast--warning-soft .spire-toast__icon,
+    .spire-toast--warning-solid .spire-toast__icon {
         @apply text-warning;
     }
 
-    .spire-toast--info-soft .spire-toast-icon,
-    .spire-toast--info-solid .spire-toast-icon {
+    .spire-toast--info-soft .spire-toast__icon,
+    .spire-toast--info-solid .spire-toast__icon {
         @apply text-info;
     }
 
-    .spire-toast--default-soft .spire-toast-icon,
-    .spire-toast--default-solid .spire-toast-icon {
+    .spire-toast--default-soft .spire-toast__icon,
+    .spire-toast--default-solid .spire-toast__icon {
         @apply text-text-muted;
     }
 
-    .spire-toast-text {
+    .spire-toast__text {
         @apply flex-1 min-w-0;
     }
 
-    .spire-toast-title {
+    .spire-toast__title {
         @apply font-semibold text-sm text-text mb-1;
     }
 
-    .spire-toast-message {
+    .spire-toast__message {
         @apply text-sm text-text-muted;
     }
 
-    .spire-toast-dismiss {
+    .spire-toast__dismiss {
         @apply flex-shrink-0 -mr-1 -mt-1;
     }
 
-    .spire-toast-progress {
+    .spire-toast__progress {
         @apply absolute bottom-0 left-0 h-1 rounded-bl-lg rounded-br-lg transition-all duration-100;
     }
 
     /* Progress bar colors for both variants */
-    .spire-toast--success-soft .spire-toast-progress,
-    .spire-toast--success-solid .spire-toast-progress {
+    .spire-toast--success-soft .spire-toast__progress,
+    .spire-toast--success-solid .spire-toast__progress {
         @apply bg-success;
     }
 
-    .spire-toast--error-soft .spire-toast-progress,
-    .spire-toast--error-solid .spire-toast-progress {
+    .spire-toast--error-soft .spire-toast__progress,
+    .spire-toast--error-solid .spire-toast__progress {
         @apply bg-error;
     }
 
-    .spire-toast--warning-soft .spire-toast-progress,
-    .spire-toast--warning-solid .spire-toast-progress {
+    .spire-toast--warning-soft .spire-toast__progress,
+    .spire-toast--warning-solid .spire-toast__progress {
         @apply bg-warning;
     }
 
-    .spire-toast--info-soft .spire-toast-progress,
-    .spire-toast--info-solid .spire-toast-progress {
+    .spire-toast--info-soft .spire-toast__progress,
+    .spire-toast--info-solid .spire-toast__progress {
         @apply bg-info;
     }
 
-    .spire-toast--default-soft .spire-toast-progress,
-    .spire-toast--default-solid .spire-toast-progress {
+    .spire-toast--default-soft .spire-toast__progress,
+    .spire-toast--default-solid .spire-toast__progress {
         @apply bg-primary;
     }
 }

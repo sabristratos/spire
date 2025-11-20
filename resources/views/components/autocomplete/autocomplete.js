@@ -12,6 +12,7 @@ export function autocompleteComponent(config = {}) {
         showOnFocus: config.showOnFocus !== false,
         highlightMatches: config.highlightMatches !== false,
         clearable: config.clearable !== false,
+        syncInput: config.syncInput || false,
         clearLabel: config.clearLabel || 'Clear input',
         displayOptions: [],
         observer: null,
@@ -41,6 +42,16 @@ export function autocompleteComponent(config = {}) {
         get filteredOptions() {
             if (!this.inputValue || this.inputValue.length < this.minChars) {
                 return this.showOnFocus ? this.displayOptions : [];
+            }
+
+            // When syncInput is enabled, server handles filtering - just return all options
+            if (this.syncInput) {
+                return this.displayOptions.map(option => ({
+                    ...option,
+                    highlightedHtml: this.highlightMatches
+                        ? this.highlightText(option.html, this.inputValue.toLowerCase())
+                        : option.html
+                }));
             }
 
             const query = this.inputValue.toLowerCase();
@@ -79,6 +90,10 @@ export function autocompleteComponent(config = {}) {
                 clearTimeout(this.debounceTimer);
 
                 this.debounceTimer = setTimeout(() => {
+                    // Sync input to value if syncInput is enabled
+                    if (this.syncInput) {
+                        this.value = newValue;
+                    }
                     this.handleInputChange(newValue);
                 }, this.debounce);
             });
@@ -89,6 +104,9 @@ export function autocompleteComponent(config = {}) {
                     if (option) {
                         this.inputValue = option.label;
                         this.selectedLabel = option.label;
+                    } else if (this.syncInput) {
+                        // In syncInput mode, keep inputValue in sync even without matching option
+                        this.inputValue = newValue;
                     }
                 } else {
                     this.inputValue = '';
@@ -297,6 +315,10 @@ export function autocompleteComponent(config = {}) {
             this.observer = new MutationObserver(() => {
                 this.$nextTick(() => {
                     this.initializeOptions();
+                    // After options are updated, show dropdown if appropriate
+                    if (this.shouldShowDropdown && this.inputValue.length >= this.minChars) {
+                        this.show();
+                    }
                 });
             });
 

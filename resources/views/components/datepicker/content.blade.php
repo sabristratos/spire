@@ -29,7 +29,10 @@ $defaultPresets = [
 
 $activePresets = empty($presets) ? $defaultPresets : $presets;
 
-$builder = ComponentClass::make('datepicker-content')->modifier($width);
+$builder = ComponentClass::make('datepicker__content')
+    ->modifier($width)
+    ->addClass('animate-dropdown-bounce')
+    ->dataAttribute('datepicker-content', 'true');
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
@@ -52,9 +55,9 @@ $mergedAttributes = $attributes->except([
     'presets',
 ])->merge([
     'data-placement' => $placement,
-    'data-spire-datepicker-content' => true,
     'popover' => 'auto',
     'class' => $builder->build(),
+    ...$builder->getDataAttributes(),
     'role' => 'dialog',
     'aria-label' => __('spire::spire-ui.datepicker.picker_label'),
 ]);
@@ -100,10 +103,10 @@ $mergedAttributes = $attributes->except([
 
         {{-- Footer with range inputs for range mode --}}
         <template x-if="mode === 'range'">
-            <div class="spire-datepicker-footer">
-                <div class="spire-datepicker-footer__inputs">
+            <div class="spire-datepicker__footer">
+                <div class="spire-datepicker__footer__inputs">
                     {{-- Start date segments --}}
-                    <div class="spire-datepicker-footer__segment-group">
+                    <div class="spire-datepicker__footer__segment-group">
                         <template x-for="(segment, index) in segmentOrder" :key="'start_' + segment">
                             <div class="contents">
                                 <input
@@ -121,22 +124,22 @@ $mergedAttributes = $attributes->except([
                                     @keydown="handleRangeSegmentKeydown(segment, 'start', $event)"
                                     @focus="$event.target.select()"
                                     :aria-label="segment === 'month' ? '{{ __('spire::spire-ui.datepicker.month') }}' : segment === 'day' ? '{{ __('spire::spire-ui.datepicker.day') }}' : '{{ __('spire::spire-ui.datepicker.year') }}'"
-                                    :class="segment === 'year' ? 'spire-datepicker-footer__segment spire-datepicker-footer__segment--year' : 'spire-datepicker-footer__segment'"
+                                    :class="segment === 'year' ? 'spire-datepicker__footer__segment spire-datepicker__footer__segment--year' : 'spire-datepicker__footer__segment'"
                                 />
 
                                 <span
                                     x-show="index < segmentOrder.length - 1"
-                                    class="spire-datepicker-footer__segment-separator"
+                                    class="spire-datepicker__footer__segment-separator"
                                     x-text="segmentSeparator"
                                 ></span>
                             </div>
                         </template>
                     </div>
 
-                    <span class="spire-datepicker-footer__range-separator">-</span>
+                    <span class="spire-datepicker__footer__range-separator">-</span>
 
                     {{-- End date segments --}}
-                    <div class="spire-datepicker-footer__segment-group">
+                    <div class="spire-datepicker__footer__segment-group">
                         <template x-for="(segment, index) in segmentOrder" :key="'end_' + segment">
                             <div class="contents">
                                 <input
@@ -154,19 +157,19 @@ $mergedAttributes = $attributes->except([
                                     @keydown="handleRangeSegmentKeydown(segment, 'end', $event)"
                                     @focus="$event.target.select()"
                                     :aria-label="segment === 'month' ? '{{ __('spire::spire-ui.datepicker.month') }}' : segment === 'day' ? '{{ __('spire::spire-ui.datepicker.day') }}' : '{{ __('spire::spire-ui.datepicker.year') }}'"
-                                    :class="segment === 'year' ? 'spire-datepicker-footer__segment spire-datepicker-footer__segment--year' : 'spire-datepicker-footer__segment'"
+                                    :class="segment === 'year' ? 'spire-datepicker__footer__segment spire-datepicker__footer__segment--year' : 'spire-datepicker__footer__segment'"
                                 />
 
                                 <span
                                     x-show="index < segmentOrder.length - 1"
-                                    class="spire-datepicker-footer__segment-separator"
+                                    class="spire-datepicker__footer__segment-separator"
                                     x-text="segmentSeparator"
                                 ></span>
                             </div>
                         </template>
                     </div>
                 </div>
-                <div class="spire-datepicker-footer__actions">
+                <div class="spire-datepicker__footer__actions">
                     <x-spire::button
                         type="button"
                         variant="ghost"

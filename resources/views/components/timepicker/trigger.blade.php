@@ -1,7 +1,7 @@
 @props([
-    'size' => 'md',
+    'size' => spire_default('timepicker', 'size', 'md'),
     'variant' => 'bordered',
-    'radius' => 'md',
+    'radius' => spire_default('timepicker', 'radius', 'md'),
     'disabled' => false,
     'readonly' => false,
     'required' => false,
@@ -19,7 +19,8 @@ $boxBuilder = ComponentClass::make('timepicker-box')
     ->radius($radius)
     ->when($disabled, fn($b) => $b->modifier('disabled'))
     ->when($error, fn($b) => $b->modifier('error'))
-    ->when($readonly, fn($b) => $b->modifier('readonly'));
+    ->when($readonly, fn($b) => $b->modifier('readonly'))
+    ->modifier('has-trailing');
 
 if ($customClass = $attributes->get('class')) {
     $containerBuilder->addClass($customClass);

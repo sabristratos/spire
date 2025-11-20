@@ -1,6 +1,6 @@
 @props([
-    'position' => 'bottom-right',
-    'duration' => 5000,
+    'position' => spire_default('toast', 'position', 'bottom-right'),
+    'duration' => spire_default('toast', 'duration', 5000),
     'variant' => 'solid',
 ])
 
@@ -35,12 +35,12 @@
         >
             <div
                 x-show="toast.showProgress && toast.progress !== null"
-                class="spire-toast-progress"
+                class="spire-toast__progress"
                 :style="`width: ${toast.progress}%`"
             ></div>
 
-            <div class="spire-toast-content">
-                <div class="spire-toast-icon">
+            <div class="spire-toast__content">
+                <div class="spire-toast__icon">
                     <x-spire::icon x-show="toast.color === 'success'" name="check-circle" class="w-5 h-5" />
                     <x-spire::icon x-show="toast.color === 'error'" name="alert-circle" class="w-5 h-5" />
                     <x-spire::icon x-show="toast.color === 'warning'" name="alert-triangle" class="w-5 h-5" />
@@ -48,9 +48,9 @@
                     <x-spire::icon x-show="toast.color === 'default'" name="bell" class="w-5 h-5" />
                 </div>
 
-                <div class="spire-toast-text">
-                    <h5 x-show="toast.title" x-text="toast.title" class="spire-toast-title"></h5>
-                    <p x-show="toast.message" x-text="toast.message" class="spire-toast-message"></p>
+                <div class="spire-toast__text">
+                    <h5 x-show="toast.title" x-text="toast.title" class="spire-toast__title"></h5>
+                    <p x-show="toast.message" x-text="toast.message" class="spire-toast__message"></p>
                 </div>
 
                 <x-spire::button
@@ -61,7 +61,7 @@
                     iconOnly
                     @click="removeToast(toast.id)"
                     :ariaLabel="$closeLabel"
-                    class="spire-toast-dismiss"
+                    class="spire-toast__dismiss"
                 >
                     <x-spire::icon name="x" class="w-4 h-4" />
                 </x-spire::button>

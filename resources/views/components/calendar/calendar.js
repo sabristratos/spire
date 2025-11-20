@@ -2,6 +2,7 @@ import { calendarState } from './calendar-state';
 import { CalendarUtils } from './calendar-utils';
 import { DateFormatter } from './date-formatter';
 import { calendarYearMonthMixin } from './calendar-year-month';
+import { calculatePresetRange } from '../../../js/shared/date-presets';
 
 export function calendarComponent(config = {}) {
     return {
@@ -92,7 +93,7 @@ export function calendarComponent(config = {}) {
         },
 
         selectPreset(preset) {
-            const range = this.calculatePresetRange(preset.key);
+            const range = calculatePresetRange(preset.key, this.firstDayOfWeek);
             if (range) {
                 this.value = { start: range.start, end: range.end };
 
@@ -105,75 +106,6 @@ export function calendarComponent(config = {}) {
             }
         },
 
-        calculatePresetRange(presetKey) {
-            const today = new Date();
-            const utils = CalendarUtils;
-
-            switch (presetKey) {
-                case 'last_7_days': {
-                    const start7 = new Date(today);
-                    start7.setDate(today.getDate() - 6);
-                    return {
-                        start: utils.formatDate(
-                            start7.getFullYear(),
-                            start7.getMonth(),
-                            start7.getDate()
-                        ),
-                        end: utils.today()
-                    };
-                }
-
-                case 'last_30_days': {
-                    const start30 = new Date(today);
-                    start30.setDate(today.getDate() - 29);
-                    return {
-                        start: utils.formatDate(
-                            start30.getFullYear(),
-                            start30.getMonth(),
-                            start30.getDate()
-                        ),
-                        end: utils.today()
-                    };
-                }
-
-                case 'this_week': {
-                    const { start, end } = utils.getWeekRange(utils.today(), this.firstDayOfWeek);
-                    return { start, end };
-                }
-
-                case 'last_week': {
-                    const lastWeekDate = new Date(today);
-                    lastWeekDate.setDate(today.getDate() - 7);
-                    const lastWeekDateString = utils.formatDate(
-                        lastWeekDate.getFullYear(),
-                        lastWeekDate.getMonth(),
-                        lastWeekDate.getDate()
-                    );
-                    const { start, end } = utils.getWeekRange(lastWeekDateString, this.firstDayOfWeek);
-                    return { start, end };
-                }
-
-                case 'this_month':
-                    return {
-                        start: utils.formatDate(today.getFullYear(), today.getMonth(), 1),
-                        end: utils.today()
-                    };
-
-                case 'last_month': {
-                    const lastMonth = today.getMonth() === 0 ? 11 : today.getMonth() - 1;
-                    const lastMonthYear = today.getMonth() === 0 ? today.getFullYear() - 1 : today.getFullYear();
-                    const lastDayOfLastMonth = new Date(lastMonthYear, lastMonth + 1, 0).getDate();
-                    return {
-                        start: utils.formatDate(lastMonthYear, lastMonth, 1),
-                        end: utils.formatDate(lastMonthYear, lastMonth, lastDayOfLastMonth)
-                    };
-                }
-
-                default:
-                    return null;
-            }
-        },
-
         isPresetActive(preset) {
             if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
                 return false;
@@ -182,7 +114,7 @@ export function calendarComponent(config = {}) {
                 return false;
             }
 
-            const presetRange = this.calculatePresetRange(preset.key);
+            const presetRange = calculatePresetRange(preset.key, this.firstDayOfWeek);
             if (!presetRange) return false;
 
             return this.value.start === presetRange.start && this.value.end === presetRange.end;

@@ -57,7 +57,6 @@
     /* 7. Select Content (Dropdown Panel) */
     .spire-select-content {
         @apply bg-surface border border-border rounded-lg shadow-lg p-1;
-        animation: dropdown-bounce var(--animation-duration-normal) ease-out;
     }
 
     /* 8. Select Content Width Variants */

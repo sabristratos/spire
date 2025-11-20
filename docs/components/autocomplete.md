@@ -35,6 +35,7 @@ The Autocomplete component provides a text input that shows filtered suggestions
 | `debounce` | number | `300` | Debounce delay in milliseconds |
 | `clearable` | boolean | `true` | Show clear button when input has value |
 | `highlightMatches` | boolean | `true` | Highlight matching text in suggestions |
+| `syncInput` | boolean | `false` | Sync input text to wire:model (for server-side filtering) |
 | `size` | string | `'md'` | Size variant: `sm`, `md`, `lg` |
 | `variant` | string | `'bordered'` | Visual variant: `bordered`, `flat` |
 | `color` | string | `'default'` | Color theme: `default`, `primary`, `error` |
@@ -119,12 +120,11 @@ Use the `label` prop to define what shows in the input when selected:
 
 ### Server-Side Search (Async Loading)
 
-For large datasets, filter on the server:
+For large datasets, filter on the server using `syncInput`:
 
 ```php
 // Livewire component
 public string $search = '';
-public ?string $selectedProductId = null;
 
 #[Computed]
 public function products(): Collection
@@ -141,18 +141,20 @@ public function products(): Collection
 
 ```blade
 <x-spire::autocomplete
-    wire:model="selectedProductId"
-    x-on:input.debounce.500ms="$wire.set('search', $event.target.value)"
+    wire:model.live="search"
     :minChars="2"
+    syncInput
     placeholder="Search products..."
 >
     @foreach($this->products as $product)
-        <x-spire::autocomplete.option value="{{ $product->id }}">
+        <x-spire::autocomplete.option value="{{ $product->id }}" label="{{ $product->name }}">
             {{ $product->name }}
         </x-spire::autocomplete.option>
     @endforeach
 </x-spire::autocomplete>
 ```
+
+The `syncInput` prop syncs the input text directly to your Livewire property as the user types, making it easy to fetch filtered results from the server.
 
 ### Without Show on Focus
 
@@ -277,6 +279,7 @@ function handleClear(detail) {
 | `open` | boolean | Whether dropdown is open |
 | `highlightedIndex` | number | Currently highlighted option index |
 | `filteredOptions` | array | Options filtered by input |
+| `syncInput` | boolean | Whether input syncs to value |
 
 ### Methods
 
@@ -349,7 +352,7 @@ The component implements comprehensive ARIA support:
 ### Do
 
 - Use `minChars` for large datasets to prevent overwhelming users
-- Use `wire:model.live.debounce` for server-side filtering
+- Use `syncInput` with `wire:model.live` for server-side filtering
 - Provide meaningful `placeholder` text
 - Use `label` prop when options have custom HTML
 - Use `wire:key` when rendering options in dynamic loops

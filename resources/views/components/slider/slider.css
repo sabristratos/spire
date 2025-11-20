@@ -76,6 +76,10 @@
         @apply bg-info;
     }
 
+    .spire-slider-fill--neutral {
+        @apply bg-neutral;
+    }
+
     .spire-slider-thumb {
         @apply absolute bg-surface rounded-full;
         @apply shadow-md;
@@ -124,6 +128,10 @@
 
     .spire-slider-thumb--info {
         @apply border-info;
+    }
+
+    .spire-slider-thumb--neutral {
+        @apply border-neutral-border;
     }
 
     .spire-slider:not(.spire-slider--disabled) .spire-slider-thumb:hover:not([data-spire-dragging="true"]) {

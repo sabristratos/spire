@@ -1,8 +1,8 @@
 {{-- Existing file item for server-stored files (list layout) --}}
-<div class="spire-file-upload-item">
+<div class="spire-file-upload__item">
     {{-- Icon/Thumbnail --}}
     <template x-if="file.thumbnailUrl && isImage(file.type)">
-        <div class="spire-file-upload-item-thumbnail">
+        <div class="spire-file-upload__item-thumbnail">
             <img
                 :src="file.thumbnailUrl"
                 :alt="file.name"
@@ -12,11 +12,11 @@
 
     <template x-if="!file.thumbnailUrl || !isImage(file.type)">
         <div
-            class="spire-file-upload-item-icon"
+            class="spire-file-upload__item-icon"
             :class="{
-                'spire-file-upload-item-icon--video': file.type && file.type.startsWith('video/'),
-                'spire-file-upload-item-icon--audio': file.type && file.type.startsWith('audio/'),
-                'spire-file-upload-item-icon--document': file.type === 'application/pdf'
+                'spire-file-upload__item-icon--video': file.type && file.type.startsWith('video/'),
+                'spire-file-upload__item-icon--audio': file.type && file.type.startsWith('audio/'),
+                'spire-file-upload__item-icon--document': file.type === 'application/pdf'
             }"
         >
             <template x-if="file.type && file.type.startsWith('video/')">
@@ -35,15 +35,15 @@
     </template>
 
     {{-- File info --}}
-    <div class="spire-file-upload-item-info">
-        <p class="spire-file-upload-item-name" x-text="file.name" :title="file.name"></p>
-        <div class="spire-file-upload-item-meta">
-            <span class="spire-file-upload-item-size" x-text="formatFileSize(file.size)"></span>
+    <div class="spire-file-upload__item-info">
+        <p class="spire-file-upload__item-name" x-text="file.name" :title="file.name"></p>
+        <div class="spire-file-upload__item-meta">
+            <span class="spire-file-upload__item-size" x-text="formatFileSize(file.size)"></span>
         </div>
     </div>
 
     {{-- Action buttons --}}
-    <div class="spire-file-upload-item-actions">
+    <div class="spire-file-upload__item-actions">
         {{-- View/Download button --}}
         <template x-if="file.url">
             <x-spire::button

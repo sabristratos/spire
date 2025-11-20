@@ -31,9 +31,9 @@ return [
     ],
 
     'dropdown' => [
-        'toggle' => '',
-        'menu' => '',
-        'select' => '',
+        'toggle' => 'تبديل القائمة المنسدلة',
+        'menu' => 'القائمة',
+        'select' => 'اختر خياراً',
     ],
 
     'select' => [
@@ -54,6 +54,13 @@ return [
         'no_results' => 'لم يتم العثور على نتائج',
         'min_chars_message' => 'اكتب :count حرف إضافي على الأقل|اكتب :count أحرف إضافية على الأقل',
         'clear' => 'مسح الإدخال',
+    ],
+
+    'breadcrumbs' => [
+        'label' => 'مسار التنقل',
+        'home' => 'الرئيسية',
+        'current_page' => 'الصفحة الحالية',
+        'show_hidden' => 'إظهار الصفحات المخفية',
     ],
 
     'modal' => [
@@ -141,12 +148,45 @@ return [
     'required' => 'مطلوب',
 
     'pagination' => [
-        'previous' => '',
-        'next' => '',
-        'showing' => '',
-        'to' => '',
-        'of' => '',
-        'results' => '',
+        'previous' => 'السابق',
+        'next' => 'التالي',
+        'showing' => 'عرض',
+        'to' => 'إلى',
+        'of' => 'من',
+        'results' => 'نتائج',
+    ],
+
+    'file_upload' => [
+        'dropzone' => 'أسقط الملفات هنا أو انقر للتصفح',
+        'dropzone_active' => 'أسقط الملفات هنا',
+        'or_click' => 'أو انقر للتصفح',
+        'choose_or_drag' => 'اختر ملفاً أو اسحبه وأسقطه هنا',
+        'formats_hint' => 'صيغ JPEG و PNG و PDF و MP4 مدعومة',
+        'browse' => 'تصفح الملفات',
+        'uploading' => 'جارٍ الرفع...',
+        'uploaded' => 'تم الرفع',
+        'error' => 'فشل الرفع',
+        'remove' => 'إزالة',
+        'retry' => 'إعادة المحاولة',
+        'view' => 'عرض',
+        'existing_files' => 'الملفات الموجودة',
+        'new_files' => 'ملفات جديدة',
+        'upload_all' => 'رفع الكل',
+        'upload' => 'رفع',
+        'max_size' => 'الحجم الأقصى',
+        'up_to' => 'حتى',
+        'max_files' => 'عدد الملفات الأقصى',
+        'max_files_error' => 'مسموح بحد أقصى :max ملفات',
+        'max_size_error' => 'حجم الملف يتجاوز :max',
+        'invalid_type_error' => 'نوع الملف غير مسموح به',
+        'no_files' => 'لم يتم اختيار أي ملفات',
+        'files_selected' => ':count ملف محدد|:count ملفات محددة',
+        'or' => 'أو',
+        'upload_from_url' => 'رفع من رابط',
+        'url_placeholder' => 'أدخل رابط الملف',
+        'url_error' => 'فشل في جلب الملف من الرابط',
+        'url_invalid' => 'يرجى إدخال رابط صحيح',
+        'url_cors_error' => 'لا يمكن جلب الملف بسبب قيود cross-origin',
     ],
 
     'timepicker' => [
@@ -335,5 +375,38 @@ return [
         'close' => 'إغلاق الشريط الجانبي',
         'navigation' => 'التنقل',
         'menu' => 'القائمة',
+    ],
+
+    'phone-input' => [
+        'placeholder' => 'رقم الهاتف',
+        'search_placeholder' => 'البحث عن الدول...',
+        'no_results' => 'لم يتم العثور على دول',
+        'select_country' => 'اختر دولة',
+    ],
+
+    'carousel' => [
+        'label' => 'عرض دوار',
+        'previous' => 'الشريحة السابقة',
+        'next' => 'الشريحة التالية',
+        'play' => 'بدء العرض التلقائي',
+        'pause' => 'إيقاف العرض التلقائي',
+        'slide_indicators' => 'مؤشرات الشرائح',
+        'go_to_slide' => 'الذهاب إلى الشريحة :number',
+        'slide_of' => 'الشريحة :current من :total',
+    ],
+
+    'lightbox' => [
+        'close' => 'إغلاق العارض',
+        'previous' => 'السابق',
+        'next' => 'التالي',
+        'zoom_in' => 'تكبير',
+        'zoom_out' => 'تصغير',
+        'download' => 'تحميل',
+        'go_to_slide' => 'الذهاب إلى الشريحة',
+        'video_not_supported' => 'متصفحك لا يدعم علامة الفيديو.',
+    ],
+
+    'progress' => [
+        'loading' => 'جاري التحميل',
     ],
 ];

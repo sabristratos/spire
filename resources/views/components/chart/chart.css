@@ -1,0 +1,153 @@
+/* Chart Component Styles */
+
+/* Container */
+.spire-chart {
+    @apply relative w-full;
+}
+
+/* SVG Container */
+.spire-chart-svg {
+    @apply w-full h-full overflow-hidden;
+}
+
+/* Viewport (for legends/summaries) */
+.spire-chart-viewport {
+    @apply relative w-full;
+}
+
+/* Line */
+.spire-chart-line {
+    @apply fill-none stroke-current;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: d 300ms ease-out;
+}
+
+/* Area */
+.spire-chart-area {
+    @apply fill-current stroke-none;
+    opacity: 0.3;
+    transition: d 300ms ease-out;
+}
+
+/* Points */
+.spire-chart-point {
+    @apply stroke-current;
+    transition: r 150ms ease-out, cx 300ms ease-out, cy 300ms ease-out;
+}
+
+/* Axis */
+.spire-chart-axis {
+    @apply text-text-muted;
+}
+
+.spire-chart-axis--x {
+    /* X-axis specific styles */
+}
+
+.spire-chart-axis--y {
+    /* Y-axis specific styles */
+}
+
+/* Axis Line */
+.spire-chart-axis-line {
+    @apply stroke-current;
+    stroke-width: 1;
+}
+
+/* Grid Lines */
+.spire-chart-grid {
+    @apply stroke-current opacity-20;
+    stroke-width: 1;
+}
+
+/* Tick Labels */
+.spire-chart-tick {
+    @apply fill-current text-xs;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Tick Marks */
+.spire-chart-mark {
+    @apply stroke-current;
+    stroke-width: 1;
+}
+
+/* Zero Line */
+.spire-chart-zero-line {
+    @apply stroke-current opacity-50;
+    stroke-width: 1;
+}
+
+/* Cursor */
+.spire-chart-cursor {
+    @apply stroke-current opacity-50;
+    stroke-width: 1;
+    pointer-events: none;
+}
+
+/* Tooltip */
+.spire-chart-tooltip {
+    @apply absolute z-50;
+    @apply bg-surface border border-border rounded-md shadow-lg;
+    @apply px-3 py-2;
+    @apply text-sm;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.spire-chart-tooltip-heading {
+    @apply text-text-muted text-xs mb-1;
+}
+
+.spire-chart-tooltip-value {
+    @apply flex items-center justify-between gap-4;
+}
+
+.spire-chart-tooltip-label {
+    @apply text-text-muted;
+}
+
+.spire-chart-tooltip-number {
+    @apply font-medium tabular-nums;
+}
+
+/* Summary */
+.spire-chart-summary {
+    @apply relative;
+}
+
+.spire-chart-summary-value {
+    @apply tabular-nums;
+}
+
+/* Legend */
+.spire-chart-legend {
+    @apply inline-flex items-center gap-2 text-sm;
+}
+
+.spire-chart-legend-indicator {
+    @apply w-3 h-3 rounded-full;
+}
+
+.spire-chart-legend-label {
+    @apply text-text-muted;
+}
+
+/* Animation support for path transitions */
+@keyframes spire-chart-path-draw {
+    from {
+        stroke-dashoffset: var(--path-length, 1000);
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.spire-chart-line[data-spire-animate="true"] {
+    stroke-dasharray: var(--path-length, 1000);
+    animation: spire-chart-path-draw 1s ease-out forwards;
+}
+
+/* Dark mode adjustments handled by semantic tokens */

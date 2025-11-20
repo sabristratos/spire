@@ -25,7 +25,7 @@
 
 @props([
     'placeholder' => null,
-    'placement' => 'bottom-start',
+    'placement' => spire_default('select', 'placement', 'bottom-start'),
     'disabled' => false,
     'searchable' => false,
     'searchPlaceholder' => null,

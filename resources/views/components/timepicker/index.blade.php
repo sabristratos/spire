@@ -1,6 +1,6 @@
 @props([
     'placeholder' => null,
-    'placement' => 'bottom-start',
+    'placement' => spire_default('timepicker', 'placement', 'bottom-start'),
     'disabled' => false,
     'use24Hour' => null,
     'minuteStep' => 1,

@@ -6,7 +6,7 @@
     'disabledDates' => [],
     'disabledDaysOfWeek' => [],
     'locale' => null,
-    'firstDayOfWeek' => null,
+    'firstDayOfWeek' => spire_default('datepicker', 'firstDayOfWeek', null),
     'maxRange' => null,
     'minRange' => null,
     'maxDates' => null,

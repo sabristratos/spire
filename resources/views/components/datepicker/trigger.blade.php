@@ -1,7 +1,7 @@
 @props([
-    'size' => 'md',
+    'size' => spire_default('datepicker', 'size', 'md'),
     'variant' => 'bordered',
-    'radius' => 'md',
+    'radius' => spire_default('datepicker', 'radius', 'md'),
     'disabled' => false,
     'readonly' => false,
     'required' => false,
@@ -12,16 +12,17 @@
 @php
 use SpireUI\Support\ComponentClass;
 
-$containerBuilder = ComponentClass::make('datepicker-container');
+$containerBuilder = ComponentClass::make('datepicker__container');
 
-$boxBuilder = ComponentClass::make('datepicker-box')
+$boxBuilder = ComponentClass::make('datepicker__box')
     ->size($size)
     ->variant($variant)
     ->radius($radius)
     ->when($disabled, fn($b) => $b->modifier('disabled'))
     ->when($error, fn($b) => $b->modifier('error'))
     ->when($readonly, fn($b) => $b->modifier('readonly'))
-    ->modifier($mode);
+    ->modifier($mode)
+    ->modifier('has-trailing');
 
 if ($customClass = $attributes->get('class')) {
     $containerBuilder->addClass($customClass);
@@ -104,9 +105,15 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
             {{-- Range mode: Display start and end dates --}}
             <div class="spire-datepicker-trigger__range">
                 <div class="spire-datepicker-trigger__range-display">
-                    <span x-text="formattedRangeStart || '{{ __('spire::spire-ui.datepicker.start_date') }}'" class="spire-datepicker-trigger__range-value"></span>
+                    <span
+                        x-text="formattedRangeStart || '{{ __('spire::spire-ui.datepicker.start_date') }}'"
+                        :class="formattedRangeStart ? 'spire-datepicker-trigger__range-value' : 'spire-datepicker-trigger__range-value spire-datepicker-trigger__range-value--placeholder'"
+                    ></span>
                     <span class="spire-datepicker-trigger__range-separator">-</span>
-                    <span x-text="formattedRangeEnd || '{{ __('spire::spire-ui.datepicker.end_date') }}'" class="spire-datepicker-trigger__range-value"></span>
+                    <span
+                        x-text="formattedRangeEnd || '{{ __('spire::spire-ui.datepicker.end_date') }}'"
+                        :class="formattedRangeEnd ? 'spire-datepicker-trigger__range-value' : 'spire-datepicker-trigger__range-value spire-datepicker-trigger__range-value--placeholder'"
+                    ></span>
                 </div>
 
                 <x-spire::button
@@ -140,14 +147,14 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
             {{-- Multiple mode: Display chips --}}
             <div class="spire-datepicker-trigger__multiple">
                 {{-- Chips display --}}
-                <div class="spire-datepicker-chips-container" x-show="selectedCount > 0">
+                <div class="spire-datepicker__chips-container" x-show="selectedCount > 0">
                     <template x-for="(date, index) in selectedDates.slice(0, maxChipsDisplay)" :key="date.value">
-                        <span class="spire-datepicker-chip">
-                            <span class="spire-datepicker-chip__label" x-text="date.label"></span>
+                        <span class="spire-datepicker__chip">
+                            <span class="spire-datepicker__chip-label" x-text="date.label"></span>
                             <button
                                 type="button"
                                 @click.stop="removeDate(date.value)"
-                                class="spire-datepicker-chip__remove"
+                                class="spire-datepicker__chip-remove"
                                 :aria-label="`{{ __('spire::spire-ui.datepicker.remove_date') }}`.replace(':date', date.label)"
                                 {{ $disabled ? 'disabled' : '' }}
                             >

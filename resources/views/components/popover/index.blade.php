@@ -1,5 +1,5 @@
 @props([
-    'placement' => 'bottom-start',
+    'placement' => spire_default('popover', 'placement', 'bottom-start'),
     'type' => 'auto',
     'trigger' => 'click',
 ])

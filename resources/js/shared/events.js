@@ -25,6 +25,7 @@ export const SPIRE_EVENTS = {
 
     // Calendar/Datepicker Events
     DATE_SELECTED: 'spire-date-selected',
+    DATEPICKER_CLEARED: 'spire-datepicker-cleared',
 
     // Modal Events
     MODAL_OPENED: 'spire-modal-opened',
@@ -53,6 +54,18 @@ export const SPIRE_EVENTS = {
 
     // Tabs Events
     TABS_CHANGED: 'spire-tabs-changed',
+
+    // Phone Input Events
+    PHONE_INPUT_CHANGED: 'spire-phone-input-changed',
+    PHONE_INPUT_COUNTRY_CHANGED: 'spire-phone-input-country-changed',
+
+    // Carousel Events
+    CAROUSEL_CHANGE: 'spire-carousel-change',
+
+    // Lightbox Events
+    LIGHTBOX_OPENED: 'spire-lightbox-opened',
+    LIGHTBOX_CLOSED: 'spire-lightbox-closed',
+    LIGHTBOX_CHANGED: 'spire-lightbox-changed',
 };
 
 /**

@@ -1,5 +1,5 @@
 {
-    "name": "spire-ui/spire-ui",
+    "name": "stratos/spire-ui",
     "description": "A modern TALL stack component library with Tailwind v4, Livewire 3, and Alpine.js",
     "type": "library",
     "license": "MIT",
@@ -12,9 +12,17 @@
         "ui",
         "tall-stack"
     ],
+    "homepage": "https://sabristratos.github.io/spire/",
+    "support": {
+        "issues": "https://github.com/sabristratos/spire/issues",
+        "source": "https://github.com/sabristratos/spire",
+        "docs": "https://sabristratos.github.io/spire/"
+    },
     "authors": [
         {
-            "name": "Spire UI Contributors"
+            "name": "Sabri Kallel",
+            "email": "sabri@stratosdigital.io",
+            "role": "Developer"
         }
     ],
     "require": {
@@ -25,7 +33,10 @@
     "autoload": {
         "psr-4": {
             "SpireUI\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "extra": {
         "laravel": {

@@ -1,8 +1,8 @@
 @props([
     'variant' => 'bordered',
     'color' => 'default',
-    'size' => 'md',
-    'radius' => 'md',
+    'size' => spire_default('input', 'size', 'md'),
+    'radius' => spire_default('input', 'radius', 'md'),
     'type' => 'text',
     'disabled' => false,
     'readonly' => false,
@@ -55,11 +55,15 @@
     $inputBoxBuilder = ComponentClass::make('input-box')
         ->modifier($variant)
         ->modifier($size)
-        ->radius($radius);
+        ->radius($radius)
+        ->when($hasTrailingContent, fn($b) => $b->modifier('has-trailing'));
 
     $inputBoxClasses = $inputBoxBuilder->build();
 
-    $inputClasses = 'spire-input';
+    $inputBuilder = ComponentClass::make('input')
+        ->dataAttribute('input', 'true')
+        ->dataAttribute('variant', $variant)
+        ->dataAttribute('size', $size);
 
     $inputAttributes = $attributes->except(['class', 'style'])->merge([
         'type' => $viewable ? '' : $type,
@@ -67,10 +71,8 @@
         'readonly' => $readonly ? true : null,
         'required' => $required ? true : null,
         'placeholder' => $placeholder,
-        'data-spire-input' => 'true',
-        'data-spire-variant' => $variant,
-        'data-spire-size' => $size,
-        'class' => $inputClasses,
+        'class' => $inputBuilder->build(),
+        ...$inputBuilder->getDataAttributes(),
     ]);
 
     if ($viewable) {

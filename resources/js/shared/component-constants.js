@@ -65,29 +65,34 @@ export const SLIDER_DEFAULTS = {
     SHOW_TOOLTIP: true,
 };
 
+// Carousel Defaults
+export const CAROUSEL_DEFAULTS = {
+    AUTOPLAY: false,
+    INTERVAL: 5000,
+    LOOP: false,
+    PAUSE_ON_HOVER: true,
+    PAUSE_ON_FOCUS: true,
+    ITEMS_PER_VIEW: 1,
+};
+
+export const CAROUSEL_SCROLL_ANIMATION_DURATION = 500;
+export const CAROUSEL_SCROLL_END_TOLERANCE = 5;
+
+export const CAROUSEL_DEFAULT_BREAKPOINTS = {
+    xs: '30rem',
+    sm: '40rem',
+    md: '48rem',
+    lg: '64rem',
+    xl: '80rem',
+    '2xl': '96rem',
+    '3xl': '120rem',
+};
+
 // Rating Defaults
 export const RATING_DEFAULTS = {
     MAX_RATING: 5,
     DEFAULT_COLOR: 'warning',
     ALLOW_HALF: false,
-};
-
-// Datepicker Presets (sync with PHP DateRangePreset enum)
-export const DATEPICKER_PRESETS = {
-    TODAY: 'today',
-    YESTERDAY: 'yesterday',
-    THIS_WEEK: 'this_week',
-    LAST_WEEK: 'last_week',
-    LAST_7_DAYS: 'last_7_days',
-    LAST_30_DAYS: 'last_30_days',
-    THIS_MONTH: 'this_month',
-    LAST_MONTH: 'last_month',
-    THIS_QUARTER: 'this_quarter',
-    LAST_QUARTER: 'last_quarter',
-    THIS_YEAR: 'this_year',
-    LAST_YEAR: 'last_year',
-    YEAR_TO_DATE: 'year_to_date',
-    ALL_TIME: 'all_time',
 };
 
 // Date Segment Validation Ranges

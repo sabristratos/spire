@@ -17,7 +17,14 @@ use SpireUI\Support\ComponentClass;
 $isVertical = $orientation === 'vertical';
 
 $builder = ComponentClass::make('tabs')
-    ->when($isVertical, fn($b) => $b->modifier('vertical'));
+    ->when($isVertical, fn($b) => $b->modifier('vertical'))
+    ->dataAttribute('tabs', 'true')
+    ->dataAttribute('orientation', $orientation)
+    ->dataAttribute('variant', $variant)
+    ->dataAttribute('color', $color)
+    ->dataAttribute('size', $size)
+    ->dataAttribute('full-width', $fullWidth ? 'true' : 'false')
+    ->dataAttribute('scrollable', $scrollable ? 'true' : 'false');
 
 $alpineConfig = json_encode([
     'defaultValue' => $defaultValue,
@@ -29,16 +36,9 @@ $alpineConfig = json_encode([
 @endphp
 
 <div
-    {{ $attributes->merge(['class' => $builder->build()]) }}
+    {{ $attributes->merge(['class' => $builder->build(), ...$builder->getDataAttributes()]) }}
     x-data="spireTabs({{ $alpineConfig }})"
     x-modelable="activeTab"
-    data-spire-tabs
-    data-spire-orientation="{{ $orientation }}"
-    data-spire-variant="{{ $variant }}"
-    data-spire-color="{{ $color }}"
-    data-spire-size="{{ $size }}"
-    data-spire-full-width="{{ $fullWidth ? 'true' : 'false' }}"
-    data-spire-scrollable="{{ $scrollable ? 'true' : 'false' }}"
 >
     {{ $slot }}
 </div>

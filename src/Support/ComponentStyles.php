@@ -2,50 +2,102 @@
 
 namespace SpireUI\Support;
 
+/**
+ * Component style utility class for Spire UI.
+ *
+ * Provides static methods for generating Tailwind CSS class strings for common
+ * component styling patterns. This class serves as a central repository for
+ * style mappings and is used by ComponentClass and individual components.
+ *
+ * Features:
+ * - Color variant mappings (solid, bordered, flat, ghost, soft, link, shadow, dot)
+ * - Size variant mappings for different component types
+ * - Radius and shadow utilities
+ * - Input-specific style classes
+ * - Dropdown-specific style classes
+ * - Button/avatar group classes with complex selectors
+ *
+ * @example Basic usage:
+ * ```php
+ * $classes = ComponentStyles::colorClasses('solid', 'primary');
+ * // Returns: "bg-primary text-primary-foreground"
+ *
+ * $radius = ComponentStyles::radiusClasses('md');
+ * // Returns: "rounded-md"
+ * ```
+ *
+ * @package SpireUI\Support
+ */
 class ComponentStyles
 {
     /**
      * Available component sizes.
+     *
+     * @var array<int, string>
      */
     public const SIZES = ['sm', 'md', 'lg', 'xl', '2xl'];
 
     /**
      * Available component colors.
+     *
+     * @var array<int, string>
      */
     public const COLORS = ['default', 'primary', 'secondary', 'success', 'error', 'warning', 'info', 'featured'];
 
     /**
      * Available component variants.
+     *
+     * @var array<int, string>
      */
     public const VARIANTS = ['solid', 'bordered', 'flat', 'ghost', 'soft', 'link', 'shadow', 'dot'];
 
     /**
-     * Available component radii.
+     * Available component radii (standard set).
+     *
+     * @var array<int, string>
      */
     public const RADII = ['none', 'sm', 'md', 'lg', 'full'];
 
     /**
      * Extended radii (includes xl and 2xl).
+     *
+     * @var array<int, string>
      */
     public const RADII_EXTENDED = ['none', 'sm', 'md', 'lg', 'xl', '2xl', 'full'];
 
     /**
      * Available component shadows.
+     *
+     * @var array<int, string>
      */
     public const SHADOWS = ['none', 'sm', 'md', 'lg', 'xl'];
 
     /**
      * Available padding options.
+     *
+     * @var array<int, string>
      */
     public const PADDINGS = ['none', 'sm', 'md', 'lg'];
 
     /**
-     * Get color classes for a specific variant and color.
+     * Get color classes for a specific variant and color combination.
      *
-     * @param  string  $variant  The variant type (solid, bordered, flat, ghost, soft, link, shadow, dot)
-     * @param  string  $color  The color name (default, primary, secondary, success, error, warning, info)
-     * @param  array  $overrides  Optional overrides for specific color/variant combinations
+     * Returns Tailwind classes for a given variant-color pair. Supports custom
+     * overrides for specific combinations.
+     *
+     * @param string $variant The variant type (solid, bordered, flat, ghost, soft, link, shadow, dot)
+     * @param string $color The color name (default, primary, secondary, success, error, warning, info, featured)
+     * @param array<string, array<string, string>> $overrides Optional overrides for specific combinations
      * @return string The CSS classes for the color variant
+     *
+     * @example
+     * ```php
+     * ComponentStyles::colorClasses('solid', 'primary');
+     * // Returns: "bg-primary text-primary-foreground"
+     *
+     * ComponentStyles::colorClasses('ghost', 'error');
+     * // Returns: "bg-transparent hover:bg-error/10 active:bg-error/20 text-error"
+     * ```
      */
     public static function colorClasses(string $variant, string $color, array $overrides = []): string
     {
@@ -57,7 +109,17 @@ class ComponentStyles
     /**
      * Get all color variant mappings.
      *
-     * @return array<string, array<string, string>>
+     * Returns a complete mapping of all variant-color combinations with their
+     * corresponding Tailwind classes.
+     *
+     * @return array<string, array<string, string>> Two-dimensional array [variant][color] => classes
+     *
+     * @example
+     * ```php
+     * $variants = ComponentStyles::colorVariants();
+     * $solidPrimary = $variants['solid']['primary'];
+     * // "bg-primary text-primary-foreground"
+     * ```
      */
     public static function colorVariants(): array
     {
@@ -138,7 +200,18 @@ class ComponentStyles
     }
 
     /**
-     * Get ring (border) color classes.
+     * Get ring (focus outline) color classes.
+     *
+     * Returns Tailwind ring color classes for focus states.
+     *
+     * @param string $color Color name (default, neutral, primary, secondary, success, error, warning, info)
+     * @return string Ring color class (e.g., "ring-primary")
+     *
+     * @example
+     * ```php
+     * ComponentStyles::ringColorClasses('primary');
+     * // Returns: "ring-primary"
+     * ```
      */
     public static function ringColorClasses(string $color): string
     {
@@ -157,10 +230,23 @@ class ComponentStyles
     }
 
     /**
-     * Get size classes for a specific size variant.
+     * Get size classes for a specific component type.
      *
-     * @param  string  $size  The size (sm, md, lg, xl, 2xl)
-     * @param  string  $type  The type (default, avatar, badge, spinner)
+     * Returns Tailwind classes for component sizing. Different component types
+     * (default, badge, spinner) have different sizing scales.
+     *
+     * @param string $size The size (sm, md, lg, xl, 2xl)
+     * @param string $type The component type (default, badge, spinner)
+     * @return string Size classes
+     *
+     * @example
+     * ```php
+     * ComponentStyles::sizeClasses('md', 'default');
+     * // Returns: "w-10 h-10 text-sm"
+     *
+     * ComponentStyles::sizeClasses('md', 'badge');
+     * // Returns: "px-2.5 py-1 text-sm gap-1.5"
+     * ```
      */
     public static function sizeClasses(string $size, string $type = 'default'): string
     {
@@ -170,9 +256,16 @@ class ComponentStyles
     }
 
     /**
-     * Get all size variant mappings.
+     * Get all size variant mappings for different component types.
      *
-     * @return array<string, array<string, string>>
+     * @return array<string, array<string, string>> Nested array [type][size] => classes
+     *
+     * @example
+     * ```php
+     * $sizes = ComponentStyles::sizeVariants();
+     * $badgeMd = $sizes['badge']['md'];
+     * // "px-2.5 py-1 text-sm gap-1.5"
+     * ```
      */
     public static function sizeVariants(): array
     {
@@ -198,9 +291,20 @@ class ComponentStyles
     }
 
     /**
-     * Get radius classes.
+     * Get border-radius classes.
      *
-     * @param  bool  $extended  Include xl and 2xl variants
+     * @param string $radius Radius size (none, sm, md, lg, xl, 2xl, full)
+     * @param bool $extended Include xl and 2xl variants
+     * @return string Radius class
+     *
+     * @example
+     * ```php
+     * ComponentStyles::radiusClasses('md');
+     * // Returns: "rounded-md"
+     *
+     * ComponentStyles::radiusClasses('xl', true);
+     * // Returns: "rounded-xl"
+     * ```
      */
     public static function radiusClasses(string $radius, bool $extended = false): string
     {
@@ -212,7 +316,14 @@ class ComponentStyles
     /**
      * Get all radius variant mappings.
      *
-     * @return array<string, string>
+     * @param bool $extended Include xl and 2xl variants
+     * @return array<string, string> Array [radius] => class
+     *
+     * @example
+     * ```php
+     * $radii = ComponentStyles::radiusVariants();
+     * // ['none' => '', 'sm' => 'rounded-sm', 'md' => 'rounded-md', ...]
+     * ```
      */
     public static function radiusVariants(bool $extended = false): array
     {
@@ -240,7 +351,16 @@ class ComponentStyles
     }
 
     /**
-     * Get shadow classes.
+     * Get box-shadow classes.
+     *
+     * @param string $shadow Shadow size (none, sm, md, lg, xl)
+     * @return string Shadow class
+     *
+     * @example
+     * ```php
+     * ComponentStyles::shadowClasses('sm');
+     * // Returns: "shadow-sm"
+     * ```
      */
     public static function shadowClasses(string $shadow): string
     {
@@ -252,7 +372,13 @@ class ComponentStyles
     /**
      * Get all shadow variant mappings.
      *
-     * @return array<string, string>
+     * @return array<string, string> Array [shadow] => class
+     *
+     * @example
+     * ```php
+     * $shadows = ComponentStyles::shadowVariants();
+     * // ['none' => '', 'sm' => 'shadow-sm', 'md' => 'shadow', ...]
+     * ```
      */
     public static function shadowVariants(): array
     {
@@ -267,6 +393,15 @@ class ComponentStyles
 
     /**
      * Get padding classes.
+     *
+     * @param string $padding Padding size (none, sm, md, lg)
+     * @return string Padding class
+     *
+     * @example
+     * ```php
+     * ComponentStyles::paddingClasses('md');
+     * // Returns: "p-4"
+     * ```
      */
     public static function paddingClasses(string $padding): string
     {
@@ -278,7 +413,13 @@ class ComponentStyles
     /**
      * Get all padding variant mappings.
      *
-     * @return array<string, string>
+     * @return array<string, string> Array [padding] => class
+     *
+     * @example
+     * ```php
+     * $paddings = ComponentStyles::paddingVariants();
+     * // ['none' => '', 'sm' => 'p-3', 'md' => 'p-4', 'lg' => 'p-6']
+     * ```
      */
     public static function paddingVariants(): array
     {
@@ -292,6 +433,15 @@ class ComponentStyles
 
     /**
      * Build a class string from an array, filtering out empty values.
+     *
+     * @param array<int|string, string> $classes Array of class names
+     * @return string Space-separated class string
+     *
+     * @example
+     * ```php
+     * ComponentStyles::buildClassString(['bg-primary', '', 'text-white', null]);
+     * // Returns: "bg-primary text-white"
+     * ```
      */
     public static function buildClassString(array $classes): string
     {
@@ -301,7 +451,19 @@ class ComponentStyles
     /**
      * Generate group-aware ring classes for avatar groups.
      *
-     * @param  array  $colors  Array of color names to generate classes for
+     * Creates complex Tailwind selectors for avatars inside avatar groups with borders.
+     * Uses data attribute selectors to apply ring classes only within bordered groups.
+     *
+     * @param array<int, string> $colors Array of color names to generate classes for
+     * @return array<int, string> Array of Tailwind classes with complex selectors
+     *
+     * @example
+     * ```php
+     * ComponentStyles::avatarGroupRingClasses(['primary', 'secondary']);
+     * // Returns classes like:
+     * // "[div[data-spire-avatar-group-bordered]_&]:ring-2"
+     * // "[div[data-spire-avatar-group-bordered]_&[data-spire-color=primary]]:ring-primary"
+     * ```
      */
     public static function avatarGroupRingClasses(array $colors = ['default', 'neutral', 'primary', 'secondary', 'success', 'error', 'warning', 'info']): array
     {
@@ -320,6 +482,23 @@ class ComponentStyles
 
     /**
      * Generate button group radius and border classes.
+     *
+     * Creates complex Tailwind selectors for buttons inside button groups.
+     * Handles both horizontal and vertical button groups with proper radius
+     * and border adjustments.
+     *
+     * @param string $radius Radius size (none, sm, md, lg, full)
+     * @param string $variant Button variant (affects border removal logic)
+     * @return array<int, string> Array of Tailwind classes with complex selectors
+     *
+     * @example
+     * ```php
+     * ComponentStyles::buttonGroupClasses('md', 'solid');
+     * // Returns classes for:
+     * // - Removing middle button radius
+     * // - Applying radius to first/last buttons
+     * // - Removing duplicate borders between buttons
+     * ```
      */
     public static function buttonGroupClasses(string $radius, string $variant): array
     {
@@ -348,6 +527,8 @@ class ComponentStyles
 
     /**
      * Get the base class for the input's outer container.
+     *
+     * @return string Base class name
      */
     public static function inputContainerBase(): string
     {
@@ -356,6 +537,8 @@ class ComponentStyles
 
     /**
      * Get the base class for the input's inner box.
+     *
+     * @return string Base class name
      */
     public static function inputBoxBase(): string
     {
@@ -364,6 +547,9 @@ class ComponentStyles
 
     /**
      * Get the variant class for the input's inner box.
+     *
+     * @param string $variant Variant type (bordered, flat)
+     * @return string Variant class name
      */
     public static function inputBoxVariant(string $variant): string
     {
@@ -377,6 +563,9 @@ class ComponentStyles
 
     /**
      * Get the size class for the input's inner box.
+     *
+     * @param string $size Size (sm, md, lg)
+     * @return string Size class name
      */
     public static function inputBoxSize(string $size): string
     {
@@ -391,6 +580,8 @@ class ComponentStyles
 
     /**
      * Get the base class for the <input> element.
+     *
+     * @return string Base class name
      */
     public static function inputBase(): string
     {
@@ -399,6 +590,9 @@ class ComponentStyles
 
     /**
      * Get the size class for shorthand icons in the input.
+     *
+     * @param string $size Size (sm, md, lg)
+     * @return string Icon size class name
      */
     public static function inputIconSize(string $size): string
     {
@@ -413,6 +607,8 @@ class ComponentStyles
 
     /**
      * Get the base class for the dropdown content panel.
+     *
+     * @return string Base class name
      */
     public static function dropdownContentBase(): string
     {
@@ -421,6 +617,9 @@ class ComponentStyles
 
     /**
      * Get the width class for the dropdown content panel.
+     *
+     * @param string $width Width size (sm, md, lg, xl, auto)
+     * @return string Width class name
      */
     public static function dropdownContentWidth(string $width): string
     {
@@ -437,6 +636,8 @@ class ComponentStyles
 
     /**
      * Get the base class for a dropdown item.
+     *
+     * @return string Base class name
      */
     public static function dropdownItemBase(): string
     {
@@ -445,6 +646,10 @@ class ComponentStyles
 
     /**
      * Get the state class for a dropdown item.
+     *
+     * @param bool $disabled Whether the item is disabled
+     * @param bool $destructive Whether the item is destructive (e.g., delete action)
+     * @return string State class name
      */
     public static function dropdownItemState(bool $disabled, bool $destructive): string
     {
@@ -460,6 +665,8 @@ class ComponentStyles
 
     /**
      * Get the base class for a dropdown label.
+     *
+     * @return string Base class name
      */
     public static function dropdownLabelBase(): string
     {
@@ -468,6 +675,8 @@ class ComponentStyles
 
     /**
      * Get the base class for a dropdown separator.
+     *
+     * @return string Base class name
      */
     public static function dropdownSeparatorBase(): string
     {

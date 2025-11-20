@@ -1,8 +1,8 @@
 @props([
     'variant' => 'bordered',
     'color' => 'default',
-    'size' => 'md',
-    'radius' => 'md',
+    'size' => spire_default('textarea', 'size', 'md'),
+    'radius' => spire_default('textarea', 'radius', 'md'),
     'rows' => 4,
     'disabled' => false,
     'readonly' => false,

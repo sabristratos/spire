@@ -4,7 +4,7 @@
     'required' => false,
     'error' => null,
     'helper' => null,
-    'size' => 'md',
+    'size' => spire_default('field', 'size', 'md'),
 ])
 
 @php

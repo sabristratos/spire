@@ -2,7 +2,9 @@ import { overlay } from '../../../js/shared/overlay';
 import { calendarState } from '../calendar/calendar-state';
 import { CalendarUtils } from '../calendar/calendar-utils';
 import { calendarYearMonthMixin } from '../calendar/calendar-year-month';
-import { DATE_FORMAT_PATTERNS, DEFAULT_DATE_FORMAT, DATEPICKER_PRESETS } from '../../../js/shared/component-constants';
+import { DATE_FORMAT_PATTERNS, DEFAULT_DATE_FORMAT } from '../../../js/shared/component-constants';
+import { calculatePresetRange } from '../../../js/shared/date-presets';
+import { SPIRE_EVENTS, createEventPayload } from '../../../js/shared/events';
 
 export function datepickerComponent(config = {}) {
     return {
@@ -257,21 +259,34 @@ export function datepickerComponent(config = {}) {
         },
 
         clearDate() {
+            let previousValue;
+
             if (this.mode === 'single') {
+                previousValue = this.value;
                 this.value = '';
                 this.month = null;
                 this.day = null;
                 this.year = null;
                 this.segmentValues = { month: '', day: '', year: '' };
             } else if (this.mode === 'range') {
-                this.value = { start: '', end: '' };
+                previousValue = this.value ? { ...this.value } : null;
+                this.value = null;
                 this.rangeSegmentValues = {
                     start: { month: '', day: '', year: '' },
                     end: { month: '', day: '', year: '' }
                 };
             } else if (this.mode === 'multiple') {
+                previousValue = Array.isArray(this.value) ? [...this.value] : [];
                 this.value = [];
             }
+
+            this.$dispatch(SPIRE_EVENTS.DATEPICKER_CLEARED, createEventPayload({
+                id: this.$id('datepicker'),
+                value: this.value,
+                previousValue: previousValue,
+                metadata: { mode: this.mode }
+            }));
+
             this.hide();
         },
 
@@ -757,7 +772,7 @@ export function datepickerComponent(config = {}) {
         },
 
         selectPreset(preset) {
-            const range = this.calculatePresetRange(preset.key);
+            const range = calculatePresetRange(preset.key, this.firstDayOfWeek);
             if (range) {
                 this.value = { start: range.start, end: range.end };
 
@@ -770,75 +785,6 @@ export function datepickerComponent(config = {}) {
             }
         },
 
-        calculatePresetRange(presetKey) {
-            const today = new Date();
-            const utils = CalendarUtils;
-
-            switch (presetKey) {
-                case DATEPICKER_PRESETS.LAST_7_DAYS: {
-                    const start7 = new Date(today);
-                    start7.setDate(today.getDate() - 6);
-                    return {
-                        start: utils.formatDate(
-                            start7.getFullYear(),
-                            start7.getMonth(),
-                            start7.getDate()
-                        ),
-                        end: utils.today()
-                    };
-                }
-
-                case DATEPICKER_PRESETS.LAST_30_DAYS: {
-                    const start30 = new Date(today);
-                    start30.setDate(today.getDate() - 29);
-                    return {
-                        start: utils.formatDate(
-                            start30.getFullYear(),
-                            start30.getMonth(),
-                            start30.getDate()
-                        ),
-                        end: utils.today()
-                    };
-                }
-
-                case DATEPICKER_PRESETS.THIS_WEEK: {
-                    const { start, end } = utils.getWeekRange(utils.today(), this.firstDayOfWeek);
-                    return { start, end };
-                }
-
-                case DATEPICKER_PRESETS.LAST_WEEK: {
-                    const lastWeekDate = new Date(today);
-                    lastWeekDate.setDate(today.getDate() - 7);
-                    const lastWeekDateString = utils.formatDate(
-                        lastWeekDate.getFullYear(),
-                        lastWeekDate.getMonth(),
-                        lastWeekDate.getDate()
-                    );
-                    const { start, end } = utils.getWeekRange(lastWeekDateString, this.firstDayOfWeek);
-                    return { start, end };
-                }
-
-                case DATEPICKER_PRESETS.THIS_MONTH:
-                    return {
-                        start: utils.formatDate(today.getFullYear(), today.getMonth(), 1),
-                        end: utils.today()
-                    };
-
-                case DATEPICKER_PRESETS.LAST_MONTH: {
-                    const lastMonth = today.getMonth() === 0 ? 11 : today.getMonth() - 1;
-                    const lastMonthYear = today.getMonth() === 0 ? today.getFullYear() - 1 : today.getFullYear();
-                    const lastDayOfLastMonth = new Date(lastMonthYear, lastMonth + 1, 0).getDate();
-                    return {
-                        start: utils.formatDate(lastMonthYear, lastMonth, 1),
-                        end: utils.formatDate(lastMonthYear, lastMonth, lastDayOfLastMonth)
-                    };
-                }
-
-                default:
-                    return null;
-            }
-        },
-
         isPresetActive(preset) {
             if (this.mode !== 'range' || !this.isRangeValue(this.value)) {
                 return false;
@@ -847,7 +793,7 @@ export function datepickerComponent(config = {}) {
                 return false;
             }
 
-            const presetRange = this.calculatePresetRange(preset.key);
+            const presetRange = calculatePresetRange(preset.key, this.firstDayOfWeek);
             if (!presetRange) return false;
 
             return this.value.start === presetRange.start && this.value.end === presetRange.end;

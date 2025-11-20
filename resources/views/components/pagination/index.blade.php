@@ -17,7 +17,8 @@ if (!$paginator || !$paginator->hasPages()) {
 }
 
 $builder = ComponentClass::make('pagination')
-    ->size($size);
+    ->size($size)
+    ->dataAttribute('variant', $variant);
 
 $isLivewire = isset($this) && method_exists($this, 'gotoPage');
 $pageName = $paginator->getPageName();

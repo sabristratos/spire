@@ -1,8 +1,8 @@
 @props([
-    'size' => 'md',
+    'size' => spire_default('autocomplete', 'size', 'md'),
     'variant' => 'bordered',
     'color' => 'default',
-    'radius' => 'md',
+    'radius' => spire_default('autocomplete', 'radius', 'md'),
     'type' => 'text',
     'clearable' => true,
     'disabled' => false,

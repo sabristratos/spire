@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spire UI - TALL Stack Component Library</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="A modern TALL stack component library built with Laravel, Livewire, Alpine.js, and Tailwind CSS v4. 47 production-ready components for building beautiful web applications.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="keywords" content="Spire UI, TALL stack, Laravel, Livewire, Alpine.js, Tailwind CSS, components, UI library">
+
+  <!-- Theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+  <!-- Custom styles -->
+  <style>
+    :root {
+      --theme-color: oklch(0.60 0.083 118.52);
+      --theme-color-dark: oklch(0.50 0.083 118.52);
+      --theme-color-secondary: oklch(0.65 0.15 250);
+    }
+
+    /* Component props tables styling */
+    .markdown-section table {
+      font-size: 0.9em;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1.2em 0;
+    }
+
+    .markdown-section table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .markdown-section table td:first-child code,
+    .markdown-section table th:first-child {
+      color: var(--theme-color);
+    }
+
+    /* Code inline styling */
+    .markdown-section code {
+      border-radius: 4px;
+      color: #e96900;
+      font-size: .85rem;
+      margin: 0 2px;
+      padding: 3px 6px;
+      background-color: #f8f8f8;
+    }
+
+    .markdown-section pre > code {
+      color: #ccc;
+      background-color: #282c34;
+      border-radius: 6px;
+    }
+
+    /* Sidebar styling */
+    .sidebar {
+      background-color: #fafafa;
+    }
+
+    .sidebar ul li a {
+      font-size: 14px;
+    }
+
+    .sidebar ul li strong {
+      color: #2c3e50;
+      font-size: 15px;
+      margin-top: 1em;
+      display: block;
+    }
+
+    /* Coverpage styling */
+    .cover.show {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .cover-main > p:last-child a {
+      color: var(--theme-color);
+      border: 1px solid var(--theme-color);
+    }
+
+    .cover-main > p:last-child a:hover {
+      background-color: var(--theme-color);
+      color: white;
+    }
+
+    /* Badge styling */
+    .markdown-section .badges {
+      margin: 1em 0;
+    }
+
+    .markdown-section .badges img {
+      margin-right: 0.5em;
+    }
+
+    /* Callout boxes */
+    .markdown-section blockquote {
+      border-left: 4px solid var(--theme-color);
+      background-color: #f8f9fa;
+      padding: 1em 1em 1em 1.5em;
+      margin: 1.5em 0;
+    }
+
+    .markdown-section blockquote p {
+      margin: 0;
+    }
+
+    /* Alert boxes */
+    .markdown-section .alert {
+      padding: 1em;
+      margin: 1.5em 0;
+      border-left: 4px solid;
+      border-radius: 4px;
+    }
+
+    .markdown-section .alert-info {
+      background-color: #e7f3ff;
+      border-color: #2196F3;
+    }
+
+    .markdown-section .alert-warning {
+      background-color: #fff8e1;
+      border-color: #ff9800;
+    }
+
+    .markdown-section .alert-danger {
+      background-color: #ffebee;
+      border-color: #f44336;
+    }
+
+    .markdown-section .alert-success {
+      background-color: #e8f5e9;
+      border-color: #4caf50;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">Loading documentation...</div>
+
+  <script>
+    window.$docsify = {
+      name: 'Spire UI',
+      repo: 'https://github.com/sabristratos/spire',
+      loadSidebar: true,
+      coverpage: true,
+      logo: '/_media/logo.svg',
+      auto2top: true,
+      maxLevel: 4,
+      subMaxLevel: 3,
+
+      // Search configuration
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: 'Search components and guides...',
+        noData: 'No results found.',
+        depth: 4,
+        hideOtherSidebarContent: false,
+        namespace: 'spire-ui-docs',
+      },
+
+      // Pagination
+      pagination: {
+        previousText: '← Previous',
+        nextText: 'Next →',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+
+      // Copy code
+      copyCode: {
+        buttonText: 'Copy',
+        errorText: 'Error',
+        successText: 'Copied!'
+      },
+
+      // Tabs plugin configuration
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+
+      // Alias for component paths
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+
+      // External link target
+      externalLinkTarget: '_blank',
+
+      // Footer plugin
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function (html) {
+            return html;
+          });
+
+          hook.afterEach(function (html) {
+            var footer = [
+              '<hr/>',
+              '<footer style="text-align: center; padding: 2em 0; color: #7f8c8d; font-size: 0.9em;">',
+              '<p>',
+              '<span>Made with ❤️ by the Spire UI Team</span>',
+              ' | ',
+              '<span>Licensed under <a href="https://github.com/sabristratos/spire/blob/main/LICENSE" target="_blank" rel="noopener">MIT</a></span>',
+              '</p>',
+              '<p style="margin-top: 0.5em;">',
+              '<a href="https://github.com/sabristratos/spire" target="_blank" rel="noopener">GitHub</a>',
+              ' • ',
+              '<a href="https://github.com/sabristratos/spire/issues" target="_blank" rel="noopener">Issues</a>',
+              ' • ',
+              '<a href="https://github.com/sabristratos/spire/discussions" target="_blank" rel="noopener">Discussions</a>',
+              '</p>',
+              '</footer>'
+            ].join('');
+
+            return html + footer;
+          });
+
+          hook.doneEach(function() {
+            // Scroll to top on navigation
+            window.scrollTo(0, 0);
+          });
+        }
+      ],
+
+      // Markdown configuration
+      markdown: {
+        smartypants: true,
+        renderer: {
+          code: function(code, lang) {
+            if (lang === 'blade') {
+              lang = 'html';
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Docsify core -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+  <!-- Search plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+
+  <!-- Copy code plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+
+  <!-- Pagination plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+
+  <!-- Syntax highlighting -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markup.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-css.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+
+  <!-- Tabs plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1/dist/docsify-tabs.min.js"></script>
+
+  <!-- Emoji plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/emoji.min.js"></script>
+
+  <!-- Zoom image plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+
+  <!-- External script plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/external-script.min.js"></script>
+</body>
+</html>

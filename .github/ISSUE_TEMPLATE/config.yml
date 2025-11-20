@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📚 Documentation
+    url: https://sabristratos.github.io/spire/
+    about: View the comprehensive component documentation
+  - name: 💬 GitHub Discussions
+    url: https://github.com/sabristratos/spire/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 🔒 Security Issue
+    url: https://github.com/sabristratos/spire/security/advisories/new
+    about: Report a security vulnerability privately

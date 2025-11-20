@@ -1,7 +1,7 @@
 @props([
     'mode' => 'single',
-    'size' => 'md',
-    'color' => 'primary',
+    'size' => spire_default('slider', 'size', 'md'),
+    'color' => 'neutral',
     'min' => 0,
     'max' => 100,
     'step' => 1,
@@ -234,7 +234,7 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
             <div
                 x-show="showTooltip && tooltipVisible"
                 x-ref="tooltip"
-                class="spire-tooltip"
+                class="spire-tooltip__content"
                 :style="getTooltipStyle()"
                 role="tooltip"
                 x-text="tooltipValue"

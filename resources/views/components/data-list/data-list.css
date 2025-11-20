@@ -3,6 +3,7 @@
     /* Root container */
     .spire-data-list {
         @apply m-0 flex flex-col gap-3;
+        container-type: inline-size;
     }
 
     /* Size variants */
@@ -96,5 +97,22 @@
     /* Vertical orientation value adjustments */
     .spire-data-list--vertical .spire-data-list-value {
         @apply text-text-muted;
+    }
+
+    /* Container query - switch horizontal to vertical on small containers */
+    @container (max-width: 20rem) {
+        .spire-data-list--horizontal .spire-data-list-item {
+            @apply flex-col gap-1;
+        }
+
+        .spire-data-list--horizontal .spire-data-list-label {
+            width: auto !important;
+            min-width: auto !important;
+            @apply text-xs font-medium uppercase tracking-wide;
+        }
+
+        .spire-data-list--horizontal .spire-data-list-value {
+            @apply text-text-muted;
+        }
     }
 }

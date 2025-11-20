@@ -8,7 +8,8 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('autocomplete-content')
-    ->modifier($width);
+    ->modifier($width)
+    ->addClass('animate-dropdown-bounce');
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);

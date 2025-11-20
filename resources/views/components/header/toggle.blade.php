@@ -20,6 +20,7 @@ if ($target) {
 
 <button
     type="button"
+    x-data
     {{ $attributes->merge(['class' => $builder->build()]) }}
     x-on:click="{{ $clickHandler }}"
     aria-label="{{ __('spire::spire-ui.header.toggle_menu') }}"

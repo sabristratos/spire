@@ -13,17 +13,18 @@
 
 @props([
     'placeholder' => null,
-    'placement' => 'bottom-start',
+    'placement' => spire_default('autocomplete', 'placement', 'bottom-start'),
     'disabled' => false,
     'showOnFocus' => true,
     'minChars' => 0,
-    'debounce' => 300,
+    'debounce' => spire_default('autocomplete', 'debounce', 300),
     'clearable' => true,
     'highlightMatches' => true,
-    'size' => 'md',
+    'syncInput' => false,
+    'size' => spire_default('autocomplete', 'size', 'md'),
     'variant' => 'bordered',
     'color' => 'default',
-    'radius' => 'md',
+    'radius' => spire_default('autocomplete', 'radius', 'md'),
 ])
 
 @php
@@ -44,6 +45,7 @@ $placeholderText = $placeholder ?? __('spire::spire-ui.autocomplete.placeholder'
         showOnFocus: {{ $showOnFocus ? 'true' : 'false' }},
         highlightMatches: {{ $highlightMatches ? 'true' : 'false' }},
         clearable: {{ $clearable ? 'true' : 'false' }},
+        syncInput: {{ $syncInput ? 'true' : 'false' }},
         clearLabel: '{{ __('spire::spire-ui.autocomplete.clear') }}',
     })"
     {{ WireEntangle::filteredAttributes($attributes) }}

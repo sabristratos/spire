@@ -1,8 +1,8 @@
 @props([
     'variant' => 'solid',
     'color' => 'default',
-    'size' => 'md',
-    'radius' => 'md',
+    'size' => spire_default('button', 'size', 'md'),
+    'radius' => spire_default('button', 'radius', 'md'),
     'disabled' => false,
     'loading' => false,
     'iconOnly' => false,
@@ -14,7 +14,7 @@
     'pressed' => false,
     'tooltip' => null,
     'tooltipPlacement' => 'top',
-    'tooltipDelay' => 300,
+    'tooltipDelay' => spire_default('tooltip', 'delay', 300),
 ])
 
 @php
@@ -80,8 +80,12 @@
 @endphp
 
 @if($hasTooltip)
-<div x-data="spireOverlay({ trigger: 'hover', placement: '{{ $tooltipPlacement }}', delay: {{ $tooltipDelay }} })">
-    <{{ $tag }} {{ $mergedAttributes }} x-ref="trigger">
+<x-spire::tooltip
+    :content="$tooltip"
+    :placement="$tooltipPlacement"
+    :delay="$tooltipDelay"
+>
+    <{{ $tag }} {{ $mergedAttributes }}>
     @if($loading)
         @if(isset($spinner))
             {{ $spinner }}
@@ -114,11 +118,7 @@
         {{ $trailing }}
     @endif
     </{{ $tag }}>
-
-    <div x-ref="content" x-show="open" x-cloak popover="hint" class="spire-tooltip-content animate-pop" data-placement="{{ $tooltipPlacement }}">
-        {{ $tooltip }}
-    </div>
-</div>
+</x-spire::tooltip>
 @else
 <{{ $tag }} {{ $mergedAttributes }}>
 @if($loading)

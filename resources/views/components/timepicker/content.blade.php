@@ -6,7 +6,8 @@
 @php
 use SpireUI\Support\ComponentClass;
 
-$builder = ComponentClass::make('timepicker-content');
+$builder = ComponentClass::make('timepicker-content')
+    ->addClass('animate-dropdown-bounce');
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);

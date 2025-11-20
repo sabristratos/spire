@@ -56,6 +56,13 @@ return [
         'clear' => 'Clear input',
     ],
 
+    'breadcrumbs' => [
+        'label' => 'Breadcrumb',
+        'home' => 'Home',
+        'current_page' => 'Current page',
+        'show_hidden' => 'Show hidden pages',
+    ],
+
     'modal' => [
         'close' => 'Close modal',
         'confirm_title' => 'Confirm action',
@@ -368,5 +375,38 @@ return [
 
     'toast' => [
         'close' => 'Close notification',
+    ],
+
+    'phone-input' => [
+        'placeholder' => 'Phone number',
+        'search_placeholder' => 'Search countries...',
+        'no_results' => 'No countries found',
+        'select_country' => 'Select country',
+    ],
+
+    'carousel' => [
+        'label' => 'Carousel',
+        'previous' => 'Previous slide',
+        'next' => 'Next slide',
+        'play' => 'Start automatic slide show',
+        'pause' => 'Stop automatic slide show',
+        'slide_indicators' => 'Slide indicators',
+        'go_to_slide' => 'Go to slide :number',
+        'slide_of' => 'Slide :current of :total',
+    ],
+
+    'lightbox' => [
+        'close' => 'Close lightbox',
+        'previous' => 'Previous',
+        'next' => 'Next',
+        'zoom_in' => 'Zoom in',
+        'zoom_out' => 'Zoom out',
+        'download' => 'Download',
+        'go_to_slide' => 'Go to slide',
+        'video_not_supported' => 'Your browser does not support the video tag.',
+    ],
+
+    'progress' => [
+        'loading' => 'Loading',
     ],
 ];

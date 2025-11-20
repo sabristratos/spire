@@ -21,22 +21,33 @@
 
     /* 4. Size Styles */
     .spire-input-box--sm {
-        @apply h-8 px-2 text-sm;
+        @apply h-8 px-3 text-sm;
     }
     .spire-input-box--md {
-        @apply h-10 px-2 text-base;
+        @apply h-10 px-3 text-base;
     }
     .spire-input-box--lg {
-        @apply h-12 px-2 text-lg;
+        @apply h-12 px-3 text-lg;
     }
 
-    /* 5. The <input> Element Itself */
+    /* 5. Trailing Content Spacing */
+    /* Reduced right padding when trailing content exists */
+    .spire-input-box--has-trailing {
+        @apply pr-2;
+    }
+
+    /* Tighter button padding inside inputs */
+    .spire-input-box .spire-button--icon-only {
+        @apply p-1;
+    }
+
+    /* 6. The <input> Element Itself */
     .spire-input {
         @apply flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 min-w-0;
         @apply text-text placeholder:text-text-muted disabled:text-text-disabled disabled:cursor-not-allowed;
     }
 
-    /* 6. Icon Sizes (for shorthand icons) */
+    /* 7. Icon Sizes (for shorthand icons) */
     .spire-input-icon--sm {
         @apply w-4 h-4;
     }

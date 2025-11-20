@@ -31,9 +31,9 @@ return [
     ],
 
     'dropdown' => [
-        'toggle' => '',
-        'menu' => '',
-        'select' => '',
+        'toggle' => 'Basculer le menu déroulant',
+        'menu' => 'Menu',
+        'select' => 'Sélectionner une option',
     ],
 
     'select' => [
@@ -54,6 +54,13 @@ return [
         'no_results' => 'Aucun résultat trouvé',
         'min_chars_message' => 'Tapez au moins :count caractère de plus|Tapez au moins :count caractères de plus',
         'clear' => 'Effacer la saisie',
+    ],
+
+    'breadcrumbs' => [
+        'label' => 'Fil d\'Ariane',
+        'home' => 'Accueil',
+        'current_page' => 'Page actuelle',
+        'show_hidden' => 'Afficher les pages masquées',
     ],
 
     'modal' => [
@@ -141,12 +148,45 @@ return [
     'required' => 'Requis',
 
     'pagination' => [
-        'previous' => '',
-        'next' => '',
-        'showing' => '',
-        'to' => '',
-        'of' => '',
-        'results' => '',
+        'previous' => 'Précédent',
+        'next' => 'Suivant',
+        'showing' => 'Affichage de',
+        'to' => 'à',
+        'of' => 'sur',
+        'results' => 'résultats',
+    ],
+
+    'file_upload' => [
+        'dropzone' => 'Déposez les fichiers ici ou cliquez pour parcourir',
+        'dropzone_active' => 'Déposez les fichiers ici',
+        'or_click' => 'ou cliquez pour parcourir',
+        'choose_or_drag' => 'Choisissez un fichier ou glissez-déposez-le ici',
+        'formats_hint' => 'Formats JPEG, PNG, PDF et MP4 acceptés',
+        'browse' => 'Parcourir les fichiers',
+        'uploading' => 'Téléversement...',
+        'uploaded' => 'Téléversé',
+        'error' => 'Échec du téléversement',
+        'remove' => 'Supprimer',
+        'retry' => 'Réessayer',
+        'view' => 'Voir',
+        'existing_files' => 'Fichiers existants',
+        'new_files' => 'Nouveaux fichiers',
+        'upload_all' => 'Tout téléverser',
+        'upload' => 'Téléverser',
+        'max_size' => 'Taille max',
+        'up_to' => 'Jusqu\'à',
+        'max_files' => 'Fichiers max',
+        'max_files_error' => 'Maximum de :max fichiers autorisés',
+        'max_size_error' => 'La taille du fichier dépasse :max',
+        'invalid_type_error' => 'Type de fichier non autorisé',
+        'no_files' => 'Aucun fichier sélectionné',
+        'files_selected' => ':count fichier sélectionné|:count fichiers sélectionnés',
+        'or' => 'ou',
+        'upload_from_url' => 'Téléverser depuis une URL',
+        'url_placeholder' => 'Entrez l\'URL du fichier',
+        'url_error' => 'Impossible de récupérer le fichier depuis l\'URL',
+        'url_invalid' => 'Veuillez entrer une URL valide',
+        'url_cors_error' => 'Impossible de récupérer le fichier en raison de restrictions cross-origin',
     ],
 
     'timepicker' => [
@@ -335,5 +375,38 @@ return [
         'close' => 'Fermer la barre latérale',
         'navigation' => 'Navigation',
         'menu' => 'Menu',
+    ],
+
+    'phone-input' => [
+        'placeholder' => 'Numéro de téléphone',
+        'search_placeholder' => 'Rechercher des pays...',
+        'no_results' => 'Aucun pays trouvé',
+        'select_country' => 'Sélectionner un pays',
+    ],
+
+    'carousel' => [
+        'label' => 'Carrousel',
+        'previous' => 'Diapositive précédente',
+        'next' => 'Diapositive suivante',
+        'play' => 'Démarrer le diaporama automatique',
+        'pause' => 'Arrêter le diaporama automatique',
+        'slide_indicators' => 'Indicateurs de diapositives',
+        'go_to_slide' => 'Aller à la diapositive :number',
+        'slide_of' => 'Diapositive :current sur :total',
+    ],
+
+    'lightbox' => [
+        'close' => 'Fermer la visionneuse',
+        'previous' => 'Précédent',
+        'next' => 'Suivant',
+        'zoom_in' => 'Zoom avant',
+        'zoom_out' => 'Zoom arrière',
+        'download' => 'Télécharger',
+        'go_to_slide' => 'Aller à la diapositive',
+        'video_not_supported' => 'Votre navigateur ne prend pas en charge la balise vidéo.',
+    ],
+
+    'progress' => [
+        'loading' => 'Chargement',
     ],
 ];

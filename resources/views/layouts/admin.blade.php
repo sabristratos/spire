@@ -6,7 +6,7 @@
     'userAvatar' => null,
 ])
 
-<div class="min-h-screen bg-body flex">
+<div class="overflow-hidden h-screen bg-body flex">
     <x-spire::sidebar variant="bordered" collapsible drawer class="md:relative md:translate-x-0 md:z-auto" wire:ignore>
         <x-slot:header>
             <div class="flex items-center gap-2">
@@ -49,7 +49,7 @@
         </x-slot:footer>
     </x-spire::sidebar>
 
-    <main class="flex-1 overflow-auto">
+    <div class="flex-1 flex flex-col overflow-auto">
         <x-spire::toast.container position="top-right" />
 
         <x-spire::header class="border-b border-border">
@@ -87,8 +87,8 @@
             </x-spire::dropdown>
         </x-spire::header>
 
-        <div {{ $attributes->merge(['class' => 'p-6']) }}>
+        <main {{ $attributes->merge(['class' => 'flex-1 p-6']) }}>
             {{ $slot }}
-        </div>
-    </main>
+        </main>
+    </div>
 </div>

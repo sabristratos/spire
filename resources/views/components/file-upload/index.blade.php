@@ -30,9 +30,10 @@ $existingJson = json_encode($existing instanceof \Illuminate\Support\Collection 
 $wireModelJs = $wireModel ? "'" . $wireModel . "'" : 'null';
 
 $containerBuilder = ComponentClass::make('file-upload')
-    ->addIf($disabled, 'spire-file-upload--disabled');
-
-$containerClasses = $containerBuilder->build();
+    ->addIf($disabled, 'spire-file-upload--disabled')
+    ->dataAttribute('file-upload', 'true')
+    ->dataAttribute('multiple', $multiple ? 'true' : 'false')
+    ->dataAttribute('disabled', $disabled ? 'true' : 'false');
 @endphp
 
 <div
@@ -64,10 +65,7 @@ $containerClasses = $containerBuilder->build();
             urlCorsError: '{{ __('spire::spire-ui.file_upload.url_cors_error') }}',
         }
     })"
-    {{ $attributes->whereDoesntStartWith('wire:model')->except(['class'])->merge(['class' => $containerClasses]) }}
-    data-spire-file-upload
-    data-spire-multiple="{{ $multiple ? 'true' : 'false' }}"
-    data-spire-disabled="{{ $disabled ? 'true' : 'false' }}"
+    {{ $attributes->whereDoesntStartWith('wire:model')->except(['class'])->merge(['class' => $containerBuilder->build(), ...$containerBuilder->getDataAttributes()]) }}
 >
     {{-- Hidden file input --}}
     <input
@@ -104,11 +102,11 @@ $containerClasses = $containerBuilder->build();
     @if($urlUpload && !$disabled)
         <x-spire::separator>{{ __('spire::spire-ui.file_upload.or') }}</x-spire::separator>
 
-        <div class="spire-file-upload-url">
-            <x-spire::form.label class="spire-file-upload-url-label">
+        <div class="spire-file-upload__url">
+            <x-spire::form.label class="spire-file-upload__url-label">
                 {{ __('spire::spire-ui.file_upload.upload_from_url') }}
             </x-spire::form.label>
-            <div class="spire-file-upload-url-input">
+            <div class="spire-file-upload__url-input">
                 <x-spire::input
                     type="url"
                     x-model="urlInput"
@@ -139,14 +137,14 @@ $containerClasses = $containerBuilder->build();
     @endif
 
     {{-- File Lists --}}
-    <div class="spire-file-upload-lists" x-show="hasFiles" x-cloak>
+    <div class="spire-file-upload__lists" x-show="hasFiles" x-cloak>
         {{-- Existing Files --}}
         <template x-if="existingFiles.length > 0">
-            <div class="spire-file-upload-existing">
-                <div class="spire-file-upload-section-label">
+            <div class="spire-file-upload__existing">
+                <div class="spire-file-upload__section-label">
                     {{ __('spire::spire-ui.file_upload.existing_files') }}
                 </div>
-                <div class="spire-file-upload-list">
+                <div class="spire-file-upload__list">
                     <template x-for="file in existingFiles" :key="file.id">
                         <x-spire::file-upload.existing />
                     </template>
@@ -156,11 +154,11 @@ $containerClasses = $containerBuilder->build();
 
         {{-- New Files --}}
         <template x-if="files.length > 0">
-            <div class="spire-file-upload-new">
-                <div class="spire-file-upload-section-label">
+            <div class="spire-file-upload__new">
+                <div class="spire-file-upload__section-label">
                     {{ __('spire::spire-ui.file_upload.new_files') }}
                 </div>
-                <div class="spire-file-upload-list">
+                <div class="spire-file-upload__list">
                     <template x-for="file in files" :key="file.id">
                         <x-spire::file-upload.preview />
                     </template>
@@ -171,7 +169,7 @@ $containerClasses = $containerBuilder->build();
 
     {{-- Upload Button (for manual upload mode) --}}
     @if(!$autoUpload)
-        <div class="spire-file-upload-actions" x-show="pendingCount > 0" x-cloak>
+        <div class="spire-file-upload__actions" x-show="pendingCount > 0" x-cloak>
             <x-spire::button
                 type="button"
                 color="primary"
