@@ -40,7 +40,7 @@ class InstallCommand extends Command
                     default => 'npm install',
                 };
 
-                $this->runCommand($installCommand);
+                $this->executeShellCommand($installCommand);
             });
 
             // Build assets
@@ -52,7 +52,7 @@ class InstallCommand extends Command
                         default => 'npm run build',
                     };
 
-                    $this->runCommand($buildCommand);
+                    $this->executeShellCommand($buildCommand);
                 });
             }
         }
@@ -80,7 +80,7 @@ class InstallCommand extends Command
         return 'npm';
     }
 
-    protected function runCommand(string $command): void
+    protected function executeShellCommand(string $command): void
     {
         $process = Process::fromShellCommandline(
             $command,
