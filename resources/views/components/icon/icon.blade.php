@@ -4,7 +4,15 @@
     $prefix = config('spire-ui.prefix', 'spire');
     $componentName = "{$prefix}::icon.icons.{$set}.{$name}";
 
+    // Check published vendor path first (for customizations)
     $iconPath = resource_path("views/vendor/{$prefix}/icon/icons/{$set}/{$name}.blade.php");
+
+    // Fall back to package installation path in vendor
+    if (!file_exists($iconPath)) {
+        $iconPath = base_path("vendor/stratos/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
+    }
+
+    // For monorepo development, check package directory
     if (!file_exists($iconPath)) {
         $iconPath = base_path("packages/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
     }
