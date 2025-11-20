@@ -2,7 +2,12 @@
     'id' => null,
     'icon' => null,
     'href' => null,
-    'active' => false,
+    'route' => null,
+    'active' => null,
+    'activeWhen' => null,
+    'activeRoute' => null,
+    'activeMatch' => 'exact',
+    'autoActive' => true,
     'disabled' => false,
     'badge' => null,
     'badgeColor' => 'primary',
@@ -15,16 +20,72 @@
 @php
 use SpireUI\Support\ComponentClass;
 
+// Check if slot has content (for nested items)
+$hasChildren = isset($children) && trim($children) !== '';
+
+// Auto-detect active state
+$isActive = $active; // Respect manual override
+
+if ($isActive === null && $autoActive) {
+    // Priority 1: Check if any child is active (auto-parent detection)
+    if ($hasChildren) {
+        // Use activeWhen if provided for parent items
+        if ($activeWhen !== null) {
+            $isActive = spire_is_active(patterns: $activeWhen);
+        }
+        // Or use activeRoute if provided
+        elseif ($activeRoute !== null) {
+            $isActive = spire_is_active(patterns: $activeRoute);
+        }
+        // Otherwise check href with starts-with for parent items
+        elseif ($href !== null) {
+            $isActive = spire_is_active(href: $href, match: 'starts-with');
+        }
+        // Or check route with wildcard
+        elseif ($route !== null) {
+            $isActive = spire_is_active(route: $route) || spire_is_active(patterns: "$route.*");
+        }
+    } else {
+        // For leaf items (no children), use exact matching
+        // Priority 2: Custom activeWhen pattern
+        if ($activeWhen !== null) {
+            $isActive = spire_is_active(patterns: $activeWhen);
+        }
+        // Priority 3: Custom activeRoute pattern
+        elseif ($activeRoute !== null) {
+            $isActive = spire_is_active(patterns: $activeRoute);
+        }
+        // Priority 4: Named route detection
+        elseif ($route !== null) {
+            $isActive = spire_is_active(route: $route);
+        }
+        // Priority 5: href URL matching
+        elseif ($href !== null) {
+            $isActive = spire_is_active(href: $href, match: $activeMatch);
+        }
+    }
+}
+
+// Fallback to false if still null
+$isActive = $isActive ?? false;
+
+// Generate href if route provided but href not
+if ($href === null && $route !== null) {
+    try {
+        $href = route($route);
+    } catch (\Exception $e) {
+        // Route requires parameters or doesn't exist
+        $href = null;
+    }
+}
+
 $builder = ComponentClass::make('sidebar-item')
-    ->when($active, fn($b) => $b->modifier('active'))
+    ->when($isActive, fn($b) => $b->modifier('active'))
     ->when($disabled, fn($b) => $b->modifier('disabled'))
-    ->dataAttribute('active', $active ? 'true' : 'false')
+    ->dataAttribute('active', $isActive ? 'true' : 'false')
     ->dataAttribute('disabled', $disabled ? 'true' : 'false')
     ->when($badge, fn($b) => $b->dataAttribute('has-badge', 'true'))
     ->when($badge, fn($b) => $b->dataAttribute('badge-color', $badgeColor));
-
-// Check if slot has content (for nested items)
-$hasChildren = isset($children) && trim($children) !== '';
 
 // Use button for items with children (they toggle expand/collapse), link for navigation
 $tag = ($href && !$disabled && !$hasChildren) ? 'a' : 'button';
@@ -53,7 +114,7 @@ $tag = ($href && !$disabled && !$hasChildren) ? 'a' : 'button';
             aria-disabled="true"
             @if($tag === 'button') disabled @endif
         @endif
-        @if($active)
+        @if($isActive)
             aria-current="page"
         @endif
         @if($hasChildren)

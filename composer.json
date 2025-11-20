@@ -28,7 +28,8 @@
     "require": {
         "php": "^8.3",
         "illuminate/support": "^12.0",
-        "livewire/livewire": "^3.0"
+        "livewire/livewire": "^3.0",
+        "symfony/process": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -47,5 +48,5 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "version": "1.0.0"
+    "version": "1.0.3"
 }

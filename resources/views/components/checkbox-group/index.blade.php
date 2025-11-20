@@ -63,6 +63,7 @@ $itemsBuilder = ComponentClass::make('checkbox-group-items')
     <div
         class="{{ $itemsBuilder->build() }}"
         {!! collect($itemsBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
+        data-spire-orientation="{{ $orientation }}"
     >
         {{ $slot }}
     </div>

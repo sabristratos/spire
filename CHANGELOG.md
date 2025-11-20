@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2025-11-20
+
+### Fixed
+- **Checkbox/Radio Group Orientation Bug**: Fixed horizontal orientation displaying as vertical by making item width conditional based on `data-spire-orientation` attribute. Items now default to `w-max` and only use `w-full` in vertical orientation.
+- **Radio Group Spacing**: Fixed spacing inconsistencies in radio-group to match checkbox-group alignment (label wrapper, description, helper, and error spacing).
+
+### Added
+- **Automatic Active State Detection**: Added `spire_is_active()` helper function that automatically detects active navigation items based on current URL or route.
+- **Sidebar Active State**: Sidebar items now auto-detect active state with support for named routes, wildcard patterns, and automatic parent detection.
+- **Header Active State**: Header navigation items now auto-detect active state with same capabilities as sidebar items.
+- **Active State Props**: Added `route`, `activeWhen`, `activeRoute`, `activeMatch`, and `autoActive` props to sidebar and header items for fine-grained control.
+
+### Changed
+- **Badge Component**: Removed non-functional `dot` prop. Use `variant="dot"` instead for minimal dot indicators.
+- **Header Item Prop**: Deprecated `current` prop in favor of `active` (backward compatible).
+
+### Documentation
+- Added comprehensive active state detection examples to sidebar.md and header.md
+- Updated badge.md to clarify `variant="dot"` usage and remove `dot` prop references
+- Added migration guides for transitioning from manual active state management
+
 ## [1.0.0] - 2025-11-20
 
 ### Added
@@ -115,5 +136,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/sabristratos/spire/compare/v1.0.0...v1.0.3
 [1.0.0]: https://github.com/sabristratos/spire/releases/tag/v1.0.0

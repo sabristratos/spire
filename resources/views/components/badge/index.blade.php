@@ -4,7 +4,6 @@
     'size' => 'md',
     'radius' => 'full',
     'disabled' => false,
-    'dot' => false,
 ])
 
 @php
@@ -27,7 +26,7 @@ use SpireUI\Support\ComponentClass;
         'featured' => 'bg-featured',
     ];
 
-    $showDot = $dot || $variant === 'dot';
+    $showDot = $variant === 'dot';
 
     $builder = ComponentClass::make('badge')
         ->size($size)

@@ -11,6 +11,11 @@
     /* Regular variant */
     .spire-radio--regular {
         @apply gap-3;
+        @apply w-max;
+    }
+
+    /* Full width only in vertical orientation */
+    [data-spire-orientation="vertical"] .spire-radio--regular {
         @apply w-full;
     }
 
@@ -191,12 +196,17 @@
     .spire-radio--card {
         @apply flex flex-col;
         @apply relative;
-        @apply w-full;
+        @apply w-max;
         @apply p-4 rounded-lg;
         @apply border border-border bg-surface;
         @apply transition-all;
         transition-duration: var(--animation-duration-fast);
         transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    /* Full width only in vertical orientation */
+    [data-spire-orientation="vertical"] .spire-radio--card {
+        @apply w-full;
     }
 
     .spire-radio--card:hover {
@@ -224,11 +234,11 @@
     /* ===== Radio Group Styles ===== */
 
     .spire-radio-group {
-        @apply flex flex-col gap-3;
+        @apply flex flex-col;
     }
 
     .spire-radio-group-label-wrapper {
-        @apply flex items-center justify-between;
+        @apply mb-2;
     }
 
     .spire-radio-group-label {
@@ -240,8 +250,7 @@
     }
 
     .spire-radio-group-description {
-        @apply text-sm text-text-muted;
-        @apply -mt-2;
+        @apply text-sm text-text-muted mb-3;
     }
 
     .spire-radio-group-items {
@@ -269,11 +278,10 @@
     }
 
     .spire-radio-group-helper {
-        @apply text-sm text-text-muted;
+        @apply mt-2 text-sm text-text-muted;
     }
 
     .spire-radio-group-error {
-        @apply flex items-center gap-2;
-        @apply text-sm text-error;
+        @apply mt-2 flex items-center gap-1.5 text-sm text-error;
     }
 }

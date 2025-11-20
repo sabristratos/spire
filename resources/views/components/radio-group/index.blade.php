@@ -11,7 +11,8 @@
 @php
 use SpireUI\Support\ComponentClass;
 
-$containerBuilder = ComponentClass::make('radio-group');
+$containerBuilder = ComponentClass::make('radio-group')
+    ->modifier($orientation);
 
 if ($customClass = $attributes->get('class')) {
     $containerBuilder->addClass($customClass);
@@ -46,7 +47,10 @@ $itemsBuilder = ComponentClass::make('radio-group-items')
         </p>
     @endif
 
-    <div class="{{ $itemsBuilder->build() }}">
+    <div
+        class="{{ $itemsBuilder->build() }}"
+        data-spire-orientation="{{ $orientation }}"
+    >
         {{ $slot }}
     </div>
 

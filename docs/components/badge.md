@@ -12,12 +12,11 @@ The Badge system includes two components:
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'solid' \| 'bordered' \| 'soft' \| 'dot'` | `'solid'` | Visual style of the badge |
+| `variant` | `'solid' \| 'bordered' \| 'soft' \| 'dot'` | `'solid'` | Visual style: `solid` (filled), `bordered` (outline), `soft` (subtle), `dot` (minimal dot indicator) |
 | `color` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'featured'` | `'default'` | Color scheme |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
 | `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'full'` | Border radius |
 | `disabled` | `boolean` | `false` | Disabled state |
-| `dot` | `boolean` | `false` | Shows colored dot before content |
 
 ### Badge.Container (Positioned Badge Wrapper)
 
@@ -72,10 +71,17 @@ The Badge system includes two components:
 ### Badge Variants
 
 ```blade
+{{-- Solid variant (filled background) --}}
 <x-spire::badge variant="solid" color="primary">Solid</x-spire::badge>
+
+{{-- Bordered variant (outline only) --}}
 <x-spire::badge variant="bordered" color="primary">Bordered</x-spire::badge>
+
+{{-- Soft variant (subtle background) --}}
 <x-spire::badge variant="soft" color="primary">Soft</x-spire::badge>
-<x-spire::badge variant="dot" color="primary">Dot</x-spire::badge>
+
+{{-- Dot variant (small indicator only, no text background) --}}
+<x-spire::badge variant="dot" color="primary">Dot Indicator</x-spire::badge>
 ```
 
 ### Badge with Icons
@@ -99,12 +105,15 @@ The Badge system includes two components:
 </x-spire::badge>
 ```
 
-### Badge with Dot
+### Dot Variant (Minimal Status Indicator)
+
+The `variant="dot"` shows a minimal colored dot indicator with text, useful for subtle status displays:
 
 ```blade
-<x-spire::badge dot color="success">Online</x-spire::badge>
-<x-spire::badge dot color="error">Offline</x-spire::badge>
-<x-spire::badge dot color="warning">Away</x-spire::badge>
+{{-- Minimal dot indicator without badge background --}}
+<x-spire::badge variant="dot" color="success">Online</x-spire::badge>
+<x-spire::badge variant="dot" color="error">Offline</x-spire::badge>
+<x-spire::badge variant="dot" color="warning">Away</x-spire::badge>
 ```
 
 ### Positioned Badge (Notification)
@@ -206,7 +215,8 @@ The Badge system includes two components:
 - Use standalone `Badge` for tags, labels, and status indicators
 - Use `Badge.Container` for notification counts and status dots on avatars/icons
 - Use color semantically (error for alerts, success for positive states, etc.)
-- Use `isDot` for subtle online/offline indicators
+- Use `variant="dot"` for minimal status indicators (Online/Offline/Away)
+- Use `Badge.Container` with `isDot` for subtle online/offline indicators on avatars
 - Keep badge content short (1-3 characters for numbers, single word for text)
 - Use `isInvisible` to toggle badge visibility dynamically
 - Use `showOutline` when badge is over images for better contrast

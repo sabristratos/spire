@@ -11,6 +11,11 @@
     /* Regular variant */
     .spire-checkbox--regular {
         @apply gap-3;
+        @apply w-max;
+    }
+
+    /* Full width only in vertical orientation */
+    [data-spire-orientation="vertical"] .spire-checkbox--regular {
         @apply w-full;
     }
 
@@ -229,12 +234,17 @@
     .spire-checkbox--card {
         @apply flex flex-col;
         @apply relative;
-        @apply w-full;
+        @apply w-max;
         @apply p-4 rounded-lg;
         @apply border border-border bg-surface;
         @apply transition-all;
         transition-duration: var(--animation-duration-fast);
         transition-timing-function: var(--animation-easing-ease-out);
+    }
+
+    /* Full width only in vertical orientation */
+    [data-spire-orientation="vertical"] .spire-checkbox--card {
+        @apply w-full;
     }
 
     .spire-checkbox--card:hover {

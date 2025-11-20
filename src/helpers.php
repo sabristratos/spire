@@ -101,3 +101,129 @@ if (! function_exists('spire_phone_countries')) {
         return include __DIR__ . '/../resources/views/components/phone-input/country-data.php';
     }
 }
+
+if (! function_exists('spire_is_active')) {
+    /**
+     * Check if a URL or route should be marked as active.
+     *
+     * This helper function determines if a navigation item should display
+     * an active state based on the current request URL or route.
+     *
+     * Supports multiple matching strategies:
+     * - Exact URL path matching
+     * - Named route matching
+     * - Wildcard pattern matching (e.g., 'users/*')
+     * - Route pattern matching (e.g., 'admin.*')
+     *
+     * @param string|null $href URL to check against current request
+     * @param string|null $route Named route to check
+     * @param string|array|null $patterns Custom URL or route patterns
+     * @param string $match Matching strategy: 'exact' or 'starts-with'
+     * @return bool True if the item should be marked as active
+     *
+     * @example Basic URL matching:
+     * ```php
+     * spire_is_active(href: '/dashboard') // true when on /dashboard
+     * spire_is_active(href: '/users')     // false when on /dashboard
+     * ```
+     *
+     * @example Named route matching:
+     * ```php
+     * spire_is_active(route: 'dashboard')     // true when route name is 'dashboard'
+     * spire_is_active(route: 'users.index')   // true when on users.index route
+     * ```
+     *
+     * @example Wildcard pattern matching:
+     * ```php
+     * spire_is_active(patterns: 'users/*')                    // matches /users/123, /users/edit
+     * spire_is_active(patterns: ['users/*', 'profile/*'])     // matches either pattern
+     * spire_is_active(patterns: 'admin.*')                    // matches admin.* routes
+     * ```
+     *
+     * @example Starts-with matching:
+     * ```php
+     * spire_is_active(href: '/users', match: 'starts-with')  // matches /users, /users/123
+     * ```
+     *
+     * @example In Blade components:
+     * ```blade
+     * <x-spire::sidebar.item
+     *     href="/users"
+     *     :active="spire_is_active(href: '/users', match: 'starts-with')"
+     * />
+     * ```
+     */
+    function spire_is_active(
+        ?string $href = null,
+        ?string $route = null,
+        string|array|null $patterns = null,
+        string $match = 'exact'
+    ): bool {
+        // Custom patterns have priority
+        if ($patterns !== null) {
+            $patterns = is_array($patterns) ? $patterns : [$patterns];
+
+            // Check if patterns are route names (contain dot) or URL paths
+            $firstPattern = $patterns[0] ?? '';
+            if (str_contains($firstPattern, '.') || str_contains($firstPattern, '*')) {
+                // Try route pattern matching first
+                try {
+                    if (request()->routeIs(...$patterns)) {
+                        return true;
+                    }
+                } catch (\Exception $e) {
+                    // Fall through to URL pattern matching
+                }
+            }
+
+            // URL pattern matching
+            return request()->is(...$patterns);
+        }
+
+        // Named route check
+        if ($route !== null) {
+            // Direct route name match
+            if (request()->routeIs($route)) {
+                return true;
+            }
+
+            // Also check if route URL matches current URL
+            try {
+                $routeUrl = route($route, [], false);
+                return request()->is(ltrim($routeUrl, '/'));
+            } catch (\Exception $e) {
+                // Route doesn't exist or requires parameters
+                return false;
+            }
+        }
+
+        // URL href check
+        if ($href !== null) {
+            // Skip external URLs
+            if (str_starts_with($href, 'http') || str_starts_with($href, '//')) {
+                return false;
+            }
+
+            // Skip hash links
+            if (str_starts_with($href, '#')) {
+                return false;
+            }
+
+            // Extract path from href (ignore query string and hash)
+            $path = ltrim(parse_url($href, PHP_URL_PATH) ?? '', '/');
+
+            // Empty path check
+            if ($path === '') {
+                return false;
+            }
+
+            if ($match === 'exact') {
+                return request()->is($path);
+            } elseif ($match === 'starts-with') {
+                return request()->is($path, "$path/*");
+            }
+        }
+
+        return false;
+    }
+}

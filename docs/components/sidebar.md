@@ -98,7 +98,12 @@ Sticky footer area.
 |------|------|---------|-------------|
 | `icon` | string | `null` | Icon name |
 | `href` | string | `null` | Navigation URL (uses `<a>` tag) |
-| `active` | boolean | `false` | Active/selected state |
+| `route` | string | `null` | Named route (auto-generates `href`) |
+| `active` | boolean\|null | `null` | Active/selected state (`null` = auto-detect, `true`/`false` = override) |
+| `activeWhen` | string\|array | `null` | Custom URL patterns for active state (e.g., `'users/*'`, `['users/*', 'profile/*']`) |
+| `activeRoute` | string\|array | `null` | Custom route patterns for active state (e.g., `'admin.*'`) |
+| `activeMatch` | string | `'exact'` | Matching strategy: `'exact'` or `'starts-with'` |
+| `autoActive` | boolean | `true` | Enable/disable automatic active state detection |
 | `disabled` | boolean | `false` | Disabled state |
 | `badge` | string | `null` | Badge text/count |
 | `badgeColor` | string | `'primary'` | Badge color: `primary`, `secondary`, `success`, `warning`, `error`, `neutral` |
@@ -113,6 +118,205 @@ Sticky footer area.
 | `default` | Item label text |
 | `label` | Custom label content |
 | `children` | Nested navigation items |
+
+### Automatic Active State Detection
+
+Sidebar items **automatically detect** if they match the current page and apply active styling without manual configuration.
+
+#### Basic Auto-Detection
+
+```blade
+{{-- ✅ Automatic: Active when on /dashboard --}}
+<x-spire::sidebar.item href="/dashboard" icon="layout-dashboard">
+    Dashboard
+</x-spire::sidebar.item>
+
+{{-- ✅ Automatic: Active when on /users --}}
+<x-spire::sidebar.item href="/users" icon="users">
+    Users
+</x-spire::sidebar.item>
+```
+
+**No need for manual `:active="request()->is('dashboard')"` anymore!**
+
+#### Named Route Detection
+
+Use Laravel route names for reliable matching (recommended):
+
+```blade
+{{-- Active when route name is 'dashboard' --}}
+<x-spire::sidebar.item route="dashboard" icon="layout-dashboard">
+    Dashboard
+</x-spire::sidebar.item>
+
+{{-- Active when route name is 'users.index' --}}
+<x-spire::sidebar.item route="users.index" icon="users">
+    Users
+</x-spire::sidebar.item>
+
+{{-- Route automatically generates href --}}
+<x-spire::sidebar.item route="users.show" href="/users/123" icon="user">
+    View User
+</x-spire::sidebar.item>
+```
+
+#### Wildcard Pattern Matching
+
+Use patterns for parent items or section-wide matching:
+
+```blade
+{{-- Active when on /users, /users/123, /users/create, etc. --}}
+<x-spire::sidebar.item
+    href="/users"
+    activeWhen="users/*"
+    icon="users"
+>
+    Users
+</x-spire::sidebar.item>
+
+{{-- Multiple patterns --}}
+<x-spire::sidebar.item
+    href="/settings"
+    :activeWhen="['settings/*', 'profile/*']"
+    icon="settings"
+>
+    Settings
+</x-spire::sidebar.item>
+```
+
+#### Route Pattern Matching
+
+Use route name patterns for wildcard route matching:
+
+```blade
+{{-- Active for admin.users, admin.settings, admin.dashboard, etc. --}}
+<x-spire::sidebar.item
+    route="admin.dashboard"
+    activeRoute="admin.*"
+    icon="shield"
+>
+    Admin
+</x-spire::sidebar.item>
+```
+
+#### Auto Parent Detection (Nested Items)
+
+Parent items **automatically become active** when any child is active:
+
+```blade
+{{-- Parent automatically active when on /users/active or /users/pending --}}
+<x-spire::sidebar.item icon="users">
+    Users
+    <x-slot:children>
+        <x-spire::sidebar.item href="/users/active">
+            Active Users
+        </x-spire::sidebar.item>
+        <x-spire::sidebar.item href="/users/pending">
+            Pending Users
+        </x-spire::sidebar.item>
+    </x-slot:children>
+</x-spire::sidebar.item>
+```
+
+**How it works:** Parent items with children automatically use `starts-with` matching on their `href` or check if any child route matches.
+
+#### Manual Override
+
+Override auto-detection with explicit `active` state:
+
+```blade
+{{-- Always active --}}
+<x-spire::sidebar.item :active="true" href="/special">
+    Special Page
+</x-spire::sidebar.item>
+
+{{-- Custom condition --}}
+<x-spire::sidebar.item
+    :active="auth()->user()->hasRole('admin')"
+    href="/admin"
+>
+    Admin Panel
+</x-spire::sidebar.item>
+
+{{-- Disable auto-detection --}}
+<x-spire::sidebar.item
+    href="https://docs.example.com"
+    :autoActive="false"
+>
+    External Docs
+</x-spire::sidebar.item>
+```
+
+#### Advanced Example: Multi-Level Navigation
+
+```blade
+<x-spire::sidebar.content>
+    {{-- Top-level item with auto-detection --}}
+    <x-spire::sidebar.item route="dashboard" icon="layout-dashboard">
+        Dashboard
+    </x-spire::sidebar.item>
+
+    {{-- Parent with wildcard pattern --}}
+    <x-spire::sidebar.item
+        href="/users"
+        activeWhen="users/*"
+        icon="users"
+    >
+        User Management
+        <x-slot:children>
+            {{-- Children auto-detect individually --}}
+            <x-spire::sidebar.item route="users.index">
+                All Users
+            </x-spire::sidebar.item>
+            <x-spire::sidebar.item route="users.active">
+                Active Users
+            </x-spire::sidebar.item>
+            <x-spire::sidebar.item route="users.pending">
+                Pending Approval
+            </x-spire::sidebar.item>
+        </x-slot:children>
+    </x-spire::sidebar.item>
+
+    {{-- Admin section with route patterns --}}
+    <x-spire::sidebar.item
+        route="admin.dashboard"
+        activeRoute="admin.*"
+        icon="shield"
+    >
+        Admin
+        <x-slot:children>
+            <x-spire::sidebar.item route="admin.users">
+                Manage Users
+            </x-spire::sidebar.item>
+            <x-spire::sidebar.item route="admin.settings">
+                System Settings
+            </x-spire::sidebar.item>
+        </x-slot:children>
+    </x-spire::sidebar.item>
+</x-spire::sidebar.content>
+```
+
+#### Migration from Manual Active State
+
+**Before (manual):**
+```blade
+<x-spire::sidebar.item
+    href="/dashboard"
+    :active="request()->is('dashboard')"
+>
+    Dashboard
+</x-spire::sidebar.item>
+```
+
+**After (automatic):**
+```blade
+<x-spire::sidebar.item href="/dashboard">
+    Dashboard
+</x-spire::sidebar.item>
+```
+
+**Still works (backward compatible):**
+The manual `:active` prop still works and takes precedence over auto-detection.
 
 ---
 
@@ -172,7 +376,8 @@ This allows the toggle button to be placed anywhere on the page:
     </x-slot:header>
 
     <x-spire::sidebar.content>
-        <x-spire::sidebar.item href="/dashboard" icon="layout-dashboard" :active="request()->is('dashboard')">
+        {{-- Active state is automatically detected --}}
+        <x-spire::sidebar.item href="/dashboard" icon="layout-dashboard">
             Dashboard
         </x-spire::sidebar.item>
         <x-spire::sidebar.item href="/users" icon="users">
@@ -205,7 +410,6 @@ This allows the toggle button to be placed anywhere on the page:
             <x-spire::sidebar.item
                 href="/dashboard"
                 icon="layout-dashboard"
-                :active="request()->is('dashboard')"
                 badge="3"
             >
                 Dashboard

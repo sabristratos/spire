@@ -49,6 +49,7 @@
         @apply relative;
     }
 
+    .spire-header-item--active,
     .spire-header-item--current {
         @apply text-text;
     }

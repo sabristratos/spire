@@ -132,9 +132,15 @@ Navigation item supporting links, icons, badges, and active states.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `href` | string | `null` | Link destination (renders as button if empty) |
+| `route` | string | `null` | Named route (auto-generates `href`) |
 | `icon` | string | `null` | Leading icon name |
 | `iconTrailing` | string | `null` | Trailing icon name |
-| `current` | boolean | `false` | Mark as current/active page |
+| `active` | boolean\|null | `null` | Active/current state (`null` = auto-detect, `true`/`false` = override) |
+| `current` | boolean\|null | `null` | *Deprecated:* Use `active` instead (kept for backward compatibility) |
+| `activeWhen` | string\|array | `null` | Custom URL patterns for active state (e.g., `'users/*'`) |
+| `activeRoute` | string\|array | `null` | Custom route patterns for active state (e.g., `'admin.*'`) |
+| `activeMatch` | string | `'exact'` | Matching strategy: `'exact'` or `'starts-with'` |
+| `autoActive` | boolean | `true` | Enable/disable automatic active state detection |
 | `badge` | string | `null` | Badge text content |
 | `badgeColor` | string | `'primary'` | Badge color variant |
 | `label` | string | `null` | Aria-label for icon-only items |
@@ -152,13 +158,18 @@ Navigation item supporting links, icons, badges, and active states.
 ### Examples
 
 ```blade
-{{-- Basic text link --}}
+{{-- Basic text link (active state auto-detected) --}}
 <x-spire::header.item href="/dashboard">
     Dashboard
 </x-spire::header.item>
 
-{{-- Current page --}}
-<x-spire::header.item href="/dashboard" current>
+{{-- Named route (auto-detects active state) --}}
+<x-spire::header.item route="dashboard">
+    Dashboard
+</x-spire::header.item>
+
+{{-- Manual active state override --}}
+<x-spire::header.item href="/dashboard" :active="true">
     Dashboard
 </x-spire::header.item>
 
@@ -186,6 +197,88 @@ Navigation item supporting links, icons, badges, and active states.
 {{-- Disabled item --}}
 <x-spire::header.item disabled>
     Coming Soon
+</x-spire::header.item>
+```
+
+### Automatic Active State Detection
+
+Header items **automatically detect** if they match the current page and apply active styling.
+
+#### Basic Auto-Detection
+
+```blade
+{{-- Automatically active when on /dashboard --}}
+<x-spire::header.item href="/dashboard">Dashboard</x-spire::header.item>
+
+{{-- Automatically active when on /about --}}
+<x-spire::header.item href="/about">About</x-spire::header.item>
+```
+
+#### Named Route Detection
+
+```blade
+{{-- Active when route name is 'dashboard' --}}
+<x-spire::header.item route="dashboard">Dashboard</x-spire::header.item>
+
+{{-- Active when route name is 'users.index' --}}
+<x-spire::header.item route="users.index">Users</x-spire::header.item>
+```
+
+#### Wildcard Pattern Matching
+
+```blade
+{{-- Active when on /admin, /admin/users, /admin/settings, etc. --}}
+<x-spire::header.item
+    href="/admin"
+    activeWhen="admin/*"
+>
+    Admin
+</x-spire::header.item>
+
+{{-- Multiple patterns --}}
+<x-spire::header.item
+    href="/settings"
+    :activeWhen="['settings/*', 'profile/*']"
+>
+    Settings
+</x-spire::header.item>
+```
+
+#### Manual Override
+
+```blade
+{{-- Always active --}}
+<x-spire::header.item :active="true" href="/special">
+    Special
+</x-spire::header.item>
+
+{{-- Custom condition --}}
+<x-spire::header.item
+    :active="auth()->check()"
+    href="/account"
+>
+    My Account
+</x-spire::header.item>
+```
+
+#### Deprecation Notice
+
+> **Note:** The `current` prop is deprecated in favor of `active`. While `current` still works for backward compatibility, new code should use `active`.
+
+```blade
+{{-- ❌ Deprecated (still works) --}}
+<x-spire::header.item href="/dashboard" :current="true">
+    Dashboard
+</x-spire::header.item>
+
+{{-- ✅ Recommended --}}
+<x-spire::header.item href="/dashboard" :active="true">
+    Dashboard
+</x-spire::header.item>
+
+{{-- ✅ Best: Let it auto-detect --}}
+<x-spire::header.item href="/dashboard">
+    Dashboard
 </x-spire::header.item>
 ```
 
