@@ -13,22 +13,30 @@ A modern TALL stack component library built with Tailwind CSS v4, Livewire 3, an
 
 ## Installation
 
-Install the package via Composer:
+### Quick Install (Recommended)
+
+Install the package via Composer and run the install command:
 
 ```bash
 composer require stratos/spire-ui
+php artisan spire:install
 ```
 
-> **⚠️ Important: JavaScript Dependencies Required**
->
-> After installing via Composer, you **must** install JavaScript dependencies to make interactive components work:
->
-> ```bash
-> npm install
-> npm run build
-> ```
->
-> Spire UI requires Alpine.js, Tailwind CSS, and other JavaScript packages that are not installed by Composer. Without running `npm install`, components like Select, Datepicker, Modal, and others will not function properly.
+The install command will:
+- ✓ Detect your package manager (npm, pnpm, or yarn)
+- ✓ Install JavaScript dependencies (Alpine.js, Tailwind CSS, polyfills, flag-icons)
+- ✓ Build assets
+- ✓ Optionally publish configuration
+- ✓ Show you the next steps
+
+### Manual Installation
+
+If you prefer to install dependencies manually:
+
+```bash
+composer require stratos/spire-ui
+npm install && npm run build
+```
 
 ### Asset Setup
 

@@ -68,6 +68,13 @@ class SpireUIServiceProvider extends ServiceProvider
     {
         $prefix = config('spire-ui.prefix', 'spire');
 
+        // Register Artisan commands
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\InstallCommand::class,
+            ]);
+        }
+
         $this->loadViewsFrom(__DIR__.'/../resources/views', $prefix);
 
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', $prefix);

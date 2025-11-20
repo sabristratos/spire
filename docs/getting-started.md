@@ -16,7 +16,7 @@ Spire UI has the following requirements:
 
 ### Step 1: Install via Composer
 
-In a monorepo setup, Spire UI is already installed as a local package. For standalone installation in a new Laravel project:
+For standalone installation in a new Laravel project:
 
 ```bash
 composer require stratos/spire-ui
@@ -24,17 +24,36 @@ composer require stratos/spire-ui
 
 The service provider will be automatically discovered and registered by Laravel.
 
-> **⚠️ Critical: Install JavaScript Dependencies**
->
-> Spire UI requires JavaScript packages (Alpine.js, Tailwind CSS, polyfills, icons) that are **not** installed by Composer. You must run:
->
-> ```bash
-> npm install
-> ```
->
-> Without this step, interactive components (Select, Autocomplete, Datepicker, Modal, Timepicker, etc.) will not work. This is required because Composer only installs PHP packages, not JavaScript dependencies.
+### Step 2: Run Install Command
 
-### Step 2: Publish Configuration (Optional)
+Run the Spire UI install command to set up assets and dependencies:
+
+```bash
+php artisan spire:install
+```
+
+This command will:
+- Detect your package manager (npm, pnpm, or yarn) automatically
+- Install JavaScript dependencies (Alpine.js, Tailwind CSS, polyfills, flag-icons)
+- Build your assets with `npm run build`
+- Optionally publish the configuration file
+- Display next steps for integrating Spire UI into your application
+
+**Command Options:**
+- `--skip-npm` - Skip JavaScript dependency installation
+- `--skip-build` - Install dependencies but skip building assets
+- `--no-interaction` - Skip all prompts (useful for CI/CD)
+
+**Example:**
+```bash
+# For CI/CD environments
+php artisan spire:install --no-interaction
+
+# Manual asset building
+php artisan spire:install --skip-build
+```
+
+### Step 3: Publish Configuration (Optional - if not done during install)
 
 Publish the configuration file to customize component defaults, theme settings, and more:
 
@@ -46,7 +65,7 @@ This creates `config/spire-ui.php` where you can set global defaults for compone
 
 [View Configuration Guide](configuration.md)
 
-### Step 3: Set Up Assets
+### Step 4: Set Up Assets
 
 Spire UI requires CSS and JavaScript assets to be included in your application.
 
@@ -81,17 +100,16 @@ initializeSpireUI();
 
 #### Build Assets
 
-Compile your assets using Vite:
+If you skipped building during install or need to rebuild:
 
 ```bash
-npm install
 npm run build
 
 # Or for development with hot reload:
 npm run dev
 ```
 
-### Step 4: Include Assets in Layout
+### Step 5: Include Assets in Layout
 
 Make sure your Blade layout includes the compiled assets:
 
