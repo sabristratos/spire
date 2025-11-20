@@ -1,0 +1,196 @@
+@layer components {
+    /* 1. Container */
+    .spire-switch-container {
+        @apply w-full;
+    }
+
+    /* 2. Wrapper (Label) */
+    .spire-switch-wrapper {
+        @apply flex items-center justify-between gap-3 cursor-pointer w-full;
+    }
+
+    /* 3. Hidden Checkbox Input */
+    .spire-switch-input {
+        @apply sr-only;
+    }
+
+    /* 4. Track Base */
+    .spire-switch-track {
+        @apply relative inline-flex items-center shrink-0;
+        transition: background-color var(--animation-duration-fast) ease-out;
+    }
+
+    /* 5. Track Sizes */
+    .spire-switch-track--sm {
+        @apply h-5 w-9;
+    }
+    .spire-switch-track--md {
+        @apply h-6 w-11;
+    }
+    .spire-switch-track--lg {
+        @apply h-7 w-14;
+    }
+
+    /* 6. Thumb Base */
+    .spire-switch-thumb {
+        @apply absolute bg-white shadow-sm transition-all z-0;
+        transition-duration: var(--animation-duration-fast);
+        transition-timing-function: var(--animation-easing-smooth);
+    }
+
+    /* 7. Thumb Sizes & Positioning */
+    .spire-switch-thumb--sm {
+        @apply h-4 w-4 top-0.5 left-0.5;
+    }
+    .spire-switch-thumb--md {
+        @apply h-5 w-5 top-0.5 left-0.5;
+    }
+    .spire-switch-thumb--lg {
+        @apply h-6 w-6 top-0.5 left-0.5;
+    }
+
+    /* 8. Thumb Hover Effect */
+    .peer:not(:disabled):hover ~ .spire-switch-track .spire-switch-thumb {
+        @apply scale-95;
+    }
+
+    /* 9. Thumb Translation on Checked State */
+    .peer:checked ~ .spire-switch-track .spire-switch-thumb--sm {
+        @apply translate-x-4;
+    }
+    .peer:checked ~ .spire-switch-track .spire-switch-thumb--md {
+        @apply translate-x-5;
+    }
+    .peer:checked ~ .spire-switch-track .spire-switch-thumb--lg {
+        @apply translate-x-7;
+    }
+
+    /* 10. Icon Base Styles */
+    .spire-switch-icon {
+        @apply absolute flex items-center justify-center pointer-events-none z-10;
+        transition: opacity var(--animation-duration-fast) ease-out;
+    }
+
+    /* 11. Icon Positioning - Checked Icon (Left Side) */
+    .spire-switch-icon--checked {
+        @apply opacity-0 top-1/2 -translate-y-1/2;
+    }
+    .spire-switch-track--sm .spire-switch-icon--checked {
+        @apply left-0.5 h-3 w-3 opacity-0;
+    }
+    .spire-switch-track--md .spire-switch-icon--checked {
+        @apply left-1 h-3.5 w-3.5 opacity-0;
+    }
+    .spire-switch-track--lg .spire-switch-icon--checked {
+        @apply left-1 h-4 w-4 opacity-0;
+    }
+
+    /* 12. Icon Positioning - Unchecked Icon (Right Side) */
+    .spire-switch-icon--unchecked {
+        @apply opacity-100 top-1/2 -translate-y-1/2;
+    }
+    .spire-switch-track--sm .spire-switch-icon--unchecked {
+        @apply right-0.5 h-3 w-3 opacity-100;
+    }
+    .spire-switch-track--md .spire-switch-icon--unchecked {
+        @apply right-1 h-3.5 w-3.5 opacity-100;
+    }
+    .spire-switch-track--lg .spire-switch-icon--unchecked {
+        @apply right-1 h-4 w-4 opacity-100;
+    }
+
+    /* 13. Icon Visibility Toggle on Checked */
+    .peer:checked ~ .spire-switch-track .spire-switch-icon--checked {
+        @apply !opacity-100;
+    }
+    .peer:checked ~ .spire-switch-track .spire-switch-icon--unchecked {
+        @apply !opacity-0;
+    }
+
+    /* 14. Label & Description Wrapper */
+    .spire-switch-label-wrapper {
+        @apply flex flex-col gap-0.5;
+    }
+
+    /* 15. Label Text */
+    .spire-switch-label {
+        @apply text-sm font-medium text-text;
+    }
+
+    /* 16. Description Text */
+    .spire-switch-description {
+        @apply text-xs text-text-muted;
+    }
+
+    /* 17. Focus Styles */
+    .peer:focus-visible ~ .spire-switch-track {
+        @apply outline outline-2 outline-offset-2;
+    }
+
+    /* 18. Color Variants - Unchecked State (Gray) */
+    .spire-switch-track--primary,
+    .spire-switch-track--secondary,
+    .spire-switch-track--success,
+    .spire-switch-track--error,
+    .spire-switch-track--warning,
+    .spire-switch-track--info,
+    .spire-switch-track--featured {
+        @apply bg-neutral-300;
+    }
+
+    /* 19. Color Variants - Checked State */
+    .peer:checked ~ .spire-switch-track--primary {
+        @apply bg-primary;
+    }
+    .peer:checked ~ .spire-switch-track--secondary {
+        @apply bg-secondary;
+    }
+    .peer:checked ~ .spire-switch-track--success {
+        @apply bg-success;
+    }
+    .peer:checked ~ .spire-switch-track--error {
+        @apply bg-error;
+    }
+    .peer:checked ~ .spire-switch-track--warning {
+        @apply bg-warning;
+    }
+    .peer:checked ~ .spire-switch-track--info {
+        @apply bg-info;
+    }
+    .peer:checked ~ .spire-switch-track--featured {
+        @apply bg-featured;
+    }
+
+    /* 20. Focus Outline Colors */
+    .peer:focus-visible ~ .spire-switch-track--primary {
+        @apply outline-primary;
+    }
+    .peer:focus-visible ~ .spire-switch-track--secondary {
+        @apply outline-secondary;
+    }
+    .peer:focus-visible ~ .spire-switch-track--success {
+        @apply outline-success;
+    }
+    .peer:focus-visible ~ .spire-switch-track--error {
+        @apply outline-error;
+    }
+    .peer:focus-visible ~ .spire-switch-track--warning {
+        @apply outline-warning;
+    }
+    .peer:focus-visible ~ .spire-switch-track--info {
+        @apply outline-info;
+    }
+    .peer:focus-visible ~ .spire-switch-track--featured {
+        @apply outline-featured;
+    }
+
+    /* 21. Disabled State */
+    .peer:disabled ~ .spire-switch-track {
+        @apply cursor-not-allowed opacity-50;
+    }
+
+    /* 22. Track Hover State (Non-Disabled) */
+    .peer:not(:disabled):hover ~ .spire-switch-track {
+        @apply brightness-95;
+    }
+}

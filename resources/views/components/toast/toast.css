@@ -1,0 +1,166 @@
+@layer components {
+    .spire-toast {
+        @apply max-w-md rounded-lg shadow-lg overflow-hidden;
+        @apply border bg-surface;
+
+        margin: 0;
+    }
+
+    .spire-toast:popover-open {
+        /* Positioning handled via inline styles */
+        margin: 0;
+    }
+
+    [popover][id^="toast-"] {
+        transition:
+            opacity var(--animation-duration-slow),
+            transform var(--animation-duration-slow),
+            overlay var(--animation-duration-slow) allow-discrete,
+            display var(--animation-duration-slow) allow-discrete;
+    }
+
+    /* Centered toast positioning (top-center, bottom-center) */
+    [popover][id^="toast-"][style*="--toast-centered: 1"] {
+        transform: translateX(-50%);
+    }
+
+    /* Combine centering with slide-up animation for centered toasts */
+    [popover][id^="toast-"][style*="--toast-centered: 1"].animate-slide-up {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    [popover][id^="toast-"][style*="--toast-centered: 1"].animate-slide-up:popover-open {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    @starting-style {
+        [popover][id^="toast-"][style*="--toast-centered: 1"].animate-slide-up:popover-open {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+    }
+
+    /* Soft Variant - Solid color-50 backgrounds */
+    .spire-toast--default-soft {
+        @apply border-neutral/20 bg-neutral-50;
+    }
+
+    .spire-toast--success-soft {
+        @apply border-success/20 bg-success-50;
+    }
+
+    .spire-toast--error-soft {
+        @apply border-error/20 bg-error-50;
+    }
+
+    .spire-toast--warning-soft {
+        @apply border-warning/20 bg-warning-50;
+    }
+
+    .spire-toast--info-soft {
+        @apply border-info/20 bg-info-50;
+    }
+
+    /* Solid Variant - Overlay background with colored icons */
+    .spire-toast--default-solid {
+        @apply border-border bg-overlay;
+    }
+
+    .spire-toast--success-solid {
+        @apply border-border bg-overlay;
+    }
+
+    .spire-toast--error-solid {
+        @apply border-border bg-overlay;
+    }
+
+    .spire-toast--warning-solid {
+        @apply border-border bg-overlay;
+    }
+
+    .spire-toast--info-solid {
+        @apply border-border bg-overlay;
+    }
+
+    .spire-toast__content {
+        @apply flex items-start gap-3 p-4;
+    }
+
+    .spire-toast__icon {
+        @apply flex-shrink-0 mt-0.5;
+    }
+
+    /* Icon colors for both variants */
+    .spire-toast--success-soft .spire-toast__icon,
+    .spire-toast--success-solid .spire-toast__icon {
+        @apply text-success;
+    }
+
+    .spire-toast--error-soft .spire-toast__icon,
+    .spire-toast--error-solid .spire-toast__icon {
+        @apply text-error;
+    }
+
+    .spire-toast--warning-soft .spire-toast__icon,
+    .spire-toast--warning-solid .spire-toast__icon {
+        @apply text-warning;
+    }
+
+    .spire-toast--info-soft .spire-toast__icon,
+    .spire-toast--info-solid .spire-toast__icon {
+        @apply text-info;
+    }
+
+    .spire-toast--default-soft .spire-toast__icon,
+    .spire-toast--default-solid .spire-toast__icon {
+        @apply text-text-muted;
+    }
+
+    .spire-toast__text {
+        @apply flex-1 min-w-0;
+    }
+
+    .spire-toast__title {
+        @apply font-semibold text-sm text-text mb-1;
+    }
+
+    .spire-toast__message {
+        @apply text-sm text-text-muted;
+    }
+
+    .spire-toast__dismiss {
+        @apply flex-shrink-0 -mr-1 -mt-1;
+    }
+
+    .spire-toast__progress {
+        @apply absolute bottom-0 left-0 h-1 rounded-bl-lg rounded-br-lg transition-all duration-100;
+    }
+
+    /* Progress bar colors for both variants */
+    .spire-toast--success-soft .spire-toast__progress,
+    .spire-toast--success-solid .spire-toast__progress {
+        @apply bg-success;
+    }
+
+    .spire-toast--error-soft .spire-toast__progress,
+    .spire-toast--error-solid .spire-toast__progress {
+        @apply bg-error;
+    }
+
+    .spire-toast--warning-soft .spire-toast__progress,
+    .spire-toast--warning-solid .spire-toast__progress {
+        @apply bg-warning;
+    }
+
+    .spire-toast--info-soft .spire-toast__progress,
+    .spire-toast--info-solid .spire-toast__progress {
+        @apply bg-info;
+    }
+
+    .spire-toast--default-soft .spire-toast__progress,
+    .spire-toast--default-solid .spire-toast__progress {
+        @apply bg-primary;
+    }
+}

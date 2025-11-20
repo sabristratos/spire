@@ -1,0 +1,24 @@
+@layer components {
+    /* Base Heading Styles */
+    .spire-heading {
+        @apply font-semibold text-text;
+    }
+
+    /* Size Modifiers */
+    .spire-heading--sm {
+        @apply text-sm;
+    }
+
+    .spire-heading--md {
+        @apply text-base;
+    }
+
+    .spire-heading--lg {
+        @apply text-2xl;
+    }
+
+    /* Accent Modifier */
+    .spire-heading--accent {
+        @apply text-primary;
+    }
+}

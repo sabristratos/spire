@@ -1,0 +1,183 @@
+@layer components {
+    /* Main container */
+    .spire-phone-input {
+        @apply relative w-full;
+    }
+
+    /* Unified input box (like spire-input-box) */
+    .spire-phone-input-box {
+        @apply flex items-center w-full py-1 border border-border bg-surface;
+        @apply transition-colors;
+        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+    }
+
+    /* Size modifiers on box */
+    .spire-phone-input-box--sm {
+        @apply h-8 text-sm;
+    }
+
+    .spire-phone-input-box--md {
+        @apply h-10 text-base;
+    }
+
+    .spire-phone-input-box--lg {
+        @apply h-12 text-lg;
+    }
+
+    /* Disabled state */
+    .spire-phone-input-box:has(:disabled) {
+        @apply bg-surface-subtle cursor-not-allowed opacity-50;
+    }
+
+    /* Country selector button */
+    .spire-phone-input-country {
+        @apply flex items-center gap-1.5 px-2 mx-1 bg-transparent cursor-pointer;
+        @apply transition-colors hover:bg-hover rounded;
+        @apply focus:outline-none;
+    }
+
+    .spire-phone-input-country[aria-expanded="true"] {
+        @apply bg-hover;
+    }
+
+    .spire-phone-input-country[disabled] {
+        @apply cursor-not-allowed pointer-events-none;
+    }
+
+    /* Flag icon container */
+    .spire-phone-input-flag {
+        @apply flex-shrink-0;
+    }
+
+    /* Dial code display */
+    .spire-phone-input-dial-code {
+        @apply text-text-muted font-medium whitespace-nowrap;
+    }
+
+    /* Phone number input */
+    .spire-phone-input-number {
+        @apply flex-1 h-full px-3 bg-transparent;
+        @apply text-text placeholder:text-text-muted;
+        @apply transition-colors;
+        @apply focus:outline-none;
+        @apply min-w-0;
+    }
+
+    .spire-phone-input-number:disabled {
+        @apply cursor-not-allowed;
+    }
+
+    /* Dropdown content */
+    .spire-phone-input-dropdown {
+        @apply absolute z-50 w-72 mt-1 bg-surface border border-border rounded-md shadow-lg;
+        @apply overflow-hidden;
+    }
+
+    /* Search container */
+    .spire-phone-input-search {
+        @apply p-2 border-b border-border;
+    }
+
+    .spire-phone-input-search-input {
+        @apply w-full px-3 py-2 text-sm bg-body border border-border rounded;
+        @apply text-text placeholder:text-text-muted;
+        @apply focus:outline-none focus:ring-2 focus:ring-primary;
+    }
+
+    /* Dropdown list container */
+    .spire-phone-input-list {
+        @apply overflow-y-auto;
+        @apply focus:outline-none;
+    }
+
+    /* Virtual scroll container */
+    .spire-phone-input-virtual {
+        @apply relative;
+    }
+
+    /* Country option */
+    .spire-phone-input-option {
+        @apply flex items-center gap-3 px-3 py-2 cursor-pointer;
+        @apply transition-colors;
+    }
+
+    .spire-phone-input-option:hover,
+    .spire-phone-input-option[aria-selected="true"] {
+        @apply bg-primary/10;
+    }
+
+    .spire-phone-input-option--highlighted {
+        @apply bg-primary/10;
+    }
+
+    .spire-phone-input-option--selected {
+        @apply bg-primary/20;
+    }
+
+    /* Option content */
+    .spire-phone-input-option-flag {
+        @apply flex-shrink-0;
+    }
+
+    .spire-phone-input-option-name {
+        @apply flex-1 text-text truncate;
+    }
+
+    .spire-phone-input-option-dial-code {
+        @apply text-text-muted text-sm;
+    }
+
+    /* Empty state */
+    .spire-phone-input-empty {
+        @apply px-3 py-4 text-center text-text-muted text-sm;
+    }
+
+    /* Divider for preferred countries */
+    .spire-phone-input-divider {
+        @apply h-px bg-border my-1 mx-3;
+    }
+
+    /* Chevron icon */
+    .spire-phone-input-chevron {
+        @apply w-4 h-4 text-text-muted transition-transform;
+    }
+
+    .spire-phone-input-country[aria-expanded="true"] .spire-phone-input-chevron {
+        @apply rotate-180;
+    }
+
+    /* Variant: flat (no borders between country and input) */
+    .spire-phone-input--flat .spire-phone-input-country {
+        @apply border-r border-border/50;
+    }
+
+    /* Radius modifiers on box */
+    .spire-phone-input-box--radius-none {
+        @apply rounded-none;
+    }
+
+    .spire-phone-input-box--radius-sm {
+        @apply rounded-sm;
+    }
+
+    .spire-phone-input-box--radius-md {
+        @apply rounded-md;
+    }
+
+    .spire-phone-input-box--radius-lg {
+        @apply rounded-lg;
+    }
+
+    .spire-phone-input-box--radius-full {
+        @apply rounded-full;
+    }
+
+    /* Error state on box */
+    .spire-phone-input-box--error {
+        @apply border-error;
+    }
+
+    .spire-phone-input-box--error:focus-within {
+        @apply ring-error/20;
+    }
+}

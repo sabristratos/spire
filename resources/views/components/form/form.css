@@ -1,0 +1,33 @@
+@layer components {
+    /* 1. Form Label */
+    .spire-label {
+        @apply block font-medium text-text;
+    }
+
+    .spire-label--sm {
+        @apply text-xs;
+    }
+    .spire-label--md {
+        @apply text-sm;
+    }
+    .spire-label--lg {
+        @apply text-base;
+    }
+
+    /* 2. Form Helper */
+    .spire-helper {
+        @apply text-text-muted;
+    }
+
+    .spire-helper--sm {
+        @apply text-xs;
+    }
+    .spire-helper--md {
+        @apply text-sm;
+    }
+
+    /* 3. Form Error */
+    .spire-error {
+        @apply flex items-center gap-1.5 text-sm text-error;
+    }
+}

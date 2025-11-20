@@ -1,0 +1,469 @@
+/* Sidebar Component Styles */
+
+/* ===== Main Container ===== */
+.spire-sidebar {
+    @apply relative;
+    @apply flex flex-col h-screen sticky top-0;
+    @apply bg-surface;
+    @apply transition-all;
+    transition-duration: var(--animation-duration-normal);
+}
+
+/* Size variants */
+.spire-sidebar--sm {
+    @apply w-56;
+}
+
+.spire-sidebar--md {
+    @apply w-64;
+}
+
+.spire-sidebar--lg {
+    @apply w-72;
+}
+
+/* Variant modifiers */
+.spire-sidebar--bordered {
+    @apply border-r border-border;
+}
+
+.spire-sidebar--elevated {
+    @apply shadow-lg;
+}
+
+.spire-sidebar--floating {
+    @apply m-3 rounded-lg shadow-lg border border-border;
+    height: calc(100% - 1.5rem);
+}
+
+/* Collapsed state - icon only */
+.spire-sidebar--collapsed {
+    @apply w-16;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item-label,
+.spire-sidebar--collapsed .spire-sidebar-item-description,
+.spire-sidebar--collapsed .spire-sidebar-item-badge,
+.spire-sidebar--collapsed .spire-sidebar-item-shortcut,
+.spire-sidebar--collapsed .spire-sidebar-item-chevron,
+.spire-sidebar--collapsed .spire-sidebar-section-label,
+.spire-sidebar--collapsed .spire-sidebar-section-chevron,
+.spire-sidebar--collapsed .spire-sidebar-header-content,
+.spire-sidebar--collapsed .spire-sidebar-footer-content {
+    @apply hidden;
+}
+
+/* Hide expandable items (items with children) completely in collapsed mode */
+.spire-sidebar--collapsed [data-spire-sidebar-item-wrapper]:has(.spire-sidebar-item-children) {
+    display: none !important;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-header,
+.spire-sidebar--collapsed .spire-sidebar-footer {
+    @apply justify-center;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item {
+    @apply justify-center px-0;
+}
+
+/* Hide section triggers completely in collapsed mode */
+.spire-sidebar--collapsed .spire-sidebar-section-trigger {
+    @apply hidden;
+}
+
+/* Subtle separator between sections in collapsed mode */
+.spire-sidebar--collapsed .spire-sidebar-section + .spire-sidebar-section::before {
+    content: '';
+    @apply block h-px mx-4 my-2;
+    background-color: light-dark(var(--color-neutral-200), var(--color-neutral-700));
+}
+
+/* Hide dividers in collapsed mode */
+.spire-sidebar--collapsed .spire-sidebar-divider {
+    @apply hidden;
+}
+
+/* Hide items without icons in collapsed mode */
+.spire-sidebar--collapsed .spire-sidebar-item:not(:has(.spire-sidebar-item-icon)) {
+    @apply hidden;
+}
+
+/* Collapsed content slots - hidden by default */
+.spire-sidebar-header-collapsed,
+.spire-sidebar-footer-collapsed {
+    @apply hidden;
+}
+
+/* Show collapsed content slots when sidebar is collapsed */
+.spire-sidebar--collapsed .spire-sidebar-header-collapsed,
+.spire-sidebar--collapsed .spire-sidebar-footer-collapsed {
+    @apply flex items-center justify-center;
+}
+
+/* Badge indicator dot for collapsed mode */
+.spire-sidebar--collapsed .spire-sidebar-item-icon {
+    @apply relative;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item[data-spire-has-badge="true"] .spire-sidebar-item-icon::after {
+    content: '';
+    @apply absolute -top-0.5 -right-0.5;
+    @apply w-2 h-2 rounded-full;
+    @apply bg-error;
+}
+
+/* Badge indicator with different colors */
+.spire-sidebar--collapsed .spire-sidebar-item[data-spire-badge-color="primary"] .spire-sidebar-item-icon::after {
+    @apply bg-primary;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item[data-spire-badge-color="secondary"] .spire-sidebar-item-icon::after {
+    @apply bg-secondary;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item[data-spire-badge-color="success"] .spire-sidebar-item-icon::after {
+    @apply bg-success;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item[data-spire-badge-color="warning"] .spire-sidebar-item-icon::after {
+    @apply bg-warning;
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item[data-spire-badge-color="neutral"] .spire-sidebar-item-icon::after {
+    background-color: light-dark(var(--color-neutral-500), var(--color-neutral-400));
+}
+
+/* ===== Header ===== */
+.spire-sidebar-header {
+    @apply flex items-center gap-3 px-4;
+    @apply h-16;
+    @apply border-b border-border;
+    @apply flex-shrink-0;
+}
+
+/* ===== Content ===== */
+.spire-sidebar-content {
+    @apply flex-1 overflow-y-auto overflow-x-hidden;
+    @apply px-3 py-3;
+
+    /* Subtle scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.spire-sidebar-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.spire-sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.spire-sidebar-content::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 4px;
+}
+
+.spire-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-border-hover);
+}
+
+/* ===== Footer ===== */
+.spire-sidebar-footer {
+    @apply flex flex-col gap-2 px-3 py-3;
+    @apply border-t border-border;
+    @apply flex-shrink-0;
+}
+
+/* ===== Section (Collapsible Group) ===== */
+.spire-sidebar-section {
+    @apply mb-3;
+}
+
+.spire-sidebar-section-trigger {
+    @apply flex items-center gap-3 w-full;
+    @apply px-3 py-1.5 rounded-md;
+    @apply text-[0.65rem] font-bold uppercase tracking-widest;
+    @apply text-text-muted/70;
+    @apply transition-colors;
+    transition-duration: var(--animation-duration-fast);
+}
+
+.spire-sidebar-section-trigger:hover {
+    @apply bg-hover;
+}
+
+.spire-sidebar-section-label {
+    @apply flex-1 text-left;
+}
+
+.spire-sidebar-section-chevron {
+    @apply w-4 h-4;
+    @apply transition-transform;
+    transition-duration: var(--animation-duration-fast);
+}
+
+.spire-sidebar-section-content {
+    @apply mt-1 space-y-0.5;
+}
+
+/* ===== Navigation Item ===== */
+.spire-sidebar-item {
+    @apply flex items-center gap-3;
+    @apply w-full px-3 py-2 rounded-md;
+    @apply text-sm font-medium;
+    @apply text-text-muted;
+    @apply transition-colors;
+    @apply relative;
+    transition-duration: var(--animation-duration-fast);
+}
+
+.spire-sidebar-item:hover:not(.spire-sidebar-item--disabled) {
+    @apply bg-hover text-text;
+}
+
+.spire-sidebar-item:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-surface;
+}
+
+/* Active state */
+.spire-sidebar-item--active {
+    @apply bg-primary/10 text-primary;
+}
+
+.spire-sidebar-item--active:hover {
+    @apply bg-primary/15;
+}
+
+/* Disabled state */
+.spire-sidebar-item--disabled {
+    @apply opacity-50 cursor-not-allowed text-text-disabled;
+}
+
+/* Item icon */
+.spire-sidebar-item-icon {
+    @apply w-5 h-5 flex-shrink-0;
+}
+
+/* Item label */
+.spire-sidebar-item-label {
+    @apply flex-1 text-left truncate;
+}
+
+/* Item description (subtitle) */
+.spire-sidebar-item-description {
+    @apply block text-xs text-text-muted truncate;
+}
+
+.spire-sidebar-item--active .spire-sidebar-item-description {
+    @apply text-primary/70;
+}
+
+/* Badge */
+.spire-sidebar-item-badge {
+    @apply inline-flex items-center justify-center;
+    @apply min-w-5 h-5 px-1.5 rounded-full;
+    @apply text-xs font-medium;
+    @apply bg-primary text-white;
+    @apply flex-shrink-0;
+}
+
+.spire-sidebar-item-badge--secondary {
+    @apply bg-secondary text-white;
+}
+
+.spire-sidebar-item-badge--success {
+    @apply bg-success text-white;
+}
+
+.spire-sidebar-item-badge--warning {
+    @apply bg-warning text-white;
+}
+
+.spire-sidebar-item-badge--error {
+    @apply bg-error text-white;
+}
+
+.spire-sidebar-item-badge--neutral {
+    background-color: light-dark(var(--color-neutral-200), var(--color-neutral-700));
+    color: light-dark(var(--color-neutral-700), var(--color-neutral-200));
+}
+
+/* Keyboard shortcut */
+.spire-sidebar-item-shortcut {
+    @apply text-xs text-text-muted;
+    @apply px-1.5 py-0.5 rounded;
+    @apply bg-surface-subtle;
+    @apply font-mono;
+    @apply flex-shrink-0;
+}
+
+/* Chevron for nested items */
+.spire-sidebar-item-chevron {
+    @apply w-4 h-4 flex-shrink-0;
+    @apply transition-transform;
+    transition-duration: var(--animation-duration-fast);
+}
+
+/* Nested items */
+.spire-sidebar-item-children {
+    @apply mt-1 ml-4 pl-4 space-y-0.5;
+    @apply border-l border-border;
+}
+
+.spire-sidebar-item-children .spire-sidebar-item {
+    @apply text-xs font-normal py-1.5;
+    @apply text-text-muted/80;
+}
+
+.spire-sidebar-item-children .spire-sidebar-item:hover:not(.spire-sidebar-item--disabled) {
+    @apply text-text;
+}
+
+.spire-sidebar-item-children .spire-sidebar-item--active {
+    @apply text-primary;
+}
+
+.spire-sidebar-item-children .spire-sidebar-item-icon {
+    @apply w-4 h-4;
+}
+
+/* Deep nested items (Level 4+) */
+.spire-sidebar-item-children .spire-sidebar-item-children .spire-sidebar-item {
+    @apply text-[0.7rem] py-1;
+    @apply text-text-muted/70;
+}
+
+.spire-sidebar-item-children .spire-sidebar-item-children .spire-sidebar-item-icon {
+    @apply w-3.5 h-3.5;
+}
+
+/* ===== Divider ===== */
+.spire-sidebar-divider {
+    @apply my-3 mx-3;
+    @apply border-t border-border;
+}
+
+/* ===== Toggle Button ===== */
+.spire-sidebar-toggle {
+    @apply flex items-center justify-center;
+    @apply w-8 h-8 rounded-md;
+    @apply text-text-muted;
+    @apply transition-colors;
+    transition-duration: var(--animation-duration-fast);
+}
+
+.spire-sidebar-toggle:hover {
+    @apply bg-hover text-text;
+}
+
+.spire-sidebar-toggle:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-surface;
+}
+
+/* Integrated toggle button at sidebar edge */
+.spire-sidebar-toggle-integrated {
+    @apply absolute -right-3 top-5;
+    @apply flex items-center justify-center;
+    @apply w-6 h-6 rounded-full;
+    @apply bg-surface border border-border shadow-sm;
+    @apply text-text-muted;
+    @apply transition-colors z-10;
+    transition-duration: var(--animation-duration-fast);
+}
+
+.spire-sidebar-toggle-integrated:hover {
+    @apply bg-hover text-text;
+}
+
+.spire-sidebar-toggle-integrated:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-surface;
+}
+
+/* Position for right sidebar */
+.spire-sidebar[data-spire-position="right"] .spire-sidebar-toggle-integrated {
+    @apply -left-3 right-auto;
+}
+
+/* Hide in drawer mode on mobile (use external toggle) */
+.spire-sidebar--drawer .spire-sidebar-toggle-integrated {
+    @apply hidden md:flex;
+}
+
+/* ===== Mobile Drawer Mode ===== */
+.spire-sidebar-backdrop {
+    @apply fixed inset-0 z-40;
+    @apply bg-black/50 backdrop-blur-sm;
+    @apply transition-opacity;
+    transition-duration: var(--animation-duration-normal);
+}
+
+.spire-sidebar--drawer {
+    @apply transform transition-transform;
+    transition-duration: var(--animation-duration-normal);
+}
+
+/* Only apply fixed positioning, transforms, and shadow on mobile */
+@media (max-width: 767px) {
+    .spire-sidebar--drawer {
+        @apply fixed inset-y-0 z-50;
+    }
+
+    .spire-sidebar--drawer[data-spire-position="left"] {
+        @apply left-0 -translate-x-full;
+    }
+
+    .spire-sidebar--drawer[data-spire-position="right"] {
+        @apply right-0 translate-x-full;
+    }
+
+    .spire-sidebar--drawer[data-spire-position="left"][data-spire-mobile-open="true"],
+    .spire-sidebar--drawer[data-spire-position="right"][data-spire-mobile-open="true"] {
+        @apply translate-x-0 shadow-2xl;
+    }
+}
+
+/* Mobile close button */
+.spire-sidebar-close {
+    @apply absolute top-4 right-4;
+    @apply flex items-center justify-center;
+    @apply w-8 h-8 rounded-md;
+    @apply text-text-muted;
+    @apply transition-colors;
+    transition-duration: var(--animation-duration-fast);
+}
+
+.spire-sidebar-close:hover {
+    @apply bg-hover text-text;
+}
+
+/* ===== Tooltip for Collapsed State ===== */
+.spire-sidebar-item-tooltip {
+    @apply contents;
+}
+
+/* Hide tooltip when sidebar is not collapsed */
+.spire-sidebar:not(.spire-sidebar--collapsed) .spire-sidebar-item-tooltip .spire-tooltip-content {
+    @apply !hidden;
+}
+
+/* ===== Position Variants ===== */
+.spire-sidebar[data-spire-position="right"] {
+    @apply border-l border-r-0;
+}
+
+/* ===== Utility Classes ===== */
+.spire-sidebar-spacer {
+    @apply flex-1;
+}
+
+/* ===== Animation for section expand/collapse ===== */
+.spire-sidebar-section[data-spire-open="true"] .spire-sidebar-section-chevron {
+    @apply rotate-180;
+}
+
+/* ===== Focus within section ===== */
+.spire-sidebar-section:focus-within .spire-sidebar-section-trigger {
+    @apply bg-hover;
+}

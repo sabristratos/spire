@@ -1,0 +1,148 @@
+@layer components {
+    /* 1. Outer Container */
+    .spire-timepicker-container {
+        @apply w-full;
+    }
+
+    /* 2. Inner Box (Styled Wrapper) */
+    .spire-timepicker-box {
+        @apply flex items-center gap-2 ease-fast;
+        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+    }
+
+    /* 3. Variant Styles */
+    .spire-timepicker-box--bordered {
+        @apply border border-border bg-surface;
+    }
+    .spire-timepicker-box--flat {
+        @apply border-0 bg-surface-subtle;
+    }
+
+    /* 4. Size Styles */
+    .spire-timepicker-box--sm {
+        @apply h-8 px-3 text-sm;
+    }
+    .spire-timepicker-box--md {
+        @apply h-10 px-3 text-base;
+    }
+    .spire-timepicker-box--lg {
+        @apply h-12 px-3 text-lg;
+    }
+
+    /* 4a. Trailing Content Spacing */
+    .spire-timepicker-box--has-trailing {
+        @apply pr-2;
+    }
+
+    .spire-timepicker-box .spire-button--icon-only {
+        @apply p-1;
+    }
+
+    /* 5. TimePicker Box States */
+    .spire-timepicker-box--disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .spire-timepicker-box--error {
+        @apply border-error;
+    }
+
+    .spire-timepicker-box--error.focus-within\:border-primary {
+        @apply focus-within:border-error focus-within:ring-error/20;
+    }
+
+    .spire-timepicker-box--readonly {
+        @apply bg-surface-subtle cursor-default;
+    }
+
+    /* 6. TimePicker Trigger Segmented Input Container */
+    .spire-timepicker-trigger__segments {
+        @apply flex items-center gap-1 w-full focus-within:outline-none;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    /* 7. TimePicker Trigger Individual Segment */
+    .spire-timepicker-trigger__segment {
+        @apply w-6 text-center bg-transparent border-0 outline-none p-0;
+        @apply text-text font-normal;
+        @apply focus:bg-primary/10 focus:rounded;
+        transition: background-color var(--animation-duration-fast) ease-out;
+    }
+
+    .spire-timepicker-trigger__segment::placeholder {
+        @apply text-text-muted opacity-50;
+    }
+
+    /* 8. TimePicker Trigger Period Segment (AM/PM) */
+    .spire-timepicker-trigger__segment--period {
+        @apply w-10 px-1 cursor-pointer font-normal;
+        @apply hover:bg-hover active:bg-primary/20;
+    }
+
+    /* 9. TimePicker Trigger Separator */
+    .spire-timepicker-trigger__separator {
+        @apply text-text-muted font-normal select-none;
+    }
+
+    /* 10. TimePicker Trigger Size Variants for Segments */
+    .spire-timepicker-box--sm .spire-timepicker-trigger__segment {
+        @apply text-sm h-6;
+    }
+
+    .spire-timepicker-box--md .spire-timepicker-trigger__segment {
+        @apply text-sm h-8;
+    }
+
+    .spire-timepicker-box--lg .spire-timepicker-trigger__segment {
+        @apply text-base h-10;
+    }
+
+    .spire-timepicker-box--sm .spire-timepicker-trigger__separator {
+        @apply text-sm;
+    }
+
+    .spire-timepicker-box--md .spire-timepicker-trigger__separator {
+        @apply text-sm;
+    }
+
+    .spire-timepicker-box--lg .spire-timepicker-trigger__separator {
+        @apply text-base;
+    }
+
+    /* 11. TimePicker Content (Dropdown Panel) */
+    .spire-timepicker-content {
+        @apply bg-surface border border-border rounded-lg shadow-lg p-3;
+    }
+
+    /* 12. TimePicker Columns Container */
+    .spire-timepicker-columns {
+        @apply flex gap-2 items-start;
+    }
+
+    /* 13. TimePicker Column */
+    .spire-timepicker-column {
+        @apply flex-1;
+        max-height: 120px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .spire-timepicker-column::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 14. TimePicker Column Header */
+    .spire-timepicker-column__header {
+        @apply text-xs font-semibold text-text-muted uppercase tracking-wide text-center mb-2;
+    }
+
+    /* 15. TimePicker Column Selection Indicator */
+    .spire-timepicker-column__indicator {
+        @apply absolute inset-x-0 h-10 border-y border-primary/20 bg-primary/5 pointer-events-none z-10 rounded-sm;
+        top: calc(50% - 1.25rem);
+    }
+
+    /* 16. TimePicker Actions (Header) */
+    .spire-timepicker-actions {
+        @apply flex items-center justify-end gap-2 pb-3 mb-3 border-b border-border;
+    }
+}

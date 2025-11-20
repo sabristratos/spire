@@ -1,0 +1,60 @@
+@layer components {
+    /* 1. Outer Container */
+    /* This holds the input box and manages disabled states */
+    .spire-input-container {
+        @apply w-full ease-fast has-[:disabled]:bg-surface-subtle has-[:disabled]:cursor-not-allowed;
+    }
+
+    /* 2. Inner Wrapper */
+    .spire-input-box {
+        @apply flex items-center gap-2 ease-fast;
+        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+    }
+
+    /* 3. Variant Styles */
+    .spire-input-box--bordered {
+        @apply border border-border bg-surface;
+    }
+    .spire-input-box--flat {
+        @apply border-0 bg-surface-subtle;
+    }
+
+    /* 4. Size Styles */
+    .spire-input-box--sm {
+        @apply h-8 px-3 text-sm;
+    }
+    .spire-input-box--md {
+        @apply h-10 px-3 text-base;
+    }
+    .spire-input-box--lg {
+        @apply h-12 px-3 text-lg;
+    }
+
+    /* 5. Trailing Content Spacing */
+    /* Reduced right padding when trailing content exists */
+    .spire-input-box--has-trailing {
+        @apply pr-2;
+    }
+
+    /* Tighter button padding inside inputs */
+    .spire-input-box .spire-button--icon-only {
+        @apply p-1;
+    }
+
+    /* 6. The <input> Element Itself */
+    .spire-input {
+        @apply flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 min-w-0;
+        @apply text-text placeholder:text-text-muted disabled:text-text-disabled disabled:cursor-not-allowed;
+    }
+
+    /* 7. Icon Sizes (for shorthand icons) */
+    .spire-input-icon--sm {
+        @apply w-4 h-4;
+    }
+    .spire-input-icon--md {
+        @apply w-4 h-4;
+    }
+    .spire-input-icon--lg {
+        @apply w-5 h-5;
+    }
+}

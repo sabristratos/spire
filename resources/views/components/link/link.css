@@ -1,0 +1,25 @@
+@layer components {
+    /* Base Link Styles */
+    .spire-link {
+        @apply inline-flex items-center gap-0.5 cursor-pointer;
+        @apply transition-colors duration-150;
+    }
+
+    /* Default Variant */
+    .spire-link--default {
+        @apply text-primary underline decoration-primary/50;
+        @apply hover:decoration-primary;
+    }
+
+    /* Ghost Variant */
+    .spire-link--ghost {
+        @apply text-primary no-underline;
+        @apply hover:underline hover:decoration-primary;
+    }
+
+    /* Subtle Variant */
+    .spire-link--subtle {
+        @apply text-text-muted underline decoration-text-muted/50;
+        @apply hover:text-text hover:decoration-text;
+    }
+}

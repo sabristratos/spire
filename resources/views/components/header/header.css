@@ -1,0 +1,126 @@
+@layer components {
+    .spire-header {
+        @apply flex items-center gap-2 px-4;
+        @apply h-16;
+        @apply bg-surface;
+    }
+
+    .spire-header--sticky {
+        @apply sticky top-0 z-40;
+    }
+
+    .spire-header--blur {
+        @apply backdrop-blur-md bg-surface/80;
+    }
+
+    .spire-header-container {
+        @apply flex items-center gap-2 w-full mx-auto;
+        @apply max-w-7xl;
+    }
+
+    .spire-header-brand {
+        @apply flex items-center gap-2;
+        @apply font-semibold text-text;
+        @apply no-underline;
+    }
+
+    .spire-header-brand-logo {
+        @apply h-8 w-auto;
+    }
+
+    .spire-header-brand-name {
+        @apply text-lg font-semibold;
+    }
+
+    .spire-header-navbar {
+        @apply flex items-center gap-1;
+        @apply -mb-px;
+    }
+
+    .spire-header-item {
+        @apply inline-flex items-center gap-2;
+        @apply px-3 py-2;
+        @apply text-sm font-medium;
+        @apply text-text-muted;
+        @apply rounded-md;
+        @apply transition-colors duration-150;
+        @apply hover:text-text hover:bg-hover;
+        @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+        @apply relative;
+    }
+
+    .spire-header-item--current {
+        @apply text-text;
+    }
+
+    .spire-header-item--disabled {
+        @apply text-text-disabled cursor-not-allowed;
+        @apply hover:bg-transparent hover:text-text-disabled;
+    }
+
+    .spire-header-item--icon-only {
+        @apply px-2;
+    }
+
+    .spire-header-item-icon {
+        @apply size-5 shrink-0;
+    }
+
+    .spire-header-item-icon--trailing {
+        @apply size-4;
+    }
+
+    .spire-header-item-label {
+        @apply truncate;
+    }
+
+    .spire-header-item-badge {
+        @apply absolute -top-1 -right-1;
+        @apply min-w-5 h-5 px-1.5;
+        @apply flex items-center justify-center;
+        @apply text-xs font-medium;
+        @apply rounded-full;
+    }
+
+    .spire-header-item-badge--primary {
+        @apply bg-primary text-white;
+    }
+
+    .spire-header-item-badge--secondary {
+        @apply bg-secondary text-white;
+    }
+
+    .spire-header-item-badge--success {
+        @apply bg-success text-white;
+    }
+
+    .spire-header-item-badge--warning {
+        @apply bg-warning text-white;
+    }
+
+    .spire-header-item-badge--error {
+        @apply bg-error text-white;
+    }
+
+    .spire-header-item-badge--neutral {
+        @apply bg-neutral-500 text-white;
+    }
+
+    .spire-header-spacer {
+        @apply flex-1;
+    }
+
+    .spire-header-toggle {
+        @apply inline-flex items-center justify-center;
+        @apply size-10;
+        @apply text-text-muted;
+        @apply rounded-md;
+        @apply transition-colors duration-150;
+        @apply hover:text-text hover:bg-hover;
+        @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+    }
+
+    .spire-header-toggle-icon {
+        @apply size-5;
+    }
+}

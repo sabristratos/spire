@@ -1,0 +1,250 @@
+@layer components {
+    .spire-slider {
+        @apply relative w-full;
+        @apply transition-opacity;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    .spire-slider--disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .spire-slider--readonly {
+        @apply cursor-default;
+    }
+
+    .spire-slider-container {
+        @apply relative w-full py-2;
+    }
+
+    .spire-slider-track {
+        @apply relative bg-border rounded-full h-2 w-full;
+        @apply transition-colors;
+        transition-duration: var(--animation-duration-fast);
+        touch-action: none;
+        user-select: none;
+    }
+
+    .spire-slider-track--sm {
+        @apply h-1;
+    }
+
+    .spire-slider-track--md {
+        @apply h-2;
+    }
+
+    .spire-slider-track--lg {
+        @apply h-3;
+    }
+
+    .spire-slider:not(.spire-slider--disabled) .spire-slider-track:hover {
+        @apply bg-border opacity-80;
+    }
+
+    .spire-slider-fill {
+        @apply absolute rounded-full top-0 h-full;
+        pointer-events: none;
+        transition: none; /* Default: no transitions to prevent animation during drag */
+    }
+
+    /* Only transition when slider is NOT being interacted with */
+    .spire-slider-container:not([data-spire-dragging="true"]) .spire-slider-fill {
+        transition: all var(--animation-duration-fast);
+    }
+
+    .spire-slider-fill--primary {
+        @apply bg-primary;
+    }
+
+    .spire-slider-fill--secondary {
+        @apply bg-secondary;
+    }
+
+    .spire-slider-fill--success {
+        @apply bg-success;
+    }
+
+    .spire-slider-fill--warning {
+        @apply bg-warning;
+    }
+
+    .spire-slider-fill--error {
+        @apply bg-error;
+    }
+
+    .spire-slider-fill--info {
+        @apply bg-info;
+    }
+
+    .spire-slider-fill--neutral {
+        @apply bg-neutral;
+    }
+
+    .spire-slider-thumb {
+        @apply absolute bg-surface rounded-full;
+        @apply shadow-md;
+        @apply cursor-grab;
+        @apply transition-all;
+        @apply border-2 border-transparent;
+        transition-duration: var(--animation-duration-fast);
+        transition-property: transform, box-shadow, border-color;
+        touch-action: none;
+        left: 0;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .spire-slider-thumb--sm {
+        @apply w-4 h-4;
+    }
+
+    .spire-slider-thumb--md {
+        @apply w-5 h-5;
+    }
+
+    .spire-slider-thumb--lg {
+        @apply w-6 h-6;
+    }
+
+    .spire-slider-thumb--primary {
+        @apply border-primary;
+    }
+
+    .spire-slider-thumb--secondary {
+        @apply border-secondary;
+    }
+
+    .spire-slider-thumb--success {
+        @apply border-success;
+    }
+
+    .spire-slider-thumb--warning {
+        @apply border-warning;
+    }
+
+    .spire-slider-thumb--error {
+        @apply border-error;
+    }
+
+    .spire-slider-thumb--info {
+        @apply border-info;
+    }
+
+    .spire-slider-thumb--neutral {
+        @apply border-neutral-border;
+    }
+
+    .spire-slider:not(.spire-slider--disabled) .spire-slider-thumb:hover:not([data-spire-dragging="true"]) {
+        @apply scale-110 shadow-lg;
+    }
+
+    .spire-slider:not(.spire-slider--disabled) .spire-slider-thumb:active,
+    .spire-slider-thumb[data-spire-dragging="true"] {
+        @apply scale-105 cursor-grabbing shadow-xl;
+    }
+
+    .spire-slider-thumb:focus-visible {
+        @apply outline outline-2 outline-offset-2 outline-primary;
+        @apply ring-4 ring-primary/20;
+    }
+
+    .spire-slider--disabled .spire-slider-thumb {
+        @apply cursor-not-allowed;
+    }
+
+    .spire-slider-steps {
+        @apply absolute inset-0 pointer-events-none;
+    }
+
+    .spire-slider-step {
+        @apply absolute rounded-full w-1.5 h-1.5;
+        @apply bg-surface;
+        @apply transition-colors;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    .spire-slider-step--active,
+    .spire-slider-step[data-spire-in-range="true"] {
+        @apply bg-surface shadow-sm;
+    }
+
+    .spire-slider-marks {
+        @apply absolute inset-0;
+    }
+
+    .spire-slider-mark {
+        @apply absolute flex flex-col items-center cursor-pointer top-0;
+        @apply transition-opacity;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    .spire-slider:not(.spire-slider--disabled) .spire-slider-mark:hover {
+        @apply opacity-100;
+    }
+
+    .spire-slider-mark-dot {
+        @apply w-2 h-2 rounded-full;
+        @apply bg-surface;
+        @apply transition-colors;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    .spire-slider-mark--active .spire-slider-mark-dot,
+    .spire-slider-mark-dot[data-spire-in-range="true"] {
+        @apply bg-surface shadow-sm;
+    }
+
+    .spire-slider-mark-label {
+        @apply text-xs text-text-muted mt-2;
+        @apply transition-colors;
+        transition-duration: var(--animation-duration-fast);
+    }
+
+    .spire-slider-mark--active .spire-slider-mark-label,
+    .spire-slider-mark:hover .spire-slider-mark-label {
+        @apply text-text;
+    }
+
+    .spire-slider-value {
+        @apply text-sm font-medium text-text;
+        @apply min-w-12 text-right;
+    }
+
+    .spire-slider--with-marks .spire-slider-container {
+        @apply pb-8;
+    }
+
+    /* Inline mode for form alignment */
+    .spire-slider--inline {
+        @apply flex items-center w-full;
+    }
+
+    .spire-slider--inline > [wire\:ignore] {
+        @apply w-full;
+    }
+
+    .spire-slider--inline > [wire\:ignore] > .flex {
+        @apply w-full;
+    }
+
+    .spire-slider--inline .spire-slider-container {
+        @apply py-0 flex items-center flex-1 min-w-0;
+    }
+
+    .spire-slider--inline .spire-slider-track {
+        @apply w-full;
+    }
+
+    /* Size-specific heights for inline alignment with inputs */
+    .spire-slider--inline.spire-slider--sm {
+        @apply h-8;
+    }
+
+    .spire-slider--inline.spire-slider--md {
+        @apply h-10;
+    }
+
+    .spire-slider--inline.spire-slider--lg {
+        @apply h-12;
+    }
+}

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Base/Foundation */
+@import './base/theme.css';
+@import './base/anchor-positioning.css';
+@import './base/animations.css';
+
+/* Third-party */
+@import 'flag-icons/css/flag-icons.min.css';
+
+/* Utility Classes */
+.hide-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+.hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+
+@layer components {
+    /* Components (alphabetical) */
+    @import '../views/components/accordion/accordion.css';
+    @import '../views/components/alert/alert.css';
+    @import '../views/components/autocomplete/autocomplete.css';
+    @import '../views/components/avatar/avatar.css';
+    @import '../views/components/badge/badge.css';
+    @import '../views/components/breadcrumbs/breadcrumbs.css';
+    @import '../views/components/button/button.css';
+    @import '../views/components/calendar/calendar.css';
+    @import '../views/components/card/card.css';
+    @import '../views/components/carousel/carousel.css';
+    @import '../views/components/chart/chart.css';
+    @import '../views/components/checkbox/checkbox.css';
+    @import '../views/components/datepicker/datepicker.css';
+    @import '../views/components/data-list/data-list.css';
+    @import '../views/components/dropdown/dropdown.css';
+    @import '../views/components/empty-state/empty-state.css';
+    @import '../views/components/editor/editor.css';
+    @import '../views/components/file-upload/file-upload.css';
+    @import '../views/components/form/form.css';
+    @import '../views/components/header/header.css';
+    @import '../views/components/heading/heading.css';
+    @import '../views/components/input/input.css';
+    @import '../views/components/lightbox/lightbox.css';
+    @import '../views/components/link/link.css';
+    @import '../views/components/modal/modal.css';
+    @import '../views/components/pagination/pagination.css';
+    @import '../views/components/phone-input/phone-input.css';
+    @import '../views/components/popover/popover.css';
+    @import '../views/components/progress/progress.css';
+    @import '../views/components/radio/radio.css';
+    @import '../views/components/rating/rating.css';
+    @import '../views/components/select/select.css';
+    @import '../views/components/separator/separator.css';
+    @import '../views/components/sidebar/sidebar.css';
+    @import '../views/components/slider/slider.css';
+    @import '../views/components/spinner/spinner.css';
+    @import '../views/components/switch/switch.css';
+    @import '../views/components/table/table.css';
+    @import '../views/components/tabs/tabs.css';
+    @import '../views/components/text/text.css';
+    @import '../views/components/textarea/textarea.css';
+    @import '../views/components/timepicker/timepicker.css';
+    @import '../views/components/toast/toast.css';
+    @import '../views/components/tooltip/tooltip.css';
+}

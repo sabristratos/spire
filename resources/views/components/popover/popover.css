@@ -1,0 +1,52 @@
+@layer components {
+    /* 1. Base Popover Styles */
+    .spire-popover {
+        @apply bg-surface border border-border rounded-lg shadow-lg;
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    .spire-popover:popover-open {
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity var(--animation-duration-normal) ease-out,
+                    transform var(--animation-duration-normal) ease-out,
+                    overlay var(--animation-duration-normal) allow-discrete,
+                    display var(--animation-duration-normal) allow-discrete;
+    }
+
+    @starting-style {
+        .spire-popover:popover-open {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+    }
+
+    /* 2. Size Variants */
+    .spire-popover--sm {
+        @apply max-w-xs;
+    }
+    .spire-popover--md {
+        @apply max-w-sm;
+    }
+    .spire-popover--lg {
+        @apply max-w-md;
+    }
+    .spire-popover--xl {
+        @apply max-w-lg;
+    }
+
+    /* 3. Padding Variants */
+    .spire-popover--padding-none {
+        /* No padding */
+    }
+    .spire-popover--padding-sm {
+        @apply p-3;
+    }
+    .spire-popover--padding-normal {
+        @apply p-4;
+    }
+    .spire-popover--padding-lg {
+        @apply p-6;
+    }
+}

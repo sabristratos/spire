@@ -1,0 +1,219 @@
+@layer components {
+    /* Container */
+    .spire-editor {
+        @apply w-full flex flex-col bg-surface;
+    }
+
+    .spire-editor--bordered {
+        @apply overflow-hidden border border-border;
+    }
+
+    .spire-editor--disabled {
+        @apply opacity-50 pointer-events-none;
+    }
+
+    /* Toolbar */
+    .spire-editor-toolbar {
+        @apply flex items-center flex-wrap gap-1 border-b border-border;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    .spire-editor-toolbar--sm {
+        @apply p-1.5;
+    }
+
+    .spire-editor-toolbar--md {
+        @apply p-2;
+    }
+
+    .spire-editor-toolbar--lg {
+        @apply p-2.5;
+    }
+
+    .spire-editor--flat .spire-editor-toolbar {
+        @apply border-x-0;
+    }
+
+    /* Content area wrapper */
+    .spire-editor-content {
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    .spire-editor--bordered:focus-within {
+        @apply border-primary ring-2 ring-primary/20;
+    }
+
+    /* Bordered variant */
+    .spire-editor-content--bordered {
+        /* No additional styles needed */
+    }
+
+    /* Flat variant */
+    .spire-editor-content--flat {
+        /* No additional styles needed */
+    }
+
+    .spire-editor--flat {
+        @apply border-x-0 border-t-0;
+    }
+
+    /* Size variants */
+    .spire-editor-content--sm {
+        @apply text-sm p-2;
+    }
+
+    .spire-editor-content--md {
+        @apply text-base p-3;
+    }
+
+    .spire-editor-content--lg {
+        @apply text-lg p-4;
+    }
+
+    /* ProseMirror editor styles */
+    .spire-editor-content .ProseMirror {
+        @apply outline-none min-h-[120px];
+    }
+
+    .spire-editor-content .ProseMirror:focus {
+        @apply outline-none;
+    }
+
+    /* Placeholder */
+    .spire-editor-content .ProseMirror p.is-editor-empty:first-child::before {
+        @apply text-text-muted;
+        content: attr(data-placeholder);
+        float: left;
+        pointer-events: none;
+        height: 0;
+    }
+
+    /* Typography */
+    .spire-editor-content .ProseMirror p {
+        @apply mb-3;
+    }
+
+    .spire-editor-content .ProseMirror p:last-child {
+        @apply mb-0;
+    }
+
+    .spire-editor-content .ProseMirror h1 {
+        @apply text-3xl font-bold mb-4 mt-6 first:mt-0;
+    }
+
+    .spire-editor-content .ProseMirror h2 {
+        @apply text-2xl font-bold mb-3 mt-5 first:mt-0;
+    }
+
+    .spire-editor-content .ProseMirror h3 {
+        @apply text-xl font-bold mb-2 mt-4 first:mt-0;
+    }
+
+    /* Lists */
+    .spire-editor-content .ProseMirror ul,
+    .spire-editor-content .ProseMirror ol {
+        @apply pl-6 mb-3;
+    }
+
+    .spire-editor-content .ProseMirror ul {
+        @apply list-disc;
+    }
+
+    .spire-editor-content .ProseMirror ol {
+        @apply list-decimal;
+    }
+
+    .spire-editor-content .ProseMirror li {
+        @apply mb-1;
+    }
+
+    .spire-editor-content .ProseMirror li p {
+        @apply mb-1;
+    }
+
+    /* Blockquote */
+    .spire-editor-content .ProseMirror blockquote {
+        @apply pl-4 border-l-4 border-border italic text-text-muted mb-3;
+    }
+
+    /* Code */
+    .spire-editor-content .ProseMirror code {
+        @apply bg-overlay px-1.5 py-0.5 rounded text-sm font-mono;
+    }
+
+    .spire-editor-content .ProseMirror pre {
+        @apply bg-overlay p-4 rounded-md mb-3 overflow-x-auto;
+    }
+
+    .spire-editor-content .ProseMirror pre code {
+        @apply bg-transparent p-0 text-sm;
+    }
+
+    /* Links */
+    .spire-editor-content .ProseMirror a {
+        @apply text-primary hover:underline cursor-pointer;
+    }
+
+    /* Images */
+    .spire-editor-content .ProseMirror img {
+        @apply max-w-full h-auto rounded-md my-3;
+    }
+
+    /* Horizontal rule */
+    .spire-editor-content .ProseMirror hr {
+        @apply border-t border-border my-4;
+    }
+
+    /* Strong & Emphasis */
+    .spire-editor-content .ProseMirror strong {
+        @apply font-bold;
+    }
+
+    .spire-editor-content .ProseMirror em {
+        @apply italic;
+    }
+
+    .spire-editor-content .ProseMirror s {
+        @apply line-through;
+    }
+
+    /* Character count */
+    .spire-editor-character-count {
+        @apply text-sm text-text-muted px-3 py-2 border-t border-border;
+    }
+
+    .spire-editor--flat .spire-editor-character-count {
+        @apply border-x-0;
+    }
+
+    /* Error state */
+    .spire-editor--error {
+        @apply border-error;
+    }
+
+    .spire-editor--error:focus-within {
+        @apply border-error ring-error/20;
+    }
+
+    .spire-editor--error .spire-editor-toolbar,
+    .spire-editor--error .spire-editor-character-count {
+        @apply border-error;
+    }
+
+    /* Disabled state */
+    .spire-editor--disabled .spire-editor-content,
+    .spire-editor--disabled .spire-editor-toolbar,
+    .spire-editor--disabled .spire-editor-character-count {
+        @apply opacity-60 cursor-not-allowed;
+    }
+
+    /* Selection */
+    .spire-editor-content .ProseMirror ::selection {
+        @apply bg-primary/20;
+    }
+
+    /* Focused toolbar buttons */
+    .spire-editor-toolbar .spire-button:focus-visible {
+        @apply ring-2 ring-primary/20;
+    }
+}

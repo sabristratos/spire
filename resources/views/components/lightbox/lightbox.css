@@ -1,0 +1,231 @@
+@layer components {
+    .spire-lightbox {
+        @apply fixed inset-0 m-0 h-full w-full max-h-full max-w-full;
+        @apply bg-black/90 backdrop-blur-sm;
+        @apply p-0 border-none;
+        @apply overflow-hidden;
+        opacity: 0;
+        transition: opacity var(--animation-duration-normal) var(--animation-easing-default);
+
+        &::backdrop {
+            @apply bg-transparent;
+        }
+
+        &[open] {
+            opacity: 1;
+        }
+
+        @starting-style {
+            &[open] {
+                opacity: 0;
+            }
+        }
+    }
+
+    .spire-lightbox__container {
+        @apply relative flex flex-col items-center justify-center;
+        @apply h-full w-full;
+        @apply p-4 sm:p-8;
+    }
+
+    .spire-lightbox__close {
+        @apply absolute top-4 right-4 z-50;
+        @apply flex items-center justify-center;
+        @apply size-10 rounded-full;
+        @apply bg-white/10 text-white;
+        @apply hover:bg-white/20;
+        @apply focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2;
+        @apply transition-colors;
+        @apply cursor-pointer;
+    }
+
+    .spire-lightbox__counter {
+        @apply absolute top-4 left-4 z-50;
+        @apply px-3 py-1.5 rounded-full;
+        @apply bg-white/10 text-white text-sm font-medium;
+        @apply backdrop-blur-sm;
+    }
+
+    .spire-lightbox__content {
+        @apply relative flex items-center justify-center;
+        @apply flex-1 w-full;
+        @apply overflow-hidden;
+        --slide-duration: 250ms;
+    }
+
+    .spire-lightbox__loading {
+        @apply absolute inset-0 flex items-center justify-center;
+        @apply text-white;
+    }
+
+    .spire-lightbox__image-wrapper {
+        @apply relative flex items-center justify-center;
+        @apply w-full h-full;
+        @apply overflow-hidden;
+        @apply cursor-zoom-in;
+
+        &--zoomed {
+            @apply cursor-zoom-out;
+        }
+    }
+
+    .spire-lightbox__image {
+        @apply max-w-full max-h-full;
+        @apply object-contain;
+        @apply select-none;
+        @apply transition-transform duration-200;
+    }
+
+    .spire-lightbox__content[data-animating="true"] .spire-lightbox__image,
+    .spire-lightbox__content[data-animating="true"] .spire-lightbox__video,
+    .spire-lightbox__content[data-animating="true"] .spire-lightbox__iframe,
+    .spire-lightbox__content[data-animating="true"] .spire-lightbox__pdf {
+        animation: spire-lightbox-fade-in var(--slide-duration) ease-out;
+    }
+
+    @keyframes spire-lightbox-fade-in {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .spire-lightbox__video {
+        @apply max-w-full max-h-full;
+        @apply object-contain;
+        @apply bg-black;
+    }
+
+    .spire-lightbox__iframe {
+        @apply w-full aspect-video;
+        @apply max-w-4xl max-h-full;
+    }
+
+    .spire-lightbox__pdf {
+        @apply w-full h-full;
+        @apply max-w-4xl;
+        @apply bg-white;
+    }
+
+    .spire-lightbox__nav {
+        @apply absolute top-1/2 -translate-y-1/2 z-40;
+        @apply flex items-center justify-center;
+        @apply size-12 rounded-full;
+        @apply bg-white/10 text-white;
+        @apply hover:bg-white/20;
+        @apply focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2;
+        @apply transition-colors;
+        @apply cursor-pointer;
+    }
+
+    .spire-lightbox__nav:disabled {
+        @apply opacity-30 cursor-not-allowed hover:bg-white/10;
+    }
+
+    .spire-lightbox__nav--prev {
+        @apply left-4 sm:left-8;
+    }
+
+    .spire-lightbox__nav--next {
+        @apply right-4 sm:right-8;
+    }
+
+    .spire-lightbox__bottom {
+        @apply relative w-full;
+        @apply flex flex-col items-center gap-3;
+        @apply pt-4;
+    }
+
+    .spire-lightbox__caption {
+        @apply text-white text-center text-sm sm:text-base;
+        @apply max-w-2xl px-4;
+        @apply line-clamp-2;
+    }
+
+    .spire-lightbox__thumbnails {
+        @apply flex items-center justify-center gap-2;
+        @apply overflow-x-auto;
+        @apply max-w-full px-4;
+        @apply pb-2;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .spire-lightbox__thumbnail {
+        @apply relative flex-shrink-0;
+        @apply size-12 sm:size-14;
+        @apply rounded-md overflow-hidden;
+        @apply bg-white/10;
+        @apply ring-2 ring-transparent;
+        @apply hover:ring-white/50;
+        @apply focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2;
+        @apply transition-all;
+        @apply cursor-pointer;
+
+        &--active {
+            @apply ring-white;
+        }
+    }
+
+    .spire-lightbox__thumbnail-image {
+        @apply w-full h-full object-cover;
+    }
+
+    .spire-lightbox__thumbnail-icon {
+        @apply absolute inset-0 flex items-center justify-center;
+        @apply text-white;
+    }
+
+    .spire-lightbox__actions {
+        @apply absolute bottom-4 right-4;
+        @apply flex items-center gap-2;
+    }
+
+    .spire-lightbox__action {
+        @apply flex items-center justify-center;
+        @apply size-10 rounded-full;
+        @apply bg-white/10 text-white;
+        @apply hover:bg-white/20;
+        @apply focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2;
+        @apply transition-colors;
+        @apply cursor-pointer;
+    }
+
+    @media (max-width: 640px) {
+        .spire-lightbox__container {
+            @apply p-2;
+        }
+
+        .spire-lightbox__close {
+            @apply top-2 right-2 size-9;
+        }
+
+        .spire-lightbox__counter {
+            @apply top-2 left-2;
+        }
+
+        .spire-lightbox__nav {
+            @apply size-10;
+        }
+
+        .spire-lightbox__bottom {
+            @apply gap-2 pt-2;
+        }
+
+        .spire-lightbox__actions {
+            @apply bottom-2 right-2;
+        }
+
+        .spire-lightbox__action {
+            @apply size-9;
+        }
+    }
+}

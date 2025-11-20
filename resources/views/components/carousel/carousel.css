@@ -1,0 +1,251 @@
+/* Carousel Component - Spire UI */
+
+.spire-carousel {
+    @apply relative w-full;
+}
+
+/* Track - the scrollable container */
+.spire-carousel__track {
+    @apply flex overflow-x-auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+
+/* Gap modifiers */
+.spire-carousel--gap-none .spire-carousel__track {
+    @apply gap-0;
+}
+
+.spire-carousel--gap-sm .spire-carousel__track {
+    @apply gap-2;
+}
+
+.spire-carousel--gap-md .spire-carousel__track {
+    @apply gap-4;
+}
+
+.spire-carousel--gap-lg .spire-carousel__track {
+    @apply gap-6;
+}
+
+.spire-carousel--gap-xl .spire-carousel__track {
+    @apply gap-8;
+}
+
+/* Slide */
+.spire-carousel__slide {
+    @apply flex-shrink-0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+/* Slide alignment */
+.spire-carousel--align-start .spire-carousel__slide {
+    scroll-snap-align: start;
+}
+
+.spire-carousel--align-center .spire-carousel__slide {
+    scroll-snap-align: center;
+}
+
+.spire-carousel--align-end .spire-carousel__slide {
+    scroll-snap-align: end;
+}
+
+/* Items per view */
+.spire-carousel--items-1 .spire-carousel__slide {
+    @apply w-full;
+}
+
+.spire-carousel--items-2 .spire-carousel__slide {
+    width: calc(50% - var(--carousel-gap, 0px) / 2);
+}
+
+.spire-carousel--items-3 .spire-carousel__slide {
+    width: calc(33.333% - var(--carousel-gap, 0px) * 2 / 3);
+}
+
+.spire-carousel--items-4 .spire-carousel__slide {
+    width: calc(25% - var(--carousel-gap, 0px) * 3 / 4);
+}
+
+.spire-carousel--items-5 .spire-carousel__slide {
+    width: calc(20% - var(--carousel-gap, 0px) * 4 / 5);
+}
+
+.spire-carousel--items-6 .spire-carousel__slide {
+    width: calc(16.666% - var(--carousel-gap, 0px) * 5 / 6);
+}
+
+/* Auto width slides */
+.spire-carousel--items-auto .spire-carousel__slide {
+    @apply w-auto;
+}
+
+/* Controls container */
+.spire-carousel__controls {
+    @apply flex items-center justify-between gap-4 mt-4;
+}
+
+/* Indicators */
+.spire-carousel__indicators {
+    @apply flex items-center gap-2;
+}
+
+.spire-carousel__indicator {
+    @apply size-2.5 rounded-full;
+    @apply bg-neutral-300 dark:bg-neutral-600;
+    @apply transition-all duration-200;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+    @apply cursor-pointer;
+
+    &:hover {
+        @apply bg-neutral-400 dark:bg-neutral-500;
+    }
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply bg-primary w-6;
+    }
+}
+
+/* Indicator variants */
+.spire-carousel--indicators-dots .spire-carousel__indicator {
+    @apply size-2.5 rounded-full;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply w-6;
+    }
+}
+
+.spire-carousel--indicators-lines .spire-carousel__indicator {
+    @apply w-6 h-1 rounded-sm;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply bg-primary;
+    }
+}
+
+.spire-carousel--indicators-numbers .spire-carousel__indicator {
+    @apply size-6 rounded-full text-xs font-medium;
+    @apply flex items-center justify-center;
+    @apply bg-transparent text-text-muted;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply bg-primary text-white;
+    }
+}
+
+/* Indicator sizes */
+.spire-carousel--indicators-sm .spire-carousel__indicator {
+    @apply size-2;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply w-4;
+    }
+}
+
+.spire-carousel--indicators-lg .spire-carousel__indicator {
+    @apply size-3;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply w-8;
+    }
+}
+
+/* Standalone Indicators Sub-component */
+.spire-carousel-indicators {
+    @apply flex items-center gap-2;
+}
+
+.spire-carousel-indicators__item {
+    @apply size-2.5 rounded-full;
+    @apply bg-neutral-300 dark:bg-neutral-600;
+    @apply transition-all duration-200;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+    @apply cursor-pointer;
+
+    &:hover {
+        @apply bg-neutral-400 dark:bg-neutral-500;
+    }
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply bg-primary w-6;
+    }
+}
+
+/* Standalone Indicators - Variants */
+.spire-carousel-indicators--dots .spire-carousel-indicators__item {
+    @apply size-2.5 rounded-full;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply w-6;
+    }
+}
+
+.spire-carousel-indicators--lines .spire-carousel-indicators__item {
+    @apply w-6 h-1 rounded-sm;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply bg-primary;
+    }
+}
+
+.spire-carousel-indicators--numbers .spire-carousel-indicators__item {
+    @apply size-6 rounded-full text-xs font-medium;
+    @apply flex items-center justify-center;
+    @apply bg-transparent text-text-muted;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply bg-primary text-white;
+    }
+}
+
+/* Standalone Indicators - Sizes */
+.spire-carousel-indicators--sm .spire-carousel-indicators__item {
+    @apply size-2;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply w-4;
+    }
+}
+
+.spire-carousel-indicators--lg .spire-carousel-indicators__item {
+    @apply size-3;
+
+    &[aria-current="true"],
+    &[data-spire-carousel-active="true"] {
+        @apply w-8;
+    }
+}
+
+/* Live region for accessibility (visually hidden) */
+.spire-carousel__live-region {
+    @apply sr-only;
+}
+
+/* Responsive items per view via CSS custom properties */
+.spire-carousel[style*="--items-per-view"] .spire-carousel__slide {
+    width: calc(100% / var(--items-per-view) - var(--carousel-gap, 0px) * (var(--items-per-view) - 1) / var(--items-per-view));
+}
+
