@@ -19,6 +19,17 @@ Install the package via Composer:
 composer require stratos/spire-ui
 ```
 
+> **⚠️ Important: JavaScript Dependencies Required**
+>
+> After installing via Composer, you **must** install JavaScript dependencies to make interactive components work:
+>
+> ```bash
+> npm install
+> npm run build
+> ```
+>
+> Spire UI requires Alpine.js, Tailwind CSS, and other JavaScript packages that are not installed by Composer. Without running `npm install`, components like Select, Datepicker, Modal, and others will not function properly.
+
 ### Asset Setup
 
 1. **Import CSS** in your `resources/css/app.css`:

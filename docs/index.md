@@ -20,7 +20,11 @@ A modern TALL stack component library built with Laravel, Livewire, Alpine.js, a
 
 ```bash
 composer require stratos/spire-ui
+npm install
+npm run build
 ```
+
+> **Important**: `npm install` is required to install JavaScript dependencies (Alpine.js, Tailwind, polyfills). Interactive components won't work without this step.
 
 ### 2. Import Assets
 

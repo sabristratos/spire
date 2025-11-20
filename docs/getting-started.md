@@ -24,6 +24,16 @@ composer require stratos/spire-ui
 
 The service provider will be automatically discovered and registered by Laravel.
 
+> **⚠️ Critical: Install JavaScript Dependencies**
+>
+> Spire UI requires JavaScript packages (Alpine.js, Tailwind CSS, polyfills, icons) that are **not** installed by Composer. You must run:
+>
+> ```bash
+> npm install
+> ```
+>
+> Without this step, interactive components (Select, Autocomplete, Datepicker, Modal, Timepicker, etc.) will not work. This is required because Composer only installs PHP packages, not JavaScript dependencies.
+
 ### Step 2: Publish Configuration (Optional)
 
 Publish the configuration file to customize component defaults, theme settings, and more:
