@@ -12,7 +12,7 @@
 
     /* 3. Variant Styles */
     .spire-datepicker__box--bordered {
-        @apply border border-border bg-surface;
+        @apply border border-border bg-surface shadow-sm;
     }
     .spire-datepicker__box--flat {
         @apply border-0 bg-surface-subtle;

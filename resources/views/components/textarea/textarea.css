@@ -18,13 +18,13 @@
 
     /* 3. Bordered Variant */
     .spire-textarea--default-bordered {
-        @apply bg-surface border border-border text-text placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20;
+        @apply bg-surface border border-border text-text placeholder:text-text-muted shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20;
     }
     .spire-textarea--primary-bordered {
-        @apply bg-surface border border-primary text-text placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20;
+        @apply bg-surface border border-primary text-text placeholder:text-text-muted shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20;
     }
     .spire-textarea--error-bordered {
-        @apply bg-surface border border-error text-text placeholder:text-text-muted focus:border-error focus:ring-2 focus:ring-error/20;
+        @apply bg-surface border border-error text-text placeholder:text-text-muted shadow-sm focus:border-error focus:ring-2 focus:ring-error/20;
     }
 
     /* 4. Flat Variant */

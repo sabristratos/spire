@@ -18,15 +18,15 @@
 
     /* 3. Select Trigger Bordered Variant */
     .spire-select-trigger--default-bordered {
-        @apply bg-surface border border-border text-text;
+        @apply bg-surface border border-border text-text shadow-sm;
         @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
     }
     .spire-select-trigger--primary-bordered {
-        @apply bg-surface border border-primary text-text;
+        @apply bg-surface border border-primary text-text shadow-sm;
         @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
     }
     .spire-select-trigger--error-bordered {
-        @apply bg-surface border border-error text-text;
+        @apply bg-surface border border-error text-text shadow-sm;
         @apply focus:border-error focus:ring-2 focus:ring-error/20;
     }
 

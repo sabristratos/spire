@@ -13,7 +13,7 @@
 
     /* 3. Variant Styles */
     .spire-input-box--bordered {
-        @apply border border-border bg-surface;
+        @apply border border-border bg-surface shadow-sm;
     }
     .spire-input-box--flat {
         @apply border-0 bg-surface-subtle;

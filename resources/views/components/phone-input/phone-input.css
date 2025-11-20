@@ -6,7 +6,7 @@
 
     /* Unified input box (like spire-input-box) */
     .spire-phone-input-box {
-        @apply flex items-center w-full py-1 border border-border bg-surface;
+        @apply flex items-center w-full py-1 border border-border bg-surface shadow-sm;
         @apply transition-colors;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
