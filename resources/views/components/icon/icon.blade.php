@@ -5,8 +5,15 @@
     $componentName = "{$prefix}::icon.icons.{$set}.{$name}";
 
     $iconPath = resource_path("views/vendor/{$prefix}/icon/icons/{$set}/{$name}.blade.php");
+
+    // Fallback 1: Monorepo path (packages/spire-ui/)
     if (!file_exists($iconPath)) {
         $iconPath = base_path("packages/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
+    }
+
+    // Fallback 2: Composer vendor path (vendor/stratos/spire-ui/)
+    if (!file_exists($iconPath)) {
+        $iconPath = base_path("vendor/stratos/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
     }
 
     $iconExists = file_exists($iconPath);
