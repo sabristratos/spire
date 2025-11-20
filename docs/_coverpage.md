@@ -14,4 +14,4 @@
 [GitHub](https://github.com/sabristratos/spire)
 [Get Started](getting-started.md)
 
-![color](#667eea)
+![color](#f0f0f0)
