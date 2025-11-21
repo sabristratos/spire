@@ -2,25 +2,34 @@
 
 @php
     $prefix = config('spire-ui.prefix', 'spire');
-    $componentName = "{$prefix}::icon.icons.{$set}.{$name}";
+    $customIconPath = resource_path("views/components/icons/custom/{$name}.blade.php");
+    $isCustomIcon = file_exists($customIconPath);
 
-    $iconPath = resource_path("views/vendor/{$prefix}/icon/icons/{$set}/{$name}.blade.php");
+    if ($isCustomIcon) {
+        $iconPath = $customIconPath;
+    } else {
+        $iconPath = resource_path("views/vendor/{$prefix}/icon/icons/{$set}/{$name}.blade.php");
 
-    // Fallback 1: Monorepo path (packages/spire-ui/)
-    if (!file_exists($iconPath)) {
-        $iconPath = base_path("packages/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
-    }
+        // Fallback 1: Monorepo path (packages/spire-ui/)
+        if (!file_exists($iconPath)) {
+            $iconPath = base_path("packages/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
+        }
 
-    // Fallback 2: Composer vendor path (vendor/stratos/spire-ui/)
-    if (!file_exists($iconPath)) {
-        $iconPath = base_path("vendor/stratos/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
+        // Fallback 2: Composer vendor path (vendor/stratos/spire-ui/)
+        if (!file_exists($iconPath)) {
+            $iconPath = base_path("vendor/stratos/spire-ui/resources/views/components/icon/icons/{$set}/{$name}.blade.php");
+        }
     }
 
     $iconExists = file_exists($iconPath);
 @endphp
 
 @if($iconExists)
-    <x-dynamic-component :component="$componentName" {{ $attributes }} />
+    @if($isCustomIcon)
+        @include('components.icons.custom.' . $name, ['attributes' => $attributes])
+    @else
+        <x-dynamic-component :component="$prefix . '::icon.icons.' . $set . '.' . $name" {{ $attributes }} />
+    @endif
 @else
     @if(config('app.debug'))
         <svg {{ $attributes->merge(['class' => 'inline-block']) }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

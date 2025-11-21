@@ -67,7 +67,7 @@ $placeholderText = $placeholder ?? __('spire::spire-ui.autocomplete.placeholder'
     <div wire:ignore>
         <div
             x-id="['popover']"
-            class="relative"
+            class="relative w-full"
         >
             <x-spire::autocomplete.input
                 :size="$size"

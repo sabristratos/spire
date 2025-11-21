@@ -1,67 +1,30 @@
 @layer components {
+    /**
+     * Datepicker Component Styles
+     *
+     * Extends shared styles from: base/form-inputs.css
+     * - .spire-input-box for base input box styling (size, variant, colors)
+     *
+     * Target this component with: [data-spire-datepicker__box]
+     */
+
     /* 1. Outer Container */
     .spire-datepicker__container {
         @apply w-full;
     }
 
-    /* 2. Inner Box (Styled Wrapper) */
+    /* 2. Inner Box - component-specific additions to input-box */
     .spire-datepicker__box {
-        @apply flex items-center gap-2 ease-fast;
-        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+        /* Inherits from spire-input-box via extends() */
     }
 
-    /* 3. Variant Styles */
-    .spire-datepicker__box--bordered {
-        @apply border border-border bg-surface;
-    }
-    .spire-datepicker__box--flat {
-        @apply border-0 bg-surface-subtle;
-    }
-
-    /* 4. Size Styles */
-    .spire-datepicker__box--sm {
-        @apply h-8 px-3 text-sm;
-    }
-    .spire-datepicker__box--md {
-        @apply h-10 px-3 text-base;
-    }
-    .spire-datepicker__box--lg {
-        @apply h-12 px-3 text-lg;
-    }
-
-    /* 4a. Trailing Content Spacing */
-    .spire-datepicker__box--has-trailing {
-        @apply pr-2;
-    }
-
-    .spire-datepicker__box .spire-button--icon-only {
-        @apply p-1;
-    }
-
-    /* 5. DatePicker Box States */
-    .spire-datepicker__box--disabled {
-        @apply opacity-50 cursor-not-allowed;
-    }
-
-    .spire-datepicker__box--error {
-        @apply border-error;
-    }
-
-    .spire-datepicker__box--error.focus-within\:border-primary {
-        @apply focus-within:border-error focus-within:ring-error/20;
-    }
-
-    .spire-datepicker__box--readonly {
-        @apply bg-surface-subtle cursor-default;
-    }
-
-    /* 6. DatePicker Trigger Segmented Input Container */
+    /* 3. DatePicker Trigger Segmented Input Container */
     .spire-datepicker-trigger__segments {
         @apply flex items-center gap-0.5 w-full focus-within:outline-none;
         transition: all var(--animation-duration-fast) ease-out;
     }
 
-    /* 7. DatePicker Trigger Individual Segment */
+    /* 4. DatePicker Trigger Individual Segment */
     .spire-datepicker-trigger__segment {
         @apply w-8 text-center bg-transparent border-0 outline-none;
         @apply text-text font-normal;
@@ -75,76 +38,53 @@
         @apply text-text-muted opacity-50;
     }
 
-    /* 8. DatePicker Trigger Year Segment (4 digits) */
+    /* 5. DatePicker Trigger Year Segment (4 digits) */
     .spire-datepicker-trigger__segment--year {
         @apply w-14;
     }
 
-    /* 9. DatePicker Trigger Separator */
+    /* 6. DatePicker Trigger Separator */
     .spire-datepicker-trigger__separator {
         @apply text-text-muted font-normal select-none;
     }
 
-    /* 10. DatePicker Trigger Size Variants for Segments */
-    .spire-datepicker__box--sm .spire-datepicker-trigger__segment {
+    /* 7. DatePicker Trigger Size Variants for Segments */
+    [data-spire-size="sm"] .spire-datepicker-trigger__segment {
         @apply text-sm h-6;
     }
-
-    .spire-datepicker__box--md .spire-datepicker-trigger__segment {
+    [data-spire-size="md"] .spire-datepicker-trigger__segment {
         @apply text-sm h-8;
     }
-
-    .spire-datepicker__box--lg .spire-datepicker-trigger__segment {
+    [data-spire-size="lg"] .spire-datepicker-trigger__segment {
         @apply text-base h-10;
     }
 
-    .spire-datepicker__box--sm .spire-datepicker-trigger__segment--year {
+    [data-spire-size="sm"] .spire-datepicker-trigger__segment--year {
         @apply w-12;
     }
-
-    .spire-datepicker__box--md .spire-datepicker-trigger__segment--year {
+    [data-spire-size="md"] .spire-datepicker-trigger__segment--year {
         @apply w-14;
     }
-
-    .spire-datepicker__box--lg .spire-datepicker-trigger__segment--year {
+    [data-spire-size="lg"] .spire-datepicker-trigger__segment--year {
         @apply w-16;
     }
 
-    .spire-datepicker__box--sm .spire-datepicker-trigger__separator {
+    [data-spire-size="sm"] .spire-datepicker-trigger__separator {
         @apply text-sm;
     }
-
-    .spire-datepicker__box--md .spire-datepicker-trigger__separator {
+    [data-spire-size="md"] .spire-datepicker-trigger__separator {
         @apply text-sm;
     }
-
-    .spire-datepicker__box--lg .spire-datepicker-trigger__separator {
+    [data-spire-size="lg"] .spire-datepicker-trigger__separator {
         @apply text-base;
     }
 
-    /* 11. DatePicker Content (Dropdown Panel) */
+    /* 8. DatePicker Content (Dropdown Panel) */
     .spire-datepicker__content {
         @apply bg-surface border border-border rounded-lg shadow-lg p-3;
     }
 
-    /* 11a. DatePicker Content Width Variants */
-    .spire-datepicker__content--sm {
-        /* Width determined by calendar content */
-    }
-
-    .spire-datepicker__content--md {
-        /* Width determined by calendar content */
-    }
-
-    .spire-datepicker__content--lg {
-        /* Width determined by calendar content */
-    }
-
-    .spire-datepicker__content--auto {
-        /* Width determined by calendar content */
-    }
-
-    /* 12. Range Mode Styles */
+    /* 9. Range Mode Styles */
     .spire-datepicker-trigger__range {
         @apply flex items-center gap-2 w-full;
     }
@@ -165,7 +105,21 @@
         @apply text-text-muted font-normal select-none shrink-0;
     }
 
-    /* 14. Multiple Mode Styles */
+    /* Range mode size variants */
+    [data-spire-size="sm"] .spire-datepicker-trigger__range-value,
+    [data-spire-size="sm"] .spire-datepicker-trigger__range-separator {
+        @apply text-sm;
+    }
+    [data-spire-size="md"] .spire-datepicker-trigger__range-value,
+    [data-spire-size="md"] .spire-datepicker-trigger__range-separator {
+        @apply text-base;
+    }
+    [data-spire-size="lg"] .spire-datepicker-trigger__range-value,
+    [data-spire-size="lg"] .spire-datepicker-trigger__range-separator {
+        @apply text-lg;
+    }
+
+    /* 10. Multiple Mode Styles */
     .spire-datepicker-trigger__multiple {
         @apply flex items-center gap-2 w-full;
     }
@@ -175,27 +129,33 @@
     }
 
     .spire-datepicker-trigger__multiple-value {
-        @apply text-text font-normal truncate block;
-    }
-
-    .spire-datepicker-trigger__multiple-value:empty {
-        @apply text-text-muted;
+        @apply text-text-muted font-normal truncate block;
     }
 
     .spire-datepicker-trigger__multiple-actions {
-        @apply flex items-center gap-2 shrink-0;
+        @apply flex items-center gap-2 shrink-0 ml-auto;
+    }
+
+    /* Multiple mode size variants for placeholder text */
+    [data-spire-size="sm"] .spire-datepicker-trigger__multiple-value {
+        @apply text-sm;
+    }
+    [data-spire-size="md"] .spire-datepicker-trigger__multiple-value {
+        @apply text-base;
+    }
+    [data-spire-size="lg"] .spire-datepicker-trigger__multiple-value {
+        @apply text-lg;
     }
 
     .spire-datepicker-trigger__count-badge {
-        @apply inline-flex items-center justify-center px-2 py-1;
-        @apply text-xs font-medium rounded-full;
+        @apply inline-flex items-center justify-center px-2 py-0.5;
+        @apply text-xs font-medium rounded-md;
         @apply bg-primary/10 text-primary;
-        @apply border border-primary/20;
     }
 
-    /* 14b. Chips for Multiple Mode */
+    /* 11. Chips for Multiple Mode */
     .spire-datepicker__chips-container {
-        @apply flex flex-wrap items-center gap-1.5 flex-1 min-w-0;
+        @apply flex flex-nowrap items-center gap-1.5 flex-1 min-w-0 overflow-hidden;
     }
 
     .spire-datepicker__chip {
@@ -210,23 +170,7 @@
         @apply shrink-0 hover:bg-primary/20 rounded-sm p-0.5 transition-colors;
     }
 
-    /* 15. Mode Modifiers for DatePicker Box */
-    .spire-datepicker__box--range .spire-datepicker-trigger__range-value,
-    .spire-datepicker__box--multiple .spire-datepicker-trigger__multiple-value {
-        @apply text-base;
-    }
-
-    .spire-datepicker__box--sm.spire-datepicker__box--range .spire-datepicker-trigger__range-value,
-    .spire-datepicker__box--sm.spire-datepicker__box--multiple .spire-datepicker-trigger__multiple-value {
-        @apply text-sm;
-    }
-
-    .spire-datepicker__box--lg.spire-datepicker__box--range .spire-datepicker-trigger__range-value,
-    .spire-datepicker__box--lg.spire-datepicker__box--multiple .spire-datepicker-trigger__multiple-value {
-        @apply text-lg;
-    }
-
-    /* 16. Clear Button Styles */
+    /* 12. Clear Button Styles */
     .spire-datepicker-trigger__clear-btn {
         @apply text-text-muted hover:text-error;
         @apply transition-colors duration-150;
@@ -238,7 +182,7 @@
         @apply bg-error/10;
     }
 
-    /* 17. DatePicker Footer */
+    /* 13. DatePicker Footer */
     .spire-datepicker__footer {
         @apply flex items-center gap-2 pt-3 mt-3 border-t border-border;
     }

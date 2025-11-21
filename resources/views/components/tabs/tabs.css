@@ -54,8 +54,8 @@
 .spire-tabs-cursor--default,
 .spire-tabs-cursor--pills,
 .spire-tabs-cursor--soft {
-    @apply rounded-md shadow-sm;
-    background-color: var(--spire-tabs-cursor-bg, var(--color-primary));
+    @apply rounded-md shadow-sm bg-primary;
+    background-color: var(--spire-tabs-cursor-bg, theme(colors.primary));
 }
 
 .spire-tabs-cursor--pills {
@@ -63,15 +63,13 @@
 }
 
 .spire-tabs-cursor--soft {
-    @apply shadow-none;
-    background-color: var(--spire-tabs-cursor-bg, var(--color-primary-100));
-    opacity: 0.15;
+    @apply shadow-none bg-primary-100 opacity-15;
+    background-color: var(--spire-tabs-cursor-bg, theme(colors.primary.100));
 }
 
 .spire-tabs-cursor--underline {
-    @apply rounded-full;
-    background-color: var(--spire-tabs-cursor-bg, var(--color-primary));
-    height: 2px !important;
+    @apply rounded-full bg-primary h-0.5;
+    background-color: var(--spire-tabs-cursor-bg, theme(colors.primary));
     top: auto !important;
     bottom: 0;
 }
@@ -182,29 +180,29 @@
 
 /* Color variants for cursor */
 .spire-tabs-cursor--color-primary {
-    --spire-tabs-cursor-bg: var(--color-primary);
+    --spire-tabs-cursor-bg: theme(colors.primary);
 }
 
 .spire-tabs-cursor--color-secondary {
-    --spire-tabs-cursor-bg: var(--color-secondary);
+    --spire-tabs-cursor-bg: theme(colors.secondary);
 }
 
 .spire-tabs-cursor--color-success {
-    --spire-tabs-cursor-bg: var(--color-success);
+    --spire-tabs-cursor-bg: theme(colors.success);
 }
 
 .spire-tabs-cursor--color-error {
-    --spire-tabs-cursor-bg: var(--color-error);
+    --spire-tabs-cursor-bg: theme(colors.error);
 }
 
 .spire-tabs-cursor--color-warning {
-    --spire-tabs-cursor-bg: var(--color-warning);
+    --spire-tabs-cursor-bg: theme(colors.warning);
 }
 
 .spire-tabs-cursor--color-info {
-    --spire-tabs-cursor-bg: var(--color-info);
+    --spire-tabs-cursor-bg: theme(colors.info);
 }
 
 .spire-tabs-cursor--color-neutral {
-    --spire-tabs-cursor-bg: var(--color-neutral-700);
+    --spire-tabs-cursor-bg: theme(colors.neutral.700);
 }

@@ -112,9 +112,11 @@
   --color-primary: light-dark(var(--color-primary-500), var(--color-primary-500));
   --color-primary-hover: light-dark(var(--color-primary-600), var(--color-primary-600));
   --color-primary-active: light-dark(var(--color-primary-700), var(--color-primary-700));
+  --color-primary-bg: light-dark(var(--color-primary-50), var(--color-primary-950));
   --color-primary-foreground: white;
 
   --color-secondary: light-dark(var(--color-secondary-500), var(--color-secondary-500));
+  --color-secondary-bg: light-dark(var(--color-secondary-50), var(--color-secondary-950));
   --color-secondary-hover: light-dark(var(--color-secondary-600), var(--color-secondary-600));
   --color-secondary-active: light-dark(var(--color-secondary-700), var(--color-secondary-700));
   --color-secondary-foreground: white;
@@ -172,11 +174,14 @@
   --color-featured-bg: light-dark(var(--color-featured-50), var(--color-featured-950));
   --color-featured-foreground: white;
 
-  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.08);
-  --shadow: 0 1px 3px 0 oklch(0 0 0 / 0.12), 0 1px 2px -1px oklch(0 0 0 / 0.12);
-  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.12), 0 2px 4px -2px oklch(0 0 0 / 0.09);
-  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.15), 0 4px 6px -4px oklch(0 0 0 / 0.09);
-  --shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.18), 0 8px 10px -6px oklch(0 0 0 / 0.12);
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
 
   --color-neutral-border: light-dark(var(--color-neutral-600), var(--color-neutral-700));
   --color-primary-border: light-dark(var(--color-primary-600), var(--color-primary-700));
@@ -215,5 +220,7 @@
   --animation-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --animation-easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+
 }
 

@@ -30,7 +30,8 @@ $defaultPresets = [
 $activePresets = empty($presets) ? $defaultPresets : $presets;
 
 $builder = ComponentClass::make('datepicker__content')
-    ->modifier($width)
+    ->addClass('spire-overlay')
+    ->addClass('spire-overlay--padded-lg')
     ->addClass('animate-dropdown-bounce')
     ->dataAttribute('datepicker-content', 'true');
 

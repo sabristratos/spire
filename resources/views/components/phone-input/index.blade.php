@@ -3,6 +3,8 @@
     'placeholder' => null,
     'placement' => 'bottom-start',
     'size' => spire_default('phone-input', 'size', 'md'),
+    'variant' => 'bordered',
+    'color' => 'default',
     'radius' => spire_default('phone-input', 'radius', 'md'),
     'disabled' => false,
     'required' => false,
@@ -32,7 +34,9 @@ if ($customClass = $attributes->get('class')) {
 
 // Box wrapper builder (unified border/focus like input-box)
 $boxBuilder = ComponentClass::make('phone-input-box')
+    ->extends('input-box')
     ->size($size)
+    ->colorVariant($color, $variant)
     ->radius($radius);
 @endphp
 
@@ -84,7 +88,7 @@ $boxBuilder = ComponentClass::make('phone-input-box')
                 </button>
 
                 {{-- Vertical separator --}}
-                <x-spire::separator orientation="vertical" spacing="sm" size="sm" class="self-stretch" />
+                <div class="spire-phone-input-separator"></div>
 
                 {{-- Phone number input --}}
                 <input
@@ -104,8 +108,9 @@ $boxBuilder = ComponentClass::make('phone-input-box')
                 :id="$id('phone-popover')"
                 x-ref="content"
                 popover="auto"
-                class="spire-phone-input-dropdown animate-dropdown-bounce"
+                class="spire-overlay spire-phone-input-dropdown animate-dropdown-bounce"
                 data-placement="{{ $placement }}"
+                data-spire-phone-input-dropdown
                 @toggle="handleToggle"
                 @keydown.arrow-down.prevent="handleArrowDown"
                 @keydown.arrow-up.prevent="handleArrowUp"
@@ -125,6 +130,7 @@ $boxBuilder = ComponentClass::make('phone-input-box')
                         x-model="searchQuery"
                         class="spire-phone-input-search-input"
                         placeholder="{{ $searchPlaceholderText }}"
+                        autocomplete="off"
                         @keydown.arrow-down.prevent="handleArrowDown"
                         @keydown.arrow-up.prevent="handleArrowUp"
                         @keydown.enter.prevent="selectHighlighted"

@@ -23,47 +23,47 @@
     .spire-button--icon-only.spire-button--lg { @apply w-12 p-2.5; }
 
     .spire-button--default-solid {
-        @apply bg-neutral text-white border border-neutral-border inset-shadow-button shadow-sm hover:bg-neutral-hover active:bg-neutral-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-neutral;
+        @apply bg-neutral text-white border border-neutral-border inset-shadow-button shadow-xs hover:bg-neutral-hover active:bg-neutral-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-neutral;
     }
     .spire-button--primary-solid {
-        @apply bg-primary text-primary-foreground border border-primary-border inset-shadow-button shadow-sm hover:bg-primary-hover active:bg-primary-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-primary;
+        @apply bg-primary text-primary-foreground border border-primary-border inset-shadow-button shadow-xs hover:bg-primary-hover active:bg-primary-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-primary;
     }
     .spire-button--secondary-solid {
-        @apply bg-secondary text-secondary-foreground border border-secondary-border inset-shadow-button shadow-sm hover:bg-secondary-hover active:bg-secondary-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-secondary;
+        @apply bg-secondary text-secondary-foreground border border-secondary-border inset-shadow-button shadow-xs hover:bg-secondary-hover active:bg-secondary-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-secondary;
     }
     .spire-button--success-solid {
-        @apply bg-success text-success-foreground border border-success-border inset-shadow-button shadow-sm hover:bg-success-hover active:bg-success-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-success;
+        @apply bg-success text-success-foreground border border-success-border inset-shadow-button shadow-xs hover:bg-success-hover active:bg-success-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-success;
     }
     .spire-button--error-solid {
-        @apply bg-error text-error-foreground border border-error-border inset-shadow-button shadow-sm hover:bg-error-hover active:bg-error-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-error;
+        @apply bg-error text-error-foreground border border-error-border inset-shadow-button shadow-xs hover:bg-error-hover active:bg-error-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-error;
     }
     .spire-button--warning-solid {
-        @apply bg-warning text-warning-foreground border border-warning-border inset-shadow-button shadow-sm hover:bg-warning-hover active:bg-warning-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-warning;
+        @apply bg-warning text-warning-foreground border border-warning-border inset-shadow-button shadow-xs hover:bg-warning-hover active:bg-warning-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-warning;
     }
     .spire-button--info-solid {
-        @apply bg-info text-info-foreground border border-info-border inset-shadow-button shadow-sm hover:bg-info-hover active:bg-info-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-info;
+        @apply bg-info text-info-foreground border border-info-border inset-shadow-button shadow-xs hover:bg-info-hover active:bg-info-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-info;
     }
 
     .spire-button--default-bordered {
-        @apply bg-transparent text-neutral-foreground border border-neutral/30 shadow-sm hover:bg-neutral/10 active:bg-neutral/20 active:shadow-xs focus-visible:outline-neutral;
+        @apply bg-transparent text-neutral-foreground border border-neutral/30 shadow-xs hover:bg-neutral/10 active:bg-neutral/20 active:shadow-xs focus-visible:outline-neutral;
     }
     .spire-button--primary-bordered {
-        @apply bg-transparent text-primary border border-primary shadow-sm hover:bg-primary/20 active:bg-primary/15 active:shadow-none focus-visible:outline-primary;
+        @apply bg-transparent text-primary border border-primary shadow-xs hover:bg-primary/20 active:bg-primary/15 active:shadow-none focus-visible:outline-primary;
     }
     .spire-button--secondary-bordered {
-        @apply bg-transparent text-secondary border border-secondary shadow-sm hover:bg-secondary/20 active:bg-secondary/15 active:shadow-none focus-visible:outline-secondary;
+        @apply bg-transparent text-secondary border border-secondary shadow-xs hover:bg-secondary/20 active:bg-secondary/15 active:shadow-none focus-visible:outline-secondary;
     }
     .spire-button--success-bordered {
-        @apply bg-transparent text-success border border-success shadow-sm hover:bg-success/20 active:bg-success/15 active:shadow-none focus-visible:outline-success;
+        @apply bg-transparent text-success border border-success shadow-xs hover:bg-success/20 active:bg-success/15 active:shadow-none focus-visible:outline-success;
     }
     .spire-button--error-bordered {
-        @apply bg-transparent text-error border border-error shadow-sm hover:bg-error/20 active:bg-error/15 active:shadow-none focus-visible:outline-error;
+        @apply bg-transparent text-error border border-error shadow-xs hover:bg-error/20 active:bg-error/15 active:shadow-none focus-visible:outline-error;
     }
     .spire-button--warning-bordered {
-        @apply bg-transparent text-warning border border-warning shadow-sm hover:bg-warning/20 active:bg-warning/15 active:shadow-none focus-visible:outline-warning;
+        @apply bg-transparent text-warning border border-warning shadow-xs hover:bg-warning/20 active:bg-warning/15 active:shadow-none focus-visible:outline-warning;
     }
     .spire-button--info-bordered {
-        @apply bg-transparent text-info border border-info shadow-sm hover:bg-info/20 active:bg-info/15 active:shadow-none focus-visible:outline-info;
+        @apply bg-transparent text-info border border-info shadow-xs hover:bg-info/20 active:bg-info/15 active:shadow-none focus-visible:outline-info;
     }
 
     .spire-button--default-ghost {
@@ -89,25 +89,25 @@
     }
 
     .spire-button--default-soft {
-        @apply bg-neutral/50 text-neutral-foreground shadow-sm hover:bg-neutral/70 active:bg-neutral/70 active:shadow-none focus-visible:outline-neutral;
+        @apply bg-neutral/50 text-neutral-foreground shadow-xs hover:bg-neutral/70 active:bg-neutral/70 active:shadow-none focus-visible:outline-neutral;
     }
     .spire-button--primary-soft {
-        @apply bg-primary/20 text-primary shadow-sm hover:bg-primary/35 active:bg-primary/20 active:shadow-none focus-visible:outline-primary;
+        @apply bg-primary/20 text-primary shadow-xs hover:bg-primary/35 active:bg-primary/20 active:shadow-none focus-visible:outline-primary;
     }
     .spire-button--secondary-soft {
-        @apply bg-secondary/20 text-secondary shadow-sm hover:bg-secondary/35 active:bg-secondary/20 active:shadow-none focus-visible:outline-secondary;
+        @apply bg-secondary/20 text-secondary shadow-xs hover:bg-secondary/35 active:bg-secondary/20 active:shadow-none focus-visible:outline-secondary;
     }
     .spire-button--success-soft {
-        @apply bg-success/20 text-success shadow-sm hover:bg-success/35 active:bg-success/20 active:shadow-none focus-visible:outline-success;
+        @apply bg-success/20 text-success shadow-xs hover:bg-success/35 active:bg-success/20 active:shadow-none focus-visible:outline-success;
     }
     .spire-button--error-soft {
-        @apply bg-error/20 text-error shadow-sm hover:bg-error/35 active:bg-error/20 active:shadow-none focus-visible:outline-error;
+        @apply bg-error/20 text-error shadow-xs hover:bg-error/35 active:bg-error/20 active:shadow-none focus-visible:outline-error;
     }
     .spire-button--warning-soft {
-        @apply bg-warning/20 text-warning shadow-sm hover:bg-warning/35 active:bg-warning/20 active:shadow-none focus-visible:outline-warning;
+        @apply bg-warning/20 text-warning shadow-xs hover:bg-warning/35 active:bg-warning/20 active:shadow-none focus-visible:outline-warning;
     }
     .spire-button--info-soft {
-        @apply bg-info/20 text-info shadow-sm hover:bg-info/35 active:bg-info/20 active:shadow-none focus-visible:outline-info;
+        @apply bg-info/20 text-info shadow-xs hover:bg-info/35 active:bg-info/20 active:shadow-none focus-visible:outline-info;
     }
 
     .spire-button--default-link {
@@ -133,16 +133,16 @@
     }
 
     .spire-button--featured-solid {
-        @apply bg-featured text-featured-foreground border border-featured-border inset-shadow-button shadow-sm hover:bg-featured-hover active:bg-featured-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-featured;
+        @apply bg-featured text-featured-foreground border border-featured-border inset-shadow-button shadow-xs hover:bg-featured-hover active:bg-featured-active active:shadow-none active:inset-shadow-button-active focus-visible:outline-featured;
     }
     .spire-button--featured-bordered {
-        @apply bg-transparent text-featured border border-featured shadow-sm hover:bg-featured/20 active:bg-featured/15 active:shadow-none focus-visible:outline-featured;
+        @apply bg-transparent text-featured border border-featured shadow-xs hover:bg-featured/20 active:bg-featured/15 active:shadow-none focus-visible:outline-featured;
     }
     .spire-button--featured-ghost {
         @apply bg-transparent text-text-muted hover:text-featured active:text-featured-hover focus-visible:outline-featured;
     }
     .spire-button--featured-soft {
-        @apply bg-featured/20 text-featured shadow-sm hover:bg-featured/35 active:bg-featured/20 active:shadow-none focus-visible:outline-featured;
+        @apply bg-featured/20 text-featured shadow-xs hover:bg-featured/35 active:bg-featured/20 active:shadow-none focus-visible:outline-featured;
     }
     .spire-button--featured-link {
         @apply bg-transparent text-featured underline-offset-4 hover:underline focus-visible:outline-featured;

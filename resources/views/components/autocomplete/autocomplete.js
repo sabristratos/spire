@@ -66,6 +66,7 @@ export function autocompleteComponent(config = {}) {
         },
 
         get shouldShowDropdown() {
+            if (this.displayOptions.length === 0) return false;
             if (this.showOnFocus && this.inputValue.length === 0) return true;
             return this.inputValue.length >= this.minChars && this.filteredOptions.length > 0;
         },

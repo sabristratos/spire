@@ -47,6 +47,7 @@ return [
         'clear_all' => 'Clear All',
         'selected' => 'selected',
         'max_reached' => 'Maximum :max selections reached',
+        'results_available' => 'results available',
     ],
 
     'autocomplete' => [

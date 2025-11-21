@@ -18,7 +18,7 @@ export function sliderComponent(config = {}) {
         maxLabel: config.maxLabel || 'Maximum value',
         valueLabel: config.valueLabel || 'Value',
 
-        value: config.value || null,
+        value: config.value ?? null,
         displayValue: null,
         isDragging: false,
         activeThumb: null,
@@ -115,7 +115,9 @@ export function sliderComponent(config = {}) {
         handleTrackClick(event) {
             if (this.disabled || this.readonly) return;
 
-            event.preventDefault();
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
             const previousValue = this.value;
             const value = this.calculateValueFromEvent(event);
 
@@ -138,6 +140,7 @@ export function sliderComponent(config = {}) {
 
         handleTouchStart(event) {
             if (this.disabled || this.readonly) return;
+            event.preventDefault();
             this.handleTrackClick(event.touches[0]);
         },
 
@@ -452,6 +455,61 @@ export function sliderComponent(config = {}) {
                 markers.push(val);
             }
             return markers;
+        },
+
+        updateFromInput(inputValue) {
+            const parsed = parseFloat(inputValue);
+            if (isNaN(parsed)) return;
+
+            const previousValue = this.value;
+            const clamped = Math.min(Math.max(parsed, this.min), this.max);
+            const steps = Math.round((clamped - this.min) / this.step);
+            const stepped = this.min + (steps * this.step);
+
+            this.isInternalUpdate = true;
+            this.value = stepped;
+            this.$nextTick(() => {
+                this.isInternalUpdate = false;
+            });
+
+            this.$dispatch(SPIRE_EVENTS.SLIDER_CHANGED, createEventPayload({
+                id: this.$id('slider'),
+                name: this.name,
+                value: this.value,
+                previousValue: previousValue,
+            }));
+        },
+
+        updateRangeFromInput(thumb, inputValue) {
+            const parsed = parseFloat(inputValue);
+            if (isNaN(parsed)) return;
+
+            const previousValue = { ...this.value };
+            let start = this.value.start;
+            let end = this.value.end;
+
+            const clamped = Math.min(Math.max(parsed, this.min), this.max);
+            const steps = Math.round((clamped - this.min) / this.step);
+            const stepped = this.min + (steps * this.step);
+
+            if (thumb === 'start') {
+                start = Math.min(stepped, end);
+            } else {
+                end = Math.max(stepped, start);
+            }
+
+            this.isInternalUpdate = true;
+            this.value = { start, end };
+            this.$nextTick(() => {
+                this.isInternalUpdate = false;
+            });
+
+            this.$dispatch(SPIRE_EVENTS.SLIDER_CHANGED, createEventPayload({
+                id: this.$id('slider'),
+                name: this.name,
+                value: this.value,
+                previousValue: previousValue,
+            }));
         },
 
         formatValue() {

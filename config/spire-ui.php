@@ -36,13 +36,17 @@ return [
     'defaults' => [
         // Global defaults (apply to all components)
         // Options: 'sm', 'md', 'lg'
-        'size' => 'sm',
+        'size' => 'md',
 
         // Options: 'none', 'sm', 'md', 'lg', 'full'
         'radius' => 'lg',
 
         // Options: 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'
         'placement' => 'bottom-start',
+
+        // Global input variant (applies to input, textarea, select, autocomplete, datepicker, timepicker)
+        // Options: 'bordered', 'flat', 'underlined'
+        'input-variant' => 'bordered',
 
         // Toast notifications
         'toast' => [
@@ -141,18 +145,32 @@ return [
             'firstDayOfWeek' => 1,
         ],
 
+        // Table
+        'table' => [
+            // Options: 'flat', 'bordered'
+            'variant' => 'flat',
+        ],
+
         // Per-component overrides (uncomment to customize)
         // 'button' => [
         //     'size' => 'sm',
         //     'radius' => 'lg',
         // ],
-        // 'input' => [],
-        // 'textarea' => [],
-        // 'select' => [],
+        // 'input' => [
+        //     'variant' => 'bordered',
+        // ],
+        // 'textarea' => [
+        //     'variant' => 'bordered',
+        // ],
+        // 'select' => [
+        //     'variant' => 'bordered',
+        // ],
         'slider' => [
             'size' => 'md',
         ],
-        // 'timepicker' => [],
+        // 'timepicker' => [
+        //     'variant' => 'bordered',
+        // ],
 
         // Progress
         'progress' => [
@@ -172,6 +190,34 @@ return [
             'circular' => [
                 'size' => 48,
                 'strokeWidth' => 4,
+            ],
+        ],
+
+        // Section (layout container)
+        'section' => [
+            // Options: 'narrow', 'default', 'wide', 'full'
+            'size' => 'default',
+
+            // Options: 'none', 'sm', 'md', 'lg'
+            'padding' => 'md',
+
+            // Whether to center the section horizontally
+            'centered' => true,
+
+            // Width presets (Tailwind max-width classes)
+            'sizes' => [
+                'narrow' => 'max-w-3xl',
+                'default' => 'max-w-5xl',
+                'wide' => 'max-w-7xl',
+                'full' => 'max-w-full',
+            ],
+
+            // Padding presets (horizontal + vertical responsive padding)
+            'paddings' => [
+                'none' => '',
+                'sm' => 'px-4 py-8 lg:py-12',
+                'md' => 'px-4 sm:px-6 lg:px-8 py-12 lg:py-16',
+                'lg' => 'px-4 sm:px-6 lg:px-8 py-16 lg:py-24',
             ],
         ],
     ],

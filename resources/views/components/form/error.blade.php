@@ -3,6 +3,7 @@
     'message' => null,
     'icon' => 'alert-circle',
     'showIcon' => true,
+    'id' => null,
 ])
 
 @php
@@ -24,9 +25,14 @@ if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
 }
 
+$errorId = $id ?? ($name ? 'error-' . $name : null);
+
 $mergedAttributes = $attributes->merge([
     'class' => $builder->build(),
     'data-spire-error' => 'true',
+    'role' => 'alert',
+    'aria-live' => 'polite',
+    'id' => $errorId,
 ]);
 @endphp
 

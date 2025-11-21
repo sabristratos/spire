@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'bordered',
+    'variant' => spire_default('input', 'variant', spire_default('input', 'input-variant', 'bordered')),
     'color' => 'default',
     'size' => spire_default('input', 'size', 'md'),
     'radius' => spire_default('input', 'radius', 'md'),
@@ -13,6 +13,9 @@
     'clearable' => false,
     'viewable' => false,
     'copyable' => false,
+    'invalid' => false,
+    'errorId' => null,
+    'describedBy' => null,
 ])
 
 @php
@@ -65,6 +68,9 @@
         ->dataAttribute('variant', $variant)
         ->dataAttribute('size', $size);
 
+    $ariaDescriptions = array_filter([$describedBy, $errorId]);
+    $ariaDescribedBy = !empty($ariaDescriptions) ? implode(' ', $ariaDescriptions) : null;
+
     $inputAttributes = $attributes->except(['class', 'style'])->merge([
         'type' => $viewable ? '' : $type,
         'disabled' => $disabled ? true : null,
@@ -72,6 +78,9 @@
         'required' => $required ? true : null,
         'placeholder' => $placeholder,
         'class' => $inputBuilder->build(),
+        'aria-invalid' => $invalid ? 'true' : null,
+        'aria-errormessage' => $invalid && $errorId ? $errorId : null,
+        'aria-describedby' => $ariaDescribedBy,
         ...$inputBuilder->getDataAttributes(),
     ]);
 

@@ -233,4 +233,50 @@
         }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        .animated-element,
+        .animate-pop,
+        .animate-slide-up,
+        .animate-slide-left,
+        .animate-slide-right,
+        .animate-reveal,
+        .animate-rotate,
+        .animate-spring,
+        [popover].animate-pop,
+        [popover].animate-slide-up,
+        [popover].animate-slide-left,
+        [popover].animate-slide-right,
+        [popover].animate-spring,
+        [popover].animate-dropdown-bounce,
+        [popover].animate-tooltip-bounce {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        .animated-element,
+        .animate-pop,
+        .animate-slide-up,
+        .animate-slide-left,
+        .animate-slide-right,
+        .animate-reveal,
+        .animate-rotate,
+        .animate-spring {
+            opacity: 1;
+            transform: none;
+            clip-path: none;
+        }
+
+        [popover].animate-pop:popover-open,
+        [popover].animate-slide-up:popover-open,
+        [popover].animate-slide-left:popover-open,
+        [popover].animate-slide-right:popover-open,
+        [popover].animate-spring:popover-open,
+        [popover].animate-dropdown-bounce:popover-open,
+        [popover].animate-tooltip-bounce:popover-open {
+            opacity: 1;
+            transform: none;
+            transition: none !important;
+        }
+    }
+
 }

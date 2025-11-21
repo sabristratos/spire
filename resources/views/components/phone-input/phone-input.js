@@ -177,6 +177,7 @@ export function phoneInputComponent(config = {}) {
             const previousCountry = this.selectedCountryCode;
             this.setSelectedCountry(code);
             this.updateFullValue();
+            this.searchQuery = '';
             this.hide();
 
             this.$dispatch(SPIRE_EVENTS.PHONE_INPUT_COUNTRY_CHANGED, createEventPayload({

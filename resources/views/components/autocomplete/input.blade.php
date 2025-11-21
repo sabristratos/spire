@@ -1,6 +1,6 @@
 @props([
     'size' => spire_default('autocomplete', 'size', 'md'),
-    'variant' => 'bordered',
+    'variant' => spire_default('autocomplete', 'variant', spire_default('autocomplete', 'input-variant', 'bordered')),
     'color' => 'default',
     'radius' => spire_default('autocomplete', 'radius', 'md'),
     'type' => 'text',
@@ -13,12 +13,14 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('autocomplete-input')
+    ->extends('input-box')
     ->size($size)
     ->colorVariant($color, $variant)
     ->radius($radius)
     ->when($clearable, fn($b) => $b->modifier('clearable'));
 
 $inputClasses = $builder->build();
+$dataAttributes = $builder->getDataAttributes();
 
 $wrapperClasses = 'spire-autocomplete-input-wrapper';
 @endphp
@@ -46,6 +48,9 @@ $wrapperClasses = 'spire-autocomplete-input-wrapper';
         autocomplete="off"
         class="{{ $inputClasses }}"
         {{ $attributes->except(['class', 'placeholder', 'disabled']) }}
+        @foreach($dataAttributes as $key => $value)
+            {{ $key }}="{{ $value }}"
+        @endforeach
     />
 
     @if($clearable)

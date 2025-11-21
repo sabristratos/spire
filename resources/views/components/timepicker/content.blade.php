@@ -7,7 +7,10 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('timepicker-content')
-    ->addClass('animate-dropdown-bounce');
+    ->addClass('spire-overlay')
+    ->addClass('spire-overlay--padded-lg')
+    ->addClass('animate-dropdown-bounce')
+    ->dataAttribute('timepicker-content', '');
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
@@ -15,9 +18,9 @@ if ($customClass = $attributes->get('class')) {
 
 $mergedAttributes = $attributes->except(['class'])->merge([
     'data-placement' => $placement,
-    'data-spire-timepicker-content' => true,
     'popover' => 'auto',
     'class' => $builder->build(),
+    ...$builder->getDataAttributes(),
     'role' => 'dialog',
     'aria-label' => __('spire::spire-ui.timepicker.picker_label'),
 ]);

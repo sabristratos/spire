@@ -10,18 +10,21 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('select-content')
-    ->modifier($width)
+    ->addClass('spire-overlay')
+    ->addClass('spire-overlay--padded-sm')
     ->addClass('animate-dropdown-bounce');
 
-// Add padding only if using auto-generated content
-if ($slot->isEmpty()) {
-    $builder->addClass('p-1');
-}
-
-// Auto width uses anchor positioning
-if ($width === 'auto') {
-    $builder->addClass('w-[anchor-size(width)]');
-}
+// Width variants using shared overlay system
+$widthClass = match($width) {
+    'sm' => 'spire-overlay--sm',
+    'md' => 'spire-overlay--md',
+    'lg' => 'spire-overlay--lg',
+    'xl' => 'spire-overlay--xl',
+    'full' => 'spire-overlay--full',
+    'auto' => 'spire-overlay--anchor',
+    default => 'spire-overlay--md',
+};
+$builder->addClass($widthClass);
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
@@ -51,6 +54,11 @@ $mergedAttributes = $attributes->except(['class'])->merge([
     tabindex="-1"
     {{ $mergedAttributes }}
 >
+    {{-- Live region for screen reader announcements --}}
+    <div class="sr-only" aria-live="polite" aria-atomic="true">
+        <span x-text="filteredOptions.length + ' {{ __('spire::spire-ui.select.results_available') }}'"></span>
+    </div>
+
     @if($slot->isNotEmpty())
         {{ $slot }}
     @else

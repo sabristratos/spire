@@ -1,6 +1,6 @@
 @props([
     'size' => spire_default('datepicker', 'size', 'md'),
-    'variant' => 'bordered',
+    'variant' => spire_default('datepicker', 'variant', spire_default('datepicker', 'input-variant', 'bordered')),
     'radius' => spire_default('datepicker', 'radius', 'md'),
     'disabled' => false,
     'readonly' => false,
@@ -15,13 +15,13 @@ use SpireUI\Support\ComponentClass;
 $containerBuilder = ComponentClass::make('datepicker__container');
 
 $boxBuilder = ComponentClass::make('datepicker__box')
+    ->extends('input-box')
     ->size($size)
     ->variant($variant)
     ->radius($radius)
     ->when($disabled, fn($b) => $b->modifier('disabled'))
     ->when($error, fn($b) => $b->modifier('error'))
     ->when($readonly, fn($b) => $b->modifier('readonly'))
-    ->modifier($mode)
     ->modifier('has-trailing');
 
 if ($customClass = $attributes->get('class')) {
@@ -147,8 +147,8 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
             {{-- Multiple mode: Display chips --}}
             <div class="spire-datepicker-trigger__multiple">
                 {{-- Chips display --}}
-                <div class="spire-datepicker__chips-container" x-show="selectedCount > 0">
-                    <template x-for="(date, index) in selectedDates.slice(0, maxChipsDisplay)" :key="date.value">
+                <div class="spire-datepicker__chips-container" x-ref="chipsContainer" x-show="selectedCount > 0">
+                    <template x-for="(date, index) in selectedDates.slice(0, visibleChipsCount)" :key="date.value">
                         <span class="spire-datepicker__chip">
                             <span class="spire-datepicker__chip-label" x-text="date.label"></span>
                             <button
@@ -165,9 +165,9 @@ $boxAttributes = $attributes->except(['class', 'style'])->merge([
 
                     {{-- Overflow indicator --}}
                     <span
-                        x-show="selectedCount > maxChipsDisplay"
-                        class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md bg-neutral-200 dark:bg-neutral-700 text-text-muted"
-                        x-text="'+ ' + (selectedCount - maxChipsDisplay) + ' more'"
+                        x-show="selectedCount > visibleChipsCount"
+                        class="spire-datepicker-trigger__count-badge shrink-0"
+                        x-text="'+' + (selectedCount - visibleChipsCount)"
                     ></span>
                 </div>
 

@@ -11,7 +11,13 @@
 
     /* 3. Hidden Checkbox Input */
     .spire-switch-input {
-        @apply sr-only;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        position: fixed;
+        white-space: nowrap;
     }
 
     /* 4. Track Base */

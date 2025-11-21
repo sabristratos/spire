@@ -1,0 +1,300 @@
+@layer components {
+    /**
+     * Shared Form Input Styles
+     *
+     * These base classes are shared across input, select, autocomplete,
+     * datepicker, timepicker, and phone-input components.
+     */
+
+    /* ==========================================================================
+       1. INPUT BOX BASE
+       The styled wrapper that contains form inputs with consistent look & feel
+       ========================================================================== */
+
+    .spire-input-box {
+        @apply flex items-center gap-2 ease-fast;
+        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+    }
+
+    /* ==========================================================================
+       2. SIZE VARIANTS
+       Consistent height, padding, and font sizing across form inputs
+       ========================================================================== */
+
+    .spire-input-box--sm {
+        @apply h-8 px-3 text-sm;
+    }
+
+    .spire-input-box--md {
+        @apply h-10 px-3 text-base;
+    }
+
+    .spire-input-box--lg {
+        @apply h-12 px-3 text-lg;
+    }
+
+    /* Size variants for textarea (no fixed height) */
+    .spire-input-box--sm[data-spire-textarea] {
+        @apply h-auto py-1.5;
+    }
+
+    .spire-input-box--md[data-spire-textarea] {
+        @apply h-auto py-2;
+    }
+
+    .spire-input-box--lg[data-spire-textarea] {
+        @apply h-auto py-2.5;
+    }
+
+    /* ==========================================================================
+       3. STYLE VARIANTS
+       Bordered and flat visual styles
+       ========================================================================== */
+
+    .spire-input-box--bordered {
+        @apply border border-border bg-surface shadow-xs;
+    }
+
+    .spire-input-box--flat {
+        @apply border-0 bg-transparent rounded-none shadow-none relative;
+        @apply focus-within:ring-0 focus-within:border-transparent;
+    }
+
+    .spire-input-box--flat::after {
+        content: '';
+        @apply absolute bottom-0 left-0 right-0 h-px bg-border pointer-events-none rounded-full;
+        transition: background-color var(--animation-duration-fast) ease-out,
+                    height var(--animation-duration-fast) ease-out;
+    }
+
+    .spire-input-box--flat:focus-within::after {
+        @apply h-0.5 bg-primary;
+    }
+
+    /* ==========================================================================
+       4. COLOR VARIANTS (for bordered style)
+       ========================================================================== */
+
+    .spire-input-box--default-bordered {
+        @apply bg-surface border border-border text-text;
+        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+    }
+
+    .spire-input-box--primary-bordered {
+        @apply bg-surface border border-primary text-text;
+        @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
+    }
+
+    .spire-input-box--error-bordered {
+        @apply bg-surface border border-error text-text;
+        @apply focus-within:border-error focus-within:ring-2 focus-within:ring-error/20;
+    }
+
+    /* ==========================================================================
+       5. COLOR VARIANTS (for flat style)
+       ========================================================================== */
+
+    .spire-input-box--default-flat {
+        @apply bg-transparent border-0 text-text;
+    }
+
+    .spire-input-box--default-flat:focus-within::after {
+        @apply bg-primary;
+    }
+
+    .spire-input-box--primary-flat {
+        @apply bg-transparent border-0 text-text;
+    }
+
+    .spire-input-box--primary-flat::after {
+        @apply bg-primary;
+    }
+
+    .spire-input-box--error-flat {
+        @apply bg-transparent border-0 text-text;
+    }
+
+    .spire-input-box--error-flat::after {
+        @apply bg-error;
+    }
+
+    /* ==========================================================================
+       6. STATE MODIFIERS
+       ========================================================================== */
+
+    .spire-input-box--disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .spire-input-box--readonly {
+        @apply bg-surface-subtle cursor-default;
+    }
+
+    .spire-input-box--error {
+        @apply border-error;
+    }
+
+    /* ==========================================================================
+       7. TRAILING CONTENT SPACING
+       Reduced right padding when trailing content (buttons, icons) exists
+       ========================================================================== */
+
+    .spire-input-box--has-trailing {
+        @apply pr-2;
+    }
+
+    .spire-input-box .spire-button--icon-only {
+        @apply p-1;
+    }
+
+    /* ==========================================================================
+       8. OVERLAY BASE
+       Shared styles for all overlay panels (dropdowns, pickers, popovers)
+       ========================================================================== */
+
+    .spire-overlay {
+        @apply bg-surface border border-border rounded-lg shadow-lg;
+    }
+
+    /* Overlay width variants - min-w for content, max-w to prevent overflow */
+    .spire-overlay--sm {
+        @apply min-w-[12rem] max-w-[20rem];
+    }
+
+    .spire-overlay--md {
+        @apply min-w-[14rem] max-w-[24rem];
+    }
+
+    .spire-overlay--lg {
+        @apply min-w-[18rem] max-w-[28rem];
+    }
+
+    .spire-overlay--xl {
+        @apply min-w-[20rem] max-w-[32rem];
+    }
+
+    .spire-overlay--auto {
+        @apply min-w-max max-w-[32rem];
+    }
+
+    .spire-overlay--full {
+        @apply w-full;
+    }
+
+    .spire-overlay--anchor {
+        @apply w-[anchor-size(width)];
+    }
+
+    /* Overlay padding variants */
+    .spire-overlay--padded-sm {
+        @apply p-1;
+    }
+
+    .spire-overlay--padded-md {
+        @apply p-2;
+    }
+
+    .spire-overlay--padded-lg {
+        @apply p-3;
+    }
+
+    /* ==========================================================================
+       9. OPTION ITEMS
+       Shared styles for selectable options in dropdowns
+       ========================================================================== */
+
+    .spire-option-item {
+        @apply flex items-center gap-3 w-full px-3 py-2 text-sm rounded-md cursor-pointer;
+        transition: all var(--animation-duration-fast) ease-out;
+    }
+
+    .spire-option-item--normal {
+        @apply text-text hover:bg-hover;
+    }
+
+    .spire-option-item--highlighted {
+        @apply bg-hover;
+    }
+
+    .spire-option-item--selected {
+        @apply bg-primary/10;
+    }
+
+    .spire-option-item--disabled {
+        @apply text-text-disabled cursor-not-allowed opacity-50;
+    }
+
+    /* ==========================================================================
+       10. EMPTY STATE
+       Shown when no options are available
+       ========================================================================== */
+
+    .spire-empty-state {
+        @apply px-3 py-4 text-center text-sm text-text-muted;
+    }
+
+    .spire-empty-state--compact {
+        @apply py-2;
+    }
+
+    .spire-empty-state--large {
+        @apply py-8;
+    }
+
+    /* ==========================================================================
+       11. SEARCH INPUT IN DROPDOWNS
+       ========================================================================== */
+
+    .spire-dropdown-search {
+        @apply px-2 py-1.5 border-b border-border;
+    }
+
+    .spire-dropdown-search-input {
+        @apply w-full px-3 py-2 text-sm bg-body border border-border rounded;
+        @apply text-text placeholder:text-text-muted;
+        @apply focus:outline-none focus:ring-2 focus:ring-primary;
+    }
+
+    /* ==========================================================================
+       12. TAGS/CHIPS
+       Used in multi-select and multi-date components
+       ========================================================================== */
+
+    .spire-tag {
+        @apply inline-flex items-center gap-1 bg-primary/10 text-primary px-2 py-0.5 rounded-md text-sm;
+    }
+
+    .spire-tag__label {
+        @apply truncate max-w-[8rem];
+    }
+
+    .spire-tag__remove {
+        @apply shrink-0 hover:bg-primary/20 rounded-sm p-0.5 transition-colors;
+    }
+
+    /* ==========================================================================
+       13. INPUT ELEMENT BASE
+       The actual <input> element inside the box
+       ========================================================================== */
+
+    .spire-input-element {
+        @apply flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 min-w-0;
+        @apply text-text placeholder:text-text-muted disabled:text-text-disabled disabled:cursor-not-allowed;
+    }
+
+    /* ==========================================================================
+       14. ICON SIZES
+       ========================================================================== */
+
+    .spire-input-icon--sm {
+        @apply w-4 h-4;
+    }
+
+    .spire-input-icon--md {
+        @apply w-4 h-4;
+    }
+
+    .spire-input-icon--lg {
+        @apply w-5 h-5;
+    }
+}

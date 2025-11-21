@@ -11,7 +11,7 @@ class InstallCommand extends Command
     protected $signature = 'spire:install
                             {--skip-npm : Skip npm dependency installation}
                             {--skip-build : Skip asset building}
-                            {--no-interaction : Skip all prompts}';
+                            {--force : Skip all prompts}';
 
     protected $description = 'Install Spire UI assets and dependencies';
 
@@ -21,7 +21,7 @@ class InstallCommand extends Command
         $this->newLine();
 
         // Publish config (optional)
-        if ($this->option('no-interaction') || $this->confirm('Publish configuration file?', false)) {
+        if ($this->option('force') || $this->confirm('Publish configuration file?', false)) {
             $this->components->task('Publishing configuration', function () {
                 $this->call('vendor:publish', ['--tag' => 'spire-ui-config', '--force' => false]);
             });
@@ -33,11 +33,14 @@ class InstallCommand extends Command
             $this->components->info("Detected package manager: {$packageManager}");
             $this->newLine();
 
-            $this->components->task('Installing JavaScript dependencies', function () use ($packageManager) {
+            $this->components->task('Installing Spire UI dependencies', function () use ($packageManager) {
+                $dependencies = $this->getRequiredDependencies();
+                $dependencyString = implode(' ', $dependencies);
+
                 $installCommand = match($packageManager) {
-                    'pnpm' => 'pnpm install',
-                    'yarn' => 'yarn install',
-                    default => 'npm install',
+                    'pnpm' => "pnpm add {$dependencyString}",
+                    'yarn' => "yarn add {$dependencyString}",
+                    default => "npm install {$dependencyString}",
                 };
 
                 $this->executeShellCommand($installCommand);
@@ -78,6 +81,24 @@ class InstallCommand extends Command
         }
 
         return 'npm';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function getRequiredDependencies(): array
+    {
+        return [
+            'flag-icons@^7.2.3',
+            '@oddbird/css-anchor-positioning@^0.7.0',
+            '@oddbird/popover-polyfill@^0.6.1',
+            '@tiptap/core@^2.0.0',
+            '@tiptap/starter-kit@^2.0.0',
+            '@tiptap/extension-link@^2.0.0',
+            '@tiptap/extension-image@^2.0.0',
+            '@tiptap/extension-placeholder@^2.0.0',
+            '@tiptap/extension-character-count@^2.0.0',
+        ];
     }
 
     protected function executeShellCommand(string $command): void

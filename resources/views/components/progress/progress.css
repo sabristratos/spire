@@ -81,31 +81,31 @@
 
     /* Gradient variant */
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-primary {
-        background: linear-gradient(to right, var(--color-primary-400), var(--color-primary), var(--color-primary-600));
+        background: linear-gradient(to right, theme(colors.primary.400), theme(colors.primary), theme(colors.primary.600));
     }
 
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-secondary {
-        background: linear-gradient(to right, var(--color-secondary-400), var(--color-secondary), var(--color-secondary-600));
+        background: linear-gradient(to right, theme(colors.secondary.400), theme(colors.secondary), theme(colors.secondary.600));
     }
 
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-success {
-        background: linear-gradient(to right, var(--color-success-400), var(--color-success), var(--color-success-600));
+        background: linear-gradient(to right, theme(colors.success.400), theme(colors.success), theme(colors.success.600));
     }
 
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-error {
-        background: linear-gradient(to right, var(--color-error-400), var(--color-error), var(--color-error-600));
+        background: linear-gradient(to right, theme(colors.error.400), theme(colors.error), theme(colors.error.600));
     }
 
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-warning {
-        background: linear-gradient(to right, var(--color-warning-400), var(--color-warning), var(--color-warning-600));
+        background: linear-gradient(to right, theme(colors.warning.400), theme(colors.warning), theme(colors.warning.600));
     }
 
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-info {
-        background: linear-gradient(to right, var(--color-info-400), var(--color-info), var(--color-info-600));
+        background: linear-gradient(to right, theme(colors.info.400), theme(colors.info), theme(colors.info.600));
     }
 
     .spire-progress--bar.spire-progress--gradient.spire-progress--color-featured {
-        background: linear-gradient(to right, var(--color-featured-400), var(--color-featured), var(--color-featured-600));
+        background: linear-gradient(to right, theme(colors.featured.400), theme(colors.featured), theme(colors.featured.600));
     }
 
     /* Indeterminate state */
@@ -179,35 +179,35 @@
 
     /* Stroke color utilities for SVG circles */
     .stroke-primary {
-        stroke: var(--color-primary);
+        stroke: theme(colors.primary);
     }
 
     .stroke-secondary {
-        stroke: var(--color-secondary);
+        stroke: theme(colors.secondary);
     }
 
     .stroke-success {
-        stroke: var(--color-success);
+        stroke: theme(colors.success);
     }
 
     .stroke-error {
-        stroke: var(--color-error);
+        stroke: theme(colors.error);
     }
 
     .stroke-warning {
-        stroke: var(--color-warning);
+        stroke: theme(colors.warning);
     }
 
     .stroke-info {
-        stroke: var(--color-info);
+        stroke: theme(colors.info);
     }
 
     .stroke-featured {
-        stroke: var(--color-featured);
+        stroke: theme(colors.featured);
     }
 
     .stroke-border {
-        stroke: var(--color-border);
+        stroke: theme(colors.border);
     }
 
     /* Label in center */

@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'bordered',
+    'variant' => spire_default('textarea', 'variant', spire_default('textarea', 'input-variant', 'bordered')),
     'color' => 'default',
     'size' => spire_default('textarea', 'size', 'md'),
     'radius' => spire_default('textarea', 'radius', 'md'),
@@ -9,12 +9,16 @@
     'required' => false,
     'placeholder' => null,
     'resize' => 'vertical',
+    'invalid' => false,
+    'errorId' => null,
+    'describedBy' => null,
 ])
 
 @php
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('textarea')
+    ->extends('input-box')
     ->size($size)
     ->radius($radius)
     ->colorVariant($color, $variant)
@@ -26,6 +30,9 @@ if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
 }
 
+$ariaDescriptions = array_filter([$describedBy, $errorId]);
+$ariaDescribedBy = !empty($ariaDescriptions) ? implode(' ', $ariaDescriptions) : null;
+
 $mergedAttributes = $attributes->merge([
     'class' => $builder->build(),
     'rows' => $rows,
@@ -33,7 +40,9 @@ $mergedAttributes = $attributes->merge([
     'readonly' => $readonly ? true : null,
     'required' => $required ? true : null,
     'placeholder' => $placeholder,
-    'data-spire-textarea' => 'true',
+    'aria-invalid' => $invalid ? 'true' : null,
+    'aria-errormessage' => $invalid && $errorId ? $errorId : null,
+    'aria-describedby' => $ariaDescribedBy,
     ...$builder->getDataAttributes(),
 ]);
 @endphp

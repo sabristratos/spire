@@ -1,6 +1,6 @@
 @props([
     'size' => spire_default('timepicker', 'size', 'md'),
-    'variant' => 'bordered',
+    'variant' => spire_default('timepicker', 'variant', spire_default('timepicker', 'input-variant', 'bordered')),
     'radius' => spire_default('timepicker', 'radius', 'md'),
     'disabled' => false,
     'readonly' => false,
@@ -14,6 +14,7 @@ use SpireUI\Support\ComponentClass;
 $containerBuilder = ComponentClass::make('timepicker-container');
 
 $boxBuilder = ComponentClass::make('timepicker-box')
+    ->extends('input-box')
     ->size($size)
     ->variant($variant)
     ->radius($radius)

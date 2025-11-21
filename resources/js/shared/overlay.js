@@ -1,10 +1,80 @@
 import { HOVER_DELAY_MS } from './component-constants';
 
 /**
+ * Get all focusable elements within a container.
+ *
+ * @param {HTMLElement} container - The container element
+ * @returns {HTMLElement[]} Array of focusable elements
+ */
+function getFocusableElements(container) {
+    const selector = [
+        'a[href]',
+        'button:not([disabled])',
+        'input:not([disabled]):not([type="hidden"])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+    ].join(', ');
+
+    return Array.from(container.querySelectorAll(selector)).filter(
+        el => !el.hasAttribute('disabled') && el.offsetParent !== null
+    );
+}
+
+/**
+ * Create a focus trap within a container element.
+ *
+ * @param {HTMLElement} container - The container to trap focus within
+ * @param {HTMLElement} [returnFocus] - Element to return focus to when trap is released
+ * @returns {{ activate: () => void, deactivate: () => void }} Focus trap controller
+ */
+export function createFocusTrap(container, returnFocus = null) {
+    let previousActiveElement = returnFocus || document.activeElement;
+
+    function handleKeydown(event) {
+        if (event.key !== 'Tab') return;
+
+        const focusable = getFocusableElements(container);
+        if (focusable.length === 0) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+
+    return {
+        activate() {
+            previousActiveElement = returnFocus || document.activeElement;
+            container.addEventListener('keydown', handleKeydown);
+
+            const focusable = getFocusableElements(container);
+            if (focusable.length > 0) {
+                requestAnimationFrame(() => focusable[0].focus());
+            }
+        },
+        deactivate() {
+            container.removeEventListener('keydown', handleKeydown);
+
+            if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+                previousActiveElement.focus();
+            }
+        }
+    };
+}
+
+/**
  * Configuration options for overlay component.
  *
  * @typedef {Object} OverlayOptions
  * @property {'click'|'hover'|'both'} [trigger='click'] - How the overlay is triggered
+ * @property {boolean} [trapFocus=false] - Whether to trap focus within the overlay
  * @property {function(): void} [onInit] - Callback after initialization
  * @property {function(Event): void} [onToggle] - Callback when overlay toggles
  * @property {Object} [extend] - Additional properties/methods to extend component
@@ -83,6 +153,12 @@ export function overlay(options = {}) {
         isPinned: false,
 
         /**
+         * Focus trap controller instance.
+         * @type {{ activate: () => void, deactivate: () => void }|null}
+         */
+        focusTrap: null,
+
+        /**
          * Initialize the overlay component.
          *
          * Sets up popover API, anchor positioning, event listeners,
@@ -96,9 +172,21 @@ export function overlay(options = {}) {
                 this.setupAnchor();
                 this.setupEventListeners();
                 this.setupTriggerMode();
+                this.setupFocusTrap();
 
                 options.onInit?.call(this);
             });
+        },
+
+        /**
+         * Setup focus trap if enabled.
+         *
+         * @returns {void}
+         */
+        setupFocusTrap() {
+            if (!options.trapFocus || !this.$refs.content || !this.$refs.trigger) return;
+
+            this.focusTrap = createFocusTrap(this.$refs.content, this.$refs.trigger);
         },
 
         /**
@@ -265,9 +353,12 @@ export function overlay(options = {}) {
         handleToggle(event) {
             this.open = this.$refs.content?.matches(':popover-open') || false;
 
-            if (!this.open) {
+            if (this.open) {
+                this.focusTrap?.activate();
+            } else {
                 this.isPinned = false;
                 this.clearHoverTimer();
+                this.focusTrap?.deactivate();
             }
 
             options.onToggle?.call(this, event);
@@ -283,6 +374,7 @@ export function overlay(options = {}) {
          */
         destroy() {
             this.clearHoverTimer();
+            this.focusTrap?.deactivate();
         },
 
         ...options.extend

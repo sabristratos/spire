@@ -27,6 +27,8 @@ export function datepickerComponent(config = {}) {
                     this.syncValueToSegments();
                 } else if (this.mode === 'range') {
                     this.syncRangeValueToSegments();
+                } else if (this.mode === 'multiple') {
+                    this.$nextTick(() => this.setupChipsObserver());
                 }
 
                 this.$watch('showMonthYearPicker', (isOpen) => {
@@ -93,6 +95,8 @@ export function datepickerComponent(config = {}) {
 
         presets: config.presets ?? [],
         maxChipsDisplay: config.maxChipsDisplay ?? 3,
+        visibleChipsCount: config.maxChipsDisplay ?? 3,
+        chipsResizeObserver: null,
 
         get formattedRangeStart() {
             if (this.mode !== 'range' || !this.value?.start) return '';
@@ -128,6 +132,66 @@ export function datepickerComponent(config = {}) {
         removeDate(dateString) {
             if (this.mode !== 'multiple' || !Array.isArray(this.value)) return;
             this.value = this.value.filter(d => d !== dateString);
+        },
+
+        setupChipsObserver() {
+            const container = this.$refs.chipsContainer;
+            if (!container || this.mode !== 'multiple') return;
+
+            this.calculateVisibleChips();
+
+            this.chipsResizeObserver = new ResizeObserver(() => {
+                this.calculateVisibleChips();
+            });
+
+            this.chipsResizeObserver.observe(container);
+
+            this.$watch('value', () => {
+                this.$nextTick(() => this.calculateVisibleChips());
+            });
+        },
+
+        calculateVisibleChips() {
+            const container = this.$refs.chipsContainer;
+
+            if (!container || this.selectedCount === 0) {
+                this.visibleChipsCount = this.maxChipsDisplay;
+                return;
+            }
+
+            const containerWidth = container.offsetWidth;
+
+            if (containerWidth === 0) {
+                this.visibleChipsCount = this.maxChipsDisplay;
+                return;
+            }
+
+            const charWidth = 7;
+            const chipPadding = 20;
+            const removeButtonWidth = 20;
+            const formatLength = this.getDateFormatString().length;
+            const estimatedChipWidth = (formatLength * charWidth) + chipPadding + removeButtonWidth;
+
+            const badgeWidth = 40;
+            const gap = 6;
+            let availableWidth = containerWidth - badgeWidth - gap;
+            let visibleCount = 0;
+
+            for (let i = 0; i < Math.min(this.selectedCount, this.maxChipsDisplay); i++) {
+                const chipWidth = estimatedChipWidth + gap;
+                if (availableWidth >= chipWidth) {
+                    availableWidth -= chipWidth;
+                    visibleCount++;
+                } else {
+                    break;
+                }
+            }
+
+            this.visibleChipsCount = Math.max(1, visibleCount);
+
+            if (this.selectedCount <= visibleCount) {
+                this.visibleChipsCount = this.selectedCount;
+            }
         },
 
         formatDate(dateString) {
@@ -800,6 +864,9 @@ export function datepickerComponent(config = {}) {
         },
 
         destroy() {
+            if (this.chipsResizeObserver) {
+                this.chipsResizeObserver.disconnect();
+            }
             // Call overlay's destroy to clean up hover timer
             overlay().destroy?.call(this);
         }

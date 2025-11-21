@@ -134,7 +134,7 @@ export function tableComponent(config = {}) {
             if (!this.$refs.tbody) {
                 return [];
             }
-            const rows = this.$refs.tbody.querySelectorAll('[data-spire-table-row-value]');
+            const rows = this.$refs.tbody.querySelectorAll('[data-spire-table-row-value]:not([aria-disabled="true"])');
             return Array.from(rows).map(row => row.getAttribute('data-spire-table-row-value'));
         },
 

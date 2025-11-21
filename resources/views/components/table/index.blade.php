@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'flat',
+    'variant' => spire_default('table', 'variant', 'flat'),
     'size' => 'md',
     'radius' => 'md',
     'shadow' => 'none',

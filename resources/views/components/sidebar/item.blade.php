@@ -2,7 +2,8 @@
     'id' => null,
     'icon' => null,
     'href' => null,
-    'active' => false,
+    'active' => null,
+    'activeMatch' => 'prefix',
     'disabled' => false,
     'badge' => null,
     'badgeColor' => 'primary',
@@ -15,10 +16,27 @@
 @php
 use SpireUI\Support\ComponentClass;
 
+$isActive = $active;
+
+if ($isActive === null && $href && $activeMatch !== false && !str_starts_with($href, '#')) {
+    $parsedPath = parse_url($href, PHP_URL_PATH);
+    $path = $parsedPath === null ? '' : ltrim($parsedPath, '/');
+
+    if ($path === '') {
+        $isActive = request()->is('/');
+    } elseif ($activeMatch === 'exact') {
+        $isActive = request()->is($path);
+    } else {
+        $isActive = request()->is($path) || request()->is($path . '/*');
+    }
+}
+
+$isActive = (bool) $isActive;
+
 $builder = ComponentClass::make('sidebar-item')
-    ->when($active, fn($b) => $b->modifier('active'))
+    ->when($isActive, fn($b) => $b->modifier('active'))
     ->when($disabled, fn($b) => $b->modifier('disabled'))
-    ->dataAttribute('active', $active ? 'true' : 'false')
+    ->dataAttribute('active', $isActive ? 'true' : 'false')
     ->dataAttribute('disabled', $disabled ? 'true' : 'false')
     ->when($badge, fn($b) => $b->dataAttribute('has-badge', 'true'))
     ->when($badge, fn($b) => $b->dataAttribute('badge-color', $badgeColor));
@@ -53,7 +71,7 @@ $tag = ($href && !$disabled && !$hasChildren) ? 'a' : 'button';
             aria-disabled="true"
             @if($tag === 'button') disabled @endif
         @endif
-        @if($active)
+        @if($isActive)
             aria-current="page"
         @endif
         @if($hasChildren)

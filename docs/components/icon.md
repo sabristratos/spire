@@ -65,6 +65,54 @@ Icons inherit the text color by default. Use Tailwind classes to customize:
 <x-spire::icon name="star" class="w-8 h-8" />
 ```
 
+## Custom Icons
+
+You can add your own custom icons that will be available alongside (or override) the built-in Lucide icons.
+
+### Setup
+
+Create your custom icon files in your application's resources folder:
+
+```
+resources/views/components/icons/custom/
+├── my-logo.blade.php
+├── custom-badge.blade.php
+└── check.blade.php  {{-- Overrides Lucide's check icon --}}
+```
+
+### Creating a Custom Icon
+
+Each custom icon is a Blade file containing an SVG. Use the `$attributes` variable to support styling:
+
+```blade
+{{-- resources/views/components/icons/custom/my-logo.blade.php --}}
+<svg {{ $attributes->merge(['class' => 'inline-block']) }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+    <path d="M2 17l10 5 10-5"/>
+    <path d="M2 12l10 5 10-5"/>
+</svg>
+```
+
+### Using Custom Icons
+
+```blade
+{{-- Use your custom icon --}}
+<x-spire::icon name="my-logo" class="w-6 h-6" />
+
+{{-- Custom icons override built-in icons with the same name --}}
+<x-spire::icon name="check" />  {{-- Uses your custom check.blade.php --}}
+```
+
+### Resolution Order
+
+Icons are resolved in this order (first match wins):
+
+1. **Custom icons**: `resources/views/components/icons/custom/{name}.blade.php`
+2. **Published vendor**: `resources/views/vendor/spire/icon/icons/{set}/{name}.blade.php`
+3. **Package icons**: Built-in Lucide icons from the package
+
+This means custom icons always take priority over built-in icons with the same name.
+
 ## Available Icons
 
 The icon component uses the **Lucide** icon set, which includes 1800+ beautifully crafted open source icons covering:

@@ -75,8 +75,7 @@
 /* Subtle separator between sections in collapsed mode */
 .spire-sidebar--collapsed .spire-sidebar-section + .spire-sidebar-section::before {
     content: '';
-    @apply block h-px mx-4 my-2;
-    background-color: light-dark(var(--color-neutral-200), var(--color-neutral-700));
+    @apply block h-px mx-4 my-2 bg-neutral-200 dark:bg-neutral-700;
 }
 
 /* Hide dividers in collapsed mode */
@@ -131,7 +130,7 @@
 }
 
 .spire-sidebar--collapsed .spire-sidebar-item[data-spire-badge-color="neutral"] .spire-sidebar-item-icon::after {
-    background-color: light-dark(var(--color-neutral-500), var(--color-neutral-400));
+    @apply bg-neutral-500 dark:bg-neutral-400;
 }
 
 /* ===== Header ===== */
@@ -149,24 +148,23 @@
 
     /* Subtle scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    scrollbar-color: theme(colors.border) transparent;
 }
 
 .spire-sidebar-content::-webkit-scrollbar {
-    width: 4px;
+    @apply w-1;
 }
 
 .spire-sidebar-content::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-transparent;
 }
 
 .spire-sidebar-content::-webkit-scrollbar-thumb {
-    background-color: var(--color-border);
-    border-radius: 4px;
+    @apply bg-border rounded;
 }
 
 .spire-sidebar-content::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-border-hover);
+    @apply bg-border-hover;
 }
 
 /* ===== Footer ===== */
@@ -286,8 +284,8 @@
 }
 
 .spire-sidebar-item-badge--neutral {
-    background-color: light-dark(var(--color-neutral-200), var(--color-neutral-700));
-    color: light-dark(var(--color-neutral-700), var(--color-neutral-200));
+    @apply bg-neutral-200 dark:bg-neutral-700;
+    @apply text-neutral-700 dark:text-neutral-200;
 }
 
 /* Keyboard shortcut */

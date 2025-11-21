@@ -8,12 +8,13 @@
     'showSteps' => false,
     'marks' => [],
     'showValue' => true,
+    'editableValue' => false,
     'showTooltip' => true,
-    'tooltipFormat' => null,
     'disabled' => false,
     'readonly' => false,
     'label' => null,
-    'inline' => false,
+    'icon' => null,
+    'iconTrailing' => null,
 ])
 
 @php
@@ -21,16 +22,23 @@ use SpireUI\Support\WireEntangle;
 use SpireUI\Support\ComponentClass;
 
 $wireConfig = WireEntangle::fromAttributes($attributes);
-$componentId = $id ?? 'spire-slider-' . uniqid();
+$componentId = $attributes->get('id') ?? 'spire-slider-' . uniqid();
 $livewireInputId = $componentId . '-livewire-input';
 
 $normalizedMarks = is_array($marks) ? $marks : [];
+$hasIcons = $icon || $iconTrailing || isset($leading) || isset($trailing);
 
 $containerBuilder = ComponentClass::make('slider')
     ->when($disabled, fn($b) => $b->modifier('disabled'))
     ->when($readonly, fn($b) => $b->modifier('readonly'))
     ->when(!empty($normalizedMarks) || $showSteps, fn($b) => $b->modifier('with-marks'))
-    ->when($inline, fn($b) => $b->modifier('inline')->size($size));
+    ->when($hasIcons, fn($b) => $b->modifier('with-icons'));
+
+$iconSize = match($size) {
+    'sm' => 'size-4',
+    'lg' => 'size-6',
+    default => 'size-5',
+};
 
 $trackBuilder = ComponentClass::make('slider-track')
     ->size($size);
@@ -89,39 +97,73 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
     @endif
 
     <div wire:ignore>
-        @if($inline)
-            @if($label)
-                <label class="text-sm font-medium text-text mb-2 block">{{ $label }}</label>
+        @if($label || $showValue)
+            <div class="spire-slider-header">
+                @if($label)
+                    <label class="spire-slider-label">{{ $label }}</label>
+                @endif
+
+                @if($showValue)
+                    @if($editableValue && !$readonly && !$disabled)
+                        @if($mode === 'range')
+                            <div class="spire-slider-inputs">
+                                <input
+                                    type="number"
+                                    class="spire-slider-input"
+                                    x-ref="startInput"
+                                    x-effect="if (!$el.matches(':focus')) $el.value = value.start"
+                                    @change="updateRangeFromInput('start', $event.target.value)"
+                                    min="{{ $min }}"
+                                    max="{{ $max }}"
+                                    step="{{ $step }}"
+                                    aria-label="{{ __('spire::spire-ui.slider.min_label') }}"
+                                >
+                                <span class="spire-slider-input-separator">–</span>
+                                <input
+                                    type="number"
+                                    class="spire-slider-input"
+                                    x-ref="endInput"
+                                    x-effect="if (!$el.matches(':focus')) $el.value = value.end"
+                                    @change="updateRangeFromInput('end', $event.target.value)"
+                                    min="{{ $min }}"
+                                    max="{{ $max }}"
+                                    step="{{ $step }}"
+                                    aria-label="{{ __('spire::spire-ui.slider.max_label') }}"
+                                >
+                            </div>
+                        @else
+                            <input
+                                type="number"
+                                class="spire-slider-input"
+                                x-ref="valueInput"
+                                x-effect="if (!$el.matches(':focus')) $el.value = value"
+                                @change="updateFromInput($event.target.value)"
+                                min="{{ $min }}"
+                                max="{{ $max }}"
+                                step="{{ $step }}"
+                                aria-label="{{ $label ?? __('spire::spire-ui.slider.value_label') }}"
+                            >
+                        @endif
+                    @else
+                        <output class="spire-slider-value" x-text="formatValue()"></output>
+                    @endif
+                @endif
+            </div>
+        @endif
+
+        <div class="spire-slider-track-wrapper">
+            @if($icon)
+                <x-spire::icon :name="$icon" class="spire-slider-icon {{ $iconSize }}" />
             @endif
-
-            <div class="flex items-center gap-3">
-                <div
-                    class="spire-slider-container relative flex-1"
-                    :class="{ 'opacity-50 cursor-not-allowed': disabled }"
-                    :data-spire-dragging="isDragging"
-                >
-        @else
-            @if($label || $showValue)
-                <div class="flex justify-between items-center mb-2">
-                    @if($label)
-                        <label class="text-sm font-medium text-text">{{ $label }}</label>
-                    @endif
-
-                    @if($showValue)
-                        <output
-                            class="spire-slider-value text-sm font-medium"
-                            x-text="formatValue()"
-                        ></output>
-                    @endif
-                </div>
+            @if(isset($leading))
+                <span class="spire-slider-icon">{{ $leading }}</span>
             @endif
 
             <div
-                class="spire-slider-container relative"
+                class="spire-slider-container"
                 :class="{ 'opacity-50 cursor-not-allowed': disabled }"
                 :data-spire-dragging="isDragging"
             >
-        @endif
             <div
                 x-ref="track"
                 class="{{ $trackBuilder->build() }}"
@@ -242,12 +284,12 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
             ></div>
         </div>
 
-        @if($inline && $showValue)
-            <output
-                class="spire-slider-value text-sm font-medium tabular-nums"
-                x-text="formatValue()"
-            ></output>
-            </div>
-        @endif
+            @if($iconTrailing)
+                <x-spire::icon :name="$iconTrailing" class="spire-slider-icon {{ $iconSize }}" />
+            @endif
+            @if(isset($trailing))
+                <span class="spire-slider-icon">{{ $trailing }}</span>
+            @endif
+        </div>
     </div>
 </div>

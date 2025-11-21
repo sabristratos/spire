@@ -215,11 +215,11 @@
     }
 
     .spire-table-row[data-spire-table-row-selected="true"] {
-        @apply bg-primary-50 text-primary-900;
+        @apply bg-primary-bg text-text;
     }
 
     .spire-table--striped .spire-table-row[data-spire-table-row-selected="true"] {
-        @apply bg-primary-50 text-primary-900;
+        @apply bg-primary-bg text-text;
     }
 
     .spire-table-row:focus {
@@ -407,7 +407,7 @@
 
             /* Selected state for cards */
             .spire-table-row[data-spire-table-row-selected="true"] {
-                @apply bg-primary-50 border-primary-200;
+                @apply bg-primary-bg border-primary-border;
             }
         }
     }
@@ -484,7 +484,7 @@
 
             /* Selected state for cards */
             .spire-table-row[data-spire-table-row-selected="true"] {
-                @apply bg-primary-50 border-primary-200;
+                @apply bg-primary-bg border-primary-border;
             }
         }
     }
@@ -561,7 +561,7 @@
 
             /* Selected state for cards */
             .spire-table-row[data-spire-table-row-selected="true"] {
-                @apply bg-primary-50 border-primary-200;
+                @apply bg-primary-bg border-primary-border;
             }
         }
     }

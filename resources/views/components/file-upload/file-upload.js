@@ -263,10 +263,10 @@ export function fileUploadComponent(config = {}) {
                         }));
                     },
                     (event) => {
-                        fileObj.progress = event.detail.progress;
+                        fileObj.progress = event.progress;
                         this.$dispatch(SPIRE_EVENTS.FILE_UPLOAD_PROGRESS, createEventPayload({
                             value: fileObj,
-                            metadata: { progress: event.detail.progress }
+                            metadata: { progress: event.progress }
                         }));
                     },
                     () => {
@@ -297,10 +297,10 @@ export function fileUploadComponent(config = {}) {
                         }));
                     },
                     (event) => {
-                        fileObj.progress = event.detail.progress;
+                        fileObj.progress = event.progress;
                         this.$dispatch(SPIRE_EVENTS.FILE_UPLOAD_PROGRESS, createEventPayload({
                             value: fileObj,
-                            metadata: { progress: event.detail.progress }
+                            metadata: { progress: event.progress }
                         }));
                     },
                     () => {

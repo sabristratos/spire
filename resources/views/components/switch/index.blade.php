@@ -50,7 +50,7 @@
         'aria-checked' => $checked ? 'true' : 'false',
         'aria-labelledby' => $label || $slot->isNotEmpty() ? $labelId : null,
         'aria-describedby' => $descriptionId,
-        'class' => 'spire-switch-input sr-only peer',
+        'class' => 'spire-switch-input peer',
     ];
 
     if ($wireConfig->hasWireModel()) {
@@ -68,7 +68,7 @@
             type="checkbox"
             id="{{ $switchId }}"
             value="{{ $value }}"
-            class="spire-switch-input sr-only peer"
+            class="spire-switch-input peer"
             role="switch"
             aria-checked="{{ $checked ? 'true' : 'false' }}"
             @if($label || $slot->isNotEmpty()) aria-labelledby="{{ $labelId }}" @endif

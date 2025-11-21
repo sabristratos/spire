@@ -59,6 +59,11 @@ class ComponentClass
     protected array $dataAttributes = [];
 
     /**
+     * @var string|null The base component being extended (e.g., 'input-box')
+     */
+    protected ?string $extendsBase = null;
+
+    /**
      * Create a new ComponentClass instance.
      *
      * @param string $component The base component name (e.g., 'button', 'input')
@@ -85,8 +90,38 @@ class ComponentClass
     }
 
     /**
+     * Extend a shared base component class.
+     *
+     * When extending, size() and colorVariant() methods will generate classes
+     * for the base component instead of/in addition to the current component.
+     * Also adds the base component class and a data attribute for targeting.
+     *
+     * @param string $base The base component to extend (e.g., 'input-box')
+     * @return self
+     *
+     * @example
+     * ```php
+     * ComponentClass::make('select-trigger')
+     *     ->extends('input-box')
+     *     ->size('md')
+     *     ->colorVariant('default', 'bordered')
+     *     ->build();
+     * // Returns: "spire-select-trigger spire-input-box spire-input-box--md spire-input-box--default-bordered rounded-md"
+     * ```
+     */
+    public function extends(string $base): self
+    {
+        $this->extendsBase = $base;
+        $this->classes[] = "spire-{$base}";
+        $this->dataAttributes["data-spire-{$this->component}"] = '';
+
+        return $this;
+    }
+
+    /**
      * Add a size modifier class and corresponding data attribute.
      *
+     * When extending a base component, generates classes for the base instead.
      * Generates: spire-{component}--{size} and data-spire-size="{size}"
      *
      * @param string $size Size value (e.g., 'sm', 'md', 'lg')
@@ -99,7 +134,8 @@ class ComponentClass
      */
     public function size(string $size): self
     {
-        $this->classes[] = "spire-{$this->component}--{$size}";
+        $target = $this->extendsBase ?? $this->component;
+        $this->classes[] = "spire-{$target}--{$size}";
         $this->dataAttributes['data-spire-size'] = $size;
 
         return $this;
@@ -108,6 +144,7 @@ class ComponentClass
     /**
      * Add a variant modifier class and corresponding data attribute.
      *
+     * When extending a base component, generates classes for the base instead.
      * Generates: spire-{component}--{variant} and data-spire-variant="{variant}"
      *
      * @param string $variant Variant value (e.g., 'solid', 'outline', 'ghost')
@@ -120,7 +157,8 @@ class ComponentClass
      */
     public function variant(string $variant): self
     {
-        $this->classes[] = "spire-{$this->component}--{$variant}";
+        $target = $this->extendsBase ?? $this->component;
+        $this->classes[] = "spire-{$target}--{$variant}";
         $this->dataAttributes['data-spire-variant'] = $variant;
 
         return $this;
@@ -150,6 +188,7 @@ class ComponentClass
     /**
      * Add a combined color-variant modifier class and corresponding data attributes.
      *
+     * When extending a base component, generates classes for the base instead.
      * Generates: spire-{component}--{color}-{variant} and both data attributes
      *
      * @param string $color Color value (e.g., 'primary', 'secondary', 'success')
@@ -164,7 +203,8 @@ class ComponentClass
      */
     public function colorVariant(string $color, string $variant): self
     {
-        $this->classes[] = "spire-{$this->component}--{$color}-{$variant}";
+        $target = $this->extendsBase ?? $this->component;
+        $this->classes[] = "spire-{$target}--{$color}-{$variant}";
         $this->dataAttributes['data-spire-color'] = $color;
         $this->dataAttributes['data-spire-variant'] = $variant;
 

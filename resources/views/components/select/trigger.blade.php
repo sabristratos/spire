@@ -1,7 +1,7 @@
 @props([
     'multiple' => false,
     'size' => spire_default('select', 'size', 'md'),
-    'variant' => 'bordered',
+    'variant' => spire_default('select', 'variant', spire_default('select', 'input-variant', 'bordered')),
     'color' => 'default',
     'radius' => spire_default('select', 'radius', 'md'),
     'maxTagsDisplay' => 2,
@@ -11,6 +11,7 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('select-trigger')
+    ->extends('input-box')
     ->size($size)
     ->colorVariant($color, $variant)
     ->radius($radius);
@@ -26,6 +27,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
     'aria-haspopup' => 'listbox',
     'x-bind:aria-expanded' => 'open',
     'x-bind:aria-controls' => '$id("popover")',
+    ...$builder->getDataAttributes(),
 ]);
 @endphp
 

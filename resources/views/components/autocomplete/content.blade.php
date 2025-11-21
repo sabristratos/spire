@@ -8,8 +8,21 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('autocomplete-content')
-    ->modifier($width)
+    ->addClass('spire-overlay')
+    ->addClass('spire-overlay--padded-sm')
     ->addClass('animate-dropdown-bounce');
+
+// Width variants using shared overlay system
+$widthClass = match($width) {
+    'sm' => 'spire-overlay--sm',
+    'md' => 'spire-overlay--md',
+    'lg' => 'spire-overlay--lg',
+    'xl' => 'spire-overlay--xl',
+    'full' => 'spire-overlay--full',
+    'auto' => 'spire-overlay--anchor',
+    default => 'spire-overlay--md',
+};
+$builder->addClass($widthClass);
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
