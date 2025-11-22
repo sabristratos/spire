@@ -32,41 +32,46 @@ import { breadcrumbsComponent } from '../views/components/breadcrumbs/breadcrumb
 import { lightboxComponent } from '../views/components/lightbox/lightbox';
 import { chartComponent } from '../views/components/chart/chart';
 
+function registerComponents() {
+    Alpine.data('spireOverlay', overlay);
+    Alpine.data('spireKeyboard', keyboard);
+    Alpine.data('spireInput', inputComponent);
+    Alpine.data('spireSelect', selectComponent);
+    Alpine.data('spireAutocomplete', autocompleteComponent);
+    Alpine.data('spireCalendar', calendarComponent);
+    Alpine.data('spireDatepicker', datepickerComponent);
+    Alpine.data('spireTimepicker', timepickerComponent);
+    Alpine.data('spireModal', modalComponent);
+    Alpine.data('spirePhoneInput', phoneInputComponent);
+    Alpine.data('spireProgress', progressComponent);
+    Alpine.data('spireProgressCircular', progressCircularComponent);
+    Alpine.data('spireRating', ratingComponent);
+    Alpine.data('spireTooltip', tooltipComponent);
+    Alpine.data('spireEditor', editorComponent);
+    Alpine.data('spireTable', tableComponent);
+    Alpine.data('spireSlider', sliderComponent);
+    Alpine.data('spireToast', toastComponent);
+    Alpine.data('spireTabs', tabsComponent);
+    Alpine.data('spireFileUpload', fileUploadComponent);
+    Alpine.data('spireSidebar', sidebarComponent);
+    Alpine.data('spireSidebarSection', sidebarSectionComponent);
+    Alpine.data('spireSidebarItem', sidebarItemComponent);
+    Alpine.data('spireDropdown', dropdownComponent);
+    Alpine.data('spireCarousel', carouselComponent);
+    Alpine.data('spireBreadcrumbs', breadcrumbsComponent);
+    Alpine.data('spireLightbox', lightboxComponent);
+    Alpine.data('spireChart', chartComponent);
+}
+
 export function initializeSpireUI() {
-    // Expose essential utilities to window
     window.ComponentClass = ComponentClass;
     window.toast = toast;
 
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('spireOverlay', overlay);
-        Alpine.data('spireKeyboard', keyboard);
-        Alpine.data('spireInput', inputComponent);
-        Alpine.data('spireSelect', selectComponent);
-        Alpine.data('spireAutocomplete', autocompleteComponent);
-        Alpine.data('spireCalendar', calendarComponent);
-        Alpine.data('spireDatepicker', datepickerComponent);
-        Alpine.data('spireTimepicker', timepickerComponent);
-        Alpine.data('spireModal', modalComponent);
-        Alpine.data('spirePhoneInput', phoneInputComponent);
-        Alpine.data('spireProgress', progressComponent);
-        Alpine.data('spireProgressCircular', progressCircularComponent);
-        Alpine.data('spireRating', ratingComponent);
-        Alpine.data('spireTooltip', tooltipComponent);
-        Alpine.data('spireEditor', editorComponent);
-        Alpine.data('spireTable', tableComponent);
-        Alpine.data('spireSlider', sliderComponent);
-        Alpine.data('spireToast', toastComponent);
-        Alpine.data('spireTabs', tabsComponent);
-        Alpine.data('spireFileUpload', fileUploadComponent);
-        Alpine.data('spireSidebar', sidebarComponent);
-        Alpine.data('spireSidebarSection', sidebarSectionComponent);
-        Alpine.data('spireSidebarItem', sidebarItemComponent);
-        Alpine.data('spireDropdown', dropdownComponent);
-        Alpine.data('spireCarousel', carouselComponent);
-        Alpine.data('spireBreadcrumbs', breadcrumbsComponent);
-        Alpine.data('spireLightbox', lightboxComponent);
-        Alpine.data('spireChart', chartComponent);
-    });
+    if (typeof Alpine !== 'undefined') {
+        registerComponents();
+    } else {
+        document.addEventListener('alpine:init', registerComponents);
+    }
 }
 
 export { ComponentClass, overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, phoneInputComponent, progressComponent, progressCircularComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast, tabsComponent, fileUploadComponent, sidebarComponent, sidebarSectionComponent, sidebarItemComponent, dropdownComponent, carouselComponent, breadcrumbsComponent, lightboxComponent, chartComponent };

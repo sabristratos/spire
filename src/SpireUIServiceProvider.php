@@ -121,7 +121,7 @@ class SpireUIServiceProvider extends ServiceProvider
 
         Blade::directive('spireScripts', function () {
             return '<?php echo \'<script src="\' . route(\'spire-ui.asset\', \'spire-ui.iife.js\') . \'"></script>
-<script>document.addEventListener(\\\'alpine:init\\\', function() { SpireUI.initializeSpireUI(); });</script>\'; ?>';
+<script>SpireUI.initializeSpireUI();</script>\'; ?>';
         });
     }
 
