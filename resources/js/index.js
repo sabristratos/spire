@@ -32,7 +32,12 @@ import { breadcrumbsComponent } from '../views/components/breadcrumbs/breadcrumb
 import { lightboxComponent } from '../views/components/lightbox/lightbox';
 import { chartComponent } from '../views/components/chart/chart';
 
-function registerComponents() {
+let componentsRegistered = false;
+
+function registerComponents(Alpine) {
+    if (componentsRegistered || !Alpine) return;
+    componentsRegistered = true;
+
     Alpine.data('spireOverlay', overlay);
     Alpine.data('spireKeyboard', keyboard);
     Alpine.data('spireInput', inputComponent);
@@ -63,14 +68,20 @@ function registerComponents() {
     Alpine.data('spireChart', chartComponent);
 }
 
+document.addEventListener('livewire:init', () => {
+    registerComponents(window.Alpine);
+});
+
+document.addEventListener('alpine:init', () => {
+    registerComponents(window.Alpine);
+});
+
 export function initializeSpireUI() {
     window.ComponentClass = ComponentClass;
     window.toast = toast;
 
-    if (typeof Alpine !== 'undefined') {
-        registerComponents();
-    } else {
-        document.addEventListener('alpine:init', registerComponents);
+    if (window.Alpine) {
+        registerComponents(window.Alpine);
     }
 }
 

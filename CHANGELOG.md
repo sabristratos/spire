@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-11-22
+
+### Fixed
+- Fixed Alpine component registration timing issue with Livewire 3
+- Components now register immediately when script loads instead of waiting for `initializeSpireUI()` call
+- Added guard to prevent duplicate component registration
+
 ## [1.1.0] - 2025-11-22
 
 ### Added
@@ -140,6 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/sabristratos/spire/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/sabristratos/spire/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/sabristratos/spire/releases/tag/v1.0.0
