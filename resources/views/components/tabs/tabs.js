@@ -16,6 +16,7 @@ export function tabsComponent(config = {}) {
         activationMode: config.activationMode || 'automatic',
         name: config.name || null,
         syncHash: config.syncHash || false,
+        tabsId: config.tabsId || null,
 
         // Cursor state for animation
         cursorStyle: {
@@ -32,8 +33,12 @@ export function tabsComponent(config = {}) {
         // Resize observer
         resizeObserver: null,
 
-        // Initialization
+        /**
+         * Initialize the tabs component.
+         */
         init() {
+            this.$cleanup(() => this.destroy());
+
             this.$nextTick(() => {
                 this.updateTabsAndPanels();
 
@@ -271,6 +276,14 @@ export function tabsComponent(config = {}) {
         // Helper methods
         isActive(value) {
             return this.activeTab === value;
+        },
+
+        getTabId(value) {
+            return this.tabsId ? `${this.tabsId}-tab-${value}` : `tab-${value}`;
+        },
+
+        getPanelId(value) {
+            return this.tabsId ? `${this.tabsId}-panel-${value}` : `panel-${value}`;
         },
 
         isDisabled(value) {

@@ -3048,8 +3048,8 @@ function Mh(i = {}) {
     setupAnchor() {
       const t = this.triggerEl, n = this.$refs.content;
       if (!t || !n) return;
-      const s = `anchor-${this.$id("overlay")}`;
-      t.style.anchorName = `--${s}`, n.style.positionAnchor = `--${s}`;
+      const s = t.firstElementChild || t, r = `anchor-${this.$id("overlay")}`;
+      s.style.anchorName = `--${r}`, n.style.positionAnchor = `--${r}`;
     },
     show() {
       this.setupAnchor(), this.$refs.content?.showPopover(), this.duration && this.scheduleAutoHide();
@@ -18499,6 +18499,7 @@ function ag(i = {}) {
     activationMode: i.activationMode || "automatic",
     name: i.name || null,
     syncHash: i.syncHash || !1,
+    tabsId: i.tabsId || null,
     // Cursor state for animation
     cursorStyle: {
       left: "0px",
@@ -18511,9 +18512,11 @@ function ag(i = {}) {
     activatedTabs: /* @__PURE__ */ new Set(),
     // Resize observer
     resizeObserver: null,
-    // Initialization
+    /**
+     * Initialize the tabs component.
+     */
     init() {
-      this.$nextTick(() => {
+      this.$cleanup(() => this.destroy()), this.$nextTick(() => {
         if (this.updateTabsAndPanels(), this.syncHash) {
           const e = window.location.hash.slice(1);
           e && this.tabs.find((t) => t.dataset.spireTabsValue === e) && (this.activeTab = e);
@@ -18642,6 +18645,12 @@ function ag(i = {}) {
     // Helper methods
     isActive(e) {
       return this.activeTab === e;
+    },
+    getTabId(e) {
+      return this.tabsId ? `${this.tabsId}-tab-${e}` : `tab-${e}`;
+    },
+    getPanelId(e) {
+      return this.tabsId ? `${this.tabsId}-panel-${e}` : `panel-${e}`;
     },
     isDisabled(e) {
       return this.tabs.find((n) => n.dataset.spireTabsValue === e)?.getAttribute("aria-disabled") === "true";

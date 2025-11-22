@@ -121,8 +121,9 @@ export function tooltipComponent(config = {}) {
 
             if (!triggerEl || !contentEl) return;
 
+            const anchorEl = triggerEl.firstElementChild || triggerEl;
             const anchorId = `anchor-${this.$id('overlay')}`;
-            triggerEl.style.anchorName = `--${anchorId}`;
+            anchorEl.style.anchorName = `--${anchorId}`;
             contentEl.style.positionAnchor = `--${anchorId}`;
         },
 

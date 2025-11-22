@@ -63,12 +63,13 @@
 }
 
 .spire-tabs-cursor--soft {
-    @apply shadow-none bg-primary-100 opacity-15;
-    background-color: var(--spire-tabs-cursor-bg, theme(colors.primary.100));
+    @apply shadow-none;
+    background-color: var(--spire-tabs-cursor-bg, theme(colors.primary/15%));
 }
 
 .spire-tabs-cursor--underline {
-    @apply rounded-full bg-primary h-0.5;
+    @apply rounded-full bg-primary;
+    height: 0.125rem !important;
     background-color: var(--spire-tabs-cursor-bg, theme(colors.primary));
     top: auto !important;
     bottom: 0;
@@ -122,10 +123,11 @@
 /* Underline variant */
 .spire-tabs-trigger--underline {
     @apply rounded-none;
+}
 
-    &[aria-selected="true"] {
-        @apply text-primary;
-    }
+/* Soft variant */
+.spire-tabs-trigger--soft {
+    @apply rounded-md;
 }
 
 /* Pills variant */
@@ -146,15 +148,6 @@
     }
 }
 
-/* Soft variant */
-.spire-tabs-trigger--soft {
-    @apply rounded-md;
-
-    &[aria-selected="true"] {
-        @apply text-primary;
-    }
-}
-
 /* Tab content panel */
 .spire-tabs-content {
     @apply mt-4 focus:outline-none;
@@ -170,8 +163,18 @@
 }
 
 /* Scrollable tabs with scroll-snap */
-.spire-tabs-list--scrollable {
+.spire-tabs-list--scrollable.spire-tabs-list--horizontal {
     scroll-snap-type: x mandatory;
+
+    & > .spire-tabs-trigger {
+        scroll-snap-align: start;
+    }
+}
+
+.spire-tabs-list--scrollable.spire-tabs-list--vertical {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     & > .spire-tabs-trigger {
         scroll-snap-align: start;
@@ -205,4 +208,67 @@
 
 .spire-tabs-cursor--color-neutral {
     --spire-tabs-cursor-bg: theme(colors.neutral.700);
+}
+
+/* Soft variant color overrides (15% opacity) */
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-primary {
+    --spire-tabs-cursor-bg: theme(colors.primary/15%);
+}
+
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-secondary {
+    --spire-tabs-cursor-bg: theme(colors.secondary/15%);
+}
+
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-success {
+    --spire-tabs-cursor-bg: theme(colors.success/15%);
+}
+
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-error {
+    --spire-tabs-cursor-bg: theme(colors.error/15%);
+}
+
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-warning {
+    --spire-tabs-cursor-bg: theme(colors.warning/15%);
+}
+
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-info {
+    --spire-tabs-cursor-bg: theme(colors.info/15%);
+}
+
+.spire-tabs-cursor--soft.spire-tabs-cursor--color-neutral {
+    --spire-tabs-cursor-bg: theme(colors.neutral.700/15%);
+}
+
+/* Color variants for trigger text (underline and soft variants) */
+.spire-tabs-trigger--underline[aria-selected="true"],
+.spire-tabs-trigger--soft[aria-selected="true"] {
+    color: var(--spire-tabs-trigger-color, theme(colors.primary));
+}
+
+.spire-tabs-trigger--primary {
+    --spire-tabs-trigger-color: theme(colors.primary);
+}
+
+.spire-tabs-trigger--secondary {
+    --spire-tabs-trigger-color: theme(colors.secondary);
+}
+
+.spire-tabs-trigger--success {
+    --spire-tabs-trigger-color: theme(colors.success);
+}
+
+.spire-tabs-trigger--error {
+    --spire-tabs-trigger-color: theme(colors.error);
+}
+
+.spire-tabs-trigger--warning {
+    --spire-tabs-trigger-color: theme(colors.warning);
+}
+
+.spire-tabs-trigger--info {
+    --spire-tabs-trigger-color: theme(colors.info);
+}
+
+.spire-tabs-trigger--neutral {
+    --spire-tabs-trigger-color: theme(colors.neutral.700);
 }

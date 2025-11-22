@@ -17,7 +17,7 @@ Accessible tabbed interface for organizing content into selectable panels with k
 | `color` | string | `'primary'` | Color theme: `primary`, `secondary`, `success`, `error`, `warning`, `info`, `neutral` |
 | `size` | string | `'md'` | Size variant: `sm`, `md`, `lg` |
 | `fullWidth` | boolean | `false` | Whether tabs should fill the container width |
-| `scrollable` | boolean | `false` | Enable horizontal scrolling for many tabs |
+| `scrollable` | boolean | `true` | Enable horizontal scrolling for many tabs |
 | `syncHash` | boolean | `false` | Sync active tab with URL hash (e.g., `#tab-name`) |
 | `name` | string | `null` | Name for event identification |
 

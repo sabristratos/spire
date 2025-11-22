@@ -15,10 +15,12 @@
 use SpireUI\Support\ComponentClass;
 
 $isVertical = $orientation === 'vertical';
+$tabsId = 'tabs-' . uniqid();
 
 $builder = ComponentClass::make('tabs')
     ->when($isVertical, fn($b) => $b->modifier('vertical'))
     ->dataAttribute('tabs', 'true')
+    ->dataAttribute('tabs-id', $tabsId)
     ->dataAttribute('orientation', $orientation)
     ->dataAttribute('variant', $variant)
     ->dataAttribute('color', $color)
@@ -32,6 +34,7 @@ $alpineConfig = json_encode([
     'activationMode' => $activationMode,
     'syncHash' => $syncHash,
     'name' => $name,
+    'tabsId' => $tabsId,
 ]);
 @endphp
 

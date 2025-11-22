@@ -8,9 +8,6 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('tabs-content');
-
-$tabId = 'tab-' . $value;
-$panelId = 'panel-' . $value;
 @endphp
 
 @if($lazy)
@@ -19,8 +16,8 @@ $panelId = 'panel-' . $value;
         <div
             {{ $attributes->merge(['class' => $builder->build()]) }}
             role="tabpanel"
-            id="{{ $panelId }}"
-            aria-labelledby="{{ $tabId }}"
+            x-bind:id="getPanelId('{{ $value }}')"
+            x-bind:aria-labelledby="getTabId('{{ $value }}')"
             tabindex="0"
             x-show="isActive('{{ $value }}')"
             x-transition:enter="transition ease-out duration-200"
@@ -38,8 +35,8 @@ $panelId = 'panel-' . $value;
     <div
         {{ $attributes->merge(['class' => $builder->build()]) }}
         role="tabpanel"
-        id="{{ $panelId }}"
-        aria-labelledby="{{ $tabId }}"
+        x-bind:id="getPanelId('{{ $value }}')"
+        x-bind:aria-labelledby="getTabId('{{ $value }}')"
         tabindex="0"
         x-show="isActive('{{ $value }}')"
         x-transition:enter="transition ease-out duration-200"

@@ -7,17 +7,14 @@
 use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('tabs-trigger');
-
-$tabId = 'tab-' . $value;
-$panelId = 'panel-' . $value;
 @endphp
 
 <button
     {{ $attributes->merge(['class' => $builder->build()]) }}
     type="button"
     role="tab"
-    id="{{ $tabId }}"
-    aria-controls="{{ $panelId }}"
+    x-bind:id="getTabId('{{ $value }}')"
+    x-bind:aria-controls="getPanelId('{{ $value }}')"
     x-bind:aria-selected="isActive('{{ $value }}') ? 'true' : 'false'"
     x-bind:tabindex="isActive('{{ $value }}') ? 0 : -1"
     x-bind:class="[
@@ -28,7 +25,7 @@ $panelId = 'panel-' . $value;
         'spire-tabs-trigger--' + ($el.closest('[data-spire-tabs]')?.dataset.spireColor || 'primary'),
     ]"
     @if($disabled) aria-disabled="true" @endif
-    @click="selectTab('{{ $value }}')"
+    @click="!{{ $disabled ? 'true' : 'false' }} && selectTab('{{ $value }}')"
     @keydown="handleKeydown"
     data-spire-tabs-value="{{ $value }}"
 >

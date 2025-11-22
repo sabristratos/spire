@@ -191,7 +191,6 @@
     .spire-radio--card {
         @apply flex flex-col;
         @apply relative;
-        @apply w-full;
         @apply p-4 rounded-lg;
         @apply border border-border bg-surface;
         @apply transition-all;
