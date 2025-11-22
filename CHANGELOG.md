@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2025-11-23
+
+### Fixed
+- Fixed Tabs fill variants (default, pills, bordered, soft) not showing cursor indicator
+- Fixed Tabs underline variant cursor height now properly controlled via CSS instead of JS inline styles
+
 ## [1.1.2] - 2025-11-23
 
 ### Fixed
@@ -152,7 +158,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.3...HEAD
+[1.1.3]: https://github.com/sabristratos/spire/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/sabristratos/spire/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/sabristratos/spire/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/sabristratos/spire/compare/v1.0.0...v1.1.0

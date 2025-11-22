@@ -130,11 +130,14 @@ export function tabsComponent(config = {}) {
             const tabList = activeTabEl.parentElement;
             if (!tabList) return;
 
+            const variant = this.$el.dataset.spireVariant || 'underline';
+            const isUnderline = variant === 'underline';
+
             this.cursorStyle = {
                 left: `${activeTabEl.offsetLeft}px`,
-                top: `${activeTabEl.offsetTop}px`,
+                top: isUnderline ? 'auto' : `${activeTabEl.offsetTop}px`,
                 width: `${activeTabEl.offsetWidth}px`,
-                height: `${activeTabEl.offsetHeight}px`,
+                height: isUnderline ? '' : `${activeTabEl.offsetHeight}px`,
             };
         },
 

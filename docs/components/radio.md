@@ -152,7 +152,7 @@ Full-width card with rich content:
 ### Radio Group
 
 ```blade
-<x-spire::radio-group
+<x-spire::radio.group
     label="Payment Method"
     description="Select how you'd like to pay"
     required
@@ -161,13 +161,13 @@ Full-width card with rich content:
     <x-spire::radio name="payment" value="card" label="Credit Card" wire:model="paymentMethod" />
     <x-spire::radio name="payment" value="paypal" label="PayPal" wire:model="paymentMethod" />
     <x-spire::radio name="payment" value="bank" label="Bank Transfer" wire:model="paymentMethod" />
-</x-spire::radio-group>
+</x-spire::radio.group>
 ```
 
 ### Horizontal Group with Pills
 
 ```blade
-<x-spire::radio-group
+<x-spire::radio.group
     label="Size"
     orientation="horizontal"
     gap="sm"
@@ -177,13 +177,13 @@ Full-width card with rich content:
     <x-spire::radio variant="pill" name="size" value="m" label="M" wire:model="selectedSize" />
     <x-spire::radio variant="pill" name="size" value="l" label="L" wire:model="selectedSize" />
     <x-spire::radio variant="pill" name="size" value="xl" label="XL" wire:model="selectedSize" />
-</x-spire::radio-group>
+</x-spire::radio.group>
 ```
 
 ### Card Group for Plans
 
 ```blade
-<x-spire::radio-group
+<x-spire::radio.group
     label="Select a Plan"
     required
 >
@@ -228,20 +228,20 @@ Full-width card with rich content:
             <span class="text-text-muted">/month</span>
         </div>
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::radio.group>
 ```
 
 ### Group with Helper Text
 
 ```blade
-<x-spire::radio-group
+<x-spire::radio.group
     label="Notification Preference"
     helper="This setting can be changed later in your profile"
 >
     <x-spire::radio name="notification" value="all" label="All notifications" />
     <x-spire::radio name="notification" value="important" label="Important only" />
     <x-spire::radio name="notification" value="none" label="None" />
-</x-spire::radio-group>
+</x-spire::radio.group>
 ```
 
 ### Livewire Integration
@@ -252,21 +252,21 @@ public string $paymentMethod = '';
 ```
 
 ```blade
-<x-spire::radio-group label="Plan">
+<x-spire::radio.group label="Plan">
     <x-spire::radio name="plan" value="basic" label="Basic" wire:model="selectedPlan" />
     <x-spire::radio name="plan" value="pro" label="Pro" wire:model="selectedPlan" />
     <x-spire::radio name="plan" value="enterprise" label="Enterprise" wire:model="selectedPlan" />
-</x-spire::radio-group>
+</x-spire::radio.group>
 ```
 
 #### Live Updates
 
 ```blade
-<x-spire::radio-group label="Theme">
+<x-spire::radio.group label="Theme">
     <x-spire::radio name="theme" value="light" label="Light" wire:model.live="theme" />
     <x-spire::radio name="theme" value="dark" label="Dark" wire:model.live="theme" />
     <x-spire::radio name="theme" value="system" label="System" wire:model.live="theme" />
-</x-spire::radio-group>
+</x-spire::radio.group>
 ```
 
 ---

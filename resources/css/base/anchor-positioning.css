@@ -25,6 +25,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-start-2 {
@@ -32,6 +33,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-start-3 {
@@ -39,6 +41,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-end-1 {
@@ -46,6 +49,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-end-2 {
@@ -53,6 +57,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-end-3 {
@@ -60,6 +65,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-1 {
@@ -92,6 +98,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-start-2 {
@@ -99,6 +106,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-start-3 {
@@ -106,6 +114,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-end-1 {
@@ -113,6 +122,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-end-2 {
@@ -120,6 +130,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-end-3 {
@@ -127,6 +138,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-1 {
@@ -159,6 +171,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-start-2 {
@@ -166,6 +179,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-start-3 {
@@ -173,6 +187,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-end-1 {
@@ -180,6 +195,7 @@
     margin-right: 4px;
     right: anchor(left);
     bottom: anchor(bottom);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-end-2 {
@@ -187,6 +203,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-end-3 {
@@ -194,6 +211,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-1 {
@@ -226,6 +244,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-start-2 {
@@ -233,6 +252,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-start-3 {
@@ -240,6 +260,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-end-1 {
@@ -247,6 +268,7 @@
     margin-left: 4px;
     left: anchor(right);
     bottom: anchor(bottom);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-end-2 {
@@ -254,6 +276,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-end-3 {
@@ -261,6 +284,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-1 {

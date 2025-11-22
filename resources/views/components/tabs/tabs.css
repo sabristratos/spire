@@ -68,8 +68,7 @@
 }
 
 .spire-tabs-cursor--underline {
-    @apply rounded-full bg-primary;
-    height: 0.125rem !important;
+    @apply rounded-full bg-primary h-0.5;
     background-color: var(--spire-tabs-cursor-bg, theme(colors.primary));
     top: auto !important;
     bottom: 0;

@@ -1,6 +1,6 @@
 @props([
     'name' => null,
-    'size' => '2xl',
+    'size' => 'xl',
     'variant' => 'modal',
     'position' => 'right',
     'dismissible' => true,

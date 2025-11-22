@@ -172,7 +172,7 @@ Full-width card with rich content:
 ### Checkbox Group
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Interests"
     description="Select all that apply"
     required
@@ -182,13 +182,13 @@ Full-width card with rich content:
     <x-spire::checkbox name="interests[]" value="music" label="Music" wire:model="interests" />
     <x-spire::checkbox name="interests[]" value="tech" label="Technology" wire:model="interests" />
     <x-spire::checkbox name="interests[]" value="travel" label="Travel" wire:model="interests" />
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### Horizontal Group
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Features"
     orientation="horizontal"
     gap="lg"
@@ -196,20 +196,20 @@ Full-width card with rich content:
     <x-spire::checkbox variant="pill" name="features[]" value="api" label="API Access" />
     <x-spire::checkbox variant="pill" name="features[]" value="webhooks" label="Webhooks" />
     <x-spire::checkbox variant="pill" name="features[]" value="analytics" label="Analytics" />
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### Group with Helper Text
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Notifications"
     helper="You can change these settings at any time"
 >
     <x-spire::checkbox name="notifications[]" value="email" label="Email" />
     <x-spire::checkbox name="notifications[]" value="sms" label="SMS" />
     <x-spire::checkbox name="notifications[]" value="push" label="Push notifications" />
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### Livewire Integration

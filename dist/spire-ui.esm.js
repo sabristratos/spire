@@ -18547,14 +18547,16 @@ function ag(i = {}) {
     // Update cursor position based on active tab
     updateCursorPosition(e = !0) {
       const t = this.tabs.find(
-        (s) => s.dataset.spireTabsValue === this.activeTab
+        (o) => o.dataset.spireTabsValue === this.activeTab
       );
-      !t || !t.parentElement || (this.cursorStyle = {
+      if (!t || !t.parentElement) return;
+      const r = (this.$el.dataset.spireVariant || "underline") === "underline";
+      this.cursorStyle = {
         left: `${t.offsetLeft}px`,
-        top: `${t.offsetTop}px`,
+        top: r ? "auto" : `${t.offsetTop}px`,
         width: `${t.offsetWidth}px`,
-        height: `${t.offsetHeight}px`
-      });
+        height: r ? "" : `${t.offsetHeight}px`
+      };
     },
     // Update tabs and panels from DOM
     updateTabsAndPanels() {
