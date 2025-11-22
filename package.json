@@ -39,7 +39,7 @@
     },
     "dependencies": {
         "flag-icons": "^7.2.3",
-        "@oddbird/css-anchor-positioning": "^0.7.0",
+        "@oddbird/css-anchor-positioning": "^0.8.0",
         "@oddbird/popover-polyfill": "^0.6.1",
         "@tiptap/core": "^2.0.0",
         "@tiptap/starter-kit": "^2.0.0",
