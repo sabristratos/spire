@@ -14,40 +14,31 @@ $builder = ComponentClass::make('tooltip')
     ->dataAttribute('trigger', $trigger);
 
 $tooltipId = 'tooltip-' . uniqid();
+$triggerId = 'trigger-' . uniqid();
 @endphp
 
-<div
+<span
+    id="{{ $triggerId }}"
+    aria-describedby="{{ $tooltipId }}"
+    class="contents"
+    @if($trigger === 'click')
+        tabindex="0"
+    @endif
+>{{ $slot }}</span><div
+    id="{{ $tooltipId }}"
     x-data="spireTooltip({
+        triggerId: '{{ $triggerId }}',
         placement: '{{ $placement }}',
         trigger: '{{ $trigger }}',
         delay: {{ $delay }},
         duration: {{ $duration ?? 'null' }}
     })"
+    x-ref="content"
+    popover="hint"
+    role="tooltip"
+    class="spire-tooltip__content animate-tooltip-bounce"
+    data-placement="{{ $placement }}"
     {{ $attributes->merge(['class' => $builder->build(), ...$builder->getDataAttributes()]) }}
 >
-    <div
-        x-ref="trigger"
-        class="spire-tooltip__trigger"
-        aria-describedby="{{ $tooltipId }}"
-        @if($trigger === 'click')
-            @click="toggle()"
-            @keydown.enter.prevent="toggle()"
-            @keydown.space.prevent="toggle()"
-            @keydown.escape="hide()"
-            tabindex="0"
-        @endif
-    >
-        {{ $slot }}
-    </div>
-
-    <div
-        id="{{ $tooltipId }}"
-        x-ref="content"
-        popover="hint"
-        role="tooltip"
-        class="spire-tooltip__content animate-tooltip-bounce"
-        data-placement="{{ $placement }}"
-    >
-        {{ $content }}
-    </div>
+    {{ $content }}
 </div>

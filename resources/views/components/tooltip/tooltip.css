@@ -1,12 +1,4 @@
 @layer components {
-    .spire-tooltip {
-        @apply inline-flex;
-    }
-
-    .spire-tooltip__trigger {
-        @apply inline-flex;
-    }
-
     .spire-tooltip__content {
         @apply px-2 py-1 text-xs font-medium;
         @apply bg-neutral-900 text-white border border-neutral-800;

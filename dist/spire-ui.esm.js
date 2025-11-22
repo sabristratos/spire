@@ -3000,9 +3000,10 @@ function Ch(i = {}) {
       placement: i.placement || "top",
       offset: i.offset || 8,
       onInit() {
-        this.trigger === "hover" && this.setupHoverListeners(), i.onInit?.call(this);
+        this.triggerEl = i.triggerId ? document.getElementById(i.triggerId) : this.$refs.trigger, this.trigger === "hover" && this.setupHoverListeners(), this.trigger === "click" && this.triggerEl && this.setupClickListeners(), i.onInit?.call(this);
       }
     }),
+    triggerEl: null,
     placement: i.placement || "top",
     trigger: i.trigger || "hover",
     get isOpen() {
@@ -3012,8 +3013,15 @@ function Ch(i = {}) {
     duration: i.duration || null,
     hoverTimeout: null,
     hideTimeout: null,
+    setupClickListeners() {
+      this.triggerEl && (this.triggerEl.addEventListener("click", () => {
+        this.toggle();
+      }), this.triggerEl.addEventListener("keydown", (t) => {
+        (t.key === "Enter" || t.key === " ") && (t.preventDefault(), this.toggle()), t.key === "Escape" && this.hide();
+      }));
+    },
     setupHoverListeners() {
-      const t = this.$refs.trigger, n = this.$refs.content;
+      const t = this.triggerEl, n = this.$refs.content;
       !t || !n || (t.addEventListener("mouseenter", () => {
         this.handleMouseEnter();
       }), t.addEventListener("mouseleave", () => {
@@ -3036,6 +3044,12 @@ function Ch(i = {}) {
       this.hideTimeout && clearTimeout(this.hideTimeout), this.hideTimeout = setTimeout(() => {
         this.hide();
       }, this.duration);
+    },
+    setupAnchor() {
+      const t = this.triggerEl, n = this.$refs.content;
+      if (!t || !n) return;
+      const s = `anchor-${this.$id("overlay")}`;
+      t.style.anchorName = `--${s}`, n.style.positionAnchor = `--${s}`;
     },
     show() {
       this.setupAnchor(), this.$refs.content?.showPopover(), this.duration && this.scheduleAutoHide();
