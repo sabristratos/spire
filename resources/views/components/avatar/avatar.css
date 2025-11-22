@@ -5,7 +5,24 @@
         transition: all var(--animation-duration-fast) ease-out;
     }
 
-    /* 2. Size Variants */
+    /* 2. Radius Variants */
+    .spire-avatar--radius-none {
+        @apply rounded-none;
+    }
+    .spire-avatar--radius-sm {
+        @apply rounded-sm;
+    }
+    .spire-avatar--radius-md {
+        @apply rounded-md;
+    }
+    .spire-avatar--radius-lg {
+        @apply rounded-lg;
+    }
+    .spire-avatar--radius-full {
+        @apply rounded-full;
+    }
+
+    /* 3. Size Variants */
     .spire-avatar--xs {
         @apply w-6 h-6 text-xs;
     }
@@ -22,12 +39,12 @@
         @apply w-14 h-14 text-xl;
     }
 
-    /* 3. Bordered */
+    /* 4. Bordered */
     .spire-avatar--bordered {
         @apply ring-2 ring-offset-2;
     }
 
-    /* 4. Border Colors */
+    /* 5. Border Colors */
     .spire-avatar--ring-default {
         @apply ring-neutral;
     }
@@ -53,12 +70,12 @@
         @apply ring-info;
     }
 
-    /* 5. Disabled State */
+    /* 6. Disabled State */
     .spire-avatar--disabled {
         @apply opacity-50 cursor-not-allowed;
     }
 
-    /* 6. Avatar Group Ring Classes (parent-based) */
+    /* 7. Avatar Group Ring Classes (parent-based) */
     [data-spire-avatar-group-bordered] :is(.spire-avatar, .spire-avatar__overflow) {
         @apply ring-2 ring-offset-2;
     }
@@ -87,13 +104,13 @@
         @apply ring-info;
     }
 
-    /* 7. Avatar Overflow */
+    /* 8. Avatar Overflow */
     .spire-avatar__overflow {
         @apply relative inline-flex items-center justify-center shrink-0 overflow-hidden font-semibold rounded-full;
         transition: all var(--animation-duration-fast) ease-out;
     }
 
-    /* 8. Avatar Overflow Size Variants */
+    /* 9. Avatar Overflow Size Variants */
     .spire-avatar__overflow--xs {
         @apply w-6 h-6 text-xs;
     }
@@ -110,12 +127,12 @@
         @apply w-14 h-14 text-xl;
     }
 
-    /* 9. Avatar Overflow Bordered */
+    /* 10. Avatar Overflow Bordered */
     .spire-avatar__overflow--bordered {
         @apply ring-2 ring-offset-2;
     }
 
-    /* 10. Avatar Overflow Solid Color Variants */
+    /* 11. Avatar Overflow Solid Color Variants */
     .spire-avatar__overflow--default-solid {
         @apply bg-neutral text-white;
     }
@@ -144,7 +161,7 @@
         @apply bg-featured text-featured-foreground;
     }
 
-    /* 11. Avatar Overflow Ring Colors */
+    /* 12. Avatar Overflow Ring Colors */
     .spire-avatar__overflow--ring-default {
         @apply ring-neutral;
     }

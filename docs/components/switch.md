@@ -17,6 +17,7 @@ Toggle switch component for binary on/off states. Features smooth animations, mu
 | `label` | string | `null` | Label text displayed next to switch |
 | `description` | string | `null` | Helper text displayed below label |
 | `id` | string | `null` | Custom ID (auto-generated if not provided) |
+| `position` | string | `'right'` | Position of the switch track: `left`, `right` |
 
 ## Slots
 

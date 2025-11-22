@@ -10,6 +10,7 @@
     'label' => null,
     'description' => null,
     'id' => null,
+    'position' => 'right',
 ])
 
 @php
@@ -37,6 +38,7 @@
 
     $wrapperClasses = ComponentClass::make('switch-wrapper')
         ->addIf($disabled, 'cursor-not-allowed')
+        ->addIf($position === 'left', 'flex-row-reverse')
         ->build();
 
     $inputAttributes = [

@@ -24,7 +24,7 @@ if ($name) {
 
 $builder = ComponentClass::make('avatar')
     ->size($size)
-    ->radius($radius)
+    ->modifier("radius-{$radius}")
     ->when($disabled, fn($b) => $b->modifier('disabled'))
     ->when($bordered, fn($b) => $b->modifier('bordered')->modifier("ring-{$color}"))
     ->dataAttribute('color', $color);
