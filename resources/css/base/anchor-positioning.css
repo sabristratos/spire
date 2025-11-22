@@ -67,6 +67,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-2 {
@@ -74,6 +75,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-bottom-3 {
@@ -81,6 +83,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 /* Top placements */
@@ -131,6 +134,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-2 {
@@ -138,6 +142,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-top-3 {
@@ -145,6 +150,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 /* Right placements */
@@ -195,6 +201,7 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-2 {
@@ -202,6 +209,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
+    translate: 0 0;
 }
 
 @position-try --fallback-right-3 {
@@ -209,6 +217,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
+    translate: 0 0;
 }
 
 /* Left placements */
@@ -259,6 +268,7 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-2 {
@@ -266,6 +276,7 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
+    translate: 0 0;
 }
 
 @position-try --fallback-left-3 {
@@ -273,6 +284,7 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
+    translate: 0 0;
 }
 
 /* Apply fallbacks to elements with data-placement */

@@ -1,7 +1,7 @@
 @layer components {
     /* 1. Base Popover Styles */
     .spire-popover {
-        @apply bg-surface border border-border rounded-lg shadow-lg;
+        @apply bg-overlay border border-border rounded-lg shadow-lg;
         opacity: 0;
         transform: scale(0.95);
     }

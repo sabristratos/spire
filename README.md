@@ -5,49 +5,75 @@ A modern TALL stack component library built with Tailwind CSS v4, Livewire 3, an
 ## Features
 
 - **Modern Stack**: Built on the TALL stack (Tailwind v4, Alpine.js, Laravel 12, Livewire 3)
+- **Zero Config**: Pre-built assets served via Blade directives - no build step required
 - **Accessible**: Full keyboard navigation, ARIA attributes, and semantic HTML
 - **Themeable**: Semantic color tokens with built-in light/dark mode support
 - **Localized**: i18n support for English, French, and Arabic
 - **Composable**: Highly flexible components using Blade slots and attributes
-- **Testable**: Designed with testing in mind using Pest v4
 
 ## Installation
 
-### Quick Install (Recommended)
-
-Install the package via Composer and run the install command:
+Install the package via Composer:
 
 ```bash
 composer require stratos/spire-ui
-php artisan spire:install
 ```
 
-The install command will:
-- ✓ Detect your package manager (npm, pnpm, or yarn)
-- ✓ Install JavaScript dependencies (Alpine.js, Tailwind CSS, polyfills, flag-icons)
-- ✓ Build assets
-- ✓ Optionally publish configuration
-- ✓ Show you the next steps
+## Quick Start (Zero Config)
 
-### Manual Installation
+Add the Blade directives to your layout file:
 
-If you prefer to install dependencies manually:
+```blade
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @spireStyles
+    @livewireStyles
+</head>
+<body>
+    {{ $slot }}
+
+    @spireScripts
+    @livewireScripts
+</body>
+</html>
+```
+
+That's it! No npm install, no build step required. Start using components immediately:
+
+```blade
+<x-spire::button>Click me</x-spire::button>
+```
+
+### Using the Pre-built Layout
+
+Publish the admin layout for a complete starting point:
 
 ```bash
-composer require stratos/spire-ui
-npm install && npm run build
+php artisan vendor:publish --tag=spire-ui-layouts
 ```
 
-### Asset Setup
+This creates `resources/views/components/layouts/admin.blade.php` with a full sidebar + header layout.
 
-1. **Import CSS** in your `resources/css/app.css`:
+## Advanced Setup (Custom Bundling)
+
+For projects that need to customize or bundle Spire UI with their own assets:
+
+### 1. Import CSS
+
+In your `resources/css/app.css`:
 
 ```css
 @import 'tailwindcss';
 @import '../../vendor/stratos/spire-ui/resources/css/index.css';
 ```
 
-2. **Import JavaScript** in your `resources/js/app.js`:
+### 2. Import JavaScript
+
+In your `resources/js/app.js`:
 
 ```javascript
 import { initializeSpireUI } from '../../vendor/stratos/spire-ui/resources/js/index';
@@ -55,13 +81,33 @@ import { initializeSpireUI } from '../../vendor/stratos/spire-ui/resources/js/in
 initializeSpireUI();
 ```
 
-3. **Build assets**:
+### 3. Build Assets
 
 ```bash
 npm run build
 ```
 
-### Configuration (Optional)
+### 4. Use Vite in Layout
+
+```blade
+<head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+</head>
+<body>
+    {{ $slot }}
+    @livewireScripts
+</body>
+```
+
+## Blade Directives
+
+| Directive | Description |
+|-----------|-------------|
+| `@spireStyles` | Outputs CSS link tag for all Spire UI styles |
+| `@spireScripts` | Outputs JS script tags and initializes Alpine components |
+
+## Configuration
 
 Publish the configuration file to customize component defaults:
 
@@ -69,18 +115,30 @@ Publish the configuration file to customize component defaults:
 php artisan vendor:publish --tag=spire-ui-config
 ```
 
-This will create `config/spire-ui.php` where you can customize:
-- Component prefix
-- Dark mode settings
-- Global component defaults (size, radius, placement)
+This creates `config/spire-ui.php` where you can customize:
+
+- `prefix` - Component prefix (default: `spire`)
+- `asset_route` - Route path for serving assets (default: `spire-ui`)
+- `theme.dark_mode` - Dark mode strategy
+- `defaults` - Global component defaults (size, radius, placement)
 - Component-specific settings
+
+### Environment Variables
+
+```env
+SPIRE_UI_PREFIX=spire
+SPIRE_UI_ASSET_ROUTE=spire-ui
+SPIRE_UI_DARK_MODE=class
+```
 
 ## Usage
 
-Components will be available using the `spire` prefix:
+Components use the configured prefix (default: `spire`):
 
 ```blade
 <x-spire::button>Click me</x-spire::button>
+<x-spire::input label="Name" />
+<x-spire::select :options="$options" />
 ```
 
 ### Component Naming Convention
@@ -92,108 +150,77 @@ Spire UI uses folder-based components with dot notation:
 
 ## Theming
 
-Spire UI uses semantic color tokens defined in `vendor/stratos/spire-ui/resources/css/base/theme.css`. All tokens support light/dark mode automatically.
+Spire UI uses semantic color tokens with automatic light/dark mode support.
 
 ### Available Tokens
 
 - **Primary**: `primary`, `primary-hover`, `primary-active`, `primary-foreground`
 - **Secondary**: `secondary`, `secondary-hover`, `secondary-active`, `secondary-foreground`
-- **Surfaces**: `body`, `surface`, `overlay` (elevation hierarchy from base to top)
+- **Surfaces**: `body`, `surface`, `overlay` (elevation hierarchy)
 - **Text**: `text`, `text-muted`, `text-disabled`
 - **Borders**: `border`, `border-hover`, `border-focus`
-- **States**: `success`, `error`, `warning`, `info` (each with `-hover`, `-bg`, `-foreground` variants)
+- **States**: `success`, `error`, `warning`, `info` (each with `-hover`, `-bg`, `-foreground`)
 
 ### Surface Elevation Hierarchy
 
-Spire UI uses a three-layer elevation system that creates depth through color contrast:
+Three-layer elevation system:
 
-**Light Mode:**
-1. `body` - neutral-50 (subtle gray background)
-2. `surface` - white (cards, panels appear elevated/lighter)
-3. `overlay` - neutral-100 (modals, dialogs on top)
-
-**Dark Mode:**
-1. `body` - neutral-950 (darkest background)
-2. `surface` - neutral-900 (cards, panels slightly lighter)
-3. `overlay` - neutral-800 (modals, dialogs even lighter)
+| Layer | Light Mode | Dark Mode | Usage |
+|-------|------------|-----------|-------|
+| `body` | neutral-50 | neutral-950 | Page background |
+| `surface` | white | neutral-900 | Cards, panels |
+| `overlay` | neutral-100 | neutral-800 | Modals, dialogs |
 
 ```blade
-<!-- Page background -->
 <body class="bg-body text-text">
-    <!-- Elevated card -->
     <div class="bg-surface border border-border rounded-lg p-6">
-        <h2>Card content appears elevated</h2>
-    </div>
-
-    <!-- Modal overlay (highest elevation) -->
-    <div class="bg-overlay/95 backdrop-blur">
-        <div class="bg-surface rounded-lg p-6">
-            Modal content
-        </div>
+        Card content
     </div>
 </body>
 ```
 
-### Color System Architecture
+### Customizing Theme
 
-Spire UI uses a three-layer color system:
+Publish the theme CSS file:
 
-1. **Base Colors** (7 colors): `primary-base`, `secondary-base`, `neutral-base`, `success-base`, `error-base`, `warning-base`, `info-base`
-2. **Shade Scale** (50-950): Each base generates 11 shades using relative color syntax
-3. **Semantic Tokens**: User-friendly names with automatic light/dark mode support
-
-### Foreground Colors
-
-Each semantic color has an adaptive `-foreground` variant that ensures WCAG-compliant contrast:
-
-```blade
-<!-- Automatically adapts text color for optimal contrast -->
-<button class="bg-primary text-primary-foreground">
-    Click me
-</button>
-
-<div class="bg-success text-success-foreground p-4">
-    Success message with perfect contrast
-</div>
-
-<span class="bg-error text-error-foreground px-2 py-1">
-    Error badge
-</span>
+```bash
+php artisan vendor:publish --tag=spire-ui-css
 ```
 
-### Usage Examples
-
-```blade
-<!-- Using semantic tokens -->
-<button class="bg-primary hover:bg-primary-hover text-primary-foreground">
-    Primary Button
-</button>
-
-<!-- Using specific shades -->
-<div class="bg-primary-50 text-primary-900 dark:bg-primary-950 dark:text-primary-100">
-    Custom styled element
-</div>
-
-<!-- State colors with foreground -->
-<div class="bg-warning text-warning-foreground border border-warning rounded-md p-4">
-    Warning message
-</div>
-```
+Edit `resources/css/spire-ui-theme.css` to customize colors.
 
 ## Localization
 
-Spire UI supports multiple languages out of the box. Set your application locale:
+Spire UI supports English, French, and Arabic. Set your application locale:
 
 ```php
 // config/app.php
 'locale' => 'en', // or 'fr', 'ar'
 ```
 
-Translation files are located in `vendor/stratos/spire-ui/resources/lang/{locale}/spire-ui.php`.
+Publish translations for customization:
+
+```bash
+php artisan vendor:publish --tag=spire-ui-lang
+```
+
+## Publishing Assets
+
+| Tag | Description |
+|-----|-------------|
+| `spire-ui-config` | Configuration file |
+| `spire-ui-views` | All component views |
+| `spire-ui-lang` | Translation files |
+| `spire-ui-css` | Theme CSS file |
+| `spire-ui-layouts` | Layout components |
+
+```bash
+php artisan vendor:publish --tag=spire-ui-config
+```
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting pull requests.
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 

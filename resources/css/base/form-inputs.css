@@ -153,7 +153,7 @@
        ========================================================================== */
 
     .spire-overlay {
-        @apply bg-surface border border-border rounded-lg shadow-lg;
+        @apply bg-overlay border border-border rounded-lg shadow-lg;
     }
 
     /* Overlay width variants - min-w for content, max-w to prevent overflow */

@@ -1,7 +1,7 @@
 @props([
     'orientation' => 'horizontal',
     'color' => 'default',
-    'size' => 'md',
+    'size' => 'sm',
     'spacing' => 'md',
     'labelPosition' => 'center',
 ])

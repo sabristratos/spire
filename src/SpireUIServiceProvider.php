@@ -3,8 +3,11 @@
 namespace SpireUI;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use SpireUI\Http\Controllers\AssetController;
 use SpireUI\Support\Synthesizers\DateRangePresetSynth;
 use SpireUI\Support\Synthesizers\DateRangeSynth;
 
@@ -18,10 +21,12 @@ use SpireUI\Support\Synthesizers\DateRangeSynth;
  * - Publishes assets (config, views, lang, CSS, layouts)
  * - Registers Livewire synthesizers for custom types
  * - Configures default pagination views
+ * - Registers asset routes and Blade directives
  *
  * Configuration:
  * - Component prefix: Set via 'spire-ui.prefix' config (default: 'spire')
  * - Pagination: Auto-register via 'spire-ui.pagination.register_default' (default: true)
+ * - Asset route: Set via 'spire-ui.asset_route' config (default: 'spire-ui')
  *
  * Publishing tags:
  * - `spire-ui-config`: Configuration file
@@ -30,23 +35,25 @@ use SpireUI\Support\Synthesizers\DateRangeSynth;
  * - `spire-ui-css`: Theme CSS file
  * - `spire-ui-layouts`: Layout components
  *
- * @example Publishing assets:
- * ```bash
- * php artisan vendor:publish --tag=spire-ui-config
- * php artisan vendor:publish --tag=spire-ui-views
- * ```
+ * Blade Directives:
+ * - `@spireStyles`: Outputs the CSS link tag
+ * - `@spireScripts`: Outputs the JS script tags with initialization
  *
- * @package SpireUI
+ * @example Usage in layout:
+ * ```blade
+ * <head>
+ *
+ *     @spireStyles
+ * </head>
+ * <body>
+ *     ...
+ *
+ *     @spireScripts
+ * </body>
+ * ```
  */
 class SpireUIServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * Merges package configuration and loads helper functions.
-     *
-     * @return void
-     */
     public function register(): void
     {
         $this->mergeConfigFrom(
@@ -57,18 +64,10 @@ class SpireUIServiceProvider extends ServiceProvider
         require_once __DIR__.'/helpers.php';
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * Loads views, translations, registers components, and publishes assets.
-     *
-     * @return void
-     */
     public function boot(): void
     {
         $prefix = config('spire-ui.prefix', 'spire');
 
-        // Register Artisan commands
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\InstallCommand::class,
@@ -99,19 +98,33 @@ class SpireUIServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views/layouts' => resource_path('views/components/layouts'),
         ], 'spire-ui-layouts');
 
+        $this->registerAssetRoutes();
+        $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireSynthesizers();
         $this->registerPaginationViews();
     }
 
-    /**
-     * Register default pagination views with Laravel.
-     *
-     * Sets Spire UI pagination components as default paginator views
-     * if enabled in configuration.
-     *
-     * @return void
-     */
+    protected function registerAssetRoutes(): void
+    {
+        Route::get(
+            config('spire-ui.asset_route', 'spire-ui').'/{file}',
+            AssetController::class
+        )->name('spire-ui.asset');
+    }
+
+    protected function registerBladeDirectives(): void
+    {
+        Blade::directive('spireStyles', function () {
+            return '<?php echo \'<link rel="stylesheet" href="\' . route(\'spire-ui.asset\', \'spire-ui.css\') . \'">\'; ?>';
+        });
+
+        Blade::directive('spireScripts', function () {
+            return '<?php echo \'<script src="\' . route(\'spire-ui.asset\', \'spire-ui.iife.js\') . \'"></script>
+<script>document.addEventListener(\\\'alpine:init\\\', function() { SpireUI.initializeSpireUI(); });</script>\'; ?>';
+        });
+    }
+
     protected function registerPaginationViews(): void
     {
         if (config('spire-ui.pagination.register_default', true)) {
@@ -122,32 +135,12 @@ class SpireUIServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register Livewire property synthesizers.
-     *
-     * Registers custom synthesizers for serializing/deserializing
-     * complex Spire UI types in Livewire components:
-     * - DateRangePresetSynth: For DateRangePreset enum
-     * - DateRangeSynth: For DateRange value objects
-     *
-     * @return void
-     */
     protected function registerLivewireSynthesizers(): void
     {
         Livewire::propertySynthesizer(DateRangePresetSynth::class);
         Livewire::propertySynthesizer(DateRangeSynth::class);
     }
 
-    /**
-     * Register anonymous Blade components.
-     *
-     * Registers all Blade components in the package's views directory
-     * with the configured prefix (default: 'spire').
-     *
-     * Components are used as: `<x-spire::button />`, `<x-spire::input />`
-     *
-     * @return void
-     */
     protected function registerBladeComponents(): void
     {
         $this->loadViewComponentsAs(

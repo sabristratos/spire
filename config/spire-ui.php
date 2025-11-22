@@ -3,6 +3,8 @@
 return [
     'prefix' => env('SPIRE_UI_PREFIX', 'spire'),
 
+    'asset_route' => env('SPIRE_UI_ASSET_ROUTE', 'spire-ui'),
+
     'theme' => [
         'dark_mode' => env('SPIRE_UI_DARK_MODE', 'class'),
     ],

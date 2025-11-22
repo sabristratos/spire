@@ -16,8 +16,8 @@
         })();
     </script>
 
+    @spireStyles
     @livewireStyles
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="overflow-hidden h-screen bg-body flex">
 <x-spire::sidebar variant="bordered" collapsible drawer class="md:relative md:translate-x-0 md:z-auto" wire:ignore>
@@ -94,6 +94,7 @@
         {{ $slot }}
     </main>
 </div>
+@spireScripts
 @livewireScripts
 </body>
 </html>

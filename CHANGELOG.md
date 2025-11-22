@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-11-22
+
+### Added
+
+#### Zero-Config Asset Distribution
+- Pre-built CSS and JS bundles in `dist/` folder for zero-config installation
+- `@spireStyles` Blade directive for including CSS
+- `@spireScripts` Blade directive for including JS and initializing Alpine components
+- Route-based asset serving from vendor directory (no publish step required)
+- `AssetController` for serving pre-built assets with proper caching headers
+
+#### Build System
+- Vite configuration for building distributable assets (`vite.config.js`)
+- ES module (`spire-ui.esm.js`) and IIFE (`spire-ui.iife.js`) JavaScript bundles
+- Compiled CSS bundle with all Tailwind utilities (`spire-ui.css`)
+- New entry points: `resources/js/spire-ui.js` and `resources/css/spire-ui.css`
+
+### Changed
+- Updated publishable admin layout to use `@spireStyles` and `@spireScripts` directives
+- README rewritten with zero-config as primary installation method
+- Added `asset_route` configuration option for customizing asset URL path
+
+### Removed
+- Removed `spire-ui-assets` publish tag (assets now served via routes)
+
 ## [1.0.0] - 2025-11-20
 
 ### Added
@@ -115,5 +140,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/sabristratos/spire/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/sabristratos/spire/releases/tag/v1.0.0
