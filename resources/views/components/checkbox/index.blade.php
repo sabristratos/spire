@@ -69,7 +69,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
                 aria-describedby="{{ $descriptionId }}"
             @endif
             x-effect="$el.indeterminate = $el.hasAttribute('indeterminate') && $el.getAttribute('indeterminate') !== 'false'"
-            {{ $attributes->except(['class', 'id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
+            {{ WireEntangle::filteredAttributes($attributes)->except(['class', 'id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'value', 'label', 'description']) }}
         >
 
         <div
@@ -131,7 +131,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
             class="spire-checkbox-input peer"
             aria-labelledby="{{ $labelId }}"
             x-effect="$el.indeterminate = $el.hasAttribute('indeterminate') && $el.getAttribute('indeterminate') !== 'false'"
-            {{ $attributes->except(['class', 'id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
+            {{ WireEntangle::filteredAttributes($attributes)->except(['class', 'id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'value', 'label', 'description']) }}
         >
 
         @if($label)
@@ -170,7 +170,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
                 aria-describedby="{{ $descriptionId }}"
             @endif
             x-effect="$el.indeterminate = $el.hasAttribute('indeterminate') && $el.getAttribute('indeterminate') !== 'false'"
-            {{ $attributes->except(['class', 'id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
+            {{ WireEntangle::filteredAttributes($attributes)->except(['class', 'id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'value', 'label', 'description']) }}
         >
 
         <div
