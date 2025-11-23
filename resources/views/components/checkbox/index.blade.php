@@ -52,7 +52,9 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
             type="checkbox"
             id="{{ $checkboxId }}"
             name="{{ $name }}"
-            value="{{ $value }}"
+            @if($value !== null && $value !== '')
+                value="{{ $value }}"
+            @endif
             @if($wireConfig->hasWireModel())
                 {{ $wireConfig->isLive ? 'wire:model.live' : 'wire:model' }}="{{ $wireConfig->wireModel }}"
             @endif
@@ -117,7 +119,9 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
             type="checkbox"
             id="{{ $checkboxId }}"
             name="{{ $name }}"
-            value="{{ $value }}"
+            @if($value !== null && $value !== '')
+                value="{{ $value }}"
+            @endif
             @if($wireConfig->hasWireModel())
                 {{ $wireConfig->isLive ? 'wire:model.live' : 'wire:model' }}="{{ $wireConfig->wireModel }}"
             @endif
@@ -153,7 +157,9 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
             type="checkbox"
             id="{{ $checkboxId }}"
             name="{{ $name }}"
-            value="{{ $value }}"
+            @if($value !== null && $value !== '')
+                value="{{ $value }}"
+            @endif
             @if($wireConfig->hasWireModel())
                 {{ $wireConfig->isLive ? 'wire:model.live' : 'wire:model' }}="{{ $wireConfig->wireModel }}"
             @endif
