@@ -112,7 +112,9 @@ export function tabsComponent(config = {}) {
                 this.morphHandler = () => {
                     this.updateTabsAndPanels();
                     this.updateTabAttributes();
-                    this.updateCursorPosition(false);
+                    requestAnimationFrame(() => {
+                        this.updateCursorPosition(false);
+                    });
                 };
                 document.addEventListener('livewire:morphed', this.morphHandler);
 

@@ -18551,7 +18551,9 @@ function ug(i = {}) {
           const e = window.location.hash.slice(1);
           e && e !== this.activeTab && this.tabs.find((t) => t.dataset.spireTabsValue === e) && this.selectTab(e);
         }, window.addEventListener("hashchange", this.hashChangeHandler)), this.morphHandler = () => {
-          this.updateTabsAndPanels(), this.updateTabAttributes(), this.updateCursorPosition(!1);
+          this.updateTabsAndPanels(), this.updateTabAttributes(), requestAnimationFrame(() => {
+            this.updateCursorPosition(!1);
+          });
         }, document.addEventListener("livewire:morphed", this.morphHandler), this.$watch("activeTab", (e, t) => {
           this.updateCursorPosition(!0), e && this.activatedTabs.add(e), this.syncHash && e !== window.location.hash.slice(1) && history.pushState(null, "", `#${e}`);
         });

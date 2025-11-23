@@ -45,7 +45,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @if($variant === 'regular')
     <label
         for="{{ $checkboxId }}"
-        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->whereDoesntStartWith('wire:model')->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -112,7 +112,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @elseif($variant === 'pill')
     <label
         for="{{ $checkboxId }}"
-        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->whereDoesntStartWith('wire:model')->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -150,7 +150,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @elseif($variant === 'card')
     <label
         for="{{ $checkboxId }}"
-        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->whereDoesntStartWith('wire:model')->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
