@@ -10,6 +10,7 @@ $builder = ComponentClass::make('tabs-list');
 
 <div
     {{ $attributes->merge(['class' => $builder->build()]) }}
+    wire:ignore.self
     role="tablist"
     x-bind:aria-orientation="orientation"
     x-bind:class="{

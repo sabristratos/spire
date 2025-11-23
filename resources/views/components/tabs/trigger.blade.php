@@ -11,6 +11,7 @@ $builder = ComponentClass::make('tabs-trigger');
 
 <button
     {{ $attributes->merge(['class' => $builder->build()]) }}
+    wire:key="tab-trigger-{{ $value }}"
     type="button"
     role="tab"
     x-bind:id="getTabId('{{ $value }}')"

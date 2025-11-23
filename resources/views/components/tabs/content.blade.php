@@ -15,6 +15,8 @@ $builder = ComponentClass::make('tabs-content');
     <template x-if="hasBeenActivated('{{ $value }}')">
         <div
             {{ $attributes->merge(['class' => $builder->build()]) }}
+            wire:ignore.self
+            wire:key="tab-content-{{ $value }}"
             role="tabpanel"
             x-bind:id="getPanelId('{{ $value }}')"
             x-bind:aria-labelledby="getTabId('{{ $value }}')"
@@ -28,6 +30,8 @@ $builder = ComponentClass::make('tabs-content');
 @else
     <div
         {{ $attributes->merge(['class' => $builder->build()]) }}
+        wire:ignore.self
+        wire:key="tab-content-{{ $value }}"
         role="tabpanel"
         x-bind:id="getPanelId('{{ $value }}')"
         x-bind:aria-labelledby="getTabId('{{ $value }}')"
