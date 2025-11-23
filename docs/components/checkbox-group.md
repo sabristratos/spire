@@ -9,7 +9,7 @@ The Checkbox Group component provides a structured container for organizing rela
 ## Basic Usage
 
 ```blade
-<x-spire::checkbox-group label="Select your interests">
+<x-spire::checkbox.group label="Select your interests">
     <x-spire::checkbox value="tech" name="interests[]">
         Technology
     </x-spire::checkbox>
@@ -19,7 +19,7 @@ The Checkbox Group component provides a structured container for organizing rela
     <x-spire::checkbox value="music" name="interests[]">
         Music
     </x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ## Props
@@ -39,7 +39,7 @@ The Checkbox Group component provides a structured container for organizing rela
 ### With Description
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Newsletter Preferences"
     description="Choose the types of emails you'd like to receive"
 >
@@ -52,13 +52,13 @@ The Checkbox Group component provides a structured container for organizing rela
     <x-spire::checkbox value="promotions" name="newsletter[]">
         Promotions
     </x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Helper Text
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Privacy Settings"
     helper="You can change these settings at any time in your profile"
 >
@@ -68,13 +68,13 @@ The Checkbox Group component provides a structured container for organizing rela
     <x-spire::checkbox value="search" name="privacy[]">
         Allow search engines to index
     </x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### Required Field
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Terms and Conditions"
     required
 >
@@ -84,13 +84,13 @@ The Checkbox Group component provides a structured container for organizing rela
     <x-spire::checkbox value="privacy" name="agreements[]" required>
         I accept the privacy policy
     </x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Validation Error
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Select at least one option"
     error="Please select at least one option to continue"
 >
@@ -100,13 +100,13 @@ The Checkbox Group component provides a structured container for organizing rela
     <x-spire::checkbox value="option2" name="options[]">
         Option 2
     </x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### Horizontal Layout
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Size"
     orientation="horizontal"
     gap="lg"
@@ -115,20 +115,20 @@ The Checkbox Group component provides a structured container for organizing rela
     <x-spire::checkbox value="m" name="size">Medium</x-spire::checkbox>
     <x-spire::checkbox value="l" name="size">Large</x-spire::checkbox>
     <x-spire::checkbox value="xl" name="size">X-Large</x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Livewire
 
 ```blade
-<x-spire::checkbox-group
+<x-spire::checkbox.group
     label="Categories"
     :error="$errors->first('categories')"
 >
     <x-spire::checkbox value="1" wire:model="categories">Web Development</x-spire::checkbox>
     <x-spire::checkbox value="2" wire:model="categories">Mobile Apps</x-spire::checkbox>
     <x-spire::checkbox value="3" wire:model="categories">UI/UX Design</x-spire::checkbox>
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 ## Accessibility

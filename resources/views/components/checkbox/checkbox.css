@@ -5,13 +5,7 @@
     }
 
     .spire-checkbox-input {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        position: fixed;
-        white-space: nowrap;
+        @apply visually-hidden;
     }
 
     /* Regular variant */
@@ -25,10 +19,8 @@
         @apply relative inline-flex items-center justify-center;
         @apply flex-shrink-0;
         @apply border border-border bg-surface;
-        @apply transition-all;
+        @apply transition-all duration-150 ease-out;
         @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
     }
 
     /* Size variants for checkbox box */
@@ -48,9 +40,7 @@
     .spire-checkbox-icon {
         @apply absolute inset-0 flex items-center justify-center;
         @apply opacity-0 scale-0;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
     }
 
     /* Checked state - show check icon */
@@ -197,9 +187,7 @@
         @apply px-3 py-1.5 rounded-full;
         @apply text-sm;
         @apply border border-border bg-surface;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-checkbox--pill:hover {
@@ -238,9 +226,7 @@
         @apply w-full;
         @apply p-4 rounded-lg;
         @apply border border-border bg-surface;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-checkbox--card:hover {

@@ -410,4 +410,20 @@ return [
     'progress' => [
         'loading' => 'Loading',
     ],
+
+    'icon-picker' => [
+        'placeholder' => 'Select an icon',
+        'search_placeholder' => 'Search icons...',
+        'no_results' => 'No icons found',
+        'clear' => 'Clear selection',
+        'aria_label' => 'Icon picker',
+        'results_available' => 'icons available',
+    ],
+
+    'color-picker' => [
+        'placeholder' => 'Select a color',
+        'select' => 'Select',
+        'clear' => 'Clear selection',
+        'aria_label' => 'Color picker',
+    ],
 ];

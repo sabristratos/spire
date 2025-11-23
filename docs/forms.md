@@ -170,17 +170,17 @@ Single checkbox or grouped checkboxes for multi-select.
 <x-spire::checkbox wire:model="acceptTerms" label="Accept terms and conditions" />
 
 {{-- Array of values --}}
-<x-spire::checkbox-group label="Interests" required :error="$errors->first('interests')">
+<x-spire::checkbox.group label="Interests" required :error="$errors->first('interests')">
     <x-spire::checkbox name="interests[]" value="sports" wire:model="interests" label="Sports" />
     <x-spire::checkbox name="interests[]" value="music" wire:model="interests" label="Music" />
     <x-spire::checkbox name="interests[]" value="tech" wire:model="interests" label="Technology" />
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 
 {{-- Pill variant --}}
-<x-spire::checkbox-group orientation="horizontal">
+<x-spire::checkbox.group orientation="horizontal">
     <x-spire::checkbox variant="pill" name="tags[]" value="featured" label="Featured" />
     <x-spire::checkbox variant="pill" name="tags[]" value="new" label="New" />
-</x-spire::checkbox-group>
+</x-spire::checkbox.group>
 ```
 
 **Key Props:** `variant` (`regular`, `pill`, `card`), `size`, `color`, `indeterminate`
@@ -192,21 +192,21 @@ See [Checkbox documentation](components/checkbox.md).
 Radio buttons for single-choice selection.
 
 ```blade
-<x-spire::radio-group label="Payment Method" required>
+<x-spire::checkbox.group label="Payment Method" required>
     <x-spire::radio name="payment" value="card" wire:model="payment" label="Credit Card" />
     <x-spire::radio name="payment" value="paypal" wire:model="payment" label="PayPal" />
     <x-spire::radio name="payment" value="bank" wire:model="payment" label="Bank Transfer" />
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 
 {{-- Card variant for plans --}}
-<x-spire::radio-group label="Select Plan">
+<x-spire::checkbox.group label="Select Plan">
     <x-spire::radio variant="card" name="plan" value="basic" wire:model="plan" label="Basic" description="$9/month">
         <ul class="text-sm mt-2"><li>5 projects</li></ul>
     </x-spire::radio>
     <x-spire::radio variant="card" name="plan" value="pro" wire:model="plan" label="Pro" description="$29/month">
         <ul class="text-sm mt-2"><li>Unlimited projects</li></ul>
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 **Key Props:** `variant` (`regular`, `pill`, `card`), `size`, `color`
@@ -469,11 +469,11 @@ public function save()
         <x-spire::datepicker id="startDate" wire:model="startDate" />
     </x-spire::field>
 
-    <x-spire::checkbox-group label="Skills" error="skills">
+    <x-spire::checkbox.group label="Skills" error="skills">
         <x-spire::checkbox name="skills[]" value="php" wire:model="skills" label="PHP" />
         <x-spire::checkbox name="skills[]" value="javascript" wire:model="skills" label="JavaScript" />
         <x-spire::checkbox name="skills[]" value="python" wire:model="skills" label="Python" />
-    </x-spire::checkbox-group>
+    </x-spire::checkbox.group>
 
     <x-spire::switch
         wire:model="subscribeNewsletter"

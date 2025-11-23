@@ -23,9 +23,8 @@ html:has(dialog[open]) {
     .spire-modal--modal[open] {
         opacity: 1;
         transform: scale(1);
-        transition: opacity var(--animation-duration-fast),
-                    transform var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-bounce);
+        transition: opacity 150ms, transform 150ms;
+        transition-timing-function: var(--ease-bounce);
     }
 
     @starting-style {

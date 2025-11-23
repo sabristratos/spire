@@ -64,7 +64,7 @@
     $mergedAttributes = WireEntangle::filteredAttributes($attributes);
 @endphp
 
-<div class="{{ $containerClasses }}" {{ $mergedAttributes }}>
+<div {{ $mergedAttributes->merge(['class' => $containerClasses]) }}>
     <label class="{{ $wrapperClasses }}" for="{{ $switchId }}">
         <input
             type="checkbox"

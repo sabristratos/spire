@@ -92,7 +92,7 @@
     /* 12. Country option */
     .spire-phone-input-option {
         @apply flex items-center gap-3 px-3 py-2 text-sm rounded-md cursor-pointer;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-phone-input-option:hover {
@@ -127,12 +127,12 @@
 
     /* 15. Divider for preferred countries */
     .spire-phone-input-divider {
-        @apply h-px bg-border my-1 mx-3;
+        @apply h-px bg-surface-subtle my-1 mx-3;
     }
 
     /* 16. Vertical separator between country selector and input */
     .spire-phone-input-separator {
-        @apply w-px h-4 bg-border;
+        @apply w-px h-4 bg-neutral;
     }
 
     /* 17. Chevron icon */

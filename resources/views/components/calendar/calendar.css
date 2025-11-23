@@ -29,7 +29,7 @@
     .spire-calendar-day {
         @apply relative flex items-center justify-center w-full aspect-square p-2 rounded-md text-sm font-medium cursor-pointer;
         @apply text-text hover:bg-hover border border-transparent;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     /* 7. Calendar Day - Today */
@@ -97,7 +97,7 @@
     .spire-calendar-picker-cell {
         @apply flex items-center justify-center px-4 py-3 rounded-md text-sm font-medium cursor-pointer;
         @apply text-text hover:bg-hover;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
     .spire-calendar-picker-cell--selected {
         @apply bg-primary text-primary-foreground hover:bg-primary/90;
@@ -116,7 +116,7 @@
     .spire-calendar-preset-item {
         @apply px-4 py-2.5 text-sm rounded-md cursor-pointer;
         @apply text-text hover:bg-hover;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
     .spire-calendar-preset-item--active {
         @apply bg-primary/10 text-primary font-medium;

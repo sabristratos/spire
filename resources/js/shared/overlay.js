@@ -310,10 +310,20 @@ export function overlay(options = {}) {
          * Toggle the overlay open/closed state.
          *
          * Delegates to the native Popover API togglePopover method.
+         * Includes deduplication to prevent light dismiss conflicts.
          *
          * @returns {void}
          */
         toggle() {
+            const isActuallyOpen = this.$refs.content?.matches(':popover-open') || false;
+
+            // If Alpine thinks it's open but popover is actually closed,
+            // light dismiss already handled closing - just sync state
+            if (this.open && !isActuallyOpen) {
+                this.open = false;
+                return;
+            }
+
             this.$refs.content?.togglePopover();
         },
 

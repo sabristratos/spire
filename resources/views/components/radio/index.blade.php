@@ -27,28 +27,24 @@ $containerBuilder = ComponentClass::make('radio')
     ->size($size)
     ->when($disabled, fn($b) => $b->addClass('opacity-50 cursor-not-allowed'));
 
-if ($customClass = $attributes->get('class')) {
-    $containerBuilder->addClass($customClass);
-}
-
 $indicatorBuilder = ComponentClass::make('radio-indicator')
     ->size($size)
     ->color($color)
     ->radius('full');
 
-$iconSizes = [
-    'sm' => 'w-3 h-3',
-    'md' => 'w-4 h-4',
-    'lg' => 'w-5 h-5',
+$dotSizes = [
+    'sm' => 'spire-radio-dot--sm',
+    'md' => 'spire-radio-dot--md',
+    'lg' => 'spire-radio-dot--lg',
 ];
 
-$iconSize = $iconSizes[$size] ?? $iconSizes['md'];
+$dotSize = $dotSizes[$size] ?? $dotSizes['md'];
 @endphp
 
 @if($variant === 'regular')
     <label
         for="{{ $radioId }}"
-        class="{{ $containerBuilder->build() }}"
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -74,13 +70,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
             class="{{ $indicatorBuilder->build() }}"
             {!! collect($indicatorBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
         >
-            <div class="spire-radio-icon">
-                @if($radioIcon ?? false)
-                    {{ $radioIcon }}
-                @else
-                    <x-spire::icon name="circle" class="{{ $iconSize }}" />
-                @endif
-            </div>
+            <div class="spire-radio-dot {{ $dotSize }}"></div>
         </div>
 
         @if($label || $description)
@@ -105,7 +95,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @elseif($variant === 'pill')
     <label
         for="{{ $radioId }}"
-        class="{{ $containerBuilder->build() }}"
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -136,7 +126,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @elseif($variant === 'card')
     <label
         for="{{ $radioId }}"
-        class="{{ $containerBuilder->build() }}"
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -162,13 +152,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
             class="{{ $indicatorBuilder->build() }} spire-radio-indicator--card"
             {!! collect($indicatorBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
         >
-            <div class="spire-radio-icon">
-                @if($radioIcon ?? false)
-                    {{ $radioIcon }}
-                @else
-                    <x-spire::icon name="circle" class="{{ $iconSize }}" />
-                @endif
-            </div>
+            <div class="spire-radio-dot {{ $dotSize }}"></div>
         </div>
 
         @if($label || $description)

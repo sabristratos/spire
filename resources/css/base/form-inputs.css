@@ -12,7 +12,7 @@
        ========================================================================== */
 
     .spire-input-box {
-        @apply flex items-center gap-2 ease-fast;
+        @apply flex items-center gap-2 transition duration-150;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
@@ -52,7 +52,7 @@
        ========================================================================== */
 
     .spire-input-box--bordered {
-        @apply border border-border bg-surface shadow-xs;
+        @apply border border-border bg-surface-subtle shadow-xs;
     }
 
     .spire-input-box--flat {
@@ -62,9 +62,8 @@
 
     .spire-input-box--flat::after {
         content: '';
-        @apply absolute bottom-0 left-0 right-0 h-px bg-border pointer-events-none rounded-full;
-        transition: background-color var(--animation-duration-fast) ease-out,
-                    height var(--animation-duration-fast) ease-out;
+        @apply absolute bottom-0 left-0 right-0 h-px bg-surface-subtle pointer-events-none rounded-full;
+        @apply transition-[background-color,height] duration-150 ease-out;
     }
 
     .spire-input-box--flat:focus-within::after {
@@ -76,17 +75,17 @@
        ========================================================================== */
 
     .spire-input-box--default-bordered {
-        @apply bg-surface border border-border text-text;
+        @apply bg-surface-subtle border border-border text-text;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
     .spire-input-box--primary-bordered {
-        @apply bg-surface border border-primary text-text;
+        @apply bg-surface-subtle border border-primary text-text;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
     .spire-input-box--error-bordered {
-        @apply bg-surface border border-error text-text;
+        @apply bg-surface-subtle border border-error text-text;
         @apply focus-within:border-error focus-within:ring-2 focus-within:ring-error/20;
     }
 
@@ -205,7 +204,7 @@
 
     .spire-option-item {
         @apply flex items-center gap-3 w-full px-3 py-2 text-sm rounded-md cursor-pointer;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-option-item--normal {

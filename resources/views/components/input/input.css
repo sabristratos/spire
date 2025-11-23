@@ -10,7 +10,7 @@
 
     /* 1. Outer Container */
     .spire-input-container {
-        @apply w-full ease-fast has-[:disabled]:bg-surface-subtle has-[:disabled]:cursor-not-allowed;
+        @apply w-full transition duration-150 has-[:disabled]:bg-surface-subtle has-[:disabled]:cursor-not-allowed;
     }
 
     /* 2. The <input> Element Itself */

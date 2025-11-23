@@ -139,7 +139,7 @@ class InstallCommand extends Command
 
         $this->line('  <fg=cyan>1.</> Add CSS import to <fg=yellow>resources/css/app.css</>:');
         $this->line('     <fg=gray>@import "tailwindcss";</>');
-        $this->line('     <fg=gray>@import "../../vendor/stratos/spire-ui/resources/css/index.css";</>');
+        $this->line('     <fg=gray>@import "../../vendor/stratos/spire-ui/resources/css/spire-ui.css";</>');
         $this->newLine();
 
         $this->line('  <fg=cyan>2.</> Add JavaScript import to <fg=yellow>resources/js/app.js</>:');

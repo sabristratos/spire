@@ -9,7 +9,7 @@ The Radio Group component provides a structured container for organizing related
 ## Basic Usage
 
 ```blade
-<x-spire::radio-group label="Choose a plan">
+<x-spire::checkbox.group label="Choose a plan">
     <x-spire::radio value="free" name="plan">
         Free
     </x-spire::radio>
@@ -19,7 +19,7 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="enterprise" name="plan">
         Enterprise
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ## Props
@@ -39,7 +39,7 @@ The Radio Group component provides a structured container for organizing related
 ### With Description
 
 ```blade
-<x-spire::radio-group
+<x-spire::checkbox.group
     label="Delivery Method"
     description="Choose how you'd like to receive your order"
 >
@@ -52,13 +52,13 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="overnight" name="delivery">
         Overnight Shipping (1 day)
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Helper Text
 
 ```blade
-<x-spire::radio-group
+<x-spire::checkbox.group
     label="Notification Frequency"
     helper="You can change this setting at any time in your profile"
 >
@@ -71,13 +71,13 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="weekly" name="notifications">
         Weekly summary
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ### Required Field
 
 ```blade
-<x-spire::radio-group
+<x-spire::checkbox.group
     label="Account Type"
     required
 >
@@ -87,13 +87,13 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="business" name="account_type">
         Business
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Validation Error
 
 ```blade
-<x-spire::radio-group
+<x-spire::checkbox.group
     label="Select a payment method"
     error="Please choose a payment method to continue"
 >
@@ -106,13 +106,13 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="bank" name="payment">
         Bank Transfer
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ### Horizontal Layout
 
 ```blade
-<x-spire::radio-group
+<x-spire::checkbox.group
     label="Size"
     orientation="horizontal"
     gap="lg"
@@ -121,13 +121,13 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="m" name="size">M</x-spire::radio>
     <x-spire::radio value="l" name="size">L</x-spire::radio>
     <x-spire::radio value="xl" name="size">XL</x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Livewire
 
 ```blade
-<x-spire::radio-group
+<x-spire::checkbox.group
     label="Subscription Plan"
     :error="$errors->first('plan')"
 >
@@ -137,13 +137,13 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="yearly" wire:model.live="plan">
         Yearly ($99/yr - Save 8%)
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ### With Rich Content
 
 ```blade
-<x-spire::radio-group label="Choose your plan">
+<x-spire::checkbox.group label="Choose your plan">
     <x-spire::radio value="starter" name="pricing">
         <div class="flex flex-col">
             <span class="font-semibold">Starter</span>
@@ -159,7 +159,7 @@ The Radio Group component provides a structured container for organizing related
             <span class="text-sm font-bold text-primary">$29/month</span>
         </div>
     </x-spire::radio>
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ## Accessibility

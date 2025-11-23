@@ -31,6 +31,8 @@ import { carouselComponent } from '../views/components/carousel/carousel';
 import { breadcrumbsComponent } from '../views/components/breadcrumbs/breadcrumbs';
 import { lightboxComponent } from '../views/components/lightbox/lightbox';
 import { chartComponent } from '../views/components/chart/chart';
+import { iconPickerComponent } from '../views/components/icon-picker/icon-picker';
+import { colorPickerComponent } from '../views/components/color-picker/color-picker';
 
 let componentsRegistered = false;
 
@@ -66,6 +68,8 @@ function registerComponents(Alpine) {
     Alpine.data('spireBreadcrumbs', breadcrumbsComponent);
     Alpine.data('spireLightbox', lightboxComponent);
     Alpine.data('spireChart', chartComponent);
+    Alpine.data('spireIconPicker', iconPickerComponent);
+    Alpine.data('spireColorPicker', colorPickerComponent);
 }
 
 document.addEventListener('livewire:init', () => {
@@ -85,4 +89,4 @@ export function initializeSpireUI() {
     }
 }
 
-export { ComponentClass, overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, phoneInputComponent, progressComponent, progressCircularComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast, tabsComponent, fileUploadComponent, sidebarComponent, sidebarSectionComponent, sidebarItemComponent, dropdownComponent, carouselComponent, breadcrumbsComponent, lightboxComponent, chartComponent };
+export { ComponentClass, overlay, keyboard, inputComponent, selectComponent, autocompleteComponent, calendarComponent, datepickerComponent, timepickerComponent, modalComponent, phoneInputComponent, progressComponent, progressCircularComponent, ratingComponent, tooltipComponent, editorComponent, tableComponent, sliderComponent, toastComponent, toast, tabsComponent, fileUploadComponent, sidebarComponent, sidebarSectionComponent, sidebarItemComponent, dropdownComponent, carouselComponent, breadcrumbsComponent, lightboxComponent, chartComponent, iconPickerComponent, colorPickerComponent };

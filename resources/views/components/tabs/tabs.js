@@ -37,8 +37,6 @@ export function tabsComponent(config = {}) {
          * Initialize the tabs component.
          */
         init() {
-            this.$cleanup(() => this.destroy());
-
             this.$nextTick(() => {
                 this.updateTabsAndPanels();
 
@@ -68,16 +66,33 @@ export function tabsComponent(config = {}) {
                 // Update ARIA attributes
                 this.updateTabAttributes();
 
-                // Initialize cursor position (without transition initially)
-                this.updateCursorPosition(false);
-
-                // Enable cursor transitions after initial positioning
-                setTimeout(() => {
-                    this.cursorReady = true;
-                }, 50);
-
                 // Setup resize observer for cursor repositioning
                 this.setupResizeObserver();
+
+                // Use requestAnimationFrame to ensure layout is complete before measuring
+                requestAnimationFrame(() => {
+                    this.updateCursorPosition(false);
+
+                    // Retry with increasing delays if dimensions are still 0
+                    const retryDelays = [50, 100, 200];
+                    let retryIndex = 0;
+
+                    const retryUpdate = () => {
+                        if (this.cursorStyle.width === '0px' && retryIndex < retryDelays.length) {
+                            setTimeout(() => {
+                                this.updateCursorPosition(false);
+                                retryIndex++;
+                                retryUpdate();
+                            }, retryDelays[retryIndex]);
+                        }
+                    };
+                    retryUpdate();
+
+                    // Enable cursor transitions after initial positioning
+                    setTimeout(() => {
+                        this.cursorReady = true;
+                    }, 50);
+                });
 
                 // Setup hash change listener
                 if (this.syncHash) {
@@ -131,13 +146,20 @@ export function tabsComponent(config = {}) {
             if (!tabList) return;
 
             const variant = this.$el.dataset.spireVariant || 'underline';
+            const orientation = this.$el.dataset.spireOrientation || 'horizontal';
             const isUnderline = variant === 'underline';
+            const isHorizontal = orientation === 'horizontal';
+            const isHorizontalUnderline = isUnderline && isHorizontal;
+            const isVerticalUnderline = isUnderline && !isHorizontal;
 
+            // Horizontal underline: CSS controls height (h-0.5) and bottom position
+            // Vertical underline: CSS controls width (2px) and left position
+            // All other variants: JS controls all dimensions
             this.cursorStyle = {
-                left: `${activeTabEl.offsetLeft}px`,
-                top: isUnderline ? 'auto' : `${activeTabEl.offsetTop}px`,
-                width: `${activeTabEl.offsetWidth}px`,
-                height: isUnderline ? '' : `${activeTabEl.offsetHeight}px`,
+                left: isVerticalUnderline ? '' : `${activeTabEl.offsetLeft}px`,
+                top: isHorizontalUnderline ? 'auto' : `${activeTabEl.offsetTop}px`,
+                width: isVerticalUnderline ? '' : `${activeTabEl.offsetWidth}px`,
+                height: isHorizontalUnderline ? '' : `${activeTabEl.offsetHeight}px`,
             };
         },
 
@@ -145,13 +167,15 @@ export function tabsComponent(config = {}) {
         updateTabsAndPanels() {
             const tabList = this.$el.querySelector('[role="tablist"]');
             if (tabList) {
-                this.tabs = Array.from(
-                    tabList.querySelectorAll('[role="tab"]')
+                // Only get direct child tabs (not nested tabs from other components)
+                this.tabs = Array.from(tabList.children).filter(
+                    child => child.getAttribute('role') === 'tab'
                 );
             }
 
+            // Only get direct child panels
             this.panels = Array.from(
-                this.$el.querySelectorAll('[role="tabpanel"]')
+                this.$el.querySelectorAll(':scope > [role="tabpanel"]')
             );
         },
 

@@ -25,7 +25,7 @@ $dataAttributes = $builder->getDataAttributes();
 $wrapperClasses = 'spire-autocomplete-input-wrapper';
 @endphp
 
-<div x-ref="trigger" class="{{ $wrapperClasses }}">
+<div x-ref="trigger" {{ $attributes->only('class')->merge(['class' => $wrapperClasses]) }}>
     <input
         x-ref="input"
         x-model="inputValue"

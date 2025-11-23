@@ -14,10 +14,8 @@
     .spire-rating-star {
         @apply relative inline-flex items-center justify-center;
         @apply overflow-hidden;
-        @apply transition-all;
+        @apply transition-all duration-150 ease-out;
         @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
     }
 
     .spire-rating-star:disabled {
@@ -25,9 +23,7 @@
     }
 
     .spire-rating-star-icon {
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-property: opacity, clip-path;
+        @apply transition-[opacity,clip-path] duration-150;
     }
 
     .spire-rating-star-icon--outline {
@@ -76,11 +72,10 @@
         @apply px-2 py-1 text-xs font-medium;
         @apply bg-surface text-text-muted;
         @apply rounded-full border border-border;
-        @apply transition-all;
+        @apply transition-all duration-150;
         @apply hover:bg-overlay hover:text-text hover:border-border-hover;
         @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
         @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-text-muted;
-        transition-duration: var(--animation-duration-fast);
     }
 
     /* Size variants */

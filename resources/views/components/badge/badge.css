@@ -2,7 +2,7 @@
     /* 1. Base Badge Styles */
     .spire-badge {
         @apply inline-flex items-center justify-center gap-1.5 font-medium whitespace-nowrap min-w-fit;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     /* 2. Size Variants */
@@ -109,7 +109,7 @@
     }
 
     .spire-badge__indicator {
-        @apply absolute flex items-center justify-center rounded-full font-semibold ease-fast z-10;
+        @apply absolute flex items-center justify-center rounded-full font-semibold transition duration-150 z-10;
     }
 
     /* Placements */

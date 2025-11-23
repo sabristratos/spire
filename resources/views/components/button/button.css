@@ -1,7 +1,7 @@
 @layer components {
     .spire-button {
         @apply inline-flex items-center justify-center gap-2 font-medium min-w-fit whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-button--sm {

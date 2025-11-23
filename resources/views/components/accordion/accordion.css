@@ -47,7 +47,7 @@
     .spire-accordion-button {
         @apply flex items-center justify-between w-full text-left;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-accordion-button--normal {

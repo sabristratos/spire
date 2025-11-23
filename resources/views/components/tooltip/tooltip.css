@@ -5,8 +5,7 @@
         @apply rounded shadow-lg;
         @apply max-w-[250px] text-pretty;
         @apply pointer-events-none;
-        transition: opacity var(--animation-duration-fast) ease-out,
-                    transform var(--animation-duration-fast) ease-out;
+        @apply transition-[opacity,transform] duration-150 ease-out;
     }
 
     .dark .spire-tooltip__content {

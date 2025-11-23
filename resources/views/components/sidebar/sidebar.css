@@ -5,8 +5,7 @@
     @apply relative;
     @apply flex flex-col h-screen sticky top-0;
     @apply bg-surface;
-    @apply transition-all;
-    transition-duration: var(--animation-duration-normal);
+    @apply transition-all duration-300 ease-out;
 }
 
 /* Size variants */
@@ -41,6 +40,34 @@
     @apply w-16;
 }
 
+/* Elements that fade out when collapsed */
+.spire-sidebar-item-label,
+.spire-sidebar-item-description,
+.spire-sidebar-item-badge,
+.spire-sidebar-item-shortcut,
+.spire-sidebar-item-chevron,
+.spire-sidebar-section-label,
+.spire-sidebar-section-chevron,
+.spire-sidebar-header-content,
+.spire-sidebar-footer-content {
+    @apply opacity-100;
+    @apply transition-[opacity,display] duration-200 ease-out transition-discrete;
+}
+
+@starting-style {
+    .spire-sidebar-item-label,
+    .spire-sidebar-item-description,
+    .spire-sidebar-item-badge,
+    .spire-sidebar-item-shortcut,
+    .spire-sidebar-item-chevron,
+    .spire-sidebar-section-label,
+    .spire-sidebar-section-chevron,
+    .spire-sidebar-header-content,
+    .spire-sidebar-footer-content {
+        @apply opacity-0;
+    }
+}
+
 .spire-sidebar--collapsed .spire-sidebar-item-label,
 .spire-sidebar--collapsed .spire-sidebar-item-description,
 .spire-sidebar--collapsed .spire-sidebar-item-badge,
@@ -50,12 +77,24 @@
 .spire-sidebar--collapsed .spire-sidebar-section-chevron,
 .spire-sidebar--collapsed .spire-sidebar-header-content,
 .spire-sidebar--collapsed .spire-sidebar-footer-content {
+    @apply opacity-0;
     @apply hidden;
 }
 
 /* Hide expandable items (items with children) completely in collapsed mode */
+[data-spire-sidebar-item-wrapper]:has(.spire-sidebar-item-children) {
+    @apply opacity-100;
+    @apply transition-[opacity,display] duration-200 ease-out transition-discrete;
+}
+
+@starting-style {
+    [data-spire-sidebar-item-wrapper]:has(.spire-sidebar-item-children) {
+        @apply opacity-0;
+    }
+}
+
 .spire-sidebar--collapsed [data-spire-sidebar-item-wrapper]:has(.spire-sidebar-item-children) {
-    display: none !important;
+    @apply opacity-0 hidden;
 }
 
 .spire-sidebar--collapsed .spire-sidebar-header,
@@ -68,8 +107,18 @@
 }
 
 /* Hide section triggers completely in collapsed mode */
+.spire-sidebar-section-trigger {
+    @apply transition-[opacity,display] duration-200 ease-out transition-discrete;
+}
+
+@starting-style {
+    .spire-sidebar-section-trigger {
+        @apply opacity-0;
+    }
+}
+
 .spire-sidebar--collapsed .spire-sidebar-section-trigger {
-    @apply hidden;
+    @apply opacity-0 hidden;
 }
 
 /* Subtle separator between sections in collapsed mode */
@@ -79,25 +128,53 @@
 }
 
 /* Hide dividers in collapsed mode */
+.spire-sidebar-divider {
+    @apply transition-[opacity,display] duration-200 ease-out transition-discrete;
+}
+
+@starting-style {
+    .spire-sidebar-divider {
+        @apply opacity-0;
+    }
+}
+
 .spire-sidebar--collapsed .spire-sidebar-divider {
-    @apply hidden;
+    @apply opacity-0 hidden;
 }
 
 /* Hide items without icons in collapsed mode */
-.spire-sidebar--collapsed .spire-sidebar-item:not(:has(.spire-sidebar-item-icon)) {
-    @apply hidden;
+.spire-sidebar-item:not(:has(.spire-sidebar-item-icon)) {
+    @apply transition-[opacity,display] duration-200 ease-out transition-discrete;
 }
 
-/* Collapsed content slots - hidden by default */
+@starting-style {
+    .spire-sidebar-item:not(:has(.spire-sidebar-item-icon)) {
+        @apply opacity-0;
+    }
+}
+
+.spire-sidebar--collapsed .spire-sidebar-item:not(:has(.spire-sidebar-item-icon)) {
+    @apply opacity-0 hidden;
+}
+
+/* Collapsed content slots - hidden by default, shown when collapsed */
 .spire-sidebar-header-collapsed,
 .spire-sidebar-footer-collapsed {
-    @apply hidden;
+    @apply hidden opacity-0;
+    @apply transition-[opacity,display] duration-200 ease-out transition-discrete;
+}
+
+@starting-style {
+    .spire-sidebar--collapsed .spire-sidebar-header-collapsed,
+    .spire-sidebar--collapsed .spire-sidebar-footer-collapsed {
+        @apply opacity-0;
+    }
 }
 
 /* Show collapsed content slots when sidebar is collapsed */
 .spire-sidebar--collapsed .spire-sidebar-header-collapsed,
 .spire-sidebar--collapsed .spire-sidebar-footer-collapsed {
-    @apply flex items-center justify-center;
+    @apply flex items-center justify-center opacity-100;
 }
 
 /* Badge indicator dot for collapsed mode */
@@ -160,7 +237,7 @@
 }
 
 .spire-sidebar-content::-webkit-scrollbar-thumb {
-    @apply bg-border rounded;
+    @apply bg-surface-subtle rounded;
 }
 
 .spire-sidebar-content::-webkit-scrollbar-thumb:hover {
@@ -184,8 +261,7 @@
     @apply px-3 py-1.5 rounded-md;
     @apply text-[0.65rem] font-bold uppercase tracking-widest;
     @apply text-text-muted/70;
-    @apply transition-colors;
-    transition-duration: var(--animation-duration-fast);
+    @apply transition-colors duration-150;
 }
 
 .spire-sidebar-section-trigger:hover {
@@ -198,8 +274,7 @@
 
 .spire-sidebar-section-chevron {
     @apply w-4 h-4;
-    @apply transition-transform;
-    transition-duration: var(--animation-duration-fast);
+    @apply transition-transform duration-150;
 }
 
 .spire-sidebar-section-content {
@@ -212,9 +287,8 @@
     @apply w-full px-3 py-2 rounded-md;
     @apply text-sm font-medium;
     @apply text-text-muted;
-    @apply transition-colors;
+    @apply transition-colors duration-150;
     @apply relative;
-    transition-duration: var(--animation-duration-fast);
 }
 
 .spire-sidebar-item:hover:not(.spire-sidebar-item--disabled) {
@@ -300,8 +374,7 @@
 /* Chevron for nested items */
 .spire-sidebar-item-chevron {
     @apply w-4 h-4 flex-shrink-0;
-    @apply transition-transform;
-    transition-duration: var(--animation-duration-fast);
+    @apply transition-transform duration-150;
 }
 
 /* Nested items */
@@ -348,8 +421,7 @@
     @apply flex items-center justify-center;
     @apply w-8 h-8 rounded-md;
     @apply text-text-muted;
-    @apply transition-colors;
-    transition-duration: var(--animation-duration-fast);
+    @apply transition-colors duration-150;
 }
 
 .spire-sidebar-toggle:hover {
@@ -367,8 +439,7 @@
     @apply w-6 h-6 rounded-full;
     @apply bg-surface border border-border shadow-sm;
     @apply text-text-muted;
-    @apply transition-colors z-10;
-    transition-duration: var(--animation-duration-fast);
+    @apply transition-colors duration-150 z-10;
 }
 
 .spire-sidebar-toggle-integrated:hover {
@@ -393,13 +464,11 @@
 .spire-sidebar-backdrop {
     @apply fixed inset-0 z-40;
     @apply bg-black/50 backdrop-blur-sm;
-    @apply transition-opacity;
-    transition-duration: var(--animation-duration-normal);
+    @apply transition-opacity duration-200;
 }
 
 .spire-sidebar--drawer {
-    @apply transform transition-transform;
-    transition-duration: var(--animation-duration-normal);
+    @apply transform transition-all duration-300 ease-out;
 }
 
 /* Only apply fixed positioning, transforms, and shadow on mobile */
@@ -428,8 +497,7 @@
     @apply flex items-center justify-center;
     @apply w-8 h-8 rounded-md;
     @apply text-text-muted;
-    @apply transition-colors;
-    transition-duration: var(--animation-duration-fast);
+    @apply transition-colors duration-150;
 }
 
 .spire-sidebar-close:hover {

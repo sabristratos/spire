@@ -28,10 +28,6 @@ $containerBuilder = ComponentClass::make('checkbox')
     ->size($size)
     ->when($disabled, fn($b) => $b->addClass('opacity-50 cursor-not-allowed'));
 
-if ($customClass = $attributes->get('class')) {
-    $containerBuilder->addClass($customClass);
-}
-
 $boxBuilder = ComponentClass::make('checkbox-box')
     ->size($size)
     ->color($color)
@@ -49,7 +45,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @if($variant === 'regular')
     <label
         for="{{ $checkboxId }}"
-        class="{{ $containerBuilder->build() }}"
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -114,7 +110,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @elseif($variant === 'pill')
     <label
         for="{{ $checkboxId }}"
-        class="{{ $containerBuilder->build() }}"
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -150,7 +146,7 @@ $iconSize = $iconSizes[$size] ?? $iconSizes['md'];
 @elseif($variant === 'card')
     <label
         for="{{ $checkboxId }}"
-        class="{{ $containerBuilder->build() }}"
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'indeterminate', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description', 'x-bind:checked', 'x-bind:disabled']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input

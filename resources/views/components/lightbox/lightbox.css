@@ -5,7 +5,7 @@
         @apply p-0 border-none;
         @apply overflow-hidden;
         opacity: 0;
-        transition: opacity var(--animation-duration-normal) var(--animation-easing-default);
+        @apply transition-opacity duration-200 ease-out;
 
         &::backdrop {
             @apply bg-transparent;

@@ -25,7 +25,6 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
-    translate: 0 0;
 }
 
 @position-try --fallback-bottom-start-2 {
@@ -33,7 +32,6 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-bottom-start-3 {
@@ -41,7 +39,6 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-bottom-end-1 {
@@ -49,7 +46,6 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
-    translate: 0 0;
 }
 
 @position-try --fallback-bottom-end-2 {
@@ -57,7 +53,6 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-bottom-end-3 {
@@ -65,31 +60,6 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
-    translate: 0 0;
-}
-
-@position-try --fallback-bottom-1 {
-    inset: auto;
-    margin-bottom: 8px;
-    bottom: anchor(top);
-    left: anchor(left);
-    translate: 0 0;
-}
-
-@position-try --fallback-bottom-2 {
-    inset: auto;
-    margin-left: 4px;
-    left: anchor(right);
-    top: anchor(top);
-    translate: 0 0;
-}
-
-@position-try --fallback-bottom-3 {
-    inset: auto;
-    margin-right: 4px;
-    right: anchor(left);
-    top: anchor(top);
-    translate: 0 0;
 }
 
 /* Top placements */
@@ -98,7 +68,6 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
-    translate: 0 0;
 }
 
 @position-try --fallback-top-start-2 {
@@ -106,7 +75,6 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-top-start-3 {
@@ -114,7 +82,6 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-top-end-1 {
@@ -122,7 +89,6 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
-    translate: 0 0;
 }
 
 @position-try --fallback-top-end-2 {
@@ -130,7 +96,6 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-top-end-3 {
@@ -138,31 +103,6 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
-    translate: 0 0;
-}
-
-@position-try --fallback-top-1 {
-    inset: auto;
-    margin-top: 8px;
-    top: anchor(bottom);
-    left: anchor(left);
-    translate: 0 0;
-}
-
-@position-try --fallback-top-2 {
-    inset: auto;
-    margin-left: 4px;
-    left: anchor(right);
-    top: anchor(top);
-    translate: 0 0;
-}
-
-@position-try --fallback-top-3 {
-    inset: auto;
-    margin-right: 4px;
-    right: anchor(left);
-    top: anchor(top);
-    translate: 0 0;
 }
 
 /* Right placements */
@@ -171,7 +111,6 @@
     margin-right: 4px;
     right: anchor(left);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-right-start-2 {
@@ -179,7 +118,6 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
-    translate: 0 0;
 }
 
 @position-try --fallback-right-start-3 {
@@ -187,7 +125,6 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
-    translate: 0 0;
 }
 
 @position-try --fallback-right-end-1 {
@@ -195,7 +132,6 @@
     margin-right: 4px;
     right: anchor(left);
     bottom: anchor(bottom);
-    translate: 0 0;
 }
 
 @position-try --fallback-right-end-2 {
@@ -203,7 +139,6 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     left: anchor(left);
-    translate: 0 0;
 }
 
 @position-try --fallback-right-end-3 {
@@ -211,31 +146,6 @@
     margin-top: 8px;
     top: anchor(bottom);
     left: anchor(left);
-    translate: 0 0;
-}
-
-@position-try --fallback-right-1 {
-    inset: auto;
-    margin-right: 4px;
-    right: anchor(left);
-    top: anchor(top);
-    translate: 0 0;
-}
-
-@position-try --fallback-right-2 {
-    inset: auto;
-    margin-top: 8px;
-    top: anchor(bottom);
-    left: anchor(left);
-    translate: 0 0;
-}
-
-@position-try --fallback-right-3 {
-    inset: auto;
-    margin-bottom: 8px;
-    bottom: anchor(top);
-    left: anchor(left);
-    translate: 0 0;
 }
 
 /* Left placements */
@@ -244,7 +154,6 @@
     margin-left: 4px;
     left: anchor(right);
     top: anchor(top);
-    translate: 0 0;
 }
 
 @position-try --fallback-left-start-2 {
@@ -252,7 +161,6 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
-    translate: 0 0;
 }
 
 @position-try --fallback-left-start-3 {
@@ -260,7 +168,6 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
-    translate: 0 0;
 }
 
 @position-try --fallback-left-end-1 {
@@ -268,7 +175,6 @@
     margin-left: 4px;
     left: anchor(right);
     bottom: anchor(bottom);
-    translate: 0 0;
 }
 
 @position-try --fallback-left-end-2 {
@@ -276,7 +182,6 @@
     margin-bottom: 8px;
     bottom: anchor(top);
     right: anchor(right);
-    translate: 0 0;
 }
 
 @position-try --fallback-left-end-3 {
@@ -284,31 +189,6 @@
     margin-top: 8px;
     top: anchor(bottom);
     right: anchor(right);
-    translate: 0 0;
-}
-
-@position-try --fallback-left-1 {
-    inset: auto;
-    margin-left: 4px;
-    left: anchor(right);
-    top: anchor(top);
-    translate: 0 0;
-}
-
-@position-try --fallback-left-2 {
-    inset: auto;
-    margin-top: 8px;
-    top: anchor(bottom);
-    right: anchor(right);
-    translate: 0 0;
-}
-
-@position-try --fallback-left-3 {
-    inset: auto;
-    margin-bottom: 8px;
-    bottom: anchor(top);
-    right: anchor(right);
-    translate: 0 0;
 }
 
 /* Apply fallbacks to elements with data-placement */
@@ -341,9 +221,9 @@
     left: anchor(center);
     translate: -50% 0;
     position-try-fallbacks:
-        --fallback-bottom-1,
-        --fallback-bottom-2,
-        --fallback-bottom-3;
+        --fallback-bottom-start-1,
+        --fallback-bottom-start-2,
+        --fallback-bottom-start-3;
 }
 
 [data-placement="top-start"] {
@@ -375,9 +255,9 @@
     left: anchor(center);
     translate: -50% 0;
     position-try-fallbacks:
-        --fallback-top-1,
-        --fallback-top-2,
-        --fallback-top-3;
+        --fallback-top-start-1,
+        --fallback-top-start-2,
+        --fallback-top-start-3;
 }
 
 [data-placement="right-start"] {
@@ -409,9 +289,9 @@
     top: anchor(center);
     translate: 0 -50%;
     position-try-fallbacks:
-        --fallback-right-1,
-        --fallback-right-2,
-        --fallback-right-3;
+        --fallback-right-start-1,
+        --fallback-right-start-2,
+        --fallback-right-start-3;
 }
 
 [data-placement="left-start"] {
@@ -443,7 +323,8 @@
     top: anchor(center);
     translate: 0 -50%;
     position-try-fallbacks:
-        --fallback-left-1,
-        --fallback-left-2,
-        --fallback-left-3;
+        --fallback-left-start-1,
+        --fallback-left-start-2,
+        --fallback-left-start-3;
 }
+

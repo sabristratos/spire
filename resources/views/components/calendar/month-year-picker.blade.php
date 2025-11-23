@@ -22,7 +22,7 @@
             @click="previousYear"
             :disabled="isYearDisabled(pickerYear - 1)"
             aria-label="{{ __('spire::spire-ui.date.previous_year') }}"
-            class="p-2 hover:bg-hover rounded-md ease-fast disabled:opacity-50 disabled:cursor-not-allowed"
+            class="p-2 hover:bg-hover rounded-md transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -43,7 +43,7 @@
             @click="nextYear"
             :disabled="isYearDisabled(pickerYear + 1)"
             aria-label="{{ __('spire::spire-ui.date.next_year') }}"
-            class="p-2 hover:bg-hover rounded-md ease-fast disabled:opacity-50 disabled:cursor-not-allowed"
+            class="p-2 hover:bg-hover rounded-md transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -66,7 +66,7 @@
                 :aria-selected="displayMonth === index && displayYear === pickerYear"
                 :aria-current="index === new Date().getMonth() && pickerYear === new Date().getFullYear() ? 'date' : null"
                 :class="{
-                    'py-2 px-3 rounded-md text-sm font-medium ease-fast': true,
+                    'py-2 px-3 rounded-md text-sm font-medium transition duration-150': true,
                     'hover:bg-hover cursor-pointer': !isMonthDisabled(index, pickerYear),
                     'bg-primary text-primary-foreground hover:bg-primary/90': displayMonth === index && displayYear === pickerYear && !isMonthDisabled(index, pickerYear),
                     'border-2 border-primary': index === new Date().getMonth() && pickerYear === new Date().getFullYear() && !(displayMonth === index && displayYear === pickerYear),

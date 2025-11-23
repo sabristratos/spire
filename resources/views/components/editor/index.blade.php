@@ -111,7 +111,7 @@ $mergedAttributes = WireEntangle::filteredAttributes($attributes)->merge([
 
                 {{-- Separator --}}
                 @if(in_array('bold', $buttons) || in_array('italic', $buttons) || in_array('strike', $buttons) || in_array('code', $buttons))
-                    <span class="w-px h-6 bg-border mx-1"></span>
+                    <span class="w-px h-6 bg-surface-subtle mx-1"></span>
                 @endif
 
                 {{-- Headings --}}
@@ -144,7 +144,7 @@ $mergedAttributes = WireEntangle::filteredAttributes($attributes)->merge([
                 @endif
 
                 @if(in_array('heading', $buttons))
-                    <span class="w-px h-6 bg-border mx-1"></span>
+                    <span class="w-px h-6 bg-surface-subtle mx-1"></span>
                 @endif
 
                 {{-- Lists --}}
@@ -177,7 +177,7 @@ $mergedAttributes = WireEntangle::filteredAttributes($attributes)->merge([
                 @endif
 
                 @if(in_array('bulletList', $buttons) || in_array('orderedList', $buttons))
-                    <span class="w-px h-6 bg-border mx-1"></span>
+                    <span class="w-px h-6 bg-surface-subtle mx-1"></span>
                 @endif
 
                 {{-- Blocks --}}
@@ -210,7 +210,7 @@ $mergedAttributes = WireEntangle::filteredAttributes($attributes)->merge([
                 @endif
 
                 @if(in_array('blockquote', $buttons) || in_array('codeBlock', $buttons))
-                    <span class="w-px h-6 bg-border mx-1"></span>
+                    <span class="w-px h-6 bg-surface-subtle mx-1"></span>
                 @endif
 
                 {{-- Media & Links --}}
@@ -242,7 +242,7 @@ $mergedAttributes = WireEntangle::filteredAttributes($attributes)->merge([
                 @endif
 
                 @if(in_array('link', $buttons) || in_array('image', $buttons))
-                    <span class="w-px h-6 bg-border mx-1"></span>
+                    <span class="w-px h-6 bg-surface-subtle mx-1"></span>
                 @endif
 
                 {{-- History --}}

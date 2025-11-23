@@ -9,10 +9,10 @@
     .spire-popover:popover-open {
         opacity: 1;
         transform: scale(1);
-        transition: opacity var(--animation-duration-normal) ease-out,
-                    transform var(--animation-duration-normal) ease-out,
-                    overlay var(--animation-duration-normal) allow-discrete,
-                    display var(--animation-duration-normal) allow-discrete;
+        transition: opacity 200ms ease-out,
+                    transform 200ms ease-out,
+                    overlay 200ms allow-discrete,
+                    display 200ms allow-discrete;
     }
 
     @starting-style {

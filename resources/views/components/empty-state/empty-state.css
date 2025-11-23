@@ -2,13 +2,13 @@
     /* Base Empty State Styles */
     .spire-empty-state {
         @apply flex flex-col items-center justify-center gap-4 p-8 text-center;
-        transition: all var(--animation-duration-normal, 200ms) ease-out;
+        @apply transition-all duration-200 ease-out;
     }
 
     /* Icon Container */
     .spire-empty-state__icon {
         @apply flex items-center justify-center text-text-muted;
-        transition: color var(--animation-duration-normal, 200ms) ease-out;
+        @apply transition-colors duration-200 ease-out;
     }
 
     .spire-empty-state__illustration {

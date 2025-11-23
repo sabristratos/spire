@@ -27,6 +27,8 @@
   * [Timepicker](components/timepicker.md)
   * [Editor](components/editor.md)
   * [Rating](components/rating.md)
+  * [Icon Picker](components/icon-picker.md)
+  * [Color Picker](components/color-picker.md)
 
 * **Form Layout**
   * [Field](components/field.md)

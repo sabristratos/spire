@@ -5,7 +5,7 @@
 
     /* Base container */
     .spire-progress {
-        @apply relative w-full bg-border overflow-hidden;
+        @apply relative w-full bg-surface-subtle overflow-hidden;
     }
 
     /* Size variants */

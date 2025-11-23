@@ -1,29 +1,23 @@
 @layer components {
     /* 1. Container */
     .spire-switch-container {
-        @apply w-full;
+        /* Width controlled via Blade component defaults */
     }
 
     /* 2. Wrapper (Label) */
     .spire-switch-wrapper {
-        @apply flex items-center justify-between gap-3 cursor-pointer w-full;
+        @apply flex items-center justify-between gap-3 cursor-pointer;
     }
 
     /* 3. Hidden Checkbox Input */
     .spire-switch-input {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        position: fixed;
-        white-space: nowrap;
+        @apply visually-hidden;
     }
 
     /* 4. Track Base */
     .spire-switch-track {
         @apply relative inline-flex items-center shrink-0;
-        transition: background-color var(--animation-duration-fast) ease-out;
+        @apply transition-colors duration-150 ease-out;
     }
 
     /* 5. Track Sizes */
@@ -39,9 +33,8 @@
 
     /* 6. Thumb Base */
     .spire-switch-thumb {
-        @apply absolute bg-white shadow-sm transition-all z-0;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-smooth);
+        @apply absolute bg-white shadow-sm z-0;
+        @apply transition-all duration-150 ease-out;
     }
 
     /* 7. Thumb Sizes & Positioning */
@@ -74,7 +67,7 @@
     /* 10. Icon Base Styles */
     .spire-switch-icon {
         @apply absolute flex items-center justify-center pointer-events-none z-10;
-        transition: opacity var(--animation-duration-fast) ease-out;
+        @apply transition-opacity duration-150 ease-out;
     }
 
     /* 11. Icon Positioning - Checked Icon (Left Side) */
@@ -141,7 +134,7 @@
     .spire-switch-track--warning,
     .spire-switch-track--info,
     .spire-switch-track--featured {
-        @apply bg-neutral-300;
+        @apply bg-surface-subtle;
     }
 
     /* 19. Color Variants - Checked State */

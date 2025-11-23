@@ -2,7 +2,7 @@
     /* 1. Base Card Styles */
     .spire-card {
         @apply relative overflow-hidden;
-        transition: all var(--animation-duration-normal) ease-in-out;
+        @apply transition-all duration-200 ease-in-out;
     }
 
     /* 2. Variants */
@@ -33,11 +33,11 @@
     /* 4. Interactive States */
     .spire-card--hoverable {
         @apply hover:shadow-lg hover:scale-[1.02] cursor-pointer;
-        transition: all var(--animation-duration-normal) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        @apply transition-all duration-200 ease-(--ease-spring);
     }
     .spire-card--pressable {
         @apply cursor-pointer active:scale-[0.98];
-        transition: transform var(--animation-duration-fast) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        @apply transition-transform duration-150 ease-(--ease-bounce);
     }
     .spire-card--blurred {
         @apply backdrop-blur-md bg-surface/70;

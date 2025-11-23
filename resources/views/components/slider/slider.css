@@ -1,8 +1,7 @@
 @layer components {
     .spire-slider {
         @apply relative w-full;
-        @apply transition-opacity;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-opacity duration-150;
     }
 
     .spire-slider--disabled {
@@ -19,8 +18,7 @@
 
     .spire-slider-icon {
         @apply text-text-muted shrink-0;
-        @apply transition-colors;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-colors duration-150;
     }
 
     .spire-slider:not(.spire-slider--disabled):hover .spire-slider-icon {
@@ -33,8 +31,7 @@
 
     .spire-slider-track {
         @apply relative bg-border rounded-full h-2 w-full;
-        @apply transition-colors;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-colors duration-150;
         touch-action: none;
         user-select: none;
     }
@@ -63,7 +60,7 @@
 
     /* Only transition when slider is NOT being interacted with */
     .spire-slider-container:not([data-spire-dragging="true"]) .spire-slider-fill {
-        transition: all var(--animation-duration-fast);
+        @apply transition-all duration-150;
     }
 
     .spire-slider-fill--primary {
@@ -98,10 +95,8 @@
         @apply absolute bg-surface rounded-full;
         @apply shadow-md;
         @apply cursor-grab;
-        @apply transition-all;
+        @apply transition-[transform,box-shadow,border-color] duration-150;
         @apply border-2 border-transparent;
-        transition-duration: var(--animation-duration-fast);
-        transition-property: transform, box-shadow, border-color;
         touch-action: none;
         left: 0;
         top: 50%;
@@ -173,8 +168,7 @@
     .spire-slider-step {
         @apply absolute rounded-full w-1.5 h-1.5;
         @apply bg-border;
-        @apply transition-colors;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-colors duration-150;
     }
 
     .spire-slider-step--active,
@@ -188,8 +182,7 @@
 
     .spire-slider-mark {
         @apply absolute flex flex-col items-center cursor-pointer top-0;
-        @apply transition-opacity;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-opacity duration-150;
     }
 
     .spire-slider:not(.spire-slider--disabled) .spire-slider-mark:hover {
@@ -199,8 +192,7 @@
     .spire-slider-mark-dot {
         @apply w-2 h-2 rounded-full;
         @apply bg-border;
-        @apply transition-colors;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-colors duration-150;
     }
 
     .spire-slider-mark--active .spire-slider-mark-dot,
@@ -210,8 +202,7 @@
 
     .spire-slider-mark-label {
         @apply text-xs text-text-muted mt-2;
-        @apply transition-colors;
-        transition-duration: var(--animation-duration-fast);
+        @apply transition-colors duration-150;
     }
 
     .spire-slider-mark--active .spire-slider-mark-label,

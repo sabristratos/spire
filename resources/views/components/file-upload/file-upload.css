@@ -11,15 +11,15 @@
     /* 2. Drop Zone */
     .spire-file-upload__zone {
         @apply relative flex flex-col items-center justify-center gap-1 p-4;
-        @apply border-2 border-dashed border-primary/30 rounded-lg;
-        @apply bg-primary/5;
+        @apply border-2 border-dashed border-border rounded-lg;
+        @apply bg-surface-subtle;
         @apply cursor-pointer;
         @apply transition-all duration-200 ease-out;
         @apply focus-within:outline-2 focus-within:outline-primary focus-within:outline-offset-2;
         min-height: 80px;
     }
 
-    .spire-file-upload__zone--dragging {
+    .spire-file-upload__zone:hover, .spire-file-upload__zone--dragging {
         @apply border-primary bg-primary/10;
         @apply ring-2 ring-primary/20;
     }
@@ -33,7 +33,7 @@
     }
 
     .spire-file-upload__zone-icon {
-        @apply w-5 h-5 text-primary flex-shrink-0;
+        @apply w-5 h-5 text-primary;
     }
 
     .spire-file-upload__zone-primary {
@@ -65,7 +65,7 @@
     .spire-file-upload__divider::before,
     .spire-file-upload__divider::after {
         content: '';
-        @apply flex-1 h-px bg-border;
+        @apply flex-1 h-px bg-surface-subtle;
     }
 
     .spire-file-upload__divider-text {

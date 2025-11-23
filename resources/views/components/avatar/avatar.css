@@ -2,7 +2,7 @@
     /* 1. Base Avatar Styles */
     .spire-avatar {
         @apply relative inline-flex items-center justify-center overflow-hidden shrink-0 font-semibold;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     /* 2. Radius Variants */
@@ -107,7 +107,7 @@
     /* 8. Avatar Overflow */
     .spire-avatar__overflow {
         @apply relative inline-flex items-center justify-center shrink-0 overflow-hidden font-semibold rounded-full;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     /* 9. Avatar Overflow Size Variants */

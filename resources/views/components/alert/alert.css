@@ -2,7 +2,7 @@
     /* 1. Base Alert Styles */
     .spire-alert {
         @apply relative flex items-start gap-3 p-4;
-        transition: all var(--animation-duration-normal) ease-out;
+        @apply transition-all duration-200 ease-out;
     }
 
     /* 2. Flat Variant (Background with border) */

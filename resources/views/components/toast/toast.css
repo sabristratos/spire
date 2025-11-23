@@ -13,10 +13,10 @@
 
     [popover][id^="toast-"] {
         transition:
-            opacity var(--animation-duration-slow),
-            transform var(--animation-duration-slow),
-            overlay var(--animation-duration-slow) allow-discrete,
-            display var(--animation-duration-slow) allow-discrete;
+            opacity 300ms,
+            transform 300ms,
+            overlay 300ms allow-discrete,
+            display 300ms allow-discrete;
     }
 
     /* Centered toast positioning (top-center, bottom-center) */

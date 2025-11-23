@@ -29,6 +29,20 @@
     display: none;
 }
 
+@utility visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    position: fixed;
+    white-space: nowrap;
+}
+
+@utility transition-discrete {
+    transition-behavior: allow-discrete;
+}
+
 @layer components {
     /* Components (alphabetical) */
     @import '../views/components/accordion/accordion.css';
@@ -75,28 +89,6 @@
     @import '../views/components/timepicker/timepicker.css';
     @import '../views/components/toast/toast.css';
     @import '../views/components/tooltip/tooltip.css';
-}
-
-@layer utilities {
-    .sr-only {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        position: fixed;
-        white-space: nowrap;
-    }
-
-    .not-sr-only {
-        clip: auto;
-        clip-path: none;
-        width: auto;
-        height: auto;
-        overflow: visible;
-        position: static;
-        white-space: normal;
-    }
 }
 
 @layer base {

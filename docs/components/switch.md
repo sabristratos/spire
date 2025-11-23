@@ -381,11 +381,11 @@ Use live updates for instant feedback:
 <x-spire::switch label="Theme: Auto" />
 
 {{-- Good: Use radio group --}}
-<x-spire::radio-group name="theme">
+<x-spire::checkbox.group name="theme">
     <x-spire::radio value="light" label="Light" />
     <x-spire::radio value="dark" label="Dark" />
     <x-spire::radio value="auto" label="Auto" />
-</x-spire::radio-group>
+</x-spire::checkbox.group>
 ```
 
 ❌ **Don't use unclear labels** - Be specific about what toggles

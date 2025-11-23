@@ -1,7 +1,7 @@
 @layer components {
     /* Container */
     .spire-editor {
-        @apply w-full flex flex-col bg-surface;
+        @apply w-full flex flex-col bg-surface-subtle;
     }
 
     .spire-editor--bordered {
@@ -15,7 +15,7 @@
     /* Toolbar */
     .spire-editor-toolbar {
         @apply flex items-center flex-wrap gap-1 border-b border-border;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-editor-toolbar--sm {
@@ -36,7 +36,7 @@
 
     /* Content area wrapper */
     .spire-editor-content {
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-editor--bordered:focus-within {

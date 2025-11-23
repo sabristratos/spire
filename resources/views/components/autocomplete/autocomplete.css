@@ -67,7 +67,7 @@
     /* 9. Autocomplete Option Item */
     .spire-autocomplete-option {
         @apply flex items-center gap-3 w-full px-3 py-2 text-sm rounded-md cursor-pointer;
-        transition: all var(--animation-duration-fast) ease-out;
+        @apply transition-all duration-150 ease-out;
     }
     .spire-autocomplete-option--normal {
         @apply text-text hover:bg-hover;

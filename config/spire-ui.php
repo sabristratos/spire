@@ -153,6 +153,16 @@ return [
             'variant' => 'flat',
         ],
 
+        // Icon Picker
+        'icon-picker' => [
+            // Uses global defaults for size, variant, radius
+        ],
+
+        // Color Picker
+        'color-picker' => [
+            // Uses global defaults for size, variant, radius
+        ],
+
         // Per-component overrides (uncomment to customize)
         // 'button' => [
         //     'size' => 'sm',

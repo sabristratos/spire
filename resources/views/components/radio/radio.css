@@ -5,7 +5,7 @@
     }
 
     .spire-radio-input {
-        @apply sr-only;
+        @apply visually-hidden;
     }
 
     /* Regular variant */
@@ -20,9 +20,7 @@
         @apply flex-shrink-0;
         @apply border border-border bg-surface;
         @apply rounded-full;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
     }
 
     /* Size variants for radio indicator */
@@ -38,17 +36,28 @@
         @apply w-6 h-6;
     }
 
-    /* Radio icon */
-    .spire-radio-icon {
-        @apply absolute inset-0 flex items-center justify-center;
+    /* Radio dot (inner filled circle) */
+    .spire-radio-dot {
+        @apply rounded-full;
         @apply opacity-0 scale-0;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
+        @apply bg-current;
     }
 
-    /* Checked state - show circle icon */
-    .spire-radio:has(.spire-radio-input:checked) .spire-radio-icon {
+    .spire-radio-dot--sm {
+        @apply w-2 h-2;
+    }
+
+    .spire-radio-dot--md {
+        @apply w-2.5 h-2.5;
+    }
+
+    .spire-radio-dot--lg {
+        @apply w-3 h-3;
+    }
+
+    /* Checked state - show dot */
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-dot {
         @apply opacity-100 scale-100;
     }
 
@@ -57,38 +66,62 @@
         @apply border-border bg-surface;
     }
 
-    /* Color variants - Checked */
+    /* Color variants - Checked (white background with colored border and dot) */
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--primary {
-        @apply bg-primary border-primary;
+        @apply bg-surface border-primary;
     }
 
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--secondary {
-        @apply bg-secondary border-secondary;
+        @apply bg-surface border-secondary;
     }
 
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--success {
-        @apply bg-success border-success;
+        @apply bg-surface border-success;
     }
 
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--error {
-        @apply bg-error border-error;
+        @apply bg-surface border-error;
     }
 
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--warning {
-        @apply bg-warning border-warning;
+        @apply bg-surface border-warning;
     }
 
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--info {
-        @apply bg-info border-info;
+        @apply bg-surface border-info;
     }
 
     .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--featured {
-        @apply bg-featured border-featured;
+        @apply bg-surface border-featured;
     }
 
-    /* Icon color for checked state */
-    .spire-radio:has(.spire-radio-input:checked) .spire-radio-icon {
-        @apply text-white;
+    /* Dot color for checked state (matches border color) */
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--primary .spire-radio-dot {
+        @apply text-primary;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--secondary .spire-radio-dot {
+        @apply text-secondary;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--success .spire-radio-dot {
+        @apply text-success;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--error .spire-radio-dot {
+        @apply text-error;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--warning .spire-radio-dot {
+        @apply text-warning;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--info .spire-radio-dot {
+        @apply text-info;
+    }
+
+    .spire-radio:has(.spire-radio-input:checked) .spire-radio-indicator--featured .spire-radio-dot {
+        @apply text-featured;
     }
 
     /* Hover state */
@@ -153,9 +186,7 @@
         @apply px-3 py-1.5 rounded-full;
         @apply text-sm;
         @apply border border-border bg-surface;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-radio--pill:hover {
@@ -193,9 +224,7 @@
         @apply relative;
         @apply p-4 rounded-lg;
         @apply border border-border bg-surface;
-        @apply transition-all;
-        transition-duration: var(--animation-duration-fast);
-        transition-timing-function: var(--animation-easing-ease-out);
+        @apply transition-all duration-150 ease-out;
     }
 
     .spire-radio--card:hover {

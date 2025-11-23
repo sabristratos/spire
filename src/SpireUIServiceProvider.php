@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use SpireUI\Http\Controllers\AssetController;
+use SpireUI\Http\Controllers\IconController;
 use SpireUI\Support\Synthesizers\DateRangePresetSynth;
 use SpireUI\Support\Synthesizers\DateRangeSynth;
 
@@ -107,6 +108,11 @@ class SpireUIServiceProvider extends ServiceProvider
 
     protected function registerAssetRoutes(): void
     {
+        Route::get(
+            config('spire-ui.asset_route', 'spire-ui').'/api/icons',
+            IconController::class
+        )->name('spire-ui.icons');
+
         Route::get(
             config('spire-ui.asset_route', 'spire-ui').'/{file}',
             AssetController::class
