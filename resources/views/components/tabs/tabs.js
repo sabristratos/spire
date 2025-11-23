@@ -33,6 +33,9 @@ export function tabsComponent(config = {}) {
         // Resize observer
         resizeObserver: null,
 
+        // Livewire morph handler
+        morphHandler: null,
+
         /**
          * Initialize the tabs component.
          */
@@ -104,6 +107,14 @@ export function tabsComponent(config = {}) {
                     };
                     window.addEventListener('hashchange', this.hashChangeHandler);
                 }
+
+                // Listen for Livewire morph events to refresh DOM references
+                this.morphHandler = () => {
+                    this.updateTabsAndPanels();
+                    this.updateTabAttributes();
+                    this.updateCursorPosition(false);
+                };
+                document.addEventListener('livewire:morphed', this.morphHandler);
 
                 // Watch for tab changes to animate cursor
                 this.$watch('activeTab', (newValue, oldValue) => {
@@ -345,6 +356,11 @@ export function tabsComponent(config = {}) {
             if (this.hashChangeHandler) {
                 window.removeEventListener('hashchange', this.hashChangeHandler);
                 this.hashChangeHandler = null;
+            }
+
+            if (this.morphHandler) {
+                document.removeEventListener('livewire:morphed', this.morphHandler);
+                this.morphHandler = null;
             }
         }
     };
