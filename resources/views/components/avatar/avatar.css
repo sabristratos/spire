@@ -39,6 +39,10 @@
         @apply w-14 h-14 text-xl;
     }
 
+    .spire-avatar--2xl {
+        @apply w-20 h-20 text-2xl;
+    }
+
     /* 4. Bordered */
     .spire-avatar--bordered {
         @apply ring-2 ring-offset-2;

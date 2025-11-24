@@ -40,6 +40,15 @@ export function tabsComponent(config = {}) {
             this.$nextTick(() => {
                 this.updateTabsAndPanels();
 
+                // Listen for Livewire morphing to refresh state
+                this.morphHandler = () => {
+                    this.$nextTick(() => {
+                        this.updateTabsAndPanels();
+                        this.updateCursorPosition(false);
+                    });
+                };
+                document.addEventListener('livewire:morphed', this.morphHandler);
+
                 // Check URL hash first if syncHash is enabled
                 if (this.syncHash) {
                     const hash = window.location.hash.slice(1);
@@ -136,14 +145,12 @@ export function tabsComponent(config = {}) {
 
         // Update cursor position based on active tab
         updateCursorPosition(animate = true) {
-            const activeTabEl = this.tabs.find(tab =>
-                tab.dataset.spireTabsValue === this.activeTab
-            );
-
-            if (!activeTabEl) return;
-
-            const tabList = activeTabEl.parentElement;
+            const tabList = this.$el.querySelector('[role="tablist"]');
             if (!tabList) return;
+
+            // Query fresh from DOM to avoid stale references after Livewire morph
+            const activeTabEl = tabList.querySelector(`[data-spire-tabs-value="${this.activeTab}"]`);
+            if (!activeTabEl) return;
 
             const variant = this.$el.dataset.spireVariant || 'underline';
             const orientation = this.$el.dataset.spireOrientation || 'horizontal';
@@ -345,6 +352,11 @@ export function tabsComponent(config = {}) {
             if (this.hashChangeHandler) {
                 window.removeEventListener('hashchange', this.hashChangeHandler);
                 this.hashChangeHandler = null;
+            }
+
+            if (this.morphHandler) {
+                document.removeEventListener('livewire:morphed', this.morphHandler);
+                this.morphHandler = null;
             }
         }
     };
