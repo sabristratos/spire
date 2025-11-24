@@ -19,7 +19,7 @@
 
     /* Subtle Variant */
     .spire-link--subtle {
-        @apply text-text-muted underline decoration-text-muted/50;
+        @apply text-muted underline decoration-text-muted/50;
         @apply hover:text-text hover:decoration-text;
     }
 }

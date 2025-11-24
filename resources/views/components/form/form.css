@@ -16,7 +16,7 @@
 
     /* 2. Form Helper */
     .spire-helper {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     .spire-helper--sm {

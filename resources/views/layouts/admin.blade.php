@@ -47,7 +47,7 @@
             <x-spire::avatar src="https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" name="John Doe" size="sm" radius="full" />
             <div class="flex-1 min-w-0 spire-sidebar-footer-content">
                 <p class="text-sm font-medium text-text truncate">John Doe</p>
-                <p class="text-xs text-text-muted truncate">john@example.com</p>
+                <p class="text-xs text-muted truncate">john@example.com</p>
             </div>
         </div>
         <x-spire::sidebar.item icon="log-out" href="#">

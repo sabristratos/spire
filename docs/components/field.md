@@ -53,7 +53,7 @@ Convenience wrapper component that provides proper spacing and layout for form i
 <x-spire::field>
     <x-slot:label>
         <x-spire::form.label for="username" required>
-            Username <span class="text-text-muted">(publicly visible)</span>
+            Username <span class="text-muted">(publicly visible)</span>
         </x-spire::form.label>
     </x-slot:label>
 
@@ -83,7 +83,7 @@ Convenience wrapper component that provides proper spacing and layout for form i
         wire:model.live="search"
     >
         <x-slot:leading>
-            <x-spire::icon name="search-md" class="w-5 h-5 text-text-muted" />
+            <x-spire::icon name="search-md" class="w-5 h-5 text-muted" />
         </x-slot:leading>
     </x-spire::input>
 </x-spire::field>
@@ -109,7 +109,7 @@ Convenience wrapper component that provides proper spacing and layout for form i
                 <button
                     type="button"
                     @click="showPassword = !showPassword"
-                    class="text-text-muted hover:text-text"
+                    class="text-muted hover:text-text"
                 >
                     <x-spire::icon x-show="!showPassword" name="eye" class="w-5 h-5" />
                     <x-spire::icon x-show="showPassword" name="eye-off" class="w-5 h-5" />
@@ -173,7 +173,7 @@ Convenience wrapper component that provides proper spacing and layout for form i
         placeholder="Search..."
     >
         <x-slot:leading>
-            <x-spire::icon name="search-md" class="w-5 h-5 text-text-muted" />
+            <x-spire::icon name="search-md" class="w-5 h-5 text-muted" />
         </x-slot:leading>
     </x-spire::input>
 </x-spire::field>

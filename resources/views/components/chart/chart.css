@@ -39,7 +39,7 @@
 
 /* Axis */
 .spire-chart-axis {
-    @apply text-text-muted;
+    @apply text-muted;
 }
 
 .spire-chart-axis--x {
@@ -98,7 +98,7 @@
 }
 
 .spire-chart-tooltip-heading {
-    @apply text-text-muted text-xs mb-1;
+    @apply text-muted text-xs mb-1;
 }
 
 .spire-chart-tooltip-value {
@@ -106,7 +106,7 @@
 }
 
 .spire-chart-tooltip-label {
-    @apply text-text-muted;
+    @apply text-muted;
 }
 
 .spire-chart-tooltip-number {
@@ -132,7 +132,7 @@
 }
 
 .spire-chart-legend-label {
-    @apply text-text-muted;
+    @apply text-muted;
 }
 
 /* Animation support for path transitions */

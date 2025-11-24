@@ -155,7 +155,7 @@ Use custom HTML for advanced layouts:
         <x-spire::icon name="mail" class="text-primary" />
         <div>
             <div class="font-medium">Email Notifications</div>
-            <div class="text-sm text-text-muted">
+            <div class="text-sm text-muted">
                 Receive updates about your account activity
             </div>
         </div>

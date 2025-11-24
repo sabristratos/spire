@@ -260,7 +260,7 @@
     @apply flex items-center gap-3 w-full;
     @apply px-3 py-1.5 rounded-md;
     @apply text-[0.65rem] font-bold uppercase tracking-widest;
-    @apply text-text-muted/70;
+    @apply text-muted/70;
     @apply transition-colors duration-150;
 }
 
@@ -286,7 +286,7 @@
     @apply flex items-center gap-3;
     @apply w-full px-3 py-2 rounded-md;
     @apply text-sm font-medium;
-    @apply text-text-muted;
+    @apply text-muted;
     @apply transition-colors duration-150;
     @apply relative;
 }
@@ -325,7 +325,7 @@
 
 /* Item description (subtitle) */
 .spire-sidebar-item-description {
-    @apply block text-xs text-text-muted truncate;
+    @apply block text-xs text-muted truncate;
 }
 
 .spire-sidebar-item--active .spire-sidebar-item-description {
@@ -364,7 +364,7 @@
 
 /* Keyboard shortcut */
 .spire-sidebar-item-shortcut {
-    @apply text-xs text-text-muted;
+    @apply text-xs text-muted;
     @apply px-1.5 py-0.5 rounded;
     @apply bg-surface-subtle;
     @apply font-mono;
@@ -385,7 +385,7 @@
 
 .spire-sidebar-item-children .spire-sidebar-item {
     @apply text-xs font-normal py-1.5;
-    @apply text-text-muted/80;
+    @apply text-muted/80;
 }
 
 .spire-sidebar-item-children .spire-sidebar-item:hover:not(.spire-sidebar-item--disabled) {
@@ -403,7 +403,7 @@
 /* Deep nested items (Level 4+) */
 .spire-sidebar-item-children .spire-sidebar-item-children .spire-sidebar-item {
     @apply text-[0.7rem] py-1;
-    @apply text-text-muted/70;
+    @apply text-muted/70;
 }
 
 .spire-sidebar-item-children .spire-sidebar-item-children .spire-sidebar-item-icon {
@@ -420,7 +420,7 @@
 .spire-sidebar-toggle {
     @apply flex items-center justify-center;
     @apply w-8 h-8 rounded-md;
-    @apply text-text-muted;
+    @apply text-muted;
     @apply transition-colors duration-150;
 }
 
@@ -438,7 +438,7 @@
     @apply flex items-center justify-center;
     @apply w-6 h-6 rounded-full;
     @apply bg-surface border border-border shadow-sm;
-    @apply text-text-muted;
+    @apply text-muted;
     @apply transition-colors duration-150 z-10;
 }
 
@@ -496,7 +496,7 @@
     @apply absolute top-4 right-4;
     @apply flex items-center justify-center;
     @apply w-8 h-8 rounded-md;
-    @apply text-text-muted;
+    @apply text-muted;
     @apply transition-colors duration-150;
 }
 

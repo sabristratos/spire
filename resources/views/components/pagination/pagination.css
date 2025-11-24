@@ -4,7 +4,7 @@
     }
 
     .spire-pagination__info {
-        @apply flex items-center gap-1 text-sm text-text-muted;
+        @apply flex items-center gap-1 text-sm text-muted;
     }
 
     .spire-pagination__nav {
@@ -35,7 +35,7 @@
     }
 
     .spire-pagination__ellipsis {
-        @apply px-2 py-2 text-sm text-text-muted cursor-default select-none;
+        @apply px-2 py-2 text-sm text-muted cursor-default select-none;
     }
 
     .spire-pagination__icon {

@@ -155,7 +155,7 @@ Full-page loading indicator:
     <div class="fixed inset-0 flex items-center justify-center bg-body/50 backdrop-blur-sm z-50">
         <div class="text-center">
             <x-spire::spinner size="lg" />
-            <p class="mt-4 text-text-muted">Loading page content...</p>
+            <p class="mt-4 text-muted">Loading page content...</p>
         </div>
     </div>
 @endif
@@ -168,7 +168,7 @@ Show spinner alongside loading messages:
 ```blade
 <div class="flex items-center gap-2">
     <x-spire::spinner size="sm" />
-    <span class="text-text-muted">Processing your request...</span>
+    <span class="text-muted">Processing your request...</span>
 </div>
 ```
 
@@ -189,7 +189,7 @@ Indicate loading state in tables:
             <tr>
                 <td colspan="2" class="text-center py-8">
                     <x-spire::spinner size="md" />
-                    <p class="mt-2 text-text-muted">Loading data...</p>
+                    <p class="mt-2 text-muted">Loading data...</p>
                 </td>
             </tr>
         @else
@@ -234,7 +234,7 @@ Show spinner in empty states:
 @if($loading)
     <div class="flex flex-col items-center justify-center py-12">
         <x-spire::spinner size="lg" />
-        <p class="mt-4 text-text-muted">Loading your data...</p>
+        <p class="mt-4 text-muted">Loading your data...</p>
     </div>
 @elseif($items->isEmpty())
     <x-spire::empty-state
@@ -259,7 +259,7 @@ Use with Livewire's wire:loading directive:
 
     <div wire:loading wire:target="refresh" class="inline-flex items-center gap-2 ml-2">
         <x-spire::spinner size="sm" />
-        <span class="text-sm text-text-muted">Refreshing...</span>
+        <span class="text-sm text-muted">Refreshing...</span>
     </div>
 </div>
 ```
@@ -315,7 +315,7 @@ Use nested rings variant for dramatic full-page loading:
     <div class="text-center">
         <x-spire::spinner variant="nested-rings" size="lg" />
         <h3 class="mt-6 text-lg font-semibold">Loading Application</h3>
-        <p class="mt-2 text-text-muted">Please wait while we prepare everything...</p>
+        <p class="mt-2 text-muted">Please wait while we prepare everything...</p>
     </div>
 </div>
 ```

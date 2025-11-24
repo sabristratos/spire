@@ -14,7 +14,7 @@
     }
 
     .spire-text--subtle {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     /* Color Modifiers */

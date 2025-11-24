@@ -337,7 +337,7 @@ Common pattern for table row actions:
     <x-spire::dropdown.content width="lg">
         <div class="px-3 py-2 border-b border-border">
             <div class="font-medium">{{ $user->name }}</div>
-            <div class="text-sm text-text-muted">{{ $user->email }}</div>
+            <div class="text-sm text-muted">{{ $user->email }}</div>
         </div>
 
         <x-spire::dropdown.item href="/profile" icon="user">

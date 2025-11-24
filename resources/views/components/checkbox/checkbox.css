@@ -162,7 +162,7 @@
     }
 
     .spire-checkbox-description {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     .spire-checkbox-description--sm {
@@ -273,7 +273,7 @@
 
     /* Description */
     .spire-checkbox-group-description {
-        @apply text-sm text-text-muted mb-3;
+        @apply text-sm text-muted mb-3;
     }
 
     /* Checkbox items container */
@@ -305,7 +305,7 @@
 
     /* Helper text */
     .spire-checkbox-group-helper {
-        @apply mt-2 text-sm text-text-muted;
+        @apply mt-2 text-sm text-muted;
     }
 
     /* Error message */

@@ -184,7 +184,7 @@ Add contextual help to form fields:
             content="Password must be at least 8 characters with uppercase, lowercase, and numbers"
             placement="right"
         >
-            <x-spire::icon name="help-circle" class="text-text-muted cursor-help" />
+            <x-spire::icon name="help-circle" class="text-muted cursor-help" />
         </x-spire::tooltip>
     </div>
 </x-spire::field>
@@ -481,7 +481,7 @@ Tooltips use the `.spire-tooltip__content` class for styling. Customize in your 
     <span>Online</span>
 
     <x-spire::tooltip content="Last seen 2 minutes ago" placement="right">
-        <x-spire::icon name="info" class="text-text-muted cursor-help" size="sm" />
+        <x-spire::icon name="info" class="text-muted cursor-help" size="sm" />
     </x-spire::tooltip>
 </div>
 ```

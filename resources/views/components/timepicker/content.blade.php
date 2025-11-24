@@ -44,12 +44,12 @@ $mergedAttributes = $attributes->except(['class'])->merge([
                 x-text="nowText"
             ></button>
 
-            <span class="text-text-muted">|</span>
+            <span class="text-muted">|</span>
 
             <button
                 type="button"
                 @click="clearTime"
-                class="px-3 py-1.5 text-xs font-medium text-text-muted hover:bg-hover rounded-md transition-colors"
+                class="px-3 py-1.5 text-xs font-medium text-muted hover:bg-hover rounded-md transition-colors"
                 x-text="clearText"
             ></button>
         </div>
@@ -62,7 +62,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
                 :label="__('spire::spire-ui.timepicker.hour')"
             />
 
-            <div class="flex items-center text-text-muted font-bold text-lg px-1">:</div>
+            <div class="flex items-center text-muted font-bold text-lg px-1">:</div>
 
             {{-- Minute column --}}
             <x-spire::timepicker.column
@@ -71,7 +71,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
             />
 
             @if($showSeconds)
-                <div class="flex items-center text-text-muted font-bold text-lg px-1">:</div>
+                <div class="flex items-center text-muted font-bold text-lg px-1">:</div>
 
                 {{-- Second column --}}
                 <x-spire::timepicker.column

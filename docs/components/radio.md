@@ -197,7 +197,7 @@ Full-width card with rich content:
     >
         <div class="mt-2">
             <span class="text-2xl font-bold">$9</span>
-            <span class="text-text-muted">/month</span>
+            <span class="text-muted">/month</span>
         </div>
     </x-spire::radio>
 
@@ -211,7 +211,7 @@ Full-width card with rich content:
     >
         <div class="mt-2">
             <span class="text-2xl font-bold">$29</span>
-            <span class="text-text-muted">/month</span>
+            <span class="text-muted">/month</span>
         </div>
     </x-spire::radio>
 
@@ -225,7 +225,7 @@ Full-width card with rich content:
     >
         <div class="mt-2">
             <span class="text-2xl font-bold">$99</span>
-            <span class="text-text-muted">/month</span>
+            <span class="text-muted">/month</span>
         </div>
     </x-spire::radio>
 </x-spire::radio.group>

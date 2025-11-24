@@ -67,25 +67,25 @@
     }
 
     .spire-button--default-ghost {
-        @apply bg-transparent text-text-muted hover:text-text active:text-text focus-visible:outline-neutral;
+        @apply bg-transparent text-muted hover:text-text active:text-text focus-visible:outline-neutral;
     }
     .spire-button--primary-ghost {
-        @apply bg-transparent text-text-muted hover:text-primary active:text-primary-hover focus-visible:outline-primary;
+        @apply bg-transparent text-primary hover:text-primary-hover active:text-primary-active focus-visible:outline-primary;
     }
     .spire-button--secondary-ghost {
-        @apply bg-transparent text-text-muted hover:text-secondary active:text-secondary-hover focus-visible:outline-secondary;
+        @apply bg-transparent text-secondary hover:text-secondary-hover active:text-secondary-active focus-visible:outline-secondary;
     }
     .spire-button--success-ghost {
-        @apply bg-transparent text-text-muted hover:text-success active:text-success-hover focus-visible:outline-success;
+        @apply bg-transparent text-success hover:text-success-hover active:text-success-active focus-visible:outline-success;
     }
     .spire-button--error-ghost {
-        @apply bg-transparent text-text-muted hover:text-error active:text-error-hover focus-visible:outline-error;
+        @apply bg-transparent text-error hover:text-error-hover active:text-error-active focus-visible:outline-error;
     }
     .spire-button--warning-ghost {
-        @apply bg-transparent text-text-muted hover:text-warning active:text-warning-hover focus-visible:outline-warning;
+        @apply bg-transparent text-warning hover:text-warning-hover active:text-warning-active focus-visible:outline-warning;
     }
     .spire-button--info-ghost {
-        @apply bg-transparent text-text-muted hover:text-info active:text-info-hover focus-visible:outline-info;
+        @apply bg-transparent text-info hover:text-info-hover active:text-info-active focus-visible:outline-info;
     }
 
     .spire-button--default-soft {
@@ -139,7 +139,7 @@
         @apply bg-transparent text-featured border border-featured shadow-xs hover:bg-featured/20 active:bg-featured/15 active:shadow-none focus-visible:outline-featured;
     }
     .spire-button--featured-ghost {
-        @apply bg-transparent text-text-muted hover:text-featured active:text-featured-hover focus-visible:outline-featured;
+        @apply bg-transparent text-featured hover:text-featured-hover active:text-featured-active focus-visible:outline-featured;
     }
     .spire-button--featured-soft {
         @apply bg-featured/20 text-featured shadow-xs hover:bg-featured/35 active:bg-featured/20 active:shadow-none focus-visible:outline-featured;

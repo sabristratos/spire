@@ -26,7 +26,7 @@
     >
         <span x-text="monthName"></span>
         <span x-text="displayYear"></span>
-        <svg class="inline-block w-4 h-4 ml-1 text-text-muted transition-transform" :class="showMonthYearPicker ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="inline-block w-4 h-4 ml-1 text-muted transition-transform" :class="showMonthYearPicker ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
     </button>

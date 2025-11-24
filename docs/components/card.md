@@ -53,11 +53,11 @@ These child components have no specific props and accept all standard HTML attri
 <x-spire::card>
     <x-spire::card.header>
         <h3 class="text-lg font-semibold text-text">Card Title</h3>
-        <p class="text-sm text-text-muted">Subtitle or description</p>
+        <p class="text-sm text-muted">Subtitle or description</p>
     </x-spire::card.header>
 
     <x-spire::card.body>
-        <p class="text-text-muted">
+        <p class="text-muted">
             Make beautiful websites regardless of your design experience.
         </p>
     </x-spire::card.body>
@@ -76,7 +76,7 @@ These child components have no specific props and accept all standard HTML attri
 
     <x-spire::card.body>
         <h4 class="font-semibold text-text">Daily Mix</h4>
-        <p class="text-sm text-text-muted">12 Tracks</p>
+        <p class="text-sm text-muted">12 Tracks</p>
     </x-spire::card.body>
 
     <x-spire::card.footer>
@@ -97,7 +97,7 @@ These child components have no specific props and accept all standard HTML attri
     <x-spire::card.footer>
         <div>
             <p class="font-semibold text-text">Woman listing to music</p>
-            <p class="text-xs text-text-muted">Available soon.</p>
+            <p class="text-xs text-muted">Available soon.</p>
         </div>
     </x-spire::card.footer>
 </x-spire::card>
@@ -115,7 +115,7 @@ These child components have no specific props and accept all standard HTML attri
     <x-spire::card.body class="text-center">
         <div class="text-4xl mb-2">🍊</div>
         <h4 class="font-semibold text-text">Orange</h4>
-        <p class="text-sm text-text-muted">$5.50</p>
+        <p class="text-sm text-muted">$5.50</p>
     </x-spire::card.body>
 </x-spire::card>
 ```
@@ -135,7 +135,7 @@ These child components have no specific props and accept all standard HTML attri
 
     <x-spire::card.body>
         <h3 class="font-semibold text-text">Product Name</h3>
-        <p class="text-sm text-text-muted">$99.00</p>
+        <p class="text-sm text-muted">$99.00</p>
     </x-spire::card.body>
 </x-spire::card>
 ```
@@ -149,7 +149,7 @@ These child components have no specific props and accept all standard HTML attri
     </x-spire::card.header>
 
     <x-spire::card.body>
-        <p class="text-text-muted">Configure your preferences.</p>
+        <p class="text-muted">Configure your preferences.</p>
     </x-spire::card.body>
 
     <x-spire::card.footer>

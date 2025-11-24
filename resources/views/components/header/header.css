@@ -41,7 +41,7 @@
         @apply inline-flex items-center gap-2;
         @apply px-3 py-2;
         @apply text-sm font-medium;
-        @apply text-text-muted;
+        @apply text-muted;
         @apply rounded-md;
         @apply transition-colors duration-150;
         @apply hover:text-text hover:bg-hover;
@@ -113,7 +113,7 @@
     .spire-header-toggle {
         @apply inline-flex items-center justify-center;
         @apply size-10;
-        @apply text-text-muted;
+        @apply text-muted;
         @apply rounded-md;
         @apply transition-colors duration-150;
         @apply hover:text-text hover:bg-hover;

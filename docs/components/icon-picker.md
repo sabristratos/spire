@@ -138,7 +138,7 @@ class IconSelector extends Component
         <x-spire::icon :name="$selectedIcon" class="w-8 h-8 text-primary" />
         <div>
             <div class="font-medium">Selected Icon</div>
-            <code class="text-sm text-text-muted">{{ $selectedIcon }}</code>
+            <code class="text-sm text-muted">{{ $selectedIcon }}</code>
         </div>
     </div>
 @endif

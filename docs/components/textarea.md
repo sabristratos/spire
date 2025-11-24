@@ -220,7 +220,7 @@ Track character count with Livewire:
         />
     </x-spire::field>
 
-    <div class="text-sm text-text-muted text-right mt-1">
+    <div class="text-sm text-muted text-right mt-1">
         {{ strlen($review) }} / 500 characters
     </div>
 </div>
@@ -297,7 +297,7 @@ Provide formatting guidance:
 ✅ **Show character limits** - Help users stay within constraints
 ```blade
 <x-spire::textarea wire:model.live="bio" />
-<p class="text-sm text-text-muted">{{ strlen($bio) }}/500</p>
+<p class="text-sm text-muted">{{ strlen($bio) }}/500</p>
 ```
 
 ### Don't
@@ -520,7 +520,7 @@ Textareas automatically adapt to dark mode using semantic color tokens:
         />
     </x-spire::field>
 
-    <div class="flex justify-between items-center text-sm text-text-muted mt-1">
+    <div class="flex justify-between items-center text-sm text-muted mt-1">
         <span>Minimum 50 characters</span>
         <span>{{ strlen($review) }} / 500</span>
     </div>

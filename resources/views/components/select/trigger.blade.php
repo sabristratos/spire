@@ -64,6 +64,6 @@ $mergedAttributes = $attributes->except(['class'])->merge([
             <span class="flex-1 text-left truncate spire-select-trigger__placeholder" x-text="placeholder" x-show="!selectedLabel"></span>
         @endif
 
-        <x-spire::icon name="chevron-down" class="w-4 h-4 shrink-0 text-text-muted transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
+        <x-spire::icon name="chevron-down" class="w-4 h-4 shrink-0 text-muted transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
     </button>
 </div>

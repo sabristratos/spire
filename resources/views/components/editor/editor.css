@@ -81,7 +81,7 @@
 
     /* Placeholder */
     .spire-editor-content .ProseMirror p.is-editor-empty:first-child::before {
-        @apply text-text-muted;
+        @apply text-muted;
         content: attr(data-placeholder);
         float: left;
         pointer-events: none;
@@ -133,7 +133,7 @@
 
     /* Blockquote */
     .spire-editor-content .ProseMirror blockquote {
-        @apply pl-4 border-l-4 border-border italic text-text-muted mb-3;
+        @apply pl-4 border-l-4 border-border italic text-muted mb-3;
     }
 
     /* Code */
@@ -179,7 +179,7 @@
 
     /* Character count */
     .spire-editor-character-count {
-        @apply text-sm text-text-muted px-3 py-2 border-t border-border;
+        @apply text-sm text-muted px-3 py-2 border-t border-border;
     }
 
     .spire-editor--flat .spire-editor-character-count {

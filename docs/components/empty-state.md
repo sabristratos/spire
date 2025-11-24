@@ -111,7 +111,7 @@ The Empty State component helps communicate to users when there's no data to dis
     </x-slot:titleSlot>
 
     <x-slot:descriptionSlot>
-        <p class="text-text-muted">
+        <p class="text-muted">
             Your inbox is empty. When you receive messages,
             <span class="font-semibold">they'll appear here</span>.
         </p>
@@ -129,7 +129,7 @@ The Empty State component helps communicate to users when there's no data to dis
 <x-spire::empty-state icon="shopping-cart" iconSize="xl">
     <div class="space-y-4 text-center">
         <h3 class="text-xl font-bold">Your cart is empty</h3>
-        <p class="text-text-muted max-w-md">
+        <p class="text-muted max-w-md">
             Looks like you haven't added any items to your cart yet.
             Start shopping to fill it up!
         </p>

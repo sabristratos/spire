@@ -193,7 +193,7 @@ class TimeSelector extends Component
         placeholder="Start"
         :minuteStep="30"
     />
-    <span class="text-text-muted">to</span>
+    <span class="text-muted">to</span>
     <x-spire::timepicker
         wire:model="endTime"
         placeholder="End"

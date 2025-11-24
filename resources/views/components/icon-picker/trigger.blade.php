@@ -58,11 +58,11 @@ $mergedAttributes = $attributes->except(['class'])->merge([
                     x-cloak
                     aria-label="{{ __('spire::spire-ui.icon-picker.clear') }}"
                 >
-                    <x-spire::icon name="x" class="w-4 h-4 text-text-muted" />
+                    <x-spire::icon name="x" class="w-4 h-4 text-muted" />
                 </button>
             @endif
 
-            <x-spire::icon name="chevron-down" class="w-4 h-4 text-text-muted transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
+            <x-spire::icon name="chevron-down" class="w-4 h-4 text-muted transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
         </div>
     </div>
 </div>

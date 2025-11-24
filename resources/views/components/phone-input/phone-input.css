@@ -45,13 +45,13 @@
 
     /* 6. Dial code display */
     .spire-phone-input-dial-code {
-        @apply text-text-muted font-medium whitespace-nowrap;
+        @apply text-muted font-medium whitespace-nowrap;
     }
 
     /* 7. Phone number input */
     .spire-phone-input-number {
         @apply flex-1 h-full px-3 bg-transparent;
-        @apply text-text placeholder:text-text-muted;
+        @apply text-text placeholder:text-muted;
         @apply transition-colors;
         @apply focus:outline-none;
         @apply min-w-0;
@@ -74,7 +74,7 @@
 
     .spire-phone-input-search-input {
         @apply w-full px-3 py-1.5 text-sm bg-surface border border-border rounded-md;
-        @apply text-text placeholder:text-text-muted;
+        @apply text-text placeholder:text-muted;
         @apply focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20;
     }
 
@@ -117,12 +117,12 @@
     }
 
     .spire-phone-input-option-dial-code {
-        @apply text-text-muted text-sm;
+        @apply text-muted text-sm;
     }
 
     /* 14. Empty state */
     .spire-phone-input-empty {
-        @apply px-3 py-2 text-center text-text-muted text-sm;
+        @apply px-3 py-2 text-center text-muted text-sm;
     }
 
     /* 15. Divider for preferred countries */
@@ -137,7 +137,7 @@
 
     /* 17. Chevron icon */
     .spire-phone-input-chevron {
-        @apply w-4 h-4 text-text-muted transition-transform;
+        @apply w-4 h-4 text-muted transition-transform;
     }
 
     .spire-phone-input-country[aria-expanded="true"] .spire-phone-input-chevron {

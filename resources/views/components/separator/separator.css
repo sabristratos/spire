@@ -113,7 +113,7 @@
 
     /* Content Styles */
     .spire-separator__content {
-        @apply text-sm text-text-muted px-3 whitespace-nowrap;
+        @apply text-sm text-muted px-3 whitespace-nowrap;
     }
 
     .spire-separator--vertical .spire-separator__content {

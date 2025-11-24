@@ -7,7 +7,7 @@
 
     /* Icon Container */
     .spire-empty-state__icon {
-        @apply flex items-center justify-center text-text-muted;
+        @apply flex items-center justify-center text-muted;
         @apply transition-colors duration-200 ease-out;
     }
 
@@ -25,7 +25,7 @@
     }
 
     .spire-empty-state__description {
-        @apply text-sm text-text-muted;
+        @apply text-sm text-muted;
     }
 
     /* Actions Section */

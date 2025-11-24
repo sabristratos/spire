@@ -81,11 +81,11 @@
 
     /* 10. Autocomplete Empty State */
     .spire-autocomplete-empty {
-        @apply px-3 py-8 text-center text-sm text-text-muted;
+        @apply px-3 py-8 text-center text-sm text-muted;
     }
 
     /* 11. Autocomplete Min Chars Message */
     .spire-autocomplete-min-chars {
-        @apply px-3 py-4 text-center text-xs text-text-muted;
+        @apply px-3 py-4 text-center text-xs text-muted;
     }
 }

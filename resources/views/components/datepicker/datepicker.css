@@ -35,7 +35,7 @@
     }
 
     .spire-datepicker-trigger__segment::placeholder {
-        @apply text-text-muted opacity-50;
+        @apply text-muted opacity-50;
     }
 
     /* 5. DatePicker Trigger Year Segment (4 digits) */
@@ -45,7 +45,7 @@
 
     /* 6. DatePicker Trigger Separator */
     .spire-datepicker-trigger__separator {
-        @apply text-text-muted font-normal select-none;
+        @apply text-muted font-normal select-none;
     }
 
     /* 7. DatePicker Trigger Size Variants for Segments */
@@ -98,11 +98,11 @@
     }
 
     .spire-datepicker-trigger__range-value--placeholder {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     .spire-datepicker-trigger__range-separator {
-        @apply text-text-muted font-normal select-none shrink-0;
+        @apply text-muted font-normal select-none shrink-0;
     }
 
     /* Range mode size variants */
@@ -129,7 +129,7 @@
     }
 
     .spire-datepicker-trigger__multiple-value {
-        @apply text-text-muted font-normal truncate block;
+        @apply text-muted font-normal truncate block;
     }
 
     .spire-datepicker-trigger__multiple-actions {
@@ -172,7 +172,7 @@
 
     /* 12. Clear Button Styles */
     .spire-datepicker-trigger__clear-btn {
-        @apply text-text-muted hover:text-error;
+        @apply text-muted hover:text-error;
         @apply transition-colors duration-150;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error;
         @apply focus-visible:ring-2 focus-visible:ring-error/20;
@@ -194,13 +194,13 @@
     .spire-datepicker__footer__input {
         @apply flex-1 h-9 px-3 text-sm rounded-md;
         @apply border border-border bg-surface;
-        @apply text-text placeholder:text-text-muted;
+        @apply text-text placeholder:text-muted;
         @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
         @apply focus-visible:outline-none;
     }
 
     .spire-datepicker__footer__separator {
-        @apply text-text-muted text-sm;
+        @apply text-muted text-sm;
     }
 
     .spire-datepicker__footer__segment-group {
@@ -216,7 +216,7 @@
         @apply text-text font-normal text-sm;
         @apply focus:bg-primary/10 focus:rounded;
         @apply focus-visible:outline-none;
-        @apply placeholder:text-text-muted placeholder:opacity-50;
+        @apply placeholder:text-muted placeholder:opacity-50;
         @apply transition-colors duration-150 ease-out;
     }
 
@@ -225,11 +225,11 @@
     }
 
     .spire-datepicker__footer__segment-separator {
-        @apply text-text-muted font-normal select-none text-sm;
+        @apply text-muted font-normal select-none text-sm;
     }
 
     .spire-datepicker__footer__range-separator {
-        @apply text-text-muted text-sm mx-1;
+        @apply text-muted text-sm mx-1;
     }
 
     .spire-datepicker__footer__actions {

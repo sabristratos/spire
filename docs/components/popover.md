@@ -182,7 +182,7 @@ Manual trigger mode for full control:
     <x-spire::popover.content size="md" padding="none">
         <div class="p-3 border-b border-border">
             <p class="font-medium">John Doe</p>
-            <p class="text-sm text-text-muted">john@example.com</p>
+            <p class="text-sm text-muted">john@example.com</p>
         </div>
         <div class="p-2">
             <a href="#" class="block px-3 py-2 rounded hover:bg-hover">Profile</a>
@@ -202,7 +202,7 @@ Manual trigger mode for full control:
     <span>Total Price</span>
     <x-spire::popover trigger="hover" placement="top">
         <x-spire::popover.trigger>
-            <x-spire::icon name="info" class="w-4 h-4 text-text-muted cursor-help" />
+            <x-spire::icon name="info" class="w-4 h-4 text-muted cursor-help" />
         </x-spire::popover.trigger>
         <x-spire::popover.content size="sm" padding="sm">
             <p class="text-sm">Includes tax and shipping fees</p>
@@ -223,7 +223,7 @@ Manual trigger mode for full control:
 
     <x-spire::popover.content size="sm">
         <p class="font-medium mb-2">Are you sure?</p>
-        <p class="text-sm text-text-muted mb-3">This action cannot be undone.</p>
+        <p class="text-sm text-muted mb-3">This action cannot be undone.</p>
         <div class="flex gap-2">
             <x-spire::button size="sm" variant="ghost" @click="hide()">
                 Cancel

@@ -157,7 +157,7 @@ Use the `label` prop to set the display text in the trigger while providing cust
                 <img src="{{ $user->avatar }}" class="w-6 h-6 rounded-full" />
                 <div>
                     <div class="font-medium">{{ $user->name }}</div>
-                    <div class="text-xs text-text-muted">{{ $user->email }}</div>
+                    <div class="text-xs text-muted">{{ $user->email }}</div>
                 </div>
             </div>
         </x-spire::select.option>

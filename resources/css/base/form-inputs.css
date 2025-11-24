@@ -52,7 +52,7 @@
        ========================================================================== */
 
     .spire-input-box--bordered {
-        @apply border border-border bg-surface-subtle shadow-xs;
+        @apply border border-border bg-surface shadow-xs;
     }
 
     .spire-input-box--flat {
@@ -75,17 +75,17 @@
        ========================================================================== */
 
     .spire-input-box--default-bordered {
-        @apply bg-surface-subtle border border-border text-text;
+        @apply bg-surface border border-border text-text;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
     .spire-input-box--primary-bordered {
-        @apply bg-surface-subtle border border-primary text-text;
+        @apply bg-surface border border-primary text-text;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
     .spire-input-box--error-bordered {
-        @apply bg-surface-subtle border border-error text-text;
+        @apply bg-surface border border-error text-text;
         @apply focus-within:border-error focus-within:ring-2 focus-within:ring-error/20;
     }
 
@@ -229,7 +229,7 @@
        ========================================================================== */
 
     .spire-empty-state {
-        @apply px-3 py-4 text-center text-sm text-text-muted;
+        @apply px-3 py-4 text-center text-sm text-muted;
     }
 
     .spire-empty-state--compact {
@@ -250,7 +250,7 @@
 
     .spire-dropdown-search-input {
         @apply w-full px-3 py-2 text-sm bg-body border border-border rounded;
-        @apply text-text placeholder:text-text-muted;
+        @apply text-text placeholder:text-muted;
         @apply focus:outline-none focus:ring-2 focus:ring-primary;
     }
 
@@ -278,7 +278,7 @@
 
     .spire-input-element {
         @apply flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 min-w-0;
-        @apply text-text placeholder:text-text-muted disabled:text-text-disabled disabled:cursor-not-allowed;
+        @apply text-text placeholder:text-muted disabled:text-text-disabled disabled:cursor-not-allowed;
     }
 
     /* ==========================================================================

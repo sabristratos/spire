@@ -107,7 +107,7 @@
                     @if($hasLeadingContent)
                         <div class="flex items-center shrink-0">
                             @if($icon)
-                                <x-spire::icon :name="$icon" class="{{ $iconSizeClass }} text-text-muted" />
+                                <x-spire::icon :name="$icon" class="{{ $iconSizeClass }} text-muted" />
                             @endif
                             @if(isset($leading))
                                 {{ $leading }}
@@ -172,7 +172,7 @@
                             @endif
 
                             @if($iconTrailing)
-                                <x-spire::icon :name="$iconTrailing" class="{{ $iconSizeClass }} text-text-muted" />
+                                <x-spire::icon :name="$iconTrailing" class="{{ $iconSizeClass }} text-muted" />
                             @endif
                         </div>
                     @endif

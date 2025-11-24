@@ -63,7 +63,7 @@ $wrapperClasses = 'spire-autocomplete-input-wrapper';
             :aria-label="clearLabel"
             tabindex="-1"
         >
-            <x-spire::icon name="x" class="w-4 h-4 text-text-muted" />
+            <x-spire::icon name="x" class="w-4 h-4 text-muted" />
         </button>
     @endif
 </div>

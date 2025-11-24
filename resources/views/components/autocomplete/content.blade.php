@@ -67,11 +67,11 @@ $mergedAttributes = $attributes->except(['class'])->merge([
                     </div>
                 </template>
 
-                <div x-show="filteredOptions.length === 0 && inputValue.length >= minChars" class="px-3 py-8 text-center text-sm text-text-muted">
+                <div x-show="filteredOptions.length === 0 && inputValue.length >= minChars" class="px-3 py-8 text-center text-sm text-muted">
                     {{ __('spire::spire-ui.autocomplete.no_results') }}
                 </div>
 
-                <div x-show="inputValue.length > 0 && inputValue.length < minChars" class="px-3 py-4 text-center text-xs text-text-muted">
+                <div x-show="inputValue.length > 0 && inputValue.length < minChars" class="px-3 py-4 text-center text-xs text-muted">
                     {{ __('spire::spire-ui.autocomplete.min_chars_message', ['count' => ':minChars']) }}
                 </div>
             </div>

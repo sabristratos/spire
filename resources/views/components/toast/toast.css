@@ -89,7 +89,7 @@
     }
 
     .spire-toast__icon {
-        @apply flex-shrink-0 mt-0.5;
+        @apply flex-shrink-0;
     }
 
     /* Icon colors for both variants */
@@ -115,7 +115,7 @@
 
     .spire-toast--default-soft .spire-toast__icon,
     .spire-toast--default-solid .spire-toast__icon {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     .spire-toast__text {
@@ -127,7 +127,7 @@
     }
 
     .spire-toast__message {
-        @apply text-sm text-text-muted;
+        @apply text-sm text-muted;
     }
 
     .spire-toast__dismiss {

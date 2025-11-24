@@ -41,7 +41,7 @@
     }
 
     .spire-file-upload__zone-hint {
-        @apply text-xs text-text-muted;
+        @apply text-xs text-muted;
     }
 
     .spire-file-upload__zone-hint::before {
@@ -50,7 +50,7 @@
     }
 
     .spire-file-upload__zone-secondary {
-        @apply text-xs text-text-muted;
+        @apply text-xs text-muted;
     }
 
     .spire-file-upload__zone-button {
@@ -69,7 +69,7 @@
     }
 
     .spire-file-upload__divider-text {
-        @apply text-xs text-text-muted;
+        @apply text-xs text-muted;
     }
 
     .spire-file-upload__url {
@@ -90,7 +90,7 @@
     }
 
     .spire-file-upload__section-label {
-        @apply text-xs font-medium text-text-muted uppercase tracking-wide mb-2;
+        @apply text-xs font-medium text-muted uppercase tracking-wide mb-2;
     }
 
     .spire-file-upload__list {
@@ -156,7 +156,7 @@
     }
 
     .spire-file-upload__item-size {
-        @apply text-xs text-text-muted;
+        @apply text-xs text-muted;
     }
 
     .spire-file-upload__item-status {
@@ -224,7 +224,7 @@
     }
 
     .spire-file-upload__preview-icon {
-        @apply w-5 h-5 text-text-muted;
+        @apply w-5 h-5 text-muted;
     }
 
     .spire-file-upload__preview-info {
@@ -236,7 +236,7 @@
     }
 
     .spire-file-upload__preview-size {
-        @apply text-xs text-text-muted;
+        @apply text-xs text-muted;
     }
 
     .spire-file-upload__preview-error {

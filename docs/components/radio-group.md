@@ -147,7 +147,7 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="starter" name="pricing">
         <div class="flex flex-col">
             <span class="font-semibold">Starter</span>
-            <span class="text-sm text-text-muted">Perfect for individuals</span>
+            <span class="text-sm text-muted">Perfect for individuals</span>
             <span class="text-sm font-bold text-primary">$0/month</span>
         </div>
     </x-spire::radio>
@@ -155,7 +155,7 @@ The Radio Group component provides a structured container for organizing related
     <x-spire::radio value="pro" name="pricing">
         <div class="flex flex-col">
             <span class="font-semibold">Pro</span>
-            <span class="text-sm text-text-muted">Best for small teams</span>
+            <span class="text-sm text-muted">Best for small teams</span>
             <span class="text-sm font-bold text-primary">$29/month</span>
         </div>
     </x-spire::radio>

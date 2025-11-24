@@ -351,7 +351,7 @@ The Table component consists of multiple sub-components:
                         />
                         <div>
                             <div class="font-medium text-text">{{ $user->name }}</div>
-                            <div class="text-sm text-text-muted">{{ $user->email }}</div>
+                            <div class="text-sm text-muted">{{ $user->email }}</div>
                         </div>
                     </div>
                 </x-spire::table.cell>
@@ -595,7 +595,7 @@ Enable responsive mode to automatically switch from table layout to card layout 
 >
     <x-slot:topContent>
         <div class="flex items-center justify-between">
-            <span class="text-sm text-text-muted">
+            <span class="text-sm text-muted">
                 {{ count($selectedRows) }} selected
             </span>
             <x-spire::button
@@ -648,7 +648,7 @@ Enable responsive mode to automatically switch from table layout to card layout 
                 <x-spire::table.cell>
                     <div>
                         <div class="font-medium text-text">{{ $product['name'] }}</div>
-                        <div class="text-sm text-text-muted">{{ $product['sku'] }}</div>
+                        <div class="text-sm text-muted">{{ $product['sku'] }}</div>
                     </div>
                 </x-spire::table.cell>
                 <x-spire::table.cell>

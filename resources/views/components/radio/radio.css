@@ -161,7 +161,7 @@
     }
 
     .spire-radio-description {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     .spire-radio-description--sm {
@@ -268,7 +268,7 @@
     }
 
     .spire-radio-group-description {
-        @apply text-sm text-text-muted;
+        @apply text-sm text-muted;
         @apply -mt-2;
     }
 
@@ -297,7 +297,7 @@
     }
 
     .spire-radio-group-helper {
-        @apply text-sm text-text-muted;
+        @apply text-sm text-muted;
     }
 
     .spire-radio-group-error {

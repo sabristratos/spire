@@ -62,7 +62,7 @@
     }
 
     .spire-data-list-label--muted {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     .spire-data-list-label--primary {
@@ -112,7 +112,7 @@
         }
 
         .spire-data-list--horizontal .spire-data-list-value {
-            @apply text-text-muted;
+            @apply text-muted;
         }
     }
 }

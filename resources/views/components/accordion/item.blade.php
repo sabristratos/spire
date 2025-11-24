@@ -76,7 +76,7 @@ $mergedAttributes = $attributes->merge([
                 @endif
 
                 @if($subtitle || isset($subtitleSlot))
-                    <div class="text-sm text-text-muted mt-1">
+                    <div class="text-sm text-muted mt-1">
                         {{ $subtitleSlot ?? $subtitle }}
                     </div>
                 @endif
@@ -90,7 +90,7 @@ $mergedAttributes = $attributes->merge([
                 @else
                     <x-spire::icon
                         name="{{ $icon }}"
-                        class="w-5 h-5 text-text-muted transition-transform duration-300 ease-out"
+                        class="w-5 h-5 text-muted transition-transform duration-300 ease-out"
                         x-bind:class="{ 'rotate-180': allowMultiple ? open : (openItem === {{ $index}}) }"
                     />
                 @endif

@@ -161,7 +161,7 @@ Full-width card with rich content:
     label="Pro Plan"
     description="$29/month with all features included"
 >
-    <ul class="text-sm text-text-muted list-disc pl-4 mt-2">
+    <ul class="text-sm text-muted list-disc pl-4 mt-2">
         <li>Unlimited projects</li>
         <li>Priority support</li>
         <li>Advanced analytics</li>

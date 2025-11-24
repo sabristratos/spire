@@ -136,7 +136,7 @@
 
     /* Label outside (to the right) */
     .spire-progress--label-outside {
-        @apply absolute -right-12 top-1/2 -translate-y-1/2 text-text-muted;
+        @apply absolute -right-12 top-1/2 -translate-y-1/2 text-muted;
     }
 
     /* Label top wrapper */
@@ -149,7 +149,7 @@
     }
 
     .spire-progress--label-top {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     /* =============================================================================

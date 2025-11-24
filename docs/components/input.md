@@ -89,7 +89,7 @@ Icon props and slots work together - they don't override each other:
     wire:model.live="query"
 >
     <x-slot:trailing>
-        <kbd class="text-xs text-text-muted">⌘K</kbd>
+        <kbd class="text-xs text-muted">⌘K</kbd>
     </x-slot:trailing>
 </x-spire::input>
 {{-- Renders: search icon | input | ⌘K + clear button --}}
@@ -101,7 +101,7 @@ Icon props and slots work together - they don't override each other:
     placeholder="Select country..."
 >
     <x-slot:trailing>
-        <span class="text-xs text-text-muted">USD</span>
+        <span class="text-xs text-muted">USD</span>
     </x-slot:trailing>
 </x-spire::input>
 {{-- Renders: globe icon | input | USD + chevron-down icon --}}
@@ -156,7 +156,7 @@ Icon props and slots work together - they don't override each other:
     wire:model="query"
 >
     <x-slot:leading>
-        <x-spire::icon name="search-md" class="w-5 h-5 text-text-muted" />
+        <x-spire::icon name="search-md" class="w-5 h-5 text-muted" />
     </x-slot:leading>
 </x-spire::input>
 ```
@@ -174,7 +174,7 @@ Icon props and slots work together - they don't override each other:
         <button
             type="button"
             @click="value = ''"
-            class="text-text-muted hover:text-text ease-fast"
+            class="text-muted hover:text-text ease-fast"
             x-show="value"
         >
             <x-spire::icon name="x-close" class="w-4 h-4" />
@@ -196,7 +196,7 @@ Icon props and slots work together - they don't override each other:
             <button
                 type="button"
                 @click="showPassword = !showPassword"
-                class="text-text-muted hover:text-text ease-fast"
+                class="text-muted hover:text-text ease-fast"
             >
                 <x-spire::icon x-show="!showPassword" name="eye" class="w-5 h-5" />
                 <x-spire::icon x-show="showPassword" name="eye-off" class="w-5 h-5" />
@@ -216,7 +216,7 @@ Icon props and slots work together - they don't override each other:
     x-data="{ value: @entangle('search') }"
 >
     <x-slot:leading>
-        <x-spire::icon name="search-md" class="w-5 h-5 text-text-muted" />
+        <x-spire::icon name="search-md" class="w-5 h-5 text-muted" />
     </x-slot:leading>
 
     <x-slot:trailing>
@@ -224,7 +224,7 @@ Icon props and slots work together - they don't override each other:
             type="button"
             @click="value = ''"
             x-show="value"
-            class="text-text-muted hover:text-text"
+            class="text-muted hover:text-text"
         >
             <x-spire::icon name="x-close" class="w-4 h-4" />
         </button>

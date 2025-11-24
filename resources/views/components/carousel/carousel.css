@@ -141,7 +141,7 @@
 .spire-carousel--indicators-numbers .spire-carousel__indicator {
     @apply size-6 rounded-full text-xs font-medium;
     @apply flex items-center justify-center;
-    @apply bg-transparent text-text-muted;
+    @apply bg-transparent text-muted;
 
     &[aria-current="true"],
     &[data-spire-carousel-active="true"] {
@@ -212,7 +212,7 @@
 .spire-carousel-indicators--numbers .spire-carousel-indicators__item {
     @apply size-6 rounded-full text-xs font-medium;
     @apply flex items-center justify-center;
-    @apply bg-transparent text-text-muted;
+    @apply bg-transparent text-muted;
 
     &[aria-current="true"],
     &[data-spire-carousel-active="true"] {

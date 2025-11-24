@@ -287,7 +287,7 @@ window.dispatchEvent(new CustomEvent('file-progress', {
     <div>
         <div class="flex justify-between mb-1">
             <span class="text-sm font-medium">Uploading files...</span>
-            <span class="text-sm text-text-muted">3/10</span>
+            <span class="text-sm text-muted">3/10</span>
         </div>
         <x-spire::progress :value="30" color="info" />
     </div>
@@ -299,7 +299,7 @@ window.dispatchEvent(new CustomEvent('file-progress', {
 ```blade
 <div class="mb-6">
     <x-spire::progress :value="$step * 25" :max="100" color="primary" />
-    <div class="flex justify-between mt-2 text-sm text-text-muted">
+    <div class="flex justify-between mt-2 text-sm text-muted">
         <span>Step {{ $step }} of 4</span>
         <span>{{ $step * 25 }}%</span>
     </div>
@@ -313,7 +313,7 @@ window.dispatchEvent(new CustomEvent('file-progress', {
     <x-spire::progress.circular :value="$downloadProgress" :size="48" color="success" />
     <div>
         <p class="font-medium">Downloading...</p>
-        <p class="text-sm text-text-muted">{{ $downloadedMB }} / {{ $totalMB }} MB</p>
+        <p class="text-sm text-muted">{{ $downloadedMB }} / {{ $totalMB }} MB</p>
     </div>
 </div>
 ```
@@ -345,7 +345,7 @@ window.dispatchEvent(new CustomEvent('file-progress', {
         <div>
             <div class="flex justify-between mb-1">
                 <span class="text-sm font-medium">{{ $skill }}</span>
-                <span class="text-sm text-text-muted">{{ $level }}%</span>
+                <span class="text-sm text-muted">{{ $level }}%</span>
             </div>
             <x-spire::progress :value="$level" variant="gradient" color="primary" size="sm" />
         </div>

@@ -271,7 +271,7 @@ Semantic tokens generate utilities that automatically adapt to light/dark mode:
 
 {{-- Text --}}
 <h1 class="text-text">Primary heading</h1>
-<p class="text-text-muted">Secondary text</p>
+<p class="text-muted">Secondary text</p>
 <span class="text-text-disabled">Disabled text</span>
 
 {{-- Borders --}}

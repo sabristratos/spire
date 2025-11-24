@@ -17,7 +17,7 @@
     }
 
     .spire-slider-icon {
-        @apply text-text-muted shrink-0;
+        @apply text-muted shrink-0;
         @apply transition-colors duration-150;
     }
 
@@ -201,7 +201,7 @@
     }
 
     .spire-slider-mark-label {
-        @apply text-xs text-text-muted mt-2;
+        @apply text-xs text-muted mt-2;
         @apply transition-colors duration-150;
     }
 
@@ -219,7 +219,7 @@
     }
 
     .spire-slider-value {
-        @apply text-sm text-text-muted tabular-nums ml-auto;
+        @apply text-sm text-muted tabular-nums ml-auto;
     }
 
     .spire-slider-inputs {
@@ -241,7 +241,7 @@
     }
 
     .spire-slider-input-separator {
-        @apply text-sm text-text-muted;
+        @apply text-sm text-muted;
     }
 
     .spire-slider--with-marks .spire-slider-container {

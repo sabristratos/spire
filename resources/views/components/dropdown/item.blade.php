@@ -49,6 +49,6 @@
 <span class="flex-1 text-left">{{ $slot }}</span>
 
 @if($shortcut)
-    <span class="text-xs text-text-muted shrink-0">{{ $shortcut }}</span>
+    <span class="text-xs text-muted shrink-0">{{ $shortcut }}</span>
 @endif
 </{{ $tag }}>

@@ -66,7 +66,7 @@ $mergedAttributes = $attributes->except(['class'])->merge([
             @if($multiple)
                 {{-- Multiselect controls header --}}
                 <div class="spire-select-actions" x-show="displayOptions.length > 0">
-                    <span class="text-xs text-text-muted" x-text="selectedValues.length + ' / ' + selectableOptions.length + ' {{ __('spire::spire-ui.select.selected') }}'"></span>
+                    <span class="text-xs text-muted" x-text="selectedValues.length + ' / ' + selectableOptions.length + ' {{ __('spire::spire-ui.select.selected') }}'"></span>
 
                     <div class="flex items-center gap-1">
                         <button
@@ -78,12 +78,12 @@ $mergedAttributes = $attributes->except(['class'])->merge([
                             x-text="selectAllText"
                         ></button>
 
-                        <span class="text-text-muted">|</span>
+                        <span class="text-muted">|</span>
 
                         <button
                             type="button"
                             @click="clearAll"
-                            class="px-2 py-1 text-xs font-medium text-text-muted hover:bg-hover rounded transition-colors"
+                            class="px-2 py-1 text-xs font-medium text-muted hover:bg-hover rounded transition-colors"
                             :disabled="selectedValues.length === 0"
                             :class="{ 'opacity-50 cursor-not-allowed': selectedValues.length === 0 }"
                             x-text="clearAllText"

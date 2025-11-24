@@ -118,7 +118,7 @@
 
     /* 16. Description Text */
     .spire-switch-description {
-        @apply text-xs text-text-muted;
+        @apply text-xs text-muted;
     }
 
     /* 17. Focus Styles */

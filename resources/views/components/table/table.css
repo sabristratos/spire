@@ -171,7 +171,7 @@
     }
 
     .spire-table-sort-icon {
-        @apply w-4 h-4 text-text-muted transition-transform;
+        @apply w-4 h-4 text-muted transition-transform;
     }
 
     .spire-table-sort-icon--asc {
@@ -300,11 +300,11 @@
     }
 
     .spire-table-empty-icon {
-        @apply w-16 h-16 text-text-muted mb-4;
+        @apply w-16 h-16 text-muted mb-4;
     }
 
     .spire-table-empty-message {
-        @apply text-text-muted text-center;
+        @apply text-muted text-center;
     }
 
     .spire-table-loading-skeleton {
@@ -387,7 +387,7 @@
 
             .spire-table-cell[data-spire-label]::before {
                 content: attr(data-spire-label);
-                @apply shrink-0 text-sm font-medium text-text-muted;
+                @apply shrink-0 text-sm font-medium text-muted;
                 min-width: 100px;
             }
 
@@ -464,7 +464,7 @@
 
             .spire-table-cell[data-spire-label]::before {
                 content: attr(data-spire-label);
-                @apply shrink-0 text-sm font-medium text-text-muted;
+                @apply shrink-0 text-sm font-medium text-muted;
                 min-width: 100px;
             }
 
@@ -541,7 +541,7 @@
 
             .spire-table-cell[data-spire-label]::before {
                 content: attr(data-spire-label);
-                @apply shrink-0 text-sm font-medium text-text-muted;
+                @apply shrink-0 text-sm font-medium text-muted;
                 min-width: 100px;
             }
 

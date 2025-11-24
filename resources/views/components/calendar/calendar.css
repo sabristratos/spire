@@ -22,7 +22,7 @@
 
     /* 4. Calendar Day Header */
     .spire-calendar-day-header {
-        @apply text-xs font-normal text-text-muted text-center py-2;
+        @apply text-xs font-normal text-muted text-center py-2;
     }
 
     /* 5. Calendar Day Cell Base */
@@ -79,7 +79,7 @@
 
     /* 16. Calendar Day - Outside Current Month */
     [data-spire-outside-month="true"].spire-calendar-day {
-        @apply text-text-muted opacity-40;
+        @apply text-muted opacity-40;
     }
 
     /* 17. Calendar Day - Disabled */

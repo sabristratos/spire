@@ -205,7 +205,7 @@ html:has(dialog[open]) {
     .spire-modal__close {
         @apply inline-flex items-center justify-center;
         @apply w-8 h-8 rounded-md;
-        @apply text-text-muted hover:text-text;
+        @apply text-muted hover:text-text;
         @apply hover:bg-hover;
         @apply transition-colors;
         @apply border-0 bg-transparent cursor-pointer;

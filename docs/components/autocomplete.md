@@ -110,7 +110,7 @@ Use the `label` prop to define what shows in the input when selected:
                 <img src="{{ $user->avatar }}" class="w-6 h-6 rounded-full" alt="" />
                 <div>
                     <div class="font-medium">{{ $user->name }}</div>
-                    <div class="text-xs text-text-muted">{{ $user->email }}</div>
+                    <div class="text-xs text-muted">{{ $user->email }}</div>
                 </div>
             </div>
         </x-spire::autocomplete.option>

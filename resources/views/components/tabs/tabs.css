@@ -95,7 +95,7 @@
     @apply transition-colors duration-150;
     @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
     @apply disabled:pointer-events-none;
-    @apply bg-transparent text-text-muted;
+    @apply bg-transparent text-muted;
     flex-shrink: 0;
 
     &[aria-disabled="true"] {

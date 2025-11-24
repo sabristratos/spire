@@ -33,7 +33,7 @@
     }
 
     .spire-timepicker-trigger__segment::placeholder {
-        @apply text-text-muted opacity-50;
+        @apply text-muted opacity-50;
     }
 
     /* 5. TimePicker Trigger Period Segment (AM/PM) */
@@ -44,7 +44,7 @@
 
     /* 6. TimePicker Trigger Separator */
     .spire-timepicker-trigger__separator {
-        @apply text-text-muted font-normal select-none;
+        @apply text-muted font-normal select-none;
     }
 
     /* 7. TimePicker Trigger Size Variants for Segments */
@@ -91,7 +91,7 @@
 
     /* 11. TimePicker Column Header */
     .spire-timepicker-column__header {
-        @apply text-xs font-semibold text-text-muted uppercase tracking-wide text-center mb-2;
+        @apply text-xs font-semibold text-muted uppercase tracking-wide text-center mb-2;
     }
 
     /* 12. TimePicker Column Selection Indicator */

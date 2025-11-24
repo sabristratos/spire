@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.13] - 2025-11-24
+
+### Fixed
+- Fixed badge container attribute merging to use cleaner ComponentAttributeBag approach instead of manual array spreading
+- Fixed badge indicator CSS positioning to use true edge positioning (top-0, bottom-0) instead of inset positioning (top-1, bottom-1)
+- Added missing badge indicator color variant CSS classes for all semantic colors (primary, secondary, success, error, warning, info, featured)
+- Fixed button ghost variant text colors to use correct semantic colors (text-muted for default, semantic text colors for colored variants)
+- Fixed toast icon alignment by removing unnecessary margin offset when no title is present
+
 ## [1.1.12] - 2025-11-24
 
 ### Fixed

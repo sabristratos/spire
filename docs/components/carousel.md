@@ -213,11 +213,11 @@ Then use them in your carousel:
                     size="lg"
                     class="mx-auto mb-4"
                 />
-                <p class="text-lg italic text-text-muted mb-4">
+                <p class="text-lg italic text-muted mb-4">
                     "{{ $testimonial->content }}"
                 </p>
                 <p class="font-semibold">{{ $testimonial->name }}</p>
-                <p class="text-sm text-text-muted">{{ $testimonial->title }}</p>
+                <p class="text-sm text-muted">{{ $testimonial->title }}</p>
             </x-spire::card>
         </x-spire::carousel.slide>
     @endforeach
@@ -264,7 +264,7 @@ For use inside card components:
     </x-spire::carousel>
     <div class="p-4">
         <h3 class="font-semibold">{{ $title }}</h3>
-        <p class="text-text-muted">{{ $description }}</p>
+        <p class="text-muted">{{ $description }}</p>
     </div>
 </x-spire::card>
 ```

@@ -63,7 +63,7 @@
 
     /* 3. Link & Text Styles */
     .spire-breadcrumbs__link {
-        @apply inline-flex items-center gap-1.5 text-text-muted hover:text-text transition-colors;
+        @apply inline-flex items-center gap-1.5 text-muted hover:text-text transition-colors;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:rounded-sm;
     }
 
@@ -83,11 +83,11 @@
 
     /* 5. Separator Styles */
     .spire-breadcrumbs__separator {
-        @apply flex items-center text-text-muted select-none;
+        @apply flex items-center text-muted select-none;
     }
 
     .spire-breadcrumbs__separator-text {
-        @apply text-text-muted;
+        @apply text-muted;
     }
 
     /* 6. Collapse/Ellipsis Styles */
@@ -96,7 +96,7 @@
     }
 
     .spire-breadcrumbs__collapse-trigger {
-        @apply inline-flex items-center justify-center text-text-muted hover:text-text hover:bg-hover rounded px-1 py-0.5 transition-colors;
+        @apply inline-flex items-center justify-center text-muted hover:text-text hover:bg-hover rounded px-1 py-0.5 transition-colors;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
     }
 
@@ -105,7 +105,7 @@
     }
 
     .spire-breadcrumbs__collapse-item {
-        @apply flex items-center gap-2 w-full px-3 py-2 text-left text-text-muted hover:text-text hover:bg-hover rounded transition-colors;
+        @apply flex items-center gap-2 w-full px-3 py-2 text-left text-muted hover:text-text hover:bg-hover rounded transition-colors;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
     }
 

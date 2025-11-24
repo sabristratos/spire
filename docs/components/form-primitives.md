@@ -38,7 +38,7 @@ Semantic label component with size variants and required indicator.
 {{-- With custom content --}}
 <x-spire::form.label for="username">
     Username
-    <span class="text-text-muted text-xs">(publicly visible)</span>
+    <span class="text-muted text-xs">(publicly visible)</span>
 </x-spire::form.label>
 
 {{-- Different sizes --}}
@@ -160,7 +160,7 @@ Using all primitives together for full layout control:
                 placeholder="you@example.com"
             >
                 <x-slot:leading>
-                    <x-spire::icon name="mail" class="w-5 h-5 text-text-muted" />
+                    <x-spire::icon name="mail" class="w-5 h-5 text-muted" />
                 </x-slot:leading>
             </x-spire::input>
         </div>
@@ -191,7 +191,7 @@ Using all primitives together for full layout control:
                     <button
                         type="button"
                         @click="showPassword = !showPassword"
-                        class="text-text-muted hover:text-text"
+                        class="text-muted hover:text-text"
                     >
                         <x-spire::icon x-show="!showPassword" name="eye" class="w-5 h-5" />
                         <x-spire::icon x-show="showPassword" name="eye-off" class="w-5 h-5" />
