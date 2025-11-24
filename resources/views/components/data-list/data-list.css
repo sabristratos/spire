@@ -96,7 +96,7 @@
 
     /* Vertical orientation value adjustments */
     .spire-data-list--vertical .spire-data-list-value {
-        @apply text-text-muted;
+        @apply text-text;
     }
 
     /* Container query - switch horizontal to vertical on small containers */

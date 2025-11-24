@@ -23,18 +23,20 @@ use SpireUI\Support\ComponentClass;
         'class' => 'spire-badge__container',
         'data-spire-badge-container' => 'true',
     ]);
+
+    $indicatorAttributes = new \Illuminate\View\ComponentAttributeBag([
+        'class' => $indicatorBuilder->build(),
+        'data-spire-badge-indicator' => 'true',
+        'data-spire-placement' => $placement,
+        ...$indicatorBuilder->getDataAttributes(),
+    ]);
 @endphp
 
 <span {{ $containerAttributes }}>
     {{ $slot }}
 
     @if($content || $isDot)
-        <span
-            class="{{ $indicatorBuilder->build() }}"
-            data-spire-badge-indicator="true"
-            data-spire-placement="{{ $placement }}"
-            {!! implode(' ', array_map(fn($k, $v) => "{$k}=\"{$v}\"", array_keys($indicatorBuilder->getDataAttributes()), $indicatorBuilder->getDataAttributes())) !!}
-        >
+        <span {{ $indicatorAttributes }}>
             @if(!$isDot && $content)
                 {{ $content }}
             @endif

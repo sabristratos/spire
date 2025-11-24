@@ -114,16 +114,16 @@
 
     /* Placements */
     .spire-badge__indicator--top-right {
-        @apply top-1 right-1 translate-x-1/2 -translate-y-1/2;
+        @apply top-0 right-0 translate-x-1/2 -translate-y-1/2;
     }
     .spire-badge__indicator--top-left {
-        @apply top-1 left-1 -translate-x-1/2 -translate-y-1/2;
+        @apply top-0 left-0 -translate-x-1/2 -translate-y-1/2;
     }
     .spire-badge__indicator--bottom-right {
-        @apply bottom-1 right-1 translate-x-1/2 translate-y-1/2;
+        @apply bottom-0 right-0 translate-x-1/2 translate-y-1/2;
     }
     .spire-badge__indicator--bottom-left {
-        @apply bottom-1 left-1 -translate-x-1/2 translate-y-1/2;
+        @apply bottom-0 left-0 -translate-x-1/2 translate-y-1/2;
     }
 
     /* Indicator Sizes - Dot */
@@ -146,6 +146,32 @@
     }
     .spire-badge__indicator--lg:not(.spire-badge__indicator--dot) {
         @apply min-w-6 h-6 text-sm px-2;
+    }
+
+    /* Indicator Color Variants - Solid */
+    .spire-badge__indicator--default-solid {
+        @apply bg-neutral text-white;
+    }
+    .spire-badge__indicator--primary-solid {
+        @apply bg-primary text-primary-foreground;
+    }
+    .spire-badge__indicator--secondary-solid {
+        @apply bg-secondary text-secondary-foreground;
+    }
+    .spire-badge__indicator--success-solid {
+        @apply bg-success text-success-foreground;
+    }
+    .spire-badge__indicator--error-solid {
+        @apply bg-error text-error-foreground;
+    }
+    .spire-badge__indicator--warning-solid {
+        @apply bg-warning text-warning-foreground;
+    }
+    .spire-badge__indicator--info-solid {
+        @apply bg-info text-info-foreground;
+    }
+    .spire-badge__indicator--featured-solid {
+        @apply bg-featured text-featured-foreground;
     }
 
     /* Indicator Outline */

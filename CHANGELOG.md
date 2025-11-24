@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.10] - 2025-11-24
+
+### Changed
+- Rebuilt assets
+
 ## [1.1.9] - 2025-11-24
 
 ### Fixed
@@ -189,7 +194,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.9...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.10...HEAD
+[1.1.10]: https://github.com/sabristratos/spire/compare/v1.1.9...v1.1.10
 [1.1.9]: https://github.com/sabristratos/spire/compare/v1.1.8...v1.1.9
 [1.1.8]: https://github.com/sabristratos/spire/compare/v1.1.7...v1.1.8
 [1.1.7]: https://github.com/sabristratos/spire/compare/v1.1.6...v1.1.7
