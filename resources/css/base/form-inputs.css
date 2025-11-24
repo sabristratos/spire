@@ -75,17 +75,17 @@
        ========================================================================== */
 
     .spire-input-box--default-bordered {
-        @apply bg-surface border border-border text-text;
+        @apply bg-surface border border-border text-text shadow-xs;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
     .spire-input-box--primary-bordered {
-        @apply bg-surface border border-primary text-text;
+        @apply bg-surface border border-primary text-text shadow-xs;
         @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20;
     }
 
     .spire-input-box--error-bordered {
-        @apply bg-surface border border-error text-text;
+        @apply bg-surface border border-error text-text shadow-xs;
         @apply focus-within:border-error focus-within:ring-2 focus-within:ring-error/20;
     }
 

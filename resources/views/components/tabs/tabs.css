@@ -85,7 +85,7 @@
 }
 
 .spire-tabs-cursor--bordered {
-    @apply rounded-md bg-surface border border-border shadow-sm;
+    @apply rounded-md bg-surface border border-border shadow-xs inset-shadow-button;
 }
 
 /* Tab trigger button */
@@ -109,15 +109,15 @@
 
 /* Size variants */
 .spire-tabs-trigger--sm {
-    @apply px-3 py-1.5 text-sm;
+    @apply h-8 px-3 text-sm;
 }
 
 .spire-tabs-trigger--md {
-    @apply px-4 py-2 text-sm;
+    @apply h-10 px-4 text-sm;
 }
 
 .spire-tabs-trigger--lg {
-    @apply px-6 py-3 text-base;
+    @apply h-12 px-6 text-base;
 }
 
 /* Default variant */

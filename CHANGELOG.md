@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.15] - 2025-11-24
+
+### Added
+- Added dropdown bounce animation to popover content
+- Added x-cloak directive to popover content to prevent flash of unstyled content
+
 ## [1.1.14] - 2025-11-24
 
 ### Fixed

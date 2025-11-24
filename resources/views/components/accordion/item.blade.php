@@ -48,6 +48,7 @@ $mergedAttributes = $attributes->merge([
             }
         }
     }"
+    x-cloak
     role="region">
     <button
         type="button"

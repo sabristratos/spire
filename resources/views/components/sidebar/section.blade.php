@@ -14,6 +14,7 @@
         id: @js($id),
         persist: @js($persist)
     })"
+    x-cloak
     data-spire-sidebar-section
 >
     @if($title && $collapsible)

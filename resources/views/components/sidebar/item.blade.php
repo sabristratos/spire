@@ -54,6 +54,7 @@ $tag = ($href && !$disabled && !$hasChildren) ? 'a' : 'button';
         id: @js($id),
         persist: @js($persist)
     })"
+    x-cloak
     data-spire-sidebar-item-wrapper
 >
     <{{ $tag }}

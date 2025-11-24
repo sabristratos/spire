@@ -7,6 +7,7 @@
 <div
     x-data="spireOverlay({ type: '{{ $type }}', trigger: '{{ $trigger }}' })"
     x-id="['popover']"
+    x-cloak
     wire:ignore.self
     {{ $attributes }}
 >

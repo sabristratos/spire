@@ -41,6 +41,7 @@
 <div
     :id="$id('popover')"
     x-ref="content"
+    x-cloak
     @toggle="handleToggle"
     {{ $mergedAttributes }}
 >

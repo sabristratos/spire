@@ -10,6 +10,7 @@
 
 <div
     x-data="spireToast({ position: '{{ $position }}', duration: {{ $duration }}, variant: '{{ $variant }}' })"
+    x-cloak
     {{ $attributes }}
 >
     <template x-for="toast in toasts" :key="toast.id">

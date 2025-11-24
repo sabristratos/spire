@@ -173,7 +173,7 @@ function W(i = {}) {
      */
     init() {
       this.$nextTick(() => {
-        this.setupPopover(), this.setupAnchor(), this.setupEventListeners(), this.setupTriggerMode(), this.setupFocusTrap(), i.onInit?.call(this);
+        this.setupPopover(), this.setupAnchor(), this.setupEventListeners(), this.setupTriggerMode(), this.setupFocusTrap(), this.setupLivewireCompat(), i.onInit?.call(this);
       });
     },
     /**
@@ -183,6 +183,25 @@ function W(i = {}) {
      */
     setupFocusTrap() {
       !i.trapFocus || !this.$refs.content || !this.$refs.trigger || (this.focusTrap = xh(this.$refs.content, this.$refs.trigger));
+    },
+    /**
+     * Setup Livewire compatibility.
+     *
+     * Hooks into Livewire's morph lifecycle to re-establish anchor
+     * positioning after DOM updates when using wire:ignore.self.
+     *
+     * @returns {void}
+     */
+    setupLivewireCompat() {
+      if (typeof Livewire > "u") return;
+      const e = this.$el.closest("[wire\\:id]");
+      if (!e) return;
+      const t = e.getAttribute("wire:id");
+      this._livewireCleanup = Livewire.hook("morphed", ({ component: n }) => {
+        n.id === t && this.$nextTick(() => {
+          this.setupAnchor();
+        });
+      });
     },
     /**
      * Setup popover element (reserved for future use).
@@ -324,7 +343,7 @@ function W(i = {}) {
      * @returns {void}
      */
     destroy() {
-      this.clearHoverTimer(), this.focusTrap?.deactivate();
+      this.clearHoverTimer(), this.focusTrap?.deactivate(), this._livewireCleanup?.();
     },
     ...i.extend
   };

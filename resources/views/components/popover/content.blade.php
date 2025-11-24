@@ -10,7 +10,8 @@ use SpireUI\Support\ComponentClass;
 
 $builder = ComponentClass::make('popover')
     ->modifier($size)
-    ->modifier("padding-{$padding}");
+    ->modifier("padding-{$padding}")
+    ->addClass('animate-dropdown-bounce');
 
 if ($customClass = $attributes->get('class')) {
     $builder->addClass($customClass);
@@ -27,6 +28,7 @@ $mergedAttributes = $attributes->merge([
 <div
     :id="$id('popover')"
     x-ref="content"
+    x-cloak
     {{ $mergedAttributes }}
 >
     {{ $slot }}

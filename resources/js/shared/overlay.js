@@ -173,6 +173,7 @@ export function overlay(options = {}) {
                 this.setupEventListeners();
                 this.setupTriggerMode();
                 this.setupFocusTrap();
+                this.setupLivewireCompat();
 
                 options.onInit?.call(this);
             });
@@ -187,6 +188,31 @@ export function overlay(options = {}) {
             if (!options.trapFocus || !this.$refs.content || !this.$refs.trigger) return;
 
             this.focusTrap = createFocusTrap(this.$refs.content, this.$refs.trigger);
+        },
+
+        /**
+         * Setup Livewire compatibility.
+         *
+         * Hooks into Livewire's morph lifecycle to re-establish anchor
+         * positioning after DOM updates when using wire:ignore.self.
+         *
+         * @returns {void}
+         */
+        setupLivewireCompat() {
+            if (typeof Livewire === 'undefined') return;
+
+            const wireEl = this.$el.closest('[wire\\:id]');
+            if (!wireEl) return;
+
+            const componentId = wireEl.getAttribute('wire:id');
+
+            this._livewireCleanup = Livewire.hook('morphed', ({ component }) => {
+                if (component.id !== componentId) return;
+
+                this.$nextTick(() => {
+                    this.setupAnchor();
+                });
+            });
         },
 
         /**
@@ -385,6 +411,7 @@ export function overlay(options = {}) {
         destroy() {
             this.clearHoverTimer();
             this.focusTrap?.deactivate();
+            this._livewireCleanup?.();
         },
 
         ...options.extend
