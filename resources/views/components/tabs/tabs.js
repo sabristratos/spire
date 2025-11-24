@@ -44,7 +44,24 @@ export function tabsComponent(config = {}) {
                 this.morphHandler = () => {
                     this.$nextTick(() => {
                         this.updateTabsAndPanels();
-                        this.updateCursorPosition(false);
+
+                        requestAnimationFrame(() => {
+                            this.updateCursorPosition(false);
+
+                            const retryDelays = [50, 100, 200];
+                            let retryIndex = 0;
+
+                            const retryUpdate = () => {
+                                if (this.cursorStyle.width === '0px' && retryIndex < retryDelays.length) {
+                                    setTimeout(() => {
+                                        this.updateCursorPosition(false);
+                                        retryIndex++;
+                                        retryUpdate();
+                                    }, retryDelays[retryIndex]);
+                                }
+                            };
+                            retryUpdate();
+                        });
                     });
                 };
                 document.addEventListener('livewire:morphed', this.morphHandler);

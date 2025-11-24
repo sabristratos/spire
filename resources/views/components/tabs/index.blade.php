@@ -15,7 +15,12 @@
 use SpireUI\Support\ComponentClass;
 
 $isVertical = $orientation === 'vertical';
-$tabsId = 'tabs-' . uniqid();
+$tabsId = $attributes->get('id') ?? 'tabs-' . crc32(json_encode([
+    $defaultValue,
+    $orientation,
+    $name,
+    $syncHash,
+]));
 
 $builder = ComponentClass::make('tabs')
     ->when($isVertical, fn($b) => $b->modifier('vertical'))

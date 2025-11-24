@@ -18546,7 +18546,17 @@ function ug(i = {}) {
       this.$nextTick(() => {
         if (this.updateTabsAndPanels(), this.morphHandler = () => {
           this.$nextTick(() => {
-            this.updateTabsAndPanels(), this.updateCursorPosition(!1);
+            this.updateTabsAndPanels(), requestAnimationFrame(() => {
+              this.updateCursorPosition(!1);
+              const e = [50, 100, 200];
+              let t = 0;
+              const n = () => {
+                this.cursorStyle.width === "0px" && t < e.length && setTimeout(() => {
+                  this.updateCursorPosition(!1), t++, n();
+                }, e[t]);
+              };
+              n();
+            });
           });
         }, document.addEventListener("livewire:morphed", this.morphHandler), this.syncHash) {
           const e = window.location.hash.slice(1);
