@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.11] - 2025-11-24
+
+### Fixed
+- Fixed composer.json version not being updated, causing Packagist to not detect new releases
+
 ## [1.1.10] - 2025-11-24
 
 ### Changed
@@ -194,7 +199,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.10...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.11...HEAD
+[1.1.11]: https://github.com/sabristratos/spire/compare/v1.1.10...v1.1.11
 [1.1.10]: https://github.com/sabristratos/spire/compare/v1.1.9...v1.1.10
 [1.1.9]: https://github.com/sabristratos/spire/compare/v1.1.8...v1.1.9
 [1.1.8]: https://github.com/sabristratos/spire/compare/v1.1.7...v1.1.8
