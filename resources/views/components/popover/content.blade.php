@@ -27,7 +27,6 @@ $mergedAttributes = $attributes->merge([
 <div
     :id="$id('popover')"
     x-ref="content"
-    @toggle="handleToggle"
     {{ $mergedAttributes }}
 >
     {{ $slot }}

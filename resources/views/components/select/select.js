@@ -34,6 +34,7 @@ export function selectComponent(config = {}) {
                             this.selectedLabel = this.placeholder;
                         }
                     }
+                    this.initialized = true;
                 });
 
                 this.$watch('value', (newValue) => {
@@ -116,6 +117,7 @@ export function selectComponent(config = {}) {
         displayOptions: [],
         observer: null,
         name: config.name || null,
+        initialized: false,
 
         get filteredOptions() {
             if (!this.searchQuery || !this.searchable) {
@@ -154,6 +156,9 @@ export function selectComponent(config = {}) {
         },
 
         isSelected(value) {
+            if (!this.initialized) {
+                return false;
+            }
             if (this.multiple) {
                 return this.selectedValues.includes(value);
             }

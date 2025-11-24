@@ -7,7 +7,7 @@
 <div
     x-data="spireDropdown({ type: '{{ $type }}', trigger: '{{ $trigger }}' })"
     x-id="['popover']"
-    wire:ignore
+    wire:ignore.self
     {{ $attributes }}
 >
     {{ $slot }}

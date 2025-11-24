@@ -80,9 +80,14 @@
             @elseif($name)
                 name="{{ $name }}"
             @endif
-            @if($checked) checked @endif
-            @if($disabled) disabled @endif
+            @if(!$attributes->has('x-bind:checked'))
+                @if($checked) checked @endif
+            @endif
+            @if(!$attributes->has('x-bind:disabled'))
+                @if($disabled) disabled @endif
+            @endif
             @if($required) required @endif
+            {{ WireEntangle::filteredAttributes($attributes)->except(['class', 'style']) }}
         >
 
         <div class="spire-switch-label-wrapper" id="{{ $labelId }}">

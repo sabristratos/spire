@@ -55,8 +55,12 @@ $dotSize = $dotSizes[$size] ?? $dotSizes['md'];
             @if($wireConfig->hasWireModel())
                 {{ $wireConfig->isLive ? 'wire:model.live' : 'wire:model' }}="{{ $wireConfig->wireModel }}"
             @endif
-            @checked($checked)
-            @disabled($disabled)
+            @if(!$attributes->has('x-bind:checked'))
+                @checked($checked)
+            @endif
+            @if(!$attributes->has('x-bind:disabled'))
+                @disabled($disabled)
+            @endif
             @required($required)
             class="spire-radio-input peer"
             aria-labelledby="{{ $labelId }}"
@@ -106,8 +110,12 @@ $dotSize = $dotSizes[$size] ?? $dotSizes['md'];
             @if($wireConfig->hasWireModel())
                 {{ $wireConfig->isLive ? 'wire:model.live' : 'wire:model' }}="{{ $wireConfig->wireModel }}"
             @endif
-            @checked($checked)
-            @disabled($disabled)
+            @if(!$attributes->has('x-bind:checked'))
+                @checked($checked)
+            @endif
+            @if(!$attributes->has('x-bind:disabled'))
+                @disabled($disabled)
+            @endif
             @required($required)
             class="spire-radio-input peer"
             aria-labelledby="{{ $labelId }}"
@@ -137,8 +145,12 @@ $dotSize = $dotSizes[$size] ?? $dotSizes['md'];
             @if($wireConfig->hasWireModel())
                 {{ $wireConfig->isLive ? 'wire:model.live' : 'wire:model' }}="{{ $wireConfig->wireModel }}"
             @endif
-            @checked($checked)
-            @disabled($disabled)
+            @if(!$attributes->has('x-bind:checked'))
+                @checked($checked)
+            @endif
+            @if(!$attributes->has('x-bind:disabled'))
+                @disabled($disabled)
+            @endif
             @required($required)
             class="spire-radio-input peer"
             aria-labelledby="{{ $labelId }}"
