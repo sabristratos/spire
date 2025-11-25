@@ -43,9 +43,12 @@ $maxValue = is_numeric($max) ? (int) $max : 'null';
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireSelect({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
+        @else
+            value: {{ $multiple ? '[]' : "''" }},
         @endif
         placeholder: '{{ $placeholderText }}',
         searchable: {{ $searchable ? 'true' : 'false' }},

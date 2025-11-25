@@ -31,9 +31,12 @@ $placeholderText = $placeholder ?? match($mode) {
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireDatepicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
+        @else
+            value: {{ $mode === 'range' ? "{ start: '', end: '' }" : ($mode === 'multiple' ? '[]' : "''") }},
         @endif
         mode: '{{ $mode }}',
         placeholder: '{{ $placeholderText }}',

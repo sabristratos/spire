@@ -13,9 +13,12 @@ $placeholderText = $placeholder ?? __('spire::spire-ui.color-picker.placeholder'
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireColorPicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
+        @else
+            value: '',
         @endif
         placeholder: '{{ $placeholderText }}',
         clearable: {{ $clearable ? 'true' : 'false' }}

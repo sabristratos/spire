@@ -41,6 +41,7 @@ $iconSize = $starSizes[$size] ?? $starSizes['md'];
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireRating({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),

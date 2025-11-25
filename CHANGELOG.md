@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.21] - 2025-11-25
+
+### Added
+- Added `x-modelable="value"` support to form components for Alpine.js `x-model` binding without Livewire
+- Components updated: autocomplete, calendar, color-picker, datepicker, editor, icon-picker, phone-input, rating, select, slider, timepicker
+
+### Fixed
+- Fixed form components missing default value initialization when used without `wire:model`
+
 ## [1.1.20] - 2025-11-25
 
 ### Fixed
@@ -272,7 +281,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.20...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.21...HEAD
+[1.1.21]: https://github.com/sabristratos/spire/compare/v1.1.20...v1.1.21
 [1.1.20]: https://github.com/sabristratos/spire/compare/v1.1.19...v1.1.20
 [1.1.19]: https://github.com/sabristratos/spire/compare/v1.1.18...v1.1.19
 [1.1.18]: https://github.com/sabristratos/spire/compare/v1.1.17...v1.1.18

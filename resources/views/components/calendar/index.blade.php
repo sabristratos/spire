@@ -55,9 +55,12 @@ if ($customClass = $attributes->get('class')) {
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireCalendar({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
+        @else
+            value: {{ $mode === 'range' ? "{ start: '', end: '' }" : ($mode === 'multiple' ? '[]' : "''") }},
         @endif
         mode: '{{ $mode }}',
         locale: '{{ $currentLocale }}',

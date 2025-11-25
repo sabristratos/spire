@@ -60,9 +60,12 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireSlider({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
+        @else
+            value: {{ $mode === 'range' ? "{ start: {$min}, end: {$max} }" : $min }},
         @endif
         mode: '{{ $mode }}',
         min: {{ $min }},

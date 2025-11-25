@@ -18,9 +18,12 @@ $showSecondsValue = $showSeconds ? 'true' : 'false';
 @endphp
 
 <div
+    x-modelable="value"
     x-data="spireTimepicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
+        @else
+            value: '',
         @endif
         placeholder: '{{ $placeholderText }}',
         use24Hour: {{ $use24HourValue }},
