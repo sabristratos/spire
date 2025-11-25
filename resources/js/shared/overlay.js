@@ -218,6 +218,10 @@ export function overlay(options = {}) {
             if (!root) return;
 
             const findOwnRef = (refName) => {
+                if (root.getAttribute('x-ref') === refName) {
+                    return root;
+                }
+
                 const candidates = root.querySelectorAll(`[x-ref="${refName}"]`);
 
                 for (const el of candidates) {
@@ -300,6 +304,7 @@ export function overlay(options = {}) {
 
                 this.$nextTick(() => {
                     this.resolveElements();
+
                     if (this._triggerEl && !this._triggerEl.style.anchorName) {
                         this._triggerEl.style.anchorName = `--${this._stableAnchorId}`;
                     }

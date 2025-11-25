@@ -128,11 +128,11 @@
   --color-overlay: light-dark(white, var(--color-neutral-900));
 
   --color-text: light-dark(var(--color-neutral-900), var(--color-neutral-50));
-  --color-text-muted: light-dark(var(--color-neutral-700), var(--color-neutral-400));
+  --color-text-muted: light-dark(var(--color-neutral-600), var(--color-neutral-400));
   --color-text-disabled: light-dark(var(--color-neutral-400), var(--color-neutral-600));
   --color-placeholder: light-dark(var(--color-neutral-400), var(--color-neutral-600));
 
-  --color-muted: light-dark(var(--color-neutral-700), var(--color-neutral-400));
+  --color-muted: var(--color-text-muted);
 
   --color-border: light-dark(var(--color-neutral-300), var(--color-neutral-700));
   --color-border-hover: light-dark(var(--color-neutral-400), var(--color-neutral-600));

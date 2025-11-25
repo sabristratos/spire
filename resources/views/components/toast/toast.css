@@ -119,7 +119,7 @@
     }
 
     .spire-toast__text {
-        @apply flex-1 min-w-0;
+        @apply flex-1 min-w-0 self-center;
     }
 
     .spire-toast__title {

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.20] - 2025-11-25
+
+### Fixed
+- Fixed muted text color contrast in light mode (changed from neutral-700 to neutral-600)
+- Fixed `--color-muted` CSS variable to reference `--color-text-muted` for consistency
+- Fixed timepicker scroll centering using `scrollTo` with calculated position instead of `scrollIntoView`
+- Fixed textarea missing `placeholder:text-placeholder` class for consistent placeholder styling
+- Fixed toast text vertical alignment with `self-center`
+- Fixed datepicker and timepicker segment widths from `2ch` to `3ch` for better readability
+- Fixed overlay `resolveElements()` to check if root element itself has the x-ref attribute
+
 ## [1.1.19] - 2025-11-25
 
 ### Fixed
@@ -261,7 +272,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.19...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.20...HEAD
+[1.1.20]: https://github.com/sabristratos/spire/compare/v1.1.19...v1.1.20
 [1.1.19]: https://github.com/sabristratos/spire/compare/v1.1.18...v1.1.19
 [1.1.18]: https://github.com/sabristratos/spire/compare/v1.1.17...v1.1.18
 [1.1.17]: https://github.com/sabristratos/spire/compare/v1.1.16...v1.1.17

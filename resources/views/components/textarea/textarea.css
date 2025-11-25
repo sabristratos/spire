@@ -10,7 +10,7 @@
 
     /* 1. Base Textarea - extends input-box */
     .spire-textarea {
-        @apply w-full focus:outline-none;
+        @apply w-full focus:outline-none placeholder:text-placeholder;
         @apply transition-all duration-150 ease-out;
     }
 

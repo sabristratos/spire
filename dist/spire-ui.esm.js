@@ -206,6 +206,8 @@ function W(s = {}) {
       const e = this.$el;
       if (!e) return;
       const t = (n) => {
+        if (e.getAttribute("x-ref") === n)
+          return e;
         const i = e.querySelectorAll(`[x-ref="${n}"]`);
         for (const r of i) {
           let o = r.parentElement;
@@ -2525,13 +2527,15 @@ function Ch(s = {}) {
           return;
         if (this[`${n}Options`].findIndex((a) => a.value === this[n]) !== -1) {
           const a = i.querySelector(`[data-spire-time-${n}="${this[n]}"]`);
-          a && (a.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "nearest"
-          }), setTimeout(() => {
-            this.updateItemStyles(n);
-          }, yh));
+          if (a) {
+            const l = i.clientHeight, h = a.offsetTop, c = a.offsetHeight, u = h - l / 2 + c / 2;
+            i.scrollTo({
+              top: u,
+              behavior: "smooth"
+            }), setTimeout(() => {
+              this.updateItemStyles(n);
+            }, yh);
+          }
         }
       });
     },

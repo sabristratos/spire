@@ -321,10 +321,14 @@ export function timepickerComponent(config = {}) {
                     const item = column.querySelector(`[data-spire-time-${type}="${this[type]}"]`);
 
                     if (item) {
-                        item.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center',
-                            inline: 'nearest'
+                        const columnHeight = column.clientHeight;
+                        const itemTop = item.offsetTop;
+                        const itemHeight = item.offsetHeight;
+                        const scrollTop = itemTop - (columnHeight / 2) + (itemHeight / 2);
+
+                        column.scrollTo({
+                            top: scrollTop,
+                            behavior: 'smooth'
                         });
 
                         setTimeout(() => {

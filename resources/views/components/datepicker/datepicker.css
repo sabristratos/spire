@@ -26,7 +26,7 @@
 
     /* 4. DatePicker Trigger Individual Segment */
     .spire-datepicker-trigger__segment {
-        @apply w-[2ch] text-center bg-transparent border-0 outline-none;
+        @apply w-[3ch] text-center bg-transparent border-0 outline-none;
         @apply text-text font-normal;
         @apply focus:bg-primary/10 focus:rounded;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
@@ -203,7 +203,7 @@
     }
 
     .spire-datepicker__footer__segment {
-        @apply w-[2ch] text-center bg-transparent border-0 outline-none;
+        @apply w-[3ch] text-center bg-transparent border-0 outline-none;
         @apply text-text font-normal text-sm;
         @apply focus:bg-primary/10 focus:rounded;
         @apply focus-visible:outline-none;
