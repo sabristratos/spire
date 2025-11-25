@@ -1,5 +1,7 @@
 import { HOVER_DELAY_MS } from './component-constants';
 
+let overlayInstanceCounter = 0;
+
 /**
  * Get all focusable elements within a container.
  *
@@ -159,6 +161,26 @@ export function overlay(options = {}) {
         focusTrap: null,
 
         /**
+         * The trigger element for this specific component instance.
+         * @type {HTMLElement|null}
+         */
+        _triggerEl: null,
+
+        /**
+         * The content element for this specific component instance.
+         * @type {HTMLElement|null}
+         */
+        _contentEl: null,
+
+        /**
+         * Stable anchor ID for CSS anchor positioning.
+         * Declared here so each component instance has its own property,
+         * preventing Alpine scope chain from finding parent's value.
+         * @type {string|null}
+         */
+        _stableAnchorId: null,
+
+        /**
          * Initialize the overlay component.
          *
          * Sets up popover API, anchor positioning, event listeners,
@@ -167,7 +189,11 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         init() {
+            // Generate unique ID immediately to prevent Alpine scope chain inheritance
+            this._stableAnchorId = `anchor-overlay-${++overlayInstanceCounter}`;
+
             this.$nextTick(() => {
+                this.resolveElements();
                 this.setupPopover();
                 this.setupAnchor();
                 this.setupEventListeners();
@@ -180,14 +206,48 @@ export function overlay(options = {}) {
         },
 
         /**
+         * Resolve trigger and content elements for this component instance.
+         *
+         * Finds elements with x-ref that belong to this component's scope,
+         * not to any nested x-data components.
+         *
+         * @returns {void}
+         */
+        resolveElements() {
+            const root = this.$el;
+            if (!root) return;
+
+            const findOwnRef = (refName) => {
+                const candidates = root.querySelectorAll(`[x-ref="${refName}"]`);
+
+                for (const el of candidates) {
+                    let parent = el.parentElement;
+                    while (parent && parent !== root) {
+                        if (parent.hasAttribute('x-data')) {
+                            break;
+                        }
+                        parent = parent.parentElement;
+                    }
+                    if (parent === root || parent === null) {
+                        return el;
+                    }
+                }
+                return null;
+            };
+
+            this._triggerEl = findOwnRef('trigger');
+            this._contentEl = findOwnRef('content');
+        },
+
+        /**
          * Setup focus trap if enabled.
          *
          * @returns {void}
          */
         setupFocusTrap() {
-            if (!options.trapFocus || !this.$refs.content || !this.$refs.trigger) return;
+            if (!options.trapFocus || !this._contentEl || !this._triggerEl) return;
 
-            this.focusTrap = createFocusTrap(this.$refs.content, this.$refs.trigger);
+            this.focusTrap = createFocusTrap(this._contentEl, this._triggerEl);
         },
 
         /**
@@ -207,21 +267,15 @@ export function overlay(options = {}) {
 
             const componentId = wireEl.getAttribute('wire:id');
 
-            if (!this._stableAnchorId) {
-                this._stableAnchorId = `anchor-${this.$id('overlay')}`;
-            }
-
             this._morphUpdatingCleanup = Livewire.hook('morph.updating', ({ el, component }) => {
                 if (component.id !== componentId) return;
                 if (!this.$el.contains(el)) return;
 
-                const xRef = el.getAttribute('x-ref');
-                if (xRef === 'trigger' || xRef === 'content') {
-                    if (xRef === 'trigger' && el.style.anchorName) {
-                        el.__spireAnchorName = el.style.anchorName;
-                    } else if (xRef === 'content' && el.style.positionAnchor) {
-                        el.__spirePositionAnchor = el.style.positionAnchor;
-                    }
+                if (el === this._triggerEl && el.style.anchorName) {
+                    el.__spireAnchorName = el.style.anchorName;
+                    el.__spireNeedsAnchorRestore = true;
+                } else if (el === this._contentEl && el.style.positionAnchor) {
+                    el.__spirePositionAnchor = el.style.positionAnchor;
                     el.__spireNeedsAnchorRestore = true;
                 }
             });
@@ -230,11 +284,9 @@ export function overlay(options = {}) {
                 if (component.id !== componentId) return;
                 if (!el.__spireNeedsAnchorRestore) return;
 
-                const xRef = el.getAttribute('x-ref');
-
-                if (xRef === 'trigger') {
+                if (el === this._triggerEl) {
                     el.style.anchorName = el.__spireAnchorName || `--${this._stableAnchorId}`;
-                } else if (xRef === 'content') {
+                } else if (el === this._contentEl) {
                     el.style.positionAnchor = el.__spirePositionAnchor || `--${this._stableAnchorId}`;
                 }
 
@@ -247,11 +299,12 @@ export function overlay(options = {}) {
                 if (component.id !== componentId) return;
 
                 this.$nextTick(() => {
-                    if (this.$refs.trigger && !this.$refs.trigger.style.anchorName) {
-                        this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`;
+                    this.resolveElements();
+                    if (this._triggerEl && !this._triggerEl.style.anchorName) {
+                        this._triggerEl.style.anchorName = `--${this._stableAnchorId}`;
                     }
-                    if (this.$refs.content && !this.$refs.content.style.positionAnchor) {
-                        this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`;
+                    if (this._contentEl && !this._contentEl.style.positionAnchor) {
+                        this._contentEl.style.positionAnchor = `--${this._stableAnchorId}`;
                     }
                 });
             });
@@ -263,7 +316,7 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         setupPopover() {
-            if (!this.$refs.content || !this.$refs.trigger) return;
+            if (!this._contentEl || !this._triggerEl) return;
         },
 
         /**
@@ -271,19 +324,15 @@ export function overlay(options = {}) {
          *
          * Creates a unique anchor name and links the content to it,
          * enabling automatic positioning via CSS anchor positioning.
-         * Uses a stable anchor ID that persists across Livewire morphs.
+         * Uses the stable anchor ID generated in init().
          *
          * @returns {void}
          */
         setupAnchor() {
-            if (!this.$refs.trigger || !this.$refs.content) return;
+            if (!this._triggerEl || !this._contentEl) return;
 
-            if (!this._stableAnchorId) {
-                this._stableAnchorId = `anchor-${this.$id('overlay')}`;
-            }
-
-            this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`;
-            this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`;
+            this._triggerEl.style.anchorName = `--${this._stableAnchorId}`;
+            this._contentEl.style.positionAnchor = `--${this._stableAnchorId}`;
         },
 
         /**
@@ -295,9 +344,9 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         setupEventListeners() {
-            if (!this.$refs.content) return;
+            if (!this._contentEl) return;
 
-            this.$refs.content.addEventListener('toggle', (e) => {
+            this._contentEl.addEventListener('toggle', (e) => {
                 this.handleToggle(e);
             });
         },
@@ -314,32 +363,27 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         setupTriggerMode() {
-            const triggerElement = this.$refs.trigger;
-            const contentElement = this.$refs.content;
-
-            if (!triggerElement || !contentElement) {
-                return;
-            }
+            if (!this._triggerEl || !this._contentEl) return;
 
             if (this.triggerMode === 'hover' || this.triggerMode === 'both') {
-                triggerElement.addEventListener('mouseenter', () => {
+                this._triggerEl.addEventListener('mouseenter', () => {
                     this.clearHoverTimer();
                     if (!this.isPinned) {
                         this.show();
                     }
                 });
 
-                triggerElement.addEventListener('mouseleave', () => {
+                this._triggerEl.addEventListener('mouseleave', () => {
                     if (!this.isPinned) {
                         this.scheduleHide();
                     }
                 });
 
-                contentElement.addEventListener('mouseenter', () => {
+                this._contentEl.addEventListener('mouseenter', () => {
                     this.clearHoverTimer();
                 });
 
-                contentElement.addEventListener('mouseleave', () => {
+                this._contentEl.addEventListener('mouseleave', () => {
                     if (!this.isPinned) {
                         this.scheduleHide();
                     }
@@ -387,7 +431,7 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         toggle() {
-            const isActuallyOpen = this.$refs.content?.matches(':popover-open') || false;
+            const isActuallyOpen = this._contentEl?.matches(':popover-open') || false;
 
             // If Alpine thinks it's open but popover is actually closed,
             // light dismiss already handled closing - just sync state
@@ -396,7 +440,7 @@ export function overlay(options = {}) {
                 return;
             }
 
-            this.$refs.content?.togglePopover();
+            this._contentEl?.togglePopover();
         },
 
         /**
@@ -409,7 +453,7 @@ export function overlay(options = {}) {
          */
         show() {
             this.setupAnchor();
-            this.$refs.content?.showPopover();
+            this._contentEl?.showPopover();
         },
 
         /**
@@ -420,7 +464,7 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         hide() {
-            this.$refs.content?.hidePopover();
+            this._contentEl?.hidePopover();
         },
 
         /**
@@ -433,7 +477,7 @@ export function overlay(options = {}) {
          * @returns {void}
          */
         handleToggle(event) {
-            this.open = this.$refs.content?.matches(':popover-open') || false;
+            this.open = this._contentEl?.matches(':popover-open') || false;
 
             if (this.open) {
                 this.focusTrap?.activate();

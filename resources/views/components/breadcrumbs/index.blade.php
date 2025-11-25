@@ -27,6 +27,7 @@ $separatorIcon = $separatorText ? null : $separator;
     ]) }}
     @if($useAlpine)
         x-data="spireBreadcrumbs({ maxVisible: {{ $maxVisible }} })"
+        x-id="['popover']"
     @endif
 >
     <ol class="spire-breadcrumbs__list">

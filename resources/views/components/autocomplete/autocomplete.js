@@ -1,6 +1,8 @@
 import { DEBOUNCE_DEFAULT_MS, BLUR_TIMEOUT_MS } from '../../../js/shared/component-constants';
 import { SPIRE_EVENTS, createEventPayload } from '../../../js/shared/events';
 
+let autocompleteInstanceCounter = 0;
+
 export function autocompleteComponent(config = {}) {
     return {
         value: config.value || '',
@@ -22,14 +24,17 @@ export function autocompleteComponent(config = {}) {
         highlightedIndex: -1,
         name: config.name || null,
         _stableAnchorId: null,
+        _triggerEl: null,
+        _contentEl: null,
 
         init() {
-            this.initializeOptions();
-            this.setupMutationObserver();
-            this.setupPopover();
-            this.setupInputWatchers();
-
             this.$nextTick(() => {
+                this.resolveElements();
+                this.initializeOptions();
+                this.setupMutationObserver();
+                this.setupPopover();
+                this.setupInputWatchers();
+
                 if (this.value) {
                     const option = this.displayOptions.find(opt => opt.value === this.value);
                     if (option) {
@@ -38,6 +43,31 @@ export function autocompleteComponent(config = {}) {
                     }
                 }
             });
+        },
+
+        resolveElements() {
+            const root = this.$el;
+            if (!root) return;
+
+            const findOwnRef = (refName) => {
+                const candidates = root.querySelectorAll(`[x-ref="${refName}"]`);
+                for (const el of candidates) {
+                    let parent = el.parentElement;
+                    while (parent && parent !== root) {
+                        if (parent.hasAttribute('x-data')) {
+                            break;
+                        }
+                        parent = parent.parentElement;
+                    }
+                    if (parent === root || parent === null) {
+                        return el;
+                    }
+                }
+                return null;
+            };
+
+            this._triggerEl = findOwnRef('trigger');
+            this._contentEl = findOwnRef('content');
         },
 
         get filteredOptions() {
@@ -73,20 +103,18 @@ export function autocompleteComponent(config = {}) {
         },
 
         setupPopover() {
-            const inputElement = this.$refs.input;
+            if (!this._triggerEl || !this._contentEl) return;
 
-            if (inputElement && this.$refs.content) {
-                if (!this._stableAnchorId) {
-                    this._stableAnchorId = `anchor-${this.$id('popover')}`;
-                }
-
-                this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`;
-                this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`;
-
-                this.$refs.content.addEventListener('toggle', (e) => {
-                    this.open = e.newState === 'open';
-                });
+            if (!this._stableAnchorId) {
+                this._stableAnchorId = `anchor-autocomplete-${++autocompleteInstanceCounter}`;
             }
+
+            this._triggerEl.style.anchorName = `--${this._stableAnchorId}`;
+            this._contentEl.style.positionAnchor = `--${this._stableAnchorId}`;
+
+            this._contentEl.addEventListener('toggle', (e) => {
+                this.open = e.newState === 'open';
+            });
         },
 
         setupInputWatchers() {
@@ -139,20 +167,18 @@ export function autocompleteComponent(config = {}) {
 
         handleBlur(event) {
             this.blurTimeout = setTimeout(() => {
-                const content = this.$refs.content;
-
-                if (!content) {
+                if (!this._contentEl) {
                     this.hide();
                     return;
                 }
 
-                if (event.relatedTarget && content.contains(event.relatedTarget)) {
+                if (event.relatedTarget && this._contentEl.contains(event.relatedTarget)) {
                     return;
                 }
 
-                const isClickInsideDropdown = content.matches(':popover-open') &&
+                const isClickInsideDropdown = this._contentEl.matches(':popover-open') &&
                     event.relatedTarget &&
-                    (content.contains(event.relatedTarget) || content === event.relatedTarget);
+                    (this._contentEl.contains(event.relatedTarget) || this._contentEl === event.relatedTarget);
 
                 if (!isClickInsideDropdown) {
                     this.hide();
@@ -161,9 +187,9 @@ export function autocompleteComponent(config = {}) {
         },
 
         show() {
-            if (this.$refs.content && !this.open) {
+            if (this._contentEl && !this.open) {
                 try {
-                    this.$refs.content.showPopover();
+                    this._contentEl.showPopover();
                 } catch (e) {
                     console.warn('Failed to show popover:', e);
                 }
@@ -171,9 +197,9 @@ export function autocompleteComponent(config = {}) {
         },
 
         hide() {
-            if (this.$refs.content && this.open) {
+            if (this._contentEl && this.open) {
                 try {
-                    this.$refs.content.hidePopover();
+                    this._contentEl.hidePopover();
                     this.resetHighlight();
                 } catch (e) {
                     console.warn('Failed to hide popover:', e);

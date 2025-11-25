@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.19] - 2025-11-25
+
+### Fixed
+- Fixed nested overlay components (tooltip inside dropdown, etc.) interfering with each other's anchor positioning by using direct element references instead of Alpine `$refs`
+- Fixed overlay components using unique instance counters for truly unique anchor IDs across all instances
+- Fixed tooltip component property naming conflicts with parent overlay by renaming `trigger`/`triggerEl` to `tooltipTrigger`/`tooltipTriggerEl`
+- Fixed autocomplete component using same direct element resolution pattern for nested component support
+- Fixed breadcrumbs component missing `resolveElements()` call and `x-id` directive for proper scoping
+- Fixed select component `isSelected()` incorrectly returning true when value is empty string or null
+
 ## [1.1.18] - 2025-11-25
 
 ### Fixed
@@ -251,7 +261,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.18...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.19...HEAD
+[1.1.19]: https://github.com/sabristratos/spire/compare/v1.1.18...v1.1.19
 [1.1.18]: https://github.com/sabristratos/spire/compare/v1.1.17...v1.1.18
 [1.1.17]: https://github.com/sabristratos/spire/compare/v1.1.16...v1.1.17
 [1.1.16]: https://github.com/sabristratos/spire/compare/v1.1.15...v1.1.16

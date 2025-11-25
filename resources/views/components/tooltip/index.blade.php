@@ -33,6 +33,7 @@ $triggerId = 'trigger-' . uniqid();
         delay: {{ $delay }},
         duration: {{ $duration ?? 'null' }}
     })"
+    x-id="['tooltip']"
     x-ref="content"
     popover="hint"
     role="tooltip"

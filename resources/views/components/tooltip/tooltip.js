@@ -1,5 +1,7 @@
 import { overlay } from '../../../js/shared/overlay';
 
+let tooltipInstanceCounter = 0;
+
 export function tooltipComponent(config = {}) {
     const overlayTrigger = config.trigger === 'click' ? 'click' : '';
 
@@ -9,24 +11,25 @@ export function tooltipComponent(config = {}) {
             placement: config.placement || 'top',
             offset: config.offset || 8,
             onInit() {
-                this.triggerEl = config.triggerId ? document.getElementById(config.triggerId) : this.$refs.trigger;
+                this.tooltipTriggerEl = config.triggerId
+                    ? document.getElementById(config.triggerId)
+                    : this._triggerEl;
 
-                if (this.trigger === 'hover') {
-                    this.setupHoverListeners();
+                if (this.tooltipTrigger === 'hover') {
+                    this.setupTooltipHoverListeners();
                 }
 
-                if (this.trigger === 'click' && this.triggerEl) {
-                    this.setupClickListeners();
+                if (this.tooltipTrigger === 'click' && this.tooltipTriggerEl) {
+                    this.setupTooltipClickListeners();
                 }
 
                 config.onInit?.call(this);
             }
         }),
 
-        triggerEl: null,
+        tooltipTriggerEl: null,
         placement: config.placement || 'top',
-        trigger: config.trigger || 'hover',
-        _stableAnchorId: null,
+        tooltipTrigger: config.trigger || 'hover',
 
         get isOpen() {
             return this.open;
@@ -37,14 +40,14 @@ export function tooltipComponent(config = {}) {
         hoverTimeout: null,
         hideTimeout: null,
 
-        setupClickListeners() {
-            if (!this.triggerEl) return;
+        setupTooltipClickListeners() {
+            if (!this.tooltipTriggerEl) return;
 
-            this.triggerEl.addEventListener('click', () => {
+            this.tooltipTriggerEl.addEventListener('click', () => {
                 this.toggle();
             });
 
-            this.triggerEl.addEventListener('keydown', (e) => {
+            this.tooltipTriggerEl.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     this.toggle();
@@ -55,25 +58,22 @@ export function tooltipComponent(config = {}) {
             });
         },
 
-        setupHoverListeners() {
-            const triggerEl = this.triggerEl;
-            const contentEl = this.$refs.content;
+        setupTooltipHoverListeners() {
+            if (!this.tooltipTriggerEl || !this._contentEl) return;
 
-            if (!triggerEl || !contentEl) return;
-
-            triggerEl.addEventListener('mouseenter', () => {
+            this.tooltipTriggerEl.addEventListener('mouseenter', () => {
                 this.handleMouseEnter();
             });
 
-            triggerEl.addEventListener('mouseleave', () => {
+            this.tooltipTriggerEl.addEventListener('mouseleave', () => {
                 this.handleMouseLeave();
             });
 
-            triggerEl.addEventListener('focusin', () => {
+            this.tooltipTriggerEl.addEventListener('focusin', () => {
                 this.handleMouseEnter();
             });
 
-            triggerEl.addEventListener('focusout', () => {
+            this.tooltipTriggerEl.addEventListener('focusout', () => {
                 this.handleMouseLeave();
             });
         },
@@ -117,23 +117,20 @@ export function tooltipComponent(config = {}) {
         },
 
         setupAnchor() {
-            const triggerEl = this.triggerEl;
-            const contentEl = this.$refs.content;
-
-            if (!triggerEl || !contentEl) return;
+            if (!this.tooltipTriggerEl || !this._contentEl) return;
 
             if (!this._stableAnchorId) {
-                this._stableAnchorId = `anchor-${this.$id('overlay')}`;
+                this._stableAnchorId = `anchor-tooltip-${++tooltipInstanceCounter}`;
             }
 
-            const anchorEl = triggerEl.firstElementChild || triggerEl;
+            const anchorEl = this.tooltipTriggerEl.firstElementChild || this.tooltipTriggerEl;
             anchorEl.style.anchorName = `--${this._stableAnchorId}`;
-            contentEl.style.positionAnchor = `--${this._stableAnchorId}`;
+            this._contentEl.style.positionAnchor = `--${this._stableAnchorId}`;
         },
 
         show() {
             this.setupAnchor();
-            this.$refs.content?.showPopover();
+            this._contentEl?.showPopover();
 
             if (this.duration) {
                 this.scheduleAutoHide();
@@ -141,7 +138,7 @@ export function tooltipComponent(config = {}) {
         },
 
         hide() {
-            this.$refs.content?.hidePopover();
+            this._contentEl?.hidePopover();
         },
 
         destroy() {

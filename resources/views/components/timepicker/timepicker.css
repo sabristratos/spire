@@ -26,7 +26,7 @@
 
     /* 4. TimePicker Trigger Individual Segment */
     .spire-timepicker-trigger__segment {
-        @apply w-auto min-w-[2ch] text-center bg-transparent border-0 outline-none p-0;
+        @apply w-[2ch] text-center bg-transparent border-0 outline-none p-0;
         @apply text-text font-normal;
         @apply focus:bg-primary/10 focus:rounded;
         @apply transition-colors duration-150 ease-out;

@@ -169,6 +169,9 @@ export function selectComponent(config = {}) {
             if (this.multiple) {
                 return this.selectedValues.some(v => this.toStringValue(v) === stringValue);
             }
+            if (this.value === '' || this.value == null) {
+                return false;
+            }
             return this.toStringValue(this.value) === stringValue;
         },
 

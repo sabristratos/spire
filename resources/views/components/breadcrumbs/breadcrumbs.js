@@ -16,6 +16,7 @@ export function breadcrumbsComponent(config = {}) {
 
         init() {
             this.$nextTick(() => {
+                this.resolveElements();
                 this.setupPopover();
                 this.setupAnchor();
                 this.setupEventListeners();
