@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.18] - 2025-11-25
+
+### Fixed
+- Fixed overlay-based components losing anchor positioning during Livewire morphs by using stable anchor IDs and morph lifecycle hooks
+- Fixed tooltip anchor stability during Livewire morphs
+- Fixed autocomplete anchor stability during Livewire morphs
+- Fixed breadcrumbs component missing Livewire compatibility setup
+- Fixed select component value comparison failing when comparing numeric values to string option values (type coercion)
+- Fixed datepicker segment inputs using fixed widths that caused layout issues in different locales (now uses flexible `min-width`)
+- Fixed timepicker segment inputs using fixed widths that caused layout issues (now uses flexible `min-width`)
+
+## [1.1.17] - 2025-11-25
+
+### Added
+- Added event-calendar component with month, week, and day views
+- Added tabs component support for global size configuration via `spire_default()`
+
+### Changed
+- Rebuilt assets with latest component updates
+
 ## [1.1.16] - 2025-11-24
 
 ### Changed
@@ -231,7 +251,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.12...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.18...HEAD
+[1.1.18]: https://github.com/sabristratos/spire/compare/v1.1.17...v1.1.18
+[1.1.17]: https://github.com/sabristratos/spire/compare/v1.1.16...v1.1.17
+[1.1.16]: https://github.com/sabristratos/spire/compare/v1.1.15...v1.1.16
+[1.1.15]: https://github.com/sabristratos/spire/compare/v1.1.14...v1.1.15
+[1.1.14]: https://github.com/sabristratos/spire/compare/v1.1.13...v1.1.14
+[1.1.13]: https://github.com/sabristratos/spire/compare/v1.1.12...v1.1.13
 [1.1.12]: https://github.com/sabristratos/spire/compare/v1.1.11...v1.1.12
 [1.1.11]: https://github.com/sabristratos/spire/compare/v1.1.10...v1.1.11
 [1.1.10]: https://github.com/sabristratos/spire/compare/v1.1.9...v1.1.10

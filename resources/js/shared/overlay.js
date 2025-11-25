@@ -193,8 +193,9 @@ export function overlay(options = {}) {
         /**
          * Setup Livewire compatibility.
          *
-         * Hooks into Livewire's morph lifecycle to re-establish anchor
-         * positioning after DOM updates when using wire:ignore.self.
+         * Hooks into Livewire's morph lifecycle to preserve and re-establish
+         * anchor positioning during DOM updates. Uses morph.updating to detect
+         * elements before morphing and morph.updated to restore styles after.
          *
          * @returns {void}
          */
@@ -206,11 +207,52 @@ export function overlay(options = {}) {
 
             const componentId = wireEl.getAttribute('wire:id');
 
+            if (!this._stableAnchorId) {
+                this._stableAnchorId = `anchor-${this.$id('overlay')}`;
+            }
+
+            this._morphUpdatingCleanup = Livewire.hook('morph.updating', ({ el, component }) => {
+                if (component.id !== componentId) return;
+                if (!this.$el.contains(el)) return;
+
+                const xRef = el.getAttribute('x-ref');
+                if (xRef === 'trigger' || xRef === 'content') {
+                    if (xRef === 'trigger' && el.style.anchorName) {
+                        el.__spireAnchorName = el.style.anchorName;
+                    } else if (xRef === 'content' && el.style.positionAnchor) {
+                        el.__spirePositionAnchor = el.style.positionAnchor;
+                    }
+                    el.__spireNeedsAnchorRestore = true;
+                }
+            });
+
+            this._morphUpdatedCleanup = Livewire.hook('morph.updated', ({ el, component }) => {
+                if (component.id !== componentId) return;
+                if (!el.__spireNeedsAnchorRestore) return;
+
+                const xRef = el.getAttribute('x-ref');
+
+                if (xRef === 'trigger') {
+                    el.style.anchorName = el.__spireAnchorName || `--${this._stableAnchorId}`;
+                } else if (xRef === 'content') {
+                    el.style.positionAnchor = el.__spirePositionAnchor || `--${this._stableAnchorId}`;
+                }
+
+                delete el.__spireNeedsAnchorRestore;
+                delete el.__spireAnchorName;
+                delete el.__spirePositionAnchor;
+            });
+
             this._livewireCleanup = Livewire.hook('morphed', ({ component }) => {
                 if (component.id !== componentId) return;
 
                 this.$nextTick(() => {
-                    this.setupAnchor();
+                    if (this.$refs.trigger && !this.$refs.trigger.style.anchorName) {
+                        this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`;
+                    }
+                    if (this.$refs.content && !this.$refs.content.style.positionAnchor) {
+                        this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`;
+                    }
                 });
             });
         },
@@ -229,15 +271,19 @@ export function overlay(options = {}) {
          *
          * Creates a unique anchor name and links the content to it,
          * enabling automatic positioning via CSS anchor positioning.
+         * Uses a stable anchor ID that persists across Livewire morphs.
          *
          * @returns {void}
          */
         setupAnchor() {
             if (!this.$refs.trigger || !this.$refs.content) return;
 
-            const anchorId = `anchor-${this.$id('overlay')}`;
-            this.$refs.trigger.style.anchorName = `--${anchorId}`;
-            this.$refs.content.style.positionAnchor = `--${anchorId}`;
+            if (!this._stableAnchorId) {
+                this._stableAnchorId = `anchor-${this.$id('overlay')}`;
+            }
+
+            this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`;
+            this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`;
         },
 
         /**
@@ -403,7 +449,7 @@ export function overlay(options = {}) {
         /**
          * Clean up component resources.
          *
-         * Clears any pending timers to prevent memory leaks.
+         * Clears any pending timers and Livewire hooks to prevent memory leaks.
          * Should be called when the component is destroyed.
          *
          * @returns {void}
@@ -412,6 +458,8 @@ export function overlay(options = {}) {
             this.clearHoverTimer();
             this.focusTrap?.deactivate();
             this._livewireCleanup?.();
+            this._morphUpdatingCleanup?.();
+            this._morphUpdatedCleanup?.();
         },
 
         ...options.extend

@@ -26,7 +26,7 @@
 
     /* 4. DatePicker Trigger Individual Segment */
     .spire-datepicker-trigger__segment {
-        @apply w-8 text-center bg-transparent border-0 outline-none;
+        @apply w-auto min-w-[2ch] text-center bg-transparent border-0 outline-none;
         @apply text-text font-normal;
         @apply focus:bg-primary/10 focus:rounded;
         @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
@@ -40,7 +40,7 @@
 
     /* 5. DatePicker Trigger Year Segment (4 digits) */
     .spire-datepicker-trigger__segment--year {
-        @apply w-14;
+        @apply min-w-[4ch];
     }
 
     /* 6. DatePicker Trigger Separator */
@@ -50,24 +50,15 @@
 
     /* 7. DatePicker Trigger Size Variants for Segments */
     [data-spire-size="sm"] .spire-datepicker-trigger__segment {
-        @apply text-sm h-6;
+        @apply text-sm;
     }
     [data-spire-size="md"] .spire-datepicker-trigger__segment {
-        @apply text-sm h-8;
+        @apply text-sm;
     }
     [data-spire-size="lg"] .spire-datepicker-trigger__segment {
-        @apply text-base h-10;
+        @apply text-base;
     }
 
-    [data-spire-size="sm"] .spire-datepicker-trigger__segment--year {
-        @apply w-12;
-    }
-    [data-spire-size="md"] .spire-datepicker-trigger__segment--year {
-        @apply w-14;
-    }
-    [data-spire-size="lg"] .spire-datepicker-trigger__segment--year {
-        @apply w-16;
-    }
 
     [data-spire-size="sm"] .spire-datepicker-trigger__separator {
         @apply text-sm;
@@ -212,7 +203,7 @@
     }
 
     .spire-datepicker__footer__segment {
-        @apply w-8 text-center bg-transparent border-0 outline-none;
+        @apply w-auto min-w-[2ch] text-center bg-transparent border-0 outline-none;
         @apply text-text font-normal text-sm;
         @apply focus:bg-primary/10 focus:rounded;
         @apply focus-visible:outline-none;
@@ -221,7 +212,7 @@
     }
 
     .spire-datepicker__footer__segment--year {
-        @apply w-14;
+        @apply min-w-[4ch];
     }
 
     .spire-datepicker__footer__segment-separator {

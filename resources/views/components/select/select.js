@@ -101,7 +101,11 @@ export function selectComponent(config = {}) {
             }
         }),
 
-        value: config.value || (config.multiple ? [] : ''),
+        value: config.value ?? (config.multiple ? [] : ''),
+
+        toStringValue(value) {
+            return value == null ? '' : String(value);
+        },
         selectedLabel: '',
         placeholder: config.placeholder || 'Select an option',
         multiple: config.multiple || false,
@@ -137,7 +141,7 @@ export function selectComponent(config = {}) {
         get selectedItems() {
             if (!this.multiple) return [];
             return this.displayOptions.filter(option =>
-                this.selectedValues.includes(option.value)
+                this.selectedValues.some(v => this.toStringValue(v) === this.toStringValue(option.value))
             );
         },
 
@@ -152,17 +156,20 @@ export function selectComponent(config = {}) {
         get allSelected() {
             return this.multiple &&
                 this.selectableOptions.length > 0 &&
-                this.selectableOptions.every(option => this.selectedValues.includes(option.value));
+                this.selectableOptions.every(option =>
+                    this.selectedValues.some(v => this.toStringValue(v) === this.toStringValue(option.value))
+                );
         },
 
         isSelected(value) {
             if (!this.initialized) {
                 return false;
             }
+            const stringValue = this.toStringValue(value);
             if (this.multiple) {
-                return this.selectedValues.includes(value);
+                return this.selectedValues.some(v => this.toStringValue(v) === stringValue);
             }
-            return this.value === value;
+            return this.toStringValue(this.value) === stringValue;
         },
 
         initializeOptions() {
@@ -235,7 +242,7 @@ export function selectComponent(config = {}) {
 
             const previousValue = [...(Array.isArray(this.value) ? this.value : [])];
             const currentValues = [...previousValue];
-            const index = currentValues.indexOf(value);
+            const index = currentValues.findIndex(v => this.toStringValue(v) === this.toStringValue(value));
 
             if (index > -1) {
                 currentValues.splice(index, 1);
@@ -263,7 +270,7 @@ export function selectComponent(config = {}) {
 
             const previousValue = [...(Array.isArray(this.value) ? this.value : [])];
             const currentValues = [...previousValue];
-            const index = currentValues.indexOf(value);
+            const index = currentValues.findIndex(v => this.toStringValue(v) === this.toStringValue(value));
 
             if (index > -1) {
                 currentValues.splice(index, 1);
@@ -331,7 +338,7 @@ export function selectComponent(config = {}) {
                 }
 
                 const selectedOptions = this.displayOptions.filter(opt =>
-                    values.includes(opt.value)
+                    values.some(v => this.toStringValue(v) === this.toStringValue(opt.value))
                 );
 
                 if (selectedOptions.length === 0) {
@@ -342,7 +349,8 @@ export function selectComponent(config = {}) {
                     this.selectedLabel = this.itemsSelectedText.replace(':count', selectedOptions.length);
                 }
             } else {
-                const option = this.displayOptions.find(opt => opt.value === value);
+                const stringValue = this.toStringValue(value);
+                const option = this.displayOptions.find(opt => this.toStringValue(opt.value) === stringValue);
 
                 if (option) {
                     this.selectedLabel = option.label;

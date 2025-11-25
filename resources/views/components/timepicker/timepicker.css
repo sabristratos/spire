@@ -26,7 +26,7 @@
 
     /* 4. TimePicker Trigger Individual Segment */
     .spire-timepicker-trigger__segment {
-        @apply w-6 text-center bg-transparent border-0 outline-none p-0;
+        @apply w-auto min-w-[2ch] text-center bg-transparent border-0 outline-none p-0;
         @apply text-text font-normal;
         @apply focus:bg-primary/10 focus:rounded;
         @apply transition-colors duration-150 ease-out;
@@ -38,7 +38,7 @@
 
     /* 5. TimePicker Trigger Period Segment (AM/PM) */
     .spire-timepicker-trigger__segment--period {
-        @apply w-10 px-1 cursor-pointer font-normal;
+        @apply w-auto min-w-fit px-0.5 cursor-pointer font-normal;
         @apply hover:bg-hover active:bg-primary/20;
     }
 
@@ -49,13 +49,13 @@
 
     /* 7. TimePicker Trigger Size Variants for Segments */
     [data-spire-size="sm"] .spire-timepicker-trigger__segment {
-        @apply text-sm h-6;
+        @apply text-sm;
     }
     [data-spire-size="md"] .spire-timepicker-trigger__segment {
-        @apply text-sm h-8;
+        @apply text-sm;
     }
     [data-spire-size="lg"] .spire-timepicker-trigger__segment {
-        @apply text-base h-10;
+        @apply text-base;
     }
 
     [data-spire-size="sm"] .spire-timepicker-trigger__separator {

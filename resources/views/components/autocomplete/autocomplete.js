@@ -21,6 +21,7 @@ export function autocompleteComponent(config = {}) {
         open: false,
         highlightedIndex: -1,
         name: config.name || null,
+        _stableAnchorId: null,
 
         init() {
             this.initializeOptions();
@@ -72,13 +73,15 @@ export function autocompleteComponent(config = {}) {
         },
 
         setupPopover() {
-            const contentId = this.$id('popover');
             const inputElement = this.$refs.input;
 
             if (inputElement && this.$refs.content) {
-                const anchorId = `anchor-${contentId}`;
-                this.$refs.trigger.style.anchorName = `--${anchorId}`;
-                this.$refs.content.style.positionAnchor = `--${anchorId}`;
+                if (!this._stableAnchorId) {
+                    this._stableAnchorId = `anchor-${this.$id('popover')}`;
+                }
+
+                this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`;
+                this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`;
 
                 this.$refs.content.addEventListener('toggle', (e) => {
                     this.open = e.newState === 'open';

@@ -187,8 +187,9 @@ function W(s = {}) {
     /**
      * Setup Livewire compatibility.
      *
-     * Hooks into Livewire's morph lifecycle to re-establish anchor
-     * positioning after DOM updates when using wire:ignore.self.
+     * Hooks into Livewire's morph lifecycle to preserve and re-establish
+     * anchor positioning during DOM updates. Uses morph.updating to detect
+     * elements before morphing and morph.updated to restore styles after.
      *
      * @returns {void}
      */
@@ -197,9 +198,17 @@ function W(s = {}) {
       const e = this.$el.closest("[wire\\:id]");
       if (!e) return;
       const t = e.getAttribute("wire:id");
-      this._livewireCleanup = Livewire.hook("morphed", ({ component: n }) => {
+      this._stableAnchorId || (this._stableAnchorId = `anchor-${this.$id("overlay")}`), this._morphUpdatingCleanup = Livewire.hook("morph.updating", ({ el: n, component: i }) => {
+        if (i.id !== t || !this.$el.contains(n)) return;
+        const r = n.getAttribute("x-ref");
+        (r === "trigger" || r === "content") && (r === "trigger" && n.style.anchorName ? n.__spireAnchorName = n.style.anchorName : r === "content" && n.style.positionAnchor && (n.__spirePositionAnchor = n.style.positionAnchor), n.__spireNeedsAnchorRestore = !0);
+      }), this._morphUpdatedCleanup = Livewire.hook("morph.updated", ({ el: n, component: i }) => {
+        if (i.id !== t || !n.__spireNeedsAnchorRestore) return;
+        const r = n.getAttribute("x-ref");
+        r === "trigger" ? n.style.anchorName = n.__spireAnchorName || `--${this._stableAnchorId}` : r === "content" && (n.style.positionAnchor = n.__spirePositionAnchor || `--${this._stableAnchorId}`), delete n.__spireNeedsAnchorRestore, delete n.__spireAnchorName, delete n.__spirePositionAnchor;
+      }), this._livewireCleanup = Livewire.hook("morphed", ({ component: n }) => {
         n.id === t && this.$nextTick(() => {
-          this.setupAnchor();
+          this.$refs.trigger && !this.$refs.trigger.style.anchorName && (this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`), this.$refs.content && !this.$refs.content.style.positionAnchor && (this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`);
         });
       });
     },
@@ -216,13 +225,12 @@ function W(s = {}) {
      *
      * Creates a unique anchor name and links the content to it,
      * enabling automatic positioning via CSS anchor positioning.
+     * Uses a stable anchor ID that persists across Livewire morphs.
      *
      * @returns {void}
      */
     setupAnchor() {
-      if (!this.$refs.trigger || !this.$refs.content) return;
-      const e = `anchor-${this.$id("overlay")}`;
-      this.$refs.trigger.style.anchorName = `--${e}`, this.$refs.content.style.positionAnchor = `--${e}`;
+      !this.$refs.trigger || !this.$refs.content || (this._stableAnchorId || (this._stableAnchorId = `anchor-${this.$id("overlay")}`), this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`, this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`);
     },
     /**
      * Setup event listeners for popover toggle events.
@@ -337,13 +345,13 @@ function W(s = {}) {
     /**
      * Clean up component resources.
      *
-     * Clears any pending timers to prevent memory leaks.
+     * Clears any pending timers and Livewire hooks to prevent memory leaks.
      * Should be called when the component is destroyed.
      *
      * @returns {void}
      */
     destroy() {
-      this.clearHoverTimer(), this.focusTrap?.deactivate(), this._livewireCleanup?.();
+      this.clearHoverTimer(), this.focusTrap?.deactivate(), this._livewireCleanup?.(), this._morphUpdatingCleanup?.(), this._morphUpdatedCleanup?.();
     },
     ...s.extend
   };
@@ -643,7 +651,10 @@ function vh(s = {}) {
         this.multiple ? this.toggleOption(t, n) : this.selectOption(t, n);
       }
     }),
-    value: s.value || (s.multiple ? [] : ""),
+    value: s.value ?? (s.multiple ? [] : ""),
+    toStringValue(e) {
+      return e == null ? "" : String(e);
+    },
     selectedLabel: "",
     placeholder: s.placeholder || "Select an option",
     multiple: s.multiple || !1,
@@ -673,7 +684,7 @@ function vh(s = {}) {
     },
     get selectedItems() {
       return this.multiple ? this.displayOptions.filter(
-        (e) => this.selectedValues.includes(e.value)
+        (e) => this.selectedValues.some((t) => this.toStringValue(t) === this.toStringValue(e.value))
       ) : [];
     },
     get isMaxReached() {
@@ -683,10 +694,15 @@ function vh(s = {}) {
       return this.displayOptions.filter((e) => !e.disabled);
     },
     get allSelected() {
-      return this.multiple && this.selectableOptions.length > 0 && this.selectableOptions.every((e) => this.selectedValues.includes(e.value));
+      return this.multiple && this.selectableOptions.length > 0 && this.selectableOptions.every(
+        (e) => this.selectedValues.some((t) => this.toStringValue(t) === this.toStringValue(e.value))
+      );
     },
     isSelected(e) {
-      return this.initialized ? this.multiple ? this.selectedValues.includes(e) : this.value === e : !1;
+      if (!this.initialized)
+        return !1;
+      const t = this.toStringValue(e);
+      return this.multiple ? this.selectedValues.some((n) => this.toStringValue(n) === t) : this.toStringValue(this.value) === t;
     },
     initializeOptions() {
       const e = this.extractSlotOptions();
@@ -735,7 +751,7 @@ function vh(s = {}) {
     },
     toggleOption(e, t) {
       if (!this.multiple) return;
-      const n = [...Array.isArray(this.value) ? this.value : []], i = [...n], r = i.indexOf(e);
+      const n = [...Array.isArray(this.value) ? this.value : []], i = [...n], r = i.findIndex((o) => this.toStringValue(o) === this.toStringValue(e));
       if (r > -1)
         i.splice(r, 1);
       else {
@@ -753,7 +769,7 @@ function vh(s = {}) {
     },
     removeOption(e) {
       if (!this.multiple) return;
-      const t = [...Array.isArray(this.value) ? this.value : []], n = [...t], i = n.indexOf(e);
+      const t = [...Array.isArray(this.value) ? this.value : []], n = [...t], i = n.findIndex((r) => this.toStringValue(r) === this.toStringValue(e));
       i > -1 && (n.splice(i, 1), this.value = n, this.updateSelectedLabel(n), this.$dispatch(T.SELECT_CHANGED, M({
         id: this.$id("select"),
         name: this.name,
@@ -790,12 +806,12 @@ function vh(s = {}) {
           return;
         }
         const n = this.displayOptions.filter(
-          (i) => t.includes(i.value)
+          (i) => t.some((r) => this.toStringValue(r) === this.toStringValue(i.value))
         );
         n.length === 0 ? this.selectedLabel = this.placeholder : n.length === 1 ? this.selectedLabel = n[0].label : this.selectedLabel = this.itemsSelectedText.replace(":count", n.length);
       } else {
-        const t = this.displayOptions.find((n) => n.value === e);
-        t ? this.selectedLabel = t.label : this.selectedLabel = this.placeholder;
+        const t = this.toStringValue(e), n = this.displayOptions.find((i) => this.toStringValue(i.value) === t);
+        n ? this.selectedLabel = n.label : this.selectedLabel = this.placeholder;
       }
     },
     clearSelection() {
@@ -832,6 +848,7 @@ function wh(s = {}) {
     open: !1,
     highlightedIndex: -1,
     name: s.name || null,
+    _stableAnchorId: null,
     init() {
       this.initializeOptions(), this.setupMutationObserver(), this.setupPopover(), this.setupInputWatchers(), this.$nextTick(() => {
         if (this.value) {
@@ -860,13 +877,9 @@ function wh(s = {}) {
       return this.displayOptions.length === 0 ? !1 : this.showOnFocus && this.inputValue.length === 0 ? !0 : this.inputValue.length >= this.minChars && this.filteredOptions.length > 0;
     },
     setupPopover() {
-      const e = this.$id("popover");
-      if (this.$refs.input && this.$refs.content) {
-        const n = `anchor-${e}`;
-        this.$refs.trigger.style.anchorName = `--${n}`, this.$refs.content.style.positionAnchor = `--${n}`, this.$refs.content.addEventListener("toggle", (i) => {
-          this.open = i.newState === "open";
-        });
-      }
+      this.$refs.input && this.$refs.content && (this._stableAnchorId || (this._stableAnchorId = `anchor-${this.$id("popover")}`), this.$refs.trigger.style.anchorName = `--${this._stableAnchorId}`, this.$refs.content.style.positionAnchor = `--${this._stableAnchorId}`, this.$refs.content.addEventListener("toggle", (t) => {
+        this.open = t.newState === "open";
+      }));
     },
     setupInputWatchers() {
       this.$watch("inputValue", (e) => {
@@ -3137,6 +3150,7 @@ function Ih(s = {}) {
     triggerEl: null,
     placement: s.placement || "top",
     trigger: s.trigger || "hover",
+    _stableAnchorId: null,
     get isOpen() {
       return this.open;
     },
@@ -3179,8 +3193,9 @@ function Ih(s = {}) {
     setupAnchor() {
       const t = this.triggerEl, n = this.$refs.content;
       if (!t || !n) return;
-      const i = t.firstElementChild || t, r = `anchor-${this.$id("overlay")}`;
-      i.style.anchorName = `--${r}`, n.style.positionAnchor = `--${r}`;
+      this._stableAnchorId || (this._stableAnchorId = `anchor-${this.$id("overlay")}`);
+      const i = t.firstElementChild || t;
+      i.style.anchorName = `--${this._stableAnchorId}`, n.style.positionAnchor = `--${this._stableAnchorId}`;
     },
     show() {
       this.setupAnchor(), this.$refs.content?.showPopover(), this.duration && this.scheduleAutoHide();
@@ -19783,7 +19798,7 @@ function xg(s = {}) {
     collapsedItems: [],
     init() {
       this.$nextTick(() => {
-        this.setupPopover(), this.setupAnchor(), this.setupEventListeners(), this.calculateCollapse();
+        this.setupPopover(), this.setupAnchor(), this.setupEventListeners(), this.setupLivewireCompat(), this.calculateCollapse();
       });
     },
     calculateCollapse() {

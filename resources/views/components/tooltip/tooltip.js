@@ -26,6 +26,7 @@ export function tooltipComponent(config = {}) {
         triggerEl: null,
         placement: config.placement || 'top',
         trigger: config.trigger || 'hover',
+        _stableAnchorId: null,
 
         get isOpen() {
             return this.open;
@@ -121,10 +122,13 @@ export function tooltipComponent(config = {}) {
 
             if (!triggerEl || !contentEl) return;
 
+            if (!this._stableAnchorId) {
+                this._stableAnchorId = `anchor-${this.$id('overlay')}`;
+            }
+
             const anchorEl = triggerEl.firstElementChild || triggerEl;
-            const anchorId = `anchor-${this.$id('overlay')}`;
-            anchorEl.style.anchorName = `--${anchorId}`;
-            contentEl.style.positionAnchor = `--${anchorId}`;
+            anchorEl.style.anchorName = `--${this._stableAnchorId}`;
+            contentEl.style.positionAnchor = `--${this._stableAnchorId}`;
         },
 
         show() {

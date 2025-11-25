@@ -19,6 +19,7 @@ export function breadcrumbsComponent(config = {}) {
                 this.setupPopover();
                 this.setupAnchor();
                 this.setupEventListeners();
+                this.setupLivewireCompat();
                 this.calculateCollapse();
             });
         },
