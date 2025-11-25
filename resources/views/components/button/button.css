@@ -45,7 +45,7 @@
     }
 
     .spire-button--default-bordered {
-        @apply bg-transparent text-neutral-foreground border border-neutral/30 shadow-xs hover:bg-neutral/10 active:bg-neutral/20 active:shadow-xs focus-visible:outline-neutral;
+        @apply bg-surface text-neutral-foreground border border-neutral/30 shadow-xs hover:bg-neutral/10 active:bg-neutral/20 active:shadow-xs focus-visible:outline-neutral;
     }
     .spire-button--primary-bordered {
         @apply bg-transparent text-primary border border-primary shadow-xs hover:bg-primary/20 active:bg-primary/15 active:shadow-none focus-visible:outline-primary;

@@ -130,6 +130,7 @@
   --color-text: light-dark(var(--color-neutral-900), var(--color-neutral-50));
   --color-text-muted: light-dark(var(--color-neutral-700), var(--color-neutral-400));
   --color-text-disabled: light-dark(var(--color-neutral-400), var(--color-neutral-600));
+  --color-placeholder: light-dark(var(--color-neutral-400), var(--color-neutral-600));
 
   --color-muted: light-dark(var(--color-neutral-700), var(--color-neutral-400));
 

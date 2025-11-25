@@ -211,11 +211,13 @@
     }
 
     /* Pill checked state */
-    .spire-checkbox--pill:has(.spire-checkbox-input:checked) {
+    .spire-checkbox--pill:has(.spire-checkbox-input:checked),
+    .spire-checkbox--pill:has(.spire-checkbox-input[checked]) {
         @apply bg-primary border-primary text-white;
     }
 
-    .spire-checkbox--pill:has(.spire-checkbox-input:checked) .spire-checkbox-pill-label {
+    .spire-checkbox--pill:has(.spire-checkbox-input:checked) .spire-checkbox-pill-label,
+    .spire-checkbox--pill:has(.spire-checkbox-input[checked]) .spire-checkbox-pill-label {
         @apply text-white;
     }
 

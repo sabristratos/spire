@@ -249,12 +249,21 @@ return [
 
         // Presets
         'presets' => 'اختيار سريع',
+        'preset_today' => 'اليوم',
+        'preset_yesterday' => 'أمس',
         'preset_last_7_days' => 'آخر 7 أيام',
+        'preset_last_14_days' => 'آخر 14 يوماً',
         'preset_last_30_days' => 'آخر 30 يوماً',
+        'preset_last_60_days' => 'آخر 60 يوماً',
+        'preset_last_90_days' => 'آخر 90 يوماً',
         'preset_this_week' => 'هذا الأسبوع',
         'preset_last_week' => 'الأسبوع الماضي',
         'preset_this_month' => 'هذا الشهر',
         'preset_last_month' => 'الشهر الماضي',
+        'preset_this_quarter' => 'هذا الربع',
+        'preset_last_quarter' => 'الربع الماضي',
+        'preset_this_year' => 'هذا العام',
+        'preset_last_year' => 'العام الماضي',
 
         // Range selection
         'range_start' => 'بداية الفترة',
@@ -408,5 +417,15 @@ return [
 
     'progress' => [
         'loading' => 'جاري التحميل',
+    ],
+
+    'event_calendar' => [
+        'today' => 'اليوم',
+        'previous_month' => 'الشهر السابق',
+        'next_month' => 'الشهر التالي',
+        'more' => 'المزيد',
+        'no_events' => 'لا توجد أحداث',
+        'all_day' => 'طوال اليوم',
+        'events_on_date' => 'الأحداث في :date',
     ],
 ];

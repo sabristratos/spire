@@ -210,11 +210,13 @@
     }
 
     /* Pill checked state */
-    .spire-radio--pill:has(.spire-radio-input:checked) {
+    .spire-radio--pill:has(.spire-radio-input:checked),
+    .spire-radio--pill:has(.spire-radio-input[checked]) {
         @apply bg-primary border-primary text-white;
     }
 
-    .spire-radio--pill:has(.spire-radio-input:checked) .spire-radio-pill-label {
+    .spire-radio--pill:has(.spire-radio-input:checked) .spire-radio-pill-label,
+    .spire-radio--pill:has(.spire-radio-input[checked]) .spire-radio-pill-label {
         @apply text-white;
     }
 

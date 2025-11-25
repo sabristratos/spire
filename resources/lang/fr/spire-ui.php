@@ -249,12 +249,21 @@ return [
 
         // Presets
         'presets' => 'Sélection rapide',
+        'preset_today' => 'Aujourd\'hui',
+        'preset_yesterday' => 'Hier',
         'preset_last_7_days' => '7 derniers jours',
+        'preset_last_14_days' => '14 derniers jours',
         'preset_last_30_days' => '30 derniers jours',
+        'preset_last_60_days' => '60 derniers jours',
+        'preset_last_90_days' => '90 derniers jours',
         'preset_this_week' => 'Cette semaine',
         'preset_last_week' => 'Semaine dernière',
         'preset_this_month' => 'Ce mois-ci',
         'preset_last_month' => 'Mois dernier',
+        'preset_this_quarter' => 'Ce trimestre',
+        'preset_last_quarter' => 'Trimestre dernier',
+        'preset_this_year' => 'Cette année',
+        'preset_last_year' => 'Année dernière',
 
         // Range selection
         'range_start' => 'Début de la période',
@@ -408,5 +417,15 @@ return [
 
     'progress' => [
         'loading' => 'Chargement',
+    ],
+
+    'event_calendar' => [
+        'today' => 'Aujourd\'hui',
+        'previous_month' => 'Mois précédent',
+        'next_month' => 'Mois suivant',
+        'more' => 'plus',
+        'no_events' => 'Aucun événement',
+        'all_day' => 'Toute la journée',
+        'events_on_date' => 'Événements du :date',
     ],
 ];

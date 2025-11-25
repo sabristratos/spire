@@ -72,7 +72,7 @@
     $ariaDescribedBy = !empty($ariaDescriptions) ? implode(' ', $ariaDescriptions) : null;
 
     $inputAttributes = $attributes->except(['class', 'style'])->merge([
-        'type' => $viewable ? '' : $type,
+        'type' => $type,
         'disabled' => $disabled ? true : null,
         'readonly' => $readonly ? true : null,
         'required' => $required ? true : null,

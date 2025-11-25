@@ -62,6 +62,7 @@
     @import '../views/components/dropdown/dropdown.css';
     @import '../views/components/empty-state/empty-state.css';
     @import '../views/components/editor/editor.css';
+    @import '../views/components/event-calendar/event-calendar.css';
     @import '../views/components/file-upload/file-upload.css';
     @import '../views/components/form/form.css';
     @import '../views/components/header/header.css';

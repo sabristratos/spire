@@ -33,7 +33,7 @@
     }
 
     .spire-timepicker-trigger__segment::placeholder {
-        @apply text-muted opacity-50;
+        @apply text-placeholder;
     }
 
     /* 5. TimePicker Trigger Period Segment (AM/PM) */

@@ -6,7 +6,7 @@
 
     /* 2. Wrapper (Label) */
     .spire-switch-wrapper {
-        @apply flex items-center justify-between cursor-pointer;
+        @apply flex items-center justify-between gap-2 cursor-pointer;
     }
 
     /* 3. Hidden Checkbox Input */

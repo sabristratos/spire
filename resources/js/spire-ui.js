@@ -39,4 +39,5 @@ export {
     breadcrumbsComponent,
     lightboxComponent,
     chartComponent,
+    eventCalendarComponent,
 } from './index.js';

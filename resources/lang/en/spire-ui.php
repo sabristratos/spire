@@ -250,12 +250,21 @@ return [
 
         // Presets
         'presets' => 'Quick select',
+        'preset_today' => 'Today',
+        'preset_yesterday' => 'Yesterday',
         'preset_last_7_days' => 'Last 7 days',
+        'preset_last_14_days' => 'Last 14 days',
         'preset_last_30_days' => 'Last 30 days',
+        'preset_last_60_days' => 'Last 60 days',
+        'preset_last_90_days' => 'Last 90 days',
         'preset_this_week' => 'This week',
         'preset_last_week' => 'Last week',
         'preset_this_month' => 'This month',
         'preset_last_month' => 'Last month',
+        'preset_this_quarter' => 'This quarter',
+        'preset_last_quarter' => 'Last quarter',
+        'preset_this_year' => 'This year',
+        'preset_last_year' => 'Last year',
 
         // Range selection
         'range_start' => 'Range start',
@@ -425,5 +434,25 @@ return [
         'select' => 'Select',
         'clear' => 'Clear selection',
         'aria_label' => 'Color picker',
+    ],
+
+    'event_calendar' => [
+        'today' => 'Today',
+        'previous' => 'Previous',
+        'next' => 'Next',
+        'previous_month' => 'Previous month',
+        'next_month' => 'Next month',
+        'previous_week' => 'Previous week',
+        'next_week' => 'Next week',
+        'previous_day' => 'Previous day',
+        'next_day' => 'Next day',
+        'more' => 'more',
+        'no_events' => 'No events',
+        'all_day' => 'All day',
+        'events_on_date' => 'Events on :date',
+        'week_of' => 'Week of :date',
+        'month' => 'Month',
+        'week' => 'Week',
+        'day' => 'Day',
     ],
 ];

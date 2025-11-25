@@ -16,6 +16,6 @@
     /* 2. The <input> Element Itself */
     .spire-input {
         @apply flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 min-w-0;
-        @apply text-text placeholder:text-muted disabled:text-text-disabled disabled:cursor-not-allowed;
+        @apply text-text placeholder:text-placeholder disabled:text-text-disabled disabled:cursor-not-allowed;
     }
 }

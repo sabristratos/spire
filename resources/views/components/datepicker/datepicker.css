@@ -35,7 +35,7 @@
     }
 
     .spire-datepicker-trigger__segment::placeholder {
-        @apply text-muted opacity-50;
+        @apply text-placeholder;
     }
 
     /* 5. DatePicker Trigger Year Segment (4 digits) */
@@ -98,7 +98,7 @@
     }
 
     .spire-datepicker-trigger__range-value--placeholder {
-        @apply text-muted;
+        @apply text-placeholder;
     }
 
     .spire-datepicker-trigger__range-separator {
@@ -129,7 +129,7 @@
     }
 
     .spire-datepicker-trigger__multiple-value {
-        @apply text-muted font-normal truncate block;
+        @apply text-placeholder font-normal truncate block;
     }
 
     .spire-datepicker-trigger__multiple-actions {
@@ -194,7 +194,7 @@
     .spire-datepicker__footer__input {
         @apply flex-1 h-9 px-3 text-sm rounded-md;
         @apply border border-border bg-surface;
-        @apply text-text placeholder:text-muted;
+        @apply text-text placeholder:text-placeholder;
         @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
         @apply focus-visible:outline-none;
     }
@@ -216,7 +216,7 @@
         @apply text-text font-normal text-sm;
         @apply focus:bg-primary/10 focus:rounded;
         @apply focus-visible:outline-none;
-        @apply placeholder:text-muted placeholder:opacity-50;
+        @apply placeholder:text-placeholder;
         @apply transition-colors duration-150 ease-out;
     }
 

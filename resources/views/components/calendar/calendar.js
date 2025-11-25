@@ -93,7 +93,7 @@ export function calendarComponent(config = {}) {
         },
 
         selectPreset(preset) {
-            const range = calculatePresetRange(preset.key, this.firstDayOfWeek);
+            const range = calculatePresetRange(preset, this.firstDayOfWeek);
             if (range) {
                 this.value = { start: range.start, end: range.end };
 
@@ -114,7 +114,7 @@ export function calendarComponent(config = {}) {
                 return false;
             }
 
-            const presetRange = calculatePresetRange(preset.key, this.firstDayOfWeek);
+            const presetRange = calculatePresetRange(preset, this.firstDayOfWeek);
             if (!presetRange) return false;
 
             return this.value.start === presetRange.start && this.value.end === presetRange.end;

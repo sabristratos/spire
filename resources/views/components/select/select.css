@@ -16,7 +16,7 @@
 
     /* 2. Select Trigger Placeholder */
     .spire-select-trigger__placeholder {
-        @apply text-muted;
+        @apply text-placeholder;
     }
 
     /* 3. Select Content - extends .spire-overlay */

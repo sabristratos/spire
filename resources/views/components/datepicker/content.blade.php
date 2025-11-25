@@ -25,6 +25,10 @@ $defaultPresets = [
     ['key' => 'last_week', 'label' => __('spire::spire-ui.date.preset_last_week')],
     ['key' => 'this_month', 'label' => __('spire::spire-ui.date.preset_this_month')],
     ['key' => 'last_month', 'label' => __('spire::spire-ui.date.preset_last_month')],
+    ['key' => 'this_quarter', 'label' => __('spire::spire-ui.date.preset_this_quarter')],
+    ['key' => 'last_quarter', 'label' => __('spire::spire-ui.date.preset_last_quarter')],
+    ['key' => 'this_year', 'label' => __('spire::spire-ui.date.preset_this_year')],
+    ['key' => 'last_year', 'label' => __('spire::spire-ui.date.preset_last_year')],
 ];
 
 $activePresets = empty($presets) ? $defaultPresets : $presets;

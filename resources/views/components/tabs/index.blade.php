@@ -4,7 +4,7 @@
     'activationMode' => 'automatic',
     'variant' => 'underline',
     'color' => 'primary',
-    'size' => 'md',
+    'size' => spire_default('tabs', 'size', 'md'),
     'fullWidth' => false,
     'scrollable' => true,
     'syncHash' => false,
