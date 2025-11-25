@@ -44,7 +44,7 @@ $dotSize = $dotSizes[$size] ?? $dotSizes['md'];
 @if($variant === 'regular')
     <label
         for="{{ $radioId }}"
-        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->whereDoesntStartWith('wire:model')->whereDoesntStartWith('x-model')->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -99,7 +99,7 @@ $dotSize = $dotSizes[$size] ?? $dotSizes['md'];
 @elseif($variant === 'pill')
     <label
         for="{{ $radioId }}"
-        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->whereDoesntStartWith('wire:model')->whereDoesntStartWith('x-model')->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input
@@ -134,7 +134,7 @@ $dotSize = $dotSizes[$size] ?? $dotSizes['md'];
 @elseif($variant === 'card')
     <label
         for="{{ $radioId }}"
-        {{ $attributes->merge(['class' => $containerBuilder->build()])->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
+        {{ $attributes->merge(['class' => $containerBuilder->build()])->whereDoesntStartWith('wire:model')->whereDoesntStartWith('x-model')->except(['id', 'wire:key', 'checked', 'disabled', 'required', 'name', 'value', 'label', 'description']) }}
         {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
     >
         <input

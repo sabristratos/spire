@@ -346,6 +346,36 @@ The component implements proper ARIA attributes:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The select component supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+{{-- Single select with x-model --}}
+<div x-data="{ country: '' }">
+    <x-spire::select x-model="country" placeholder="Select country">
+        <x-spire::select.option value="us">United States</x-spire::select.option>
+        <x-spire::select.option value="ca">Canada</x-spire::select.option>
+        <x-spire::select.option value="uk">United Kingdom</x-spire::select.option>
+    </x-spire::select>
+    <p>Selected: <span x-text="country || '(none)'"></span></p>
+</div>
+
+{{-- Multiple select with x-model --}}
+<div x-data="{ tags: [] }">
+    <x-spire::select x-model="tags" multiple placeholder="Select tags">
+        <x-spire::select.option value="php">PHP</x-spire::select.option>
+        <x-spire::select.option value="laravel">Laravel</x-spire::select.option>
+        <x-spire::select.option value="alpine">Alpine.js</x-spire::select.option>
+    </x-spire::select>
+    <p>Selected: <span x-text="JSON.stringify(tags)"></span></p>
+</div>
+```
+
+**Data types:**
+- Single select: Bind to a string (empty string `''` for no selection)
+- Multiple select: Bind to an array
+
 ### Livewire Integration
 
 The select component integrates seamlessly with Livewire through `wire:model`:

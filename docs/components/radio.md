@@ -308,8 +308,43 @@ public string $paymentMethod = '';
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+Radio buttons support Alpine.js `x-model` for two-way binding without Livewire.
+
+**Radio Group (Single Value):**
+
+Alpine sets the bound value to the selected radio's value:
+
+```blade
+<div x-data="{ plan: 'basic' }">
+    <x-spire::radio x-model="plan" value="basic" label="Basic" />
+    <x-spire::radio x-model="plan" value="pro" label="Pro" />
+    <x-spire::radio x-model="plan" value="enterprise" label="Enterprise" />
+    <p>Selected plan: <span x-text="plan"></span></p>
+</div>
+```
+
+Clicking "Pro" sets `plan` to `"pro"`.
+
+**With Pill Variant:**
+
+```blade
+<div x-data="{ size: 'm' }">
+    <x-spire::radio variant="pill" x-model="size" value="xs" label="XS" />
+    <x-spire::radio variant="pill" x-model="size" value="s" label="S" />
+    <x-spire::radio variant="pill" x-model="size" value="m" label="M" />
+    <x-spire::radio variant="pill" x-model="size" value="l" label="L" />
+    <x-spire::radio variant="pill" x-model="size" value="xl" label="XL" />
+</div>
+```
+
+**Data type:** String (the `value` attribute of the selected radio)
+
+### Implementation Notes
+
 - Uses `WireEntangle` helper for Livewire integration
 - Auto-generates unique IDs for accessibility
 - Indicator always uses `rounded-full` regardless of radius prop
 - Styling uses CSS `:has()` selector
-- No JavaScript required - pure CSS/Blade
+- No JavaScript required for basic functionality - pure CSS/Blade

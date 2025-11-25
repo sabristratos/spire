@@ -253,6 +253,24 @@ Dispatched when the color is cleared:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The color picker supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+<div x-data="{ color: '' }">
+    <x-spire::color-picker x-model="color" clearable />
+    <p>Selected: <span x-text="color || '(none)'"></span></p>
+    <div
+        x-show="color"
+        class="w-8 h-8 rounded"
+        :style="{ backgroundColor: color }"
+    ></div>
+</div>
+```
+
+**Data type:** String (uppercase hex format `'#FF5733'` or empty string `''`)
+
 ### Color Format
 
 - All colors are returned as uppercase hex strings: `#RRGGBB`

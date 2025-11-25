@@ -310,6 +310,34 @@ Dispatched when drag operation ends.
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The slider component supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+{{-- Single value slider --}}
+<div x-data="{ volume: 50 }">
+    <x-spire::slider x-model="volume" label="Volume" />
+    <p>Volume: <span x-text="volume"></span>%</p>
+</div>
+
+{{-- Range slider --}}
+<div x-data="{ priceRange: { start: 100, end: 500 } }">
+    <x-spire::slider
+        x-model="priceRange"
+        mode="range"
+        label="Price Range"
+        :min="0"
+        :max="1000"
+    />
+    <p>Range: $<span x-text="priceRange.start"></span> - $<span x-text="priceRange.end"></span></p>
+</div>
+```
+
+**Data types:**
+- Single mode: Bind to a number
+- Range mode: Bind to an object with `start` and `end` properties
+
 ### Livewire Integration
 
 **Single mode** - bind to a number:

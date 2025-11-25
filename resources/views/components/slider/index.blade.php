@@ -64,7 +64,7 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
     x-data="spireSlider({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
-        @else
+        @elseif(!$attributes->has('x-model'))
             value: {{ $mode === 'range' ? "{ start: {$min}, end: {$max} }" : $min }},
         @endif
         mode: '{{ $mode }}',
@@ -81,6 +81,7 @@ $filteredAttributes = WireEntangle::filteredAttributes($attributes);
         valueLabel: '{{ $label ?? __('spire::spire-ui.slider.value_label') }}',
     })"
     {{ $wrapperAttributes }}
+    {{ WireEntangle::filteredAttributes($attributes)->except(['class', 'style', 'id']) }}
     {!! collect($containerBuilder->getDataAttributes())->map(fn($v, $k) => "$k=\"$v\"")->implode(' ') !!}
 >
     @if($wireConfig->needsHiddenInput())

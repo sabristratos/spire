@@ -42,7 +42,7 @@ $mergedAttributes = WireEntangle::filteredAttributes($attributes)->merge([
         x-data="spireEditor({
             @if($wireConfig->hasWireModel())
                 content: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
-            @else
+            @elseif(!$attributes->has('x-model'))
                 content: '',
             @endif
             format: '{{ $format }}',

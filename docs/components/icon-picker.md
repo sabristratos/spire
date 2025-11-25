@@ -298,6 +298,22 @@ Dispatched when the icon is cleared:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The icon picker supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+<div x-data="{ icon: '' }">
+    <x-spire::icon-picker x-model="icon" clearable />
+    <p>Selected: <span x-text="icon || '(none)'"></span></p>
+    <template x-if="icon">
+        <x-spire::icon x-bind:name="icon" class="w-6 h-6" />
+    </template>
+</div>
+```
+
+**Data type:** String (icon name like `'home'`, `'settings'`, or empty string `''`)
+
 ### Icon Rendering
 
 Icons are pre-rendered on the server and cached on the client for performance. The component uses the existing Spire UI icon system under the hood.

@@ -284,7 +284,41 @@ public array $selectedFeatures = [];
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+Checkboxes support Alpine.js `x-model` for two-way binding without Livewire.
+
+**Single Boolean:**
+
+```blade
+<div x-data="{ accepted: false }">
+    <x-spire::checkbox x-model="accepted" label="Accept terms" />
+    <p>Accepted: <span x-text="accepted ? 'Yes' : 'No'"></span></p>
+</div>
+```
+
+**Checkbox Group (Array):**
+
+When using `x-model` on checkboxes with values, Alpine automatically handles array binding:
+
+```blade
+<div x-data="{ notifications: [] }">
+    <x-spire::checkbox x-model="notifications" value="email" label="Email" />
+    <x-spire::checkbox x-model="notifications" value="sms" label="SMS" />
+    <x-spire::checkbox x-model="notifications" value="push" label="Push" />
+    <p>Selected: <span x-text="JSON.stringify(notifications)"></span></p>
+</div>
+```
+
+Checking "Email" and "SMS" sets `notifications` to `["email", "sms"]`.
+
+**Data types:**
+- Without `value` prop: Boolean (`true`/`false`)
+- With `value` prop: Array of selected values
+
+### Implementation Notes
+
 - Uses `WireEntangle` helper for Livewire integration
 - Auto-generates unique IDs for accessibility
 - Styling uses CSS `:has()` selector
-- No JavaScript required - pure CSS/Blade
+- No JavaScript required for basic functionality - pure CSS/Blade

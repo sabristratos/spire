@@ -320,6 +320,33 @@ Common use cases:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The timepicker supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+{{-- Basic x-model binding --}}
+<div x-data="{ time: '' }">
+    <x-spire::timepicker x-model="time" />
+    <p>Selected: <span x-text="time || '(none)'"></span></p>
+</div>
+
+{{-- With seconds --}}
+<div x-data="{ preciseTime: '' }">
+    <x-spire::timepicker x-model="preciseTime" :show-seconds="true" />
+    <p>Time: <span x-text="preciseTime"></span></p>
+</div>
+
+{{-- Time range with two pickers --}}
+<div x-data="{ startTime: '09:00', endTime: '17:00' }">
+    <x-spire::timepicker x-model="startTime" :minute-step="30" />
+    <span>to</span>
+    <x-spire::timepicker x-model="endTime" :minute-step="30" />
+</div>
+```
+
+**Data type:** String in 24-hour format (`'14:30'` or `'14:30:45'` with seconds)
+
 ### Time Format
 
 All times are stored in 24-hour format: `HH:MM` or `HH:MM:SS`

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.22] - 2025-11-26
+
+### Added
+- Added Alpine.js `x-model` usage examples to component documentation
+
+### Fixed
+- Fixed checkbox and radio components passing `x-model` attribute to label element instead of input
+- Fixed slider component initialization causing unnecessary reactive updates
+
 ## [1.1.21] - 2025-11-25
 
 ### Added
@@ -281,7 +290,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.21...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.22...HEAD
+[1.1.22]: https://github.com/sabristratos/spire/compare/v1.1.21...v1.1.22
 [1.1.21]: https://github.com/sabristratos/spire/compare/v1.1.20...v1.1.21
 [1.1.20]: https://github.com/sabristratos/spire/compare/v1.1.19...v1.1.20
 [1.1.19]: https://github.com/sabristratos/spire/compare/v1.1.18...v1.1.19

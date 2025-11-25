@@ -362,6 +362,37 @@ Dispatched when a date is selected:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The calendar supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+{{-- Single date --}}
+<div x-data="{ date: '' }">
+    <x-spire::calendar x-model="date" />
+    <p>Selected: <span x-text="date || '(none)'"></span></p>
+</div>
+
+{{-- Range mode --}}
+<div x-data="{ range: { start: null, end: null } }">
+    <x-spire::calendar x-model="range" mode="range" :show-presets="true" />
+    <p x-show="range.start">
+        Range: <span x-text="range.start"></span> to <span x-text="range.end"></span>
+    </p>
+</div>
+
+{{-- Multiple mode --}}
+<div x-data="{ dates: [] }">
+    <x-spire::calendar x-model="dates" mode="multiple" :max-dates="5" />
+    <p>Selected: <span x-text="JSON.stringify(dates)"></span></p>
+</div>
+```
+
+**Data types by mode:**
+- Single: String (`'2025-01-15'` or empty string `''`)
+- Range: Object with `start` and `end` properties
+- Multiple: Array of date strings
+
 ### Date Format
 
 All dates use ISO format: `YYYY-MM-DD`

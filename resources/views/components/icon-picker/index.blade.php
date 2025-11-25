@@ -20,7 +20,7 @@ $iconsEndpoint = route('spire-ui.icons');
     x-data="spireIconPicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
-        @else
+        @elseif(!$attributes->has('x-model'))
             value: '',
         @endif
         placeholder: '{{ $placeholderText }}',

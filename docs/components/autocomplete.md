@@ -393,6 +393,23 @@ The component implements comprehensive ARIA support:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The autocomplete supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+<div x-data="{ selectedUser: '' }">
+    <x-spire::autocomplete x-model="selectedUser" placeholder="Search users...">
+        <x-spire::autocomplete.option value="1" label="John Doe">John Doe</x-spire::autocomplete.option>
+        <x-spire::autocomplete.option value="2" label="Jane Smith">Jane Smith</x-spire::autocomplete.option>
+        <x-spire::autocomplete.option value="3" label="Bob Wilson">Bob Wilson</x-spire::autocomplete.option>
+    </x-spire::autocomplete>
+    <p>Selected: <span x-text="selectedUser || '(none)'"></span></p>
+</div>
+```
+
+**Data type:** String (the `value` attribute of the selected option)
+
 ### Livewire Integration
 
 ```blade

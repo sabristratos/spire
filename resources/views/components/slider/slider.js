@@ -84,21 +84,29 @@ export function sliderComponent(config = {}) {
             if (this.mode === 'range') {
                 if (!this.value || typeof this.value !== 'object') {
                     this.value = { start: this.min, end: this.max };
+                    return;
                 }
 
-                this.value = {
-                    start: this.clampValue(this.value.start ?? this.min),
-                    end: this.clampValue(this.value.end ?? this.max)
-                };
+                const newStart = this.clampValue(this.value.start ?? this.min);
+                const newEnd = this.clampValue(this.value.end ?? this.max);
 
-                if (this.value.start > this.value.end) {
-                    [this.value.start, this.value.end] = [this.value.end, this.value.start];
+                if (this.value.start !== newStart || this.value.end !== newEnd) {
+                    this.value.start = newStart;
+                    this.value.end = newEnd;
+
+                    if (this.value.start > this.value.end) {
+                        [this.value.start, this.value.end] = [this.value.end, this.value.start];
+                    }
                 }
             } else {
                 if (typeof this.value === 'object') {
                     this.value = this.min;
+                    return;
                 }
-                this.value = this.clampValue(this.value ?? this.min);
+                const newValue = this.clampValue(this.value ?? this.min);
+                if (this.value !== newValue) {
+                    this.value = newValue;
+                }
             }
         },
 

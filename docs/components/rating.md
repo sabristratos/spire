@@ -285,6 +285,26 @@ Dispatched when rating is reset:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The rating component supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+<div x-data="{ rating: 0 }">
+    <x-spire::rating x-model="rating" :show-value="true" />
+    <p>Your rating: <span x-text="rating"></span> stars</p>
+</div>
+
+{{-- With half-stars --}}
+<div x-data="{ score: 3.5 }">
+    <x-spire::rating x-model="score" :allow-half="true" :show-reset="true" />
+</div>
+```
+
+**Data type:** Number (integer for whole stars, decimal for half-stars like `3.5`)
+
+### Implementation Notes
+
 - Uses `WireEntangle` helper for Livewire integration
 - Half-star calculated from click position on star
 - Tooltip displays for 2 seconds then auto-hides

@@ -45,7 +45,7 @@ $iconSize = $starSizes[$size] ?? $starSizes['md'];
     x-data="spireRating({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
-        @else
+        @elseif(!$attributes->has('x-model'))
             value: {{ $value }},
         @endif
         maxRating: {{ $maxRating }},

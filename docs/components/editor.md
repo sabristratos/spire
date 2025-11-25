@@ -320,6 +320,32 @@ JSON format is useful when you need to:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The editor supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+<div x-data="{ content: '' }">
+    <x-spire::editor
+        x-model="content"
+        placeholder="Start writing..."
+        :show-char-count="true"
+    />
+    <p class="mt-2 text-sm text-muted">
+        Content length: <span x-text="content.length"></span> characters
+    </p>
+</div>
+
+{{-- With JSON format --}}
+<div x-data="{ doc: {} }">
+    <x-spire::editor x-model="doc" format="json" />
+</div>
+```
+
+**Data types:**
+- HTML format: String (HTML markup)
+- JSON format: Object (ProseMirror document structure)
+
 ### Livewire Integration
 
 The editor uses `wire:model` with Alpine's `$wire.entangle()` for two-way binding:

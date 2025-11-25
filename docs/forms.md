@@ -13,6 +13,7 @@ Spire UI provides a complete set of form components:
 
 All components support:
 - Livewire `wire:model` binding
+- Alpine.js `x-model` binding
 - Consistent sizing (`sm`, `md`, `lg`)
 - Validation error display
 - Accessibility best practices
@@ -410,6 +411,72 @@ All form components support Livewire binding:
 {{-- Debounced live updates --}}
 <x-spire::input wire:model.live.debounce.300ms="search" />
 ```
+
+### Alpine.js x-model Support
+
+All Spire UI form components support Alpine.js `x-model` for two-way data binding without Livewire. This enables pure client-side reactivity.
+
+**Supported components:**
+- Select, Autocomplete
+- Slider (single and range modes)
+- Datepicker, Timepicker, Calendar
+- Rating
+- Color Picker, Icon Picker
+- Phone Input
+- Editor
+- Checkbox (individual and groups)
+- Radio (individual and groups)
+
+```blade
+{{-- Basic x-model binding --}}
+<div x-data="{ country: '' }">
+    <x-spire::select x-model="country" placeholder="Select country">
+        <x-spire::select.option value="us">United States</x-spire::select.option>
+        <x-spire::select.option value="ca">Canada</x-spire::select.option>
+    </x-spire::select>
+    <p>Selected: <span x-text="country"></span></p>
+</div>
+
+{{-- Slider with x-model --}}
+<div x-data="{ volume: 50 }">
+    <x-spire::slider x-model="volume" :show-value="false" />
+    <p>Volume: <span x-text="volume"></span>%</p>
+</div>
+
+{{-- Range slider with object binding --}}
+<div x-data="{ priceRange: { start: 100, end: 500 } }">
+    <x-spire::slider x-model="priceRange" mode="range" :min="0" :max="1000" />
+    <p>Range: $<span x-text="priceRange.start"></span> - $<span x-text="priceRange.end"></span></p>
+</div>
+```
+
+**Checkbox Groups with x-model:**
+
+Alpine automatically handles array binding for checkboxes with values:
+
+```blade
+<div x-data="{ notifications: [] }">
+    <x-spire::checkbox x-model="notifications" value="email" label="Email" />
+    <x-spire::checkbox x-model="notifications" value="sms" label="SMS" />
+    <x-spire::checkbox x-model="notifications" value="push" label="Push" />
+    <p>Selected: <span x-text="JSON.stringify(notifications)"></span></p>
+</div>
+```
+
+**Radio Groups with x-model:**
+
+Alpine sets the bound value to the selected radio's value:
+
+```blade
+<div x-data="{ plan: 'basic' }">
+    <x-spire::radio x-model="plan" value="basic" label="Basic" />
+    <x-spire::radio x-model="plan" value="pro" label="Pro" />
+    <x-spire::radio x-model="plan" value="enterprise" label="Enterprise" />
+    <p>Selected plan: <span x-text="plan"></span></p>
+</div>
+```
+
+> **Note:** Native input components (Input, Textarea, Switch) automatically support `x-model` through standard HTML input binding.
 
 ### Validation
 

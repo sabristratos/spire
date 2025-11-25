@@ -358,6 +358,37 @@ When `format="auto"` (default), format is detected by locale:
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The datepicker supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+{{-- Single date with x-model --}}
+<div x-data="{ selectedDate: '' }">
+    <x-spire::datepicker x-model="selectedDate" />
+    <p>Selected: <span x-text="selectedDate || '(none)'"></span></p>
+</div>
+
+{{-- Range mode with x-model --}}
+<div x-data="{ dateRange: null }">
+    <x-spire::datepicker x-model="dateRange" mode="range" />
+    <p x-show="dateRange">
+        Range: <span x-text="dateRange?.start"></span> to <span x-text="dateRange?.end"></span>
+    </p>
+</div>
+
+{{-- Multiple mode with x-model --}}
+<div x-data="{ dates: [] }">
+    <x-spire::datepicker x-model="dates" mode="multiple" :max-dates="5" />
+    <p>Selected: <span x-text="JSON.stringify(dates)"></span></p>
+</div>
+```
+
+**Data types by mode:**
+- Single: String (`'2025-01-15'` or empty string `''`)
+- Range: Object with `start` and `end` properties, or `null`
+- Multiple: Array of date strings
+
 ### Date Format
 
 All dates use ISO format internally: `YYYY-MM-DD`

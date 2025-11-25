@@ -22,7 +22,7 @@ $showSecondsValue = $showSeconds ? 'true' : 'false';
     x-data="spireTimepicker({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
-        @else
+        @elseif(!$attributes->has('x-model'))
             value: '',
         @endif
         placeholder: '{{ $placeholderText }}',

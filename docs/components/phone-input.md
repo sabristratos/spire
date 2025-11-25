@@ -477,6 +477,23 @@ public function messages()
 
 ## Technical Notes
 
+### Alpine.js x-model Support
+
+The phone input supports Alpine.js `x-model` for two-way binding without Livewire:
+
+```blade
+<div x-data="{ phone: '' }">
+    <x-spire::phone-input
+        x-model="phone"
+        default-country="us"
+        :preferred-countries="['us', 'ca', 'gb']"
+    />
+    <p>Phone: <span x-text="phone || '(none)'"></span></p>
+</div>
+```
+
+**Data type:** String in E.164-like format (`'+12025551234'` or empty string `''`)
+
 ### Flag Icons
 
 Flags are provided by the `flag-icons` npm package:

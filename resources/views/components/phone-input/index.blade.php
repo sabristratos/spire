@@ -45,7 +45,7 @@ $boxBuilder = ComponentClass::make('phone-input-box')
     x-data="spirePhoneInput({
         @if($wireConfig->hasWireModel())
             value: $wire.entangle('{{ $wireConfig->wireModel }}', {{ $wireConfig->liveModifier() }}),
-        @else
+        @elseif(!$attributes->has('x-model'))
             value: '',
         @endif
         defaultCountry: '{{ $defaultCountry }}',

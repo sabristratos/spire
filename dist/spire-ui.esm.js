@@ -18312,10 +18312,21 @@ function ug(s = {}) {
       };
     },
     normalizeValue() {
-      this.mode === "range" ? ((!this.value || typeof this.value != "object") && (this.value = { start: this.min, end: this.max }), this.value = {
-        start: this.clampValue(this.value.start ?? this.min),
-        end: this.clampValue(this.value.end ?? this.max)
-      }, this.value.start > this.value.end && ([this.value.start, this.value.end] = [this.value.end, this.value.start])) : (typeof this.value == "object" && (this.value = this.min), this.value = this.clampValue(this.value ?? this.min));
+      if (this.mode === "range") {
+        if (!this.value || typeof this.value != "object") {
+          this.value = { start: this.min, end: this.max };
+          return;
+        }
+        const e = this.clampValue(this.value.start ?? this.min), t = this.clampValue(this.value.end ?? this.max);
+        (this.value.start !== e || this.value.end !== t) && (this.value.start = e, this.value.end = t, this.value.start > this.value.end && ([this.value.start, this.value.end] = [this.value.end, this.value.start]));
+      } else {
+        if (typeof this.value == "object") {
+          this.value = this.min;
+          return;
+        }
+        const e = this.clampValue(this.value ?? this.min);
+        this.value !== e && (this.value = e);
+      }
     },
     clampValue(e) {
       const t = Number(e);
