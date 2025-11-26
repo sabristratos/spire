@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.23] - 2025-11-26
+
+### Fixed
+- Fixed button group border-radius and border styling using Tailwind child selectors instead of CSS pseudo-selectors
+
 ## [1.1.22] - 2025-11-26
 
 ### Added
@@ -290,7 +295,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.22...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.23...HEAD
+[1.1.23]: https://github.com/sabristratos/spire/compare/v1.1.22...v1.1.23
 [1.1.22]: https://github.com/sabristratos/spire/compare/v1.1.21...v1.1.22
 [1.1.21]: https://github.com/sabristratos/spire/compare/v1.1.20...v1.1.21
 [1.1.20]: https://github.com/sabristratos/spire/compare/v1.1.19...v1.1.20

@@ -147,34 +147,4 @@
     .spire-button--featured-link {
         @apply bg-transparent text-featured underline-offset-4 hover:underline focus-visible:outline-featured;
     }
-
-    [data-spire-button-group]:not([data-spire-button-group-vertical]) .spire-button--group:not(:first-child):not(:last-child) {
-        @apply rounded-none;
-    }
-    [data-spire-button-group]:not([data-spire-button-group-vertical]) .spire-button--group:first-child {
-        @apply rounded-e-none;
-    }
-    [data-spire-button-group]:not([data-spire-button-group-vertical]) .spire-button--group:last-child {
-        @apply rounded-s-none;
-    }
-
-    [data-spire-button-group-vertical] .spire-button--group:not(:first-child):not(:last-child) {
-        @apply rounded-none;
-    }
-    [data-spire-button-group-vertical] .spire-button--group:first-child {
-        @apply rounded-b-none;
-    }
-    [data-spire-button-group-vertical] .spire-button--group:last-child {
-        @apply rounded-t-none;
-    }
-
-    [data-spire-button-group]:not([data-spire-button-group-vertical]) .spire-button--group[class*="-solid"]:not(:first-child),
-    [data-spire-button-group]:not([data-spire-button-group-vertical]) .spire-button--group[class*="-bordered"]:not(:first-child) {
-        @apply border-s-0;
-    }
-
-    [data-spire-button-group-vertical] .spire-button--group[class*="-solid"]:not(:first-child),
-    [data-spire-button-group-vertical] .spire-button--group[class*="-bordered"]:not(:first-child) {
-        @apply border-t-0;
-    }
 }
