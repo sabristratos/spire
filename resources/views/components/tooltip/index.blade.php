@@ -24,7 +24,7 @@ $triggerId = 'trigger-' . uniqid();
     @if($trigger === 'click')
         tabindex="0"
     @endif
->{{ $slot }}</span><div
+>{{ $slot }}<div
     id="{{ $tooltipId }}"
     x-data="spireTooltip({
         triggerId: '{{ $triggerId }}',
@@ -42,4 +42,4 @@ $triggerId = 'trigger-' . uniqid();
     {{ $attributes->merge(['class' => $builder->build(), ...$builder->getDataAttributes()]) }}
 >
     {{ $content }}
-</div>
+</div></span>

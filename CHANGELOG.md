@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.24] - 2025-11-26
+
+### Fixed
+- Fixed button group styling to work with wrapped buttons (tooltips, links) by moving child selectors to button component using data attribute descendant selectors
+- Fixed tooltip component structure to keep content inside trigger span for better button group compatibility
+- Fixed vertical separator removing unnecessary `self-stretch` class
+
 ## [1.1.23] - 2025-11-26
 
 ### Fixed
@@ -295,7 +302,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Safari (latest)
 - Edge (latest)
 
-[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.23...HEAD
+[Unreleased]: https://github.com/sabristratos/spire/compare/v1.1.24...HEAD
+[1.1.24]: https://github.com/sabristratos/spire/compare/v1.1.23...v1.1.24
 [1.1.23]: https://github.com/sabristratos/spire/compare/v1.1.22...v1.1.23
 [1.1.22]: https://github.com/sabristratos/spire/compare/v1.1.21...v1.1.22
 [1.1.21]: https://github.com/sabristratos/spire/compare/v1.1.20...v1.1.21

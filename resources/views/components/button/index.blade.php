@@ -50,7 +50,18 @@
         ->when($iconOnly, fn($b) => $b->modifier('icon-only'))
         ->when($variant === 'ghost', fn($b) => $b->modifier('ghost'))
         ->addIf($isDisabled, 'cursor-not-allowed', 'opacity-50', $isLink ? 'pointer-events-none' : '')
-        ->addIf($pressed, 'shadow-inner');
+        ->addIf($pressed, 'shadow-inner')
+        ->addClasses(
+            '[[data-spire-button-group]_&]:rounded-none',
+            '[[data-spire-button-group]:not([data-spire-button-group-vertical])_&]:border-e-0',
+            '[:is([data-spire-button-group]:not([data-spire-button-group-vertical])>&:first-child,[data-spire-button-group]:not([data-spire-button-group-vertical])_:first-child>&)]:!rounded-s-md',
+            '[:is([data-spire-button-group]:not([data-spire-button-group-vertical])>&:last-child,[data-spire-button-group]:not([data-spire-button-group-vertical])_:last-child>&)]:!rounded-e-md',
+            '[:is([data-spire-button-group]:not([data-spire-button-group-vertical])>&:last-child,[data-spire-button-group]:not([data-spire-button-group-vertical])_:last-child>&)]:border-e',
+            '[[data-spire-button-group-vertical]_&]:border-b-0',
+            '[:is([data-spire-button-group-vertical]>&:first-child,[data-spire-button-group-vertical]_:first-child>&)]:!rounded-t-md',
+            '[:is([data-spire-button-group-vertical]>&:last-child,[data-spire-button-group-vertical]_:last-child>&)]:!rounded-b-md',
+            '[:is([data-spire-button-group-vertical]>&:last-child,[data-spire-button-group-vertical]_:last-child>&)]:border-b'
+        );
 
     if ($customClass = $attributes->get('class')) {
         $builder->addClass($customClass);

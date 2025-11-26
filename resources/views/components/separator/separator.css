@@ -21,7 +21,7 @@
 
     /* Vertical Orientation */
     .spire-separator--vertical {
-        @apply h-full flex-col self-stretch;
+        @apply h-full flex-col;
     }
 
     .spire-separator--vertical::before,
